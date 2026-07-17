@@ -3120,7 +3120,12 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 if (!points.length) return;
                 const dataset = {
                     label: t,
-                    data: points.map(p => ({ x: p.t, o: p.o, h: p.h, l: p.l, c: p.c })),
+                    // chartjs-chart-financial no pasa "x" por el adaptador de
+                    // fechas del eje timeseries como sí hace el dataset de
+                    // línea: espera un timestamp numérico. Con un string ISO
+                    // ("2026-07-17") el controlador no logra ubicar ningún
+                    // punto y el gráfico queda vacío (eje 0-1 sin datos).
+                    data: points.map(p => ({ x: new Date(p.t).getTime(), o: p.o, h: p.h, l: p.l, c: p.c })),
                     color: { up: '#10b981', down: '#ef4444', unchanged: '#94a3b8' },
                     borderColor: '#94a3b8'
                 };
