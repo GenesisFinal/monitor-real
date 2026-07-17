@@ -1,33 +1,33 @@
 {
-  "updated_at": "2026-07-17T19:22:58.391897+00:00",
+  "updated_at": "2026-07-17T21:06:42.986476+00:00",
   "dolar": [
     {
       "casa": "oficial",
       "nombre": "Oficial",
       "compra": 1450,
       "venta": 1500,
-      "fecha": "2026-07-17T16:00:00.000Z"
+      "fecha": "2026-07-17T18:00:00.000Z"
     },
     {
       "casa": "blue",
       "nombre": "Blue",
       "compra": 1510,
       "venta": 1530,
-      "fecha": "2026-07-17T18:59:00.000Z"
+      "fecha": "2026-07-17T20:59:00.000Z"
     },
     {
       "casa": "bolsa",
       "nombre": "Bolsa",
-      "compra": 1517.8,
-      "venta": 1520.7,
-      "fecha": "2026-07-17T18:59:00.000Z"
+      "compra": 1518.3,
+      "venta": 1521.9,
+      "fecha": "2026-07-17T20:59:00.000Z"
     },
     {
       "casa": "contadoconliqui",
       "nombre": "Contado con liquidación",
-      "compra": 1571.8,
-      "venta": 1572.8,
-      "fecha": "2026-07-17T18:59:00.000Z"
+      "compra": 1572.1,
+      "venta": 1575.9,
+      "fecha": "2026-07-17T20:59:00.000Z"
     },
     {
       "casa": "mayorista",
@@ -39,18 +39,23 @@
     {
       "casa": "cripto",
       "nombre": "Cripto",
-      "compra": 1566.2,
-      "venta": 1570.13,
-      "fecha": "2026-07-17T18:59:00.000Z"
+      "compra": 1567.52,
+      "venta": 1569.85,
+      "fecha": "2026-07-17T20:59:00.000Z"
     },
     {
       "casa": "tarjeta",
       "nombre": "Tarjeta",
       "compra": 1885,
       "venta": 1950,
-      "fecha": "2026-07-17T16:00:00.000Z"
+      "fecha": "2026-07-17T18:00:00.000Z"
     }
   ],
+  "banda_cambiaria": {
+    "piso": 761.41,
+    "techo": 1827.63,
+    "fecha": "2026-07-17"
+  },
   "riesgo_pais": {
     "valor": 404,
     "fecha": "2026-07-15"
@@ -63,76 +68,76 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63991,
-      "change_24h": -0.2344164959264282
+      "usd": 64127,
+      "change_24h": 0.010138248309157435
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1837.14,
-      "change_24h": -1.8283415777154353
+      "usd": 1843.62,
+      "change_24h": -1.6395726111773743
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999254,
-      "change_24h": 0.004711295953716844
+      "usd": 0.999326,
+      "change_24h": 0.005197822357920089
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 565.56,
-      "change_24h": -1.6422729844802575
+      "usd": 567.99,
+      "change_24h": -1.2536079887554956
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 74.96,
-      "change_24h": -0.8748485056297762
+      "usd": 75.13,
+      "change_24h": -0.8610062655957855
     }
   ],
   "tasas_locales": [
     {
       "nombre": "BADLAR Privados (TNA)",
       "key": "badlar_tna",
-      "valor": 21.875,
+      "valor": 21,
       "unidad": "% TNA",
-      "fecha": "2026-07-15"
+      "fecha": "2026-07-16"
     },
     {
       "nombre": "TM20 Privados",
       "key": "tm20",
-      "valor": 22.125,
+      "valor": 21.4375,
       "unidad": "% TNA",
-      "fecha": "2026-07-15"
+      "fecha": "2026-07-16"
     },
     {
       "nombre": "TAMAR Privados (TNA)",
       "key": "tamar_tna",
       "valor": 22.625,
       "unidad": "% TNA",
-      "fecha": "2026-07-15"
+      "fecha": "2026-07-16"
     },
     {
       "nombre": "Depósitos a 30 días",
       "key": "tasa_depositos_30d",
-      "valor": 21.39,
+      "valor": 20.05,
       "unidad": "% TNA",
-      "fecha": "2026-07-15"
+      "fecha": "2026-07-16"
     },
     {
       "nombre": "Adelantos en Cta. Cte.",
       "key": "tasa_adelantos",
-      "valor": 25.45,
+      "valor": 25.62,
       "unidad": "% TNA",
-      "fecha": "2026-07-15"
+      "fecha": "2026-07-16"
     },
     {
       "nombre": "Préstamos Personales",
       "key": "tasa_prestamos",
-      "valor": 64.93,
+      "valor": 64.79,
       "unidad": "% TNA",
-      "fecha": "2026-07-15"
+      "fecha": "2026-07-16"
     }
   ],
   "fci": [
@@ -176,13 +181,13 @@
   "bonds": [
     {
       "symbol": "GD30",
-      "price_usd": 58.06,
-      "pct_change": 0.27
+      "price_usd": 57.99,
+      "pct_change": 0.15
     },
     {
       "symbol": "GD35",
-      "price_usd": 83.48,
-      "pct_change": -0.19
+      "price_usd": 83.57,
+      "pct_change": -0.08
     },
     {
       "symbol": "AL30",
@@ -191,35 +196,30 @@
     },
     {
       "symbol": "AL29",
-      "price_usd": 55.4,
-      "pct_change": 0.25
+      "price_usd": 55.37,
+      "pct_change": 0.19
     },
     {
       "symbol": "AE38",
-      "price_usd": 83.62,
-      "pct_change": 0.05
+      "price_usd": 83.64,
+      "pct_change": 0.08
     },
     {
       "symbol": "AL35",
-      "price_usd": 80.79,
-      "pct_change": 0.21
+      "price_usd": 80.82,
+      "pct_change": 0.24
     }
   ],
   "corporate": [
     {
       "symbol": "DNCBD",
-      "price": 100,
-      "pct_change": 0
+      "price": 100.15,
+      "pct_change": 0.15
     },
     {
       "symbol": "DNCAD",
-      "price": 106.2,
-      "pct_change": 0.18
-    },
-    {
-      "symbol": "YM43D",
-      "price": 101.45,
-      "pct_change": 0.19
+      "price": 105.95,
+      "pct_change": -0.04
     },
     {
       "symbol": "PLC7D",
@@ -227,28 +227,33 @@
       "pct_change": -0.38
     },
     {
+      "symbol": "YM43D",
+      "price": 101.45,
+      "pct_change": 0.19
+    },
+    {
       "symbol": "YM34D",
       "price": 109.2,
       "pct_change": 0
     },
     {
-      "symbol": "TLCPD",
-      "price": 112.65,
-      "pct_change": -0.13
+      "symbol": "YM42D",
+      "price": 105.55,
+      "pct_change": -0.14
     }
   ],
   "acciones_arg": [
     {
       "symbol": "YPFD.BA",
       "nombre": "YPF S.A.",
-      "price": 77475.0,
-      "pct_change": 1.8402891883010186
+      "price": 77900.0,
+      "pct_change": 2.3989484061781137
     },
     {
       "symbol": "GGAL.BA",
       "nombre": "Grupo Financiero Galicia",
-      "price": 7800.0,
-      "pct_change": -0.8264462809917356
+      "price": 7860.0,
+      "pct_change": -0.06357279084551812
     },
     {
       "symbol": "PAMP.BA",
@@ -259,30 +264,30 @@
     {
       "symbol": "BMA.BA",
       "nombre": "Banco Macro",
-      "price": 14120.0,
-      "pct_change": -0.5633802816901409
+      "price": 14190.0,
+      "pct_change": -0.07042253521126761
     }
   ],
   "indices": [
     {
       "symbol": "SPY",
       "nombre": "S&P 500 (proxy SPY)",
-      "close": "742.67",
-      "percent_change": "-1.072300",
+      "close": "743.15503",
+      "percent_change": "-1.0076915",
       "currency": "USD"
     },
     {
       "symbol": "DIA",
       "nombre": "Dow Jones (proxy DIA)",
-      "close": "520.76",
-      "percent_change": "-0.77549244",
+      "close": "520.73999",
+      "percent_change": "-0.77930506",
       "currency": "USD"
     },
     {
       "symbol": "QQQ",
       "nombre": "Nasdaq (proxy QQQ)",
-      "close": "695.06",
-      "percent_change": "-1.54121",
+      "close": "695.34",
+      "percent_change": "-1.50154",
       "currency": "USD"
     }
   ],
@@ -290,29 +295,29 @@
     {
       "symbol": "AAPL",
       "nombre": "Apple Inc.",
-      "close": "333.34",
-      "percent_change": "0.024002350",
+      "close": "333.73999",
+      "percent_change": "0.14402582",
       "currency": "USD"
     },
     {
       "symbol": "MSFT",
       "nombre": "Microsoft Corp.",
-      "close": "394.83",
-      "percent_change": "-1.56320",
+      "close": "393.76999",
+      "percent_change": "-1.82748",
       "currency": "USD"
     },
     {
       "symbol": "AMZN",
       "nombre": "Amazon.com Inc.",
-      "close": "247.5",
-      "percent_change": "-0.95642058",
+      "close": "247.25999",
+      "percent_change": "-1.052465",
       "currency": "USD"
     },
     {
       "symbol": "GOOGL",
       "nombre": "Alphabet Inc.",
-      "close": "344.96",
-      "percent_change": "-2.68013",
+      "close": "346.62000",
+      "percent_change": "-2.21181",
       "currency": "USD"
     }
   ],
@@ -320,22 +325,22 @@
     {
       "symbol": "SPY",
       "nombre": "SPY (S&P 500)",
-      "close": "742.67",
-      "percent_change": "-1.072300",
+      "close": "743.15503",
+      "percent_change": "-1.0076915",
       "currency": "USD"
     },
     {
       "symbol": "QQQ",
       "nombre": "QQQ (Nasdaq 100)",
-      "close": "695.06",
-      "percent_change": "-1.54121",
+      "close": "695.34",
+      "percent_change": "-1.50154",
       "currency": "USD"
     },
     {
       "symbol": "EEM",
       "nombre": "EEM (Emergentes)",
-      "close": "63.21",
-      "percent_change": "-1.52672",
+      "close": "63.29000",
+      "percent_change": "-1.40209",
       "currency": "USD"
     }
   ],
@@ -343,29 +348,29 @@
     {
       "symbol": "GLD",
       "nombre": "Oro (proxy GLD)",
-      "close": "367.39",
-      "percent_change": "0.66582875",
+      "close": "368.42001",
+      "percent_change": "0.94805514",
       "currency": "USD"
     },
     {
       "symbol": "USO",
       "nombre": "Petróleo (proxy USO)",
-      "close": "123.92",
-      "percent_change": "3.87259",
+      "close": "123.99000",
+      "percent_change": "3.93126",
       "currency": "USD"
     },
     {
       "symbol": "SLV",
       "nombre": "Plata (proxy SLV)",
-      "close": "50.56",
-      "percent_change": "0.33736974",
+      "close": "50.79000",
+      "percent_change": "0.79381133",
       "currency": "USD"
     },
     {
       "symbol": "CORN",
       "nombre": "Maíz (proxy CORN)",
-      "close": "17.77",
-      "percent_change": "0.85130053",
+      "close": "17.78500",
+      "percent_change": "0.93643019",
       "currency": "USD"
     }
   ],
@@ -373,29 +378,29 @@
     {
       "symbol": "EUR/USD",
       "nombre": "EUR/USD",
-      "close": "1.14369",
-      "percent_change": "-0.054181122",
+      "close": "1.14401",
+      "percent_change": "0.020983240",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "USD/BRL",
-      "close": "5.11337",
-      "percent_change": "0.20399925",
+      "close": "5.11443",
+      "percent_change": "-0.022284907",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "USD/JPY",
-      "close": "162.46258",
-      "percent_change": "0.051583082",
+      "close": "162.45248",
+      "percent_change": "0.025737224",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "GBP/USD",
-      "close": "1.34541",
-      "percent_change": "-0.19361731",
+      "close": "1.34476",
+      "percent_change": "-0.034938263",
       "currency": null
     }
   ]
