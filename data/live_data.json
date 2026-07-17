@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-17T21:51:16.402302+00:00",
+  "updated_at": "2026-07-17T22:04:42.956464+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64056,
-      "change_24h": -0.13884916082878995
+      "usd": 64041,
+      "change_24h": -0.20304317713363199
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1841.18,
-      "change_24h": -1.9275707629521492
+      "usd": 1840.59,
+      "change_24h": -2.077057634341166
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999339,
-      "change_24h": 0.007949877074418422
+      "usd": 0.999393,
+      "change_24h": 0.018888297090369315
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 568.09,
-      "change_24h": -1.3568885872998075
+      "usd": 567.87,
+      "change_24h": -1.4808124779649736
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 74.96,
-      "change_24h": -1.2490480481155495
+      "usd": 75.01,
+      "change_24h": -1.2006965708280788
     }
   ],
   "tasas_locales": [
@@ -275,7 +275,7 @@
       "region": "USA",
       "close": 52146.42,
       "currency": "USD",
-      "percent_change": 17.223823404516946,
+      "percent_change": -0.7735980662367467,
       "percent_change_1y": 17.60000655414157
     },
     {
@@ -284,7 +284,7 @@
       "region": "USA",
       "close": 7457.69,
       "currency": "USD",
-      "percent_change": 18.425657735940142,
+      "percent_change": -1.0098532253309225,
       "percent_change_1y": 18.4363771657589
     },
     {
@@ -293,7 +293,7 @@
       "region": "USA",
       "close": 25520.244,
       "currency": "USD",
-      "percent_change": 22.19032685121122,
+      "percent_change": -1.3975192350967383,
       "percent_change_1y": 22.13184812591361
     },
     {
@@ -302,7 +302,7 @@
       "region": "Europa",
       "close": 10600.37,
       "currency": "GBP",
-      "percent_change": 18.141564318034913,
+      "percent_change": 0.2664516767284706,
       "percent_change_1y": 18.141569461365787
     },
     {
@@ -311,7 +311,7 @@
       "region": "Europa",
       "close": 24830.98,
       "currency": "EUR",
-      "percent_change": 1.8876998128507991,
+      "percent_change": -0.6742098816079288,
       "percent_change_1y": 1.8877011193215258
     },
     {
@@ -320,7 +320,7 @@
       "region": "Europa",
       "close": 8338.81,
       "currency": "EUR",
-      "percent_change": 6.607133725389919,
+      "percent_change": -0.5203704549415645,
       "percent_change_1y": 6.607133725389919
     },
     {
@@ -329,7 +329,7 @@
       "region": "Europa",
       "close": 19216.9,
       "currency": "EUR",
-      "percent_change": 37.31751759619852,
+      "percent_change": -0.30401286607350547,
       "percent_change_1y": 37.31751759619852
     },
     {
@@ -338,7 +338,7 @@
       "region": "Asia",
       "close": 64141.12,
       "currency": "JPY",
-      "percent_change": 60.749892421754836,
+      "percent_change": -6.705871564407731,
       "percent_change_1y": 60.74988675639679
     },
     {
@@ -347,7 +347,7 @@
       "region": "Asia",
       "close": 24562.24,
       "currency": "HKD",
-      "percent_change": 0.25833760222377233,
+      "percent_change": -0.48158149862111543,
       "percent_change_1y": 0.2583407993742144
     },
     {
@@ -356,7 +356,7 @@
       "region": "Asia",
       "close": 3764.1548,
       "currency": "CNY",
-      "percent_change": 7.032758240742715,
+      "percent_change": -4.8393202365108605,
       "percent_change_1y": 7.032759726801576
     },
     {
@@ -365,7 +365,7 @@
       "region": "LATAM",
       "close": 173714.08,
       "currency": "BRL",
-      "percent_change": 28.14080330468778,
+      "percent_change": -0.06381130447289676,
       "percent_change_1y": 28.14080330468778
     },
     {
@@ -374,7 +374,7 @@
       "region": "LATAM",
       "close": 3199934.5,
       "currency": "",
-      "percent_change": 54.87545822294197,
+      "percent_change": 0.4607948432418483,
       "percent_change_1y": 54.87545822294197
     },
     {
@@ -383,7 +383,7 @@
       "region": "Otros",
       "close": 35263.85,
       "currency": "CAD",
-      "percent_change": 28.76174375340034,
+      "percent_change": -0.21604071408146963,
       "percent_change_1y": 28.761741916845075
     },
     {
@@ -392,7 +392,7 @@
       "region": "Otros",
       "close": 8796.7,
       "currency": "AUD",
-      "percent_change": 1.8254427595786633,
+      "percent_change": -0.502195556397967,
       "percent_change_1y": 1.8254427595786633
     }
   ],
@@ -483,29 +483,29 @@
     {
       "symbol": "EUR/USD",
       "nombre": "EUR/USD",
-      "close": "1.14392",
-      "percent_change": "0.013114525",
+      "close": "1.14406",
+      "percent_change": "0.025354748",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "USD/BRL",
-      "close": "5.12941",
-      "percent_change": "0.27054659",
+      "close": "5.11542",
+      "percent_change": "-0.0029322246",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "USD/JPY",
-      "close": "162.4449",
-      "percent_change": "0.021070043",
+      "close": "162.44073",
+      "percent_change": "0.018502478",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "GBP/USD",
-      "close": "1.34516",
-      "percent_change": "-0.0052035711",
+      "close": "1.34531",
+      "percent_change": "0.0059469384",
       "currency": null
     }
   ]
