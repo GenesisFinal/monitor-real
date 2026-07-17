@@ -1034,7 +1034,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <div id="panel-exchange" class="tab-panel ">
             <section class="mb-12">
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
-                <i class="fas fa-dollar-sign text-brandBlue"></i> Dólar y Mercado Cambiario
+                <i class="fas fa-dollar-sign text-brandBlue"></i> Dólar
             </h2>
             <div class="space-y-6">
                 <div class="space-y-4">
@@ -1083,7 +1083,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         </table>
                     </div>
                     <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-exchange', 'Dólar y Mercado Cambiario')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <button class="chart-export-btn" onclick="exportChart('chart-exchange', 'Dólar')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
                         <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
                         <canvas id="chart-exchange" height="90"></canvas>
                     </div>
@@ -3225,13 +3225,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
         }
 
         function markLive(key) {
-            const h2 = document.querySelector('#panel-' + key + ' h2');
-            if (h2 && !h2.querySelector('.live-badge')) {
-                const badge = document.createElement('span');
-                badge.className = 'live-badge text-[10px] font-bold uppercase tracking-wider bg-brandGreen/20 text-brandGreen px-2 py-0.5 rounded-full ml-2';
-                badge.textContent = 'En vivo';
-                h2.appendChild(badge);
-            }
+            // Los datos se actualizan una vez al día (20:00 ART), no en tiempo
+            // real, por lo que no se muestra ninguna etiqueta de "En vivo".
         }
 
         function buildRow(key, name, cells) {
