@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-17T21:06:42.986476+00:00",
+  "updated_at": "2026-07-17T21:51:16.402302+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64127,
-      "change_24h": 0.010138248309157435
+      "usd": 64056,
+      "change_24h": -0.13884916082878995
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1843.62,
-      "change_24h": -1.6395726111773743
+      "usd": 1841.18,
+      "change_24h": -1.9275707629521492
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999326,
-      "change_24h": 0.005197822357920089
+      "usd": 0.999339,
+      "change_24h": 0.007949877074418422
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 567.99,
-      "change_24h": -1.2536079887554956
+      "usd": 568.09,
+      "change_24h": -1.3568885872998075
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.13,
-      "change_24h": -0.8610062655957855
+      "usd": 74.96,
+      "change_24h": -1.2490480481155495
     }
   ],
   "tasas_locales": [
@@ -270,25 +270,130 @@
   ],
   "indices": [
     {
-      "symbol": "SPY",
-      "nombre": "S&P 500 (proxy SPY)",
-      "close": "743.15503",
-      "percent_change": "-1.0076915",
-      "currency": "USD"
+      "symbol": "^DJI",
+      "nombre": "Dow Jones Industrial Average",
+      "region": "USA",
+      "close": 52146.42,
+      "currency": "USD",
+      "percent_change": 17.223823404516946,
+      "percent_change_1y": 17.60000655414157
     },
     {
-      "symbol": "DIA",
-      "nombre": "Dow Jones (proxy DIA)",
-      "close": "520.73999",
-      "percent_change": "-0.77930506",
-      "currency": "USD"
+      "symbol": "^GSPC",
+      "nombre": "S&P 500",
+      "region": "USA",
+      "close": 7457.69,
+      "currency": "USD",
+      "percent_change": 18.425657735940142,
+      "percent_change_1y": 18.4363771657589
     },
     {
-      "symbol": "QQQ",
-      "nombre": "Nasdaq (proxy QQQ)",
-      "close": "695.34",
-      "percent_change": "-1.50154",
-      "currency": "USD"
+      "symbol": "^IXIC",
+      "nombre": "Nasdaq Composite",
+      "region": "USA",
+      "close": 25520.244,
+      "currency": "USD",
+      "percent_change": 22.19032685121122,
+      "percent_change_1y": 22.13184812591361
+    },
+    {
+      "symbol": "^FTSE",
+      "nombre": "FTSE 100",
+      "region": "Europa",
+      "close": 10600.37,
+      "currency": "GBP",
+      "percent_change": 18.141564318034913,
+      "percent_change_1y": 18.141569461365787
+    },
+    {
+      "symbol": "^GDAXI",
+      "nombre": "DAX",
+      "region": "Europa",
+      "close": 24830.98,
+      "currency": "EUR",
+      "percent_change": 1.8876998128507991,
+      "percent_change_1y": 1.8877011193215258
+    },
+    {
+      "symbol": "^FCHI",
+      "nombre": "CAC 40",
+      "region": "Europa",
+      "close": 8338.81,
+      "currency": "EUR",
+      "percent_change": 6.607133725389919,
+      "percent_change_1y": 6.607133725389919
+    },
+    {
+      "symbol": "^IBEX",
+      "nombre": "IBEX 35 (España)",
+      "region": "Europa",
+      "close": 19216.9,
+      "currency": "EUR",
+      "percent_change": 37.31751759619852,
+      "percent_change_1y": 37.31751759619852
+    },
+    {
+      "symbol": "^N225",
+      "nombre": "Nikkei 225",
+      "region": "Asia",
+      "close": 64141.12,
+      "currency": "JPY",
+      "percent_change": 60.749892421754836,
+      "percent_change_1y": 60.74988675639679
+    },
+    {
+      "symbol": "^HSI",
+      "nombre": "Hang Seng",
+      "region": "Asia",
+      "close": 24562.24,
+      "currency": "HKD",
+      "percent_change": 0.25833760222377233,
+      "percent_change_1y": 0.2583407993742144
+    },
+    {
+      "symbol": "000001.SS",
+      "nombre": "Shanghai Composite",
+      "region": "Asia",
+      "close": 3764.1548,
+      "currency": "CNY",
+      "percent_change": 7.032758240742715,
+      "percent_change_1y": 7.032759726801576
+    },
+    {
+      "symbol": "^BVSP",
+      "nombre": "Bovespa",
+      "region": "LATAM",
+      "close": 173714.08,
+      "currency": "BRL",
+      "percent_change": 28.14080330468778,
+      "percent_change_1y": 28.14080330468778
+    },
+    {
+      "symbol": "^MERV",
+      "nombre": "Merval",
+      "region": "LATAM",
+      "close": 3199934.5,
+      "currency": "",
+      "percent_change": 54.87545822294197,
+      "percent_change_1y": 54.87545822294197
+    },
+    {
+      "symbol": "^GSPTSE",
+      "nombre": "S&P/TSX",
+      "region": "Otros",
+      "close": 35263.85,
+      "currency": "CAD",
+      "percent_change": 28.76174375340034,
+      "percent_change_1y": 28.761741916845075
+    },
+    {
+      "symbol": "^AXJO",
+      "nombre": "ASX 200",
+      "region": "Otros",
+      "close": 8796.7,
+      "currency": "AUD",
+      "percent_change": 1.8254427595786633,
+      "percent_change_1y": 1.8254427595786633
     }
   ],
   "stocks": [
@@ -302,22 +407,22 @@
     {
       "symbol": "MSFT",
       "nombre": "Microsoft Corp.",
-      "close": "393.76999",
-      "percent_change": "-1.82748",
+      "close": "393.82001",
+      "percent_change": "-1.81501",
       "currency": "USD"
     },
     {
       "symbol": "AMZN",
       "nombre": "Amazon.com Inc.",
-      "close": "247.25999",
-      "percent_change": "-1.052465",
+      "close": "247.23000",
+      "percent_change": "-1.064470",
       "currency": "USD"
     },
     {
       "symbol": "GOOGL",
       "nombre": "Alphabet Inc.",
-      "close": "346.62000",
-      "percent_change": "-2.21181",
+      "close": "346.76999",
+      "percent_change": "-2.16950",
       "currency": "USD"
     }
   ],
@@ -325,15 +430,15 @@
     {
       "symbol": "SPY",
       "nombre": "SPY (S&P 500)",
-      "close": "743.15503",
-      "percent_change": "-1.0076915",
+      "close": "743.28998",
+      "percent_change": "-0.98971560",
       "currency": "USD"
     },
     {
       "symbol": "QQQ",
       "nombre": "QQQ (Nasdaq 100)",
-      "close": "695.34",
-      "percent_change": "-1.50154",
+      "close": "695.33002",
+      "percent_change": "-1.50296",
       "currency": "USD"
     },
     {
@@ -348,29 +453,29 @@
     {
       "symbol": "GLD",
       "nombre": "Oro (proxy GLD)",
-      "close": "368.42001",
-      "percent_change": "0.94805514",
+      "close": "368.41000",
+      "percent_change": "0.94531244",
       "currency": "USD"
     },
     {
       "symbol": "USO",
       "nombre": "Petróleo (proxy USO)",
-      "close": "123.99000",
-      "percent_change": "3.93126",
+      "close": "123.96000",
+      "percent_change": "3.90612",
       "currency": "USD"
     },
     {
       "symbol": "SLV",
       "nombre": "Plata (proxy SLV)",
-      "close": "50.79000",
-      "percent_change": "0.79381133",
+      "close": "50.78000",
+      "percent_change": "0.77396189",
       "currency": "USD"
     },
     {
       "symbol": "CORN",
       "nombre": "Maíz (proxy CORN)",
-      "close": "17.78500",
-      "percent_change": "0.93643019",
+      "close": "17.78000",
+      "percent_change": "0.90805811",
       "currency": "USD"
     }
   ],
@@ -378,29 +483,29 @@
     {
       "symbol": "EUR/USD",
       "nombre": "EUR/USD",
-      "close": "1.14401",
-      "percent_change": "0.020983240",
+      "close": "1.14392",
+      "percent_change": "0.013114525",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "USD/BRL",
-      "close": "5.11443",
-      "percent_change": "-0.022284907",
+      "close": "5.12941",
+      "percent_change": "0.27054659",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "USD/JPY",
-      "close": "162.45248",
-      "percent_change": "0.025737224",
+      "close": "162.4449",
+      "percent_change": "0.021070043",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "GBP/USD",
-      "close": "1.34476",
-      "percent_change": "-0.034938263",
+      "close": "1.34516",
+      "percent_change": "-0.0052035711",
       "currency": null
     }
   ]
