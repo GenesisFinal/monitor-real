@@ -349,6 +349,14 @@ INDICES_GLOBALES = [
 ]
 
 
+# Yahoo Finance no informa "currency" en meta para algunos índices (p.ej.
+# el Merval, ^MERV, devuelve currency=""). Fallback con la moneda real de
+# cotización de cada índice.
+INDICES_CURRENCY_FALLBACK = {
+    "^MERV": "ARS",
+}
+
+
 def get_indices_globales():
     out = []
     for region, symbols in INDICES_GLOBALES:
@@ -380,7 +388,7 @@ def get_indices_globales():
                     "nombre": nombre,
                     "region": region,
                     "close": price,
-                    "currency": meta.get("currency") or "",
+                    "currency": meta.get("currency") or INDICES_CURRENCY_FALLBACK.get(symbol, ""),
                     "percent_change": pct_dia,
                     "percent_change_1y": pct_1y,
                 })

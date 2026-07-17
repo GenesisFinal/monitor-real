@@ -2828,7 +2828,34 @@ Stack: ${error ? error.stack : 'N/A'}`;
             else selectedTickers[key].delete(ticker);
             const row = checkbox.closest('tr');
             if (row) row.classList.toggle('grid-row-selected', checkbox.checked);
+            if (updateChartTypeAvailability(key)) return; // ya volvió a renderizar en línea
             renderChartFor(key);
+        }
+
+        // Con 2+ activos seleccionados el gráfico pasa a modo base 100
+        // (comparación), que solo tiene sentido como línea: se deshabilitan
+        // Velas/Barras OHLC y, si estaban activas, se fuerza línea. Se
+        // reactivan solos al volver a quedar un único activo seleccionado.
+        function updateChartTypeAvailability(key) {
+            const cfg = REAL_DATA_CONFIG[key];
+            if (!cfg || !cfg.ohlc) return false;
+            const bar = document.getElementById('chart-controls-' + key);
+            if (!bar) return false;
+            const multi = !!(selectedTickers[key] && selectedTickers[key].size > 1);
+            const candleBtn = bar.querySelector('[data-type="candles"]');
+            const ohlcBtn = bar.querySelector('[data-type="ohlc"]');
+            [candleBtn, ohlcBtn].forEach(b => { if (b) b.disabled = multi; });
+            const note = document.getElementById('chart-note-' + key);
+            if (note) {
+                note.textContent = multi
+                    ? 'Datos reales, comparación en base 100 (solo línea)'
+                    : 'Datos reales, con histórico OHLC';
+            }
+            if (multi && chartTypeState[key] !== 'line') {
+                setChartType(key, 'line');
+                return true;
+            }
+            return false;
         }
 
         function rowClick(evt, key, ticker) {
@@ -3037,8 +3064,9 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 }
 
                 const note = document.createElement('span');
+                note.id = 'chart-note-' + key;
                 note.className = 'chart-source-note';
-                note.textContent = cfg.ohlc ? 'Datos reales OHLC' : 'Datos reales';
+                note.textContent = cfg.ohlc ? 'Datos reales, con histórico OHLC' : 'Datos reales';
                 bar.appendChild(note);
 
                 canvas.parentNode.insertBefore(bar, canvas);
