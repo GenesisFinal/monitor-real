@@ -312,7 +312,15 @@ TWELVEDATA_SYMBOLS = {
     "stocks": {"AAPL": "Apple Inc.", "MSFT": "Microsoft Corp.", "AMZN": "Amazon.com Inc.", "GOOGL": "Alphabet Inc."},
     "etfs": {"SPY": "SPY (S&P 500)", "QQQ": "QQQ (Nasdaq 100)", "EEM": "EEM (Emergentes)"},
     "commodities": {"GLD": "Oro (proxy GLD)", "USO": "Petróleo (proxy USO)", "SLV": "Plata (proxy SLV)", "CORN": "Maíz (proxy CORN)"},
-    "forex": {"EUR/USD": "EUR/USD", "USD/BRL": "USD/BRL", "USD/JPY": "USD/JPY", "GBP/USD": "GBP/USD"},
+    "forex": {
+        "EUR/USD": "Euro",
+        "GBP/USD": "Libra",
+        "USD/JPY": "Yen",
+        "USD/BRL": "Real",
+        "USD/MXN": "Peso Mexicano",
+        "USD/UYU": "Peso Uruguayo",
+        "USD/ARS": "Peso Argentino",
+    },
 }
 
 # Índices bursátiles globales: antes se usaban ETFs como "proxy" de los
