@@ -1332,8 +1332,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                 <tr>
                                     <th class="w-12 px-4 py-3 text-center">Comparar</th>
                                     <th class="px-4 py-3">Fondo</th>
-                                    <th class="px-4 py-3 text-right">VCP ($)</th>
-<th class="px-4 py-3 text-right">Rend. Mensual %</th>
+                                    <th class="px-4 py-3 text-right">TNA %</th>
+<th class="px-4 py-3 text-right">Categoría</th>
                                 </tr>
                             </thead>
                             <tbody id="tbl-fci" class="divide-y divide-darkBorder/40 light:divide-gray-200">
@@ -1386,8 +1386,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                 <tr>
                                     <th class="w-12 px-4 py-3 text-center">Comparar</th>
                                     <th class="px-4 py-3">Bono</th>
-                                    <th class="px-4 py-3 text-right">Paridad %</th>
-<th class="px-4 py-3 text-right">TIR %</th>
+                                    <th class="px-4 py-3 text-right">Precio (USD)</th>
+<th class="px-4 py-3 text-right">Var. Día %</th>
                                 </tr>
                             </thead>
                             <tbody id="tbl-bonds" class="divide-y divide-darkBorder/40 light:divide-gray-200">
@@ -1440,8 +1440,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                 <tr>
                                     <th class="w-12 px-4 py-3 text-center">Comparar</th>
                                     <th class="px-4 py-3">Especie</th>
-                                    <th class="px-4 py-3 text-right">Emisor</th>
-<th class="px-4 py-3 text-right">TIR %</th>
+                                    <th class="px-4 py-3 text-right">Precio</th>
+<th class="px-4 py-3 text-right">Var. Día %</th>
                                 </tr>
                             </thead>
                             <tbody id="tbl-corporate" class="divide-y divide-darkBorder/40 light:divide-gray-200">
@@ -2951,6 +2951,50 @@ Stack: ${error ? error.stack : 'N/A'}`;
             renderRows(key, rows);
         }
 
+        function renderTasasLocales(items) {
+            if (!items || !items.length) return;
+            const rows = items.map(it => buildRow('local_rates', it.nombre, [
+                { value: (it.valor != null ? Number(it.valor).toFixed(2) + '%' : '-') }
+            ]));
+            renderRows('local_rates', rows);
+        }
+
+        function renderFci(items) {
+            if (!items || !items.length) return;
+            const rows = items.map(it => buildRow('fci', it.nombre, [
+                { value: (it.tna != null ? Number(it.tna).toFixed(2) + '%' : '-') },
+                { value: (it.categoria === 'mm' ? 'Money Market' : (it.categoria === 'rm' ? 'Renta Mixta' : (it.categoria || '-'))) }
+            ]));
+            renderRows('fci', rows);
+        }
+
+        function renderBonos(items) {
+            if (!items || !items.length) return;
+            const rows = items.map(it => buildRow('bonds', it.symbol, [
+                { value: (it.price_usd != null ? 'USD ' + Number(it.price_usd).toFixed(2) : '-') },
+                { value: fmtPct(it.pct_change), cls: pctClass(it.pct_change) }
+            ]));
+            renderRows('bonds', rows);
+        }
+
+        function renderOns(items) {
+            if (!items || !items.length) return;
+            const rows = items.map(it => buildRow('corporate', it.symbol, [
+                { value: (it.price != null ? Number(it.price).toFixed(2) : '-') },
+                { value: fmtPct(it.pct_change), cls: pctClass(it.pct_change) }
+            ]));
+            renderRows('corporate', rows);
+        }
+
+        function renderAccionesArg(items) {
+            if (!items || !items.length) return;
+            const rows = items.map(it => buildRow('acciones_arg', it.nombre + ' (' + it.symbol.replace('.BA', '') + ')', [
+                { value: (it.price != null ? '$' + Number(it.price).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-') },
+                { value: fmtPct(it.pct_change), cls: pctClass(it.pct_change) }
+            ]));
+            renderRows('acciones_arg', rows);
+        }
+
         function renderIndicadorLive(panelKey, label, valor, fecha, sufijo) {
             const tbody = document.getElementById('tbl-' + panelKey);
             if (!tbody) return;
@@ -2977,6 +3021,11 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 if (data.commodities) renderTwelveData('commodities', data.commodities);
                 if (data.stocks) renderTwelveData('stocks', data.stocks);
                 if (data.etfs) renderTwelveData('etfs', data.etfs);
+                renderTasasLocales(data.tasas_locales);
+                renderFci(data.fci);
+                renderBonos(data.bonds);
+                renderOns(data.corporate);
+                renderAccionesArg(data.acciones_arg);
                 if (data.riesgo_pais && data.riesgo_pais.valor != null) {
                     renderIndicadorLive('reservas_deuda', 'Riesgo País (EMBI+ Argentina)', data.riesgo_pais.valor, data.riesgo_pais.fecha, ' pb');
                 }

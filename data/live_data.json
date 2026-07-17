@@ -226,5 +226,155 @@
       "percent_change": "-0.18916633",
       "currency": null
     }
+  ],
+  "tasas_locales": [
+    {
+      "nombre": "BADLAR Privados (TNA)",
+      "valor": 21.875,
+      "unidad": "% TNA",
+      "fecha": "2026-07-15"
+    },
+    {
+      "nombre": "TM20 Privados",
+      "valor": 22.125,
+      "unidad": "% TNA",
+      "fecha": "2026-07-15"
+    },
+    {
+      "nombre": "TAMAR Privados (TNA)",
+      "valor": 22.625,
+      "unidad": "% TNA",
+      "fecha": "2026-07-15"
+    },
+    {
+      "nombre": "Depósitos a 30 días",
+      "valor": 21.39,
+      "unidad": "% TNA",
+      "fecha": "2026-07-15"
+    },
+    {
+      "nombre": "Adelantos en Cta. Cte.",
+      "valor": 25.45,
+      "unidad": "% TNA",
+      "fecha": "2026-07-15"
+    },
+    {
+      "nombre": "Préstamos Personales",
+      "valor": 64.93,
+      "unidad": "% TNA",
+      "fecha": "2026-07-15"
+    }
+  ],
+  "fci": [
+    {
+      "nombre": "Mercado Fondo - Clase A",
+      "tna": 17.54,
+      "categoria": "mm"
+    },
+    {
+      "nombre": "Fima Premium - Clase B",
+      "tna": 17.66,
+      "categoria": "mm"
+    },
+    {
+      "nombre": "Fima Premium - Clase A",
+      "tna": 16.18,
+      "categoria": "mm"
+    },
+    {
+      "nombre": "Pionero Pesos Plus - Clase B",
+      "tna": 17.59,
+      "categoria": "mm"
+    },
+    {
+      "nombre": "Pellegrini Renta Pesos - Clase B",
+      "tna": 19.42,
+      "categoria": "mm"
+    },
+    {
+      "nombre": "Super Ahorro $ - Clase A",
+      "tna": 16.4,
+      "categoria": "mm"
+    }
+  ],
+  "bonds": [
+    {
+      "symbol": "AL30",
+      "price_usd": 56.39,
+      "pct_change": -0.07
+    },
+    {
+      "symbol": "AL29",
+      "price_usd": 55.45,
+      "pct_change": 0.34
+    },
+    {
+      "symbol": "AE38",
+      "price_usd": 83.65,
+      "pct_change": 0.09
+    },
+    {
+      "symbol": "AL35",
+      "price_usd": 80.6,
+      "pct_change": -0.02
+    }
+  ],
+  "corporate": [
+    {
+      "symbol": "DNCBD",
+      "price": 100.1,
+      "pct_change": 0.09
+    },
+    {
+      "symbol": "DNCAD",
+      "price": 106,
+      "pct_change": 0
+    },
+    {
+      "symbol": "YM43D",
+      "price": 101.45,
+      "pct_change": 0.19
+    },
+    {
+      "symbol": "PLC7D",
+      "price": 102.3,
+      "pct_change": -0.29
+    },
+    {
+      "symbol": "YM34D",
+      "price": 109.2,
+      "pct_change": 0
+    },
+    {
+      "symbol": "IRCPD",
+      "price": 110.35,
+      "pct_change": 0.27
+    }
+  ],
+  "acciones_arg": [
+    {
+      "symbol": "YPFD.BA",
+      "nombre": "YPF S.A.",
+      "price": 77250,
+      "pct_change": 1.5445284258954979
+    },
+    {
+      "symbol": "GGAL.BA",
+      "nombre": "Grupo Financiero Galicia",
+      "price": 7770,
+      "pct_change": -1.2078830260648443
+    },
+    {
+      "symbol": "PAMP.BA",
+      "nombre": "Pampa Energía",
+      "price": 5165,
+      "pct_change": 1.076320939334638
+    },
+    {
+      "symbol": "BMA.BA",
+      "nombre": "Banco Macro",
+      "price": 14150,
+      "pct_change": -0.35211267605633806
+    }
   ]
 }

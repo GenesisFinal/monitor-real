@@ -6,13 +6,22 @@ Se ejecuta diariamente vía GitHub Actions a las 20:00 hora Argentina (23:00 UTC
 
 Fuentes:
 - Dólar (Argentina): dolarapi.com (sin key)
-- Riesgo país (Argentina): api.argentinadatos.com (sin key)
+- Riesgo país e inflación (Argentina): api.argentinadatos.com (sin key)
 - Criptomonedas: CoinGecko (sin key)
 - Índices/Acciones/ETFs/Commodities/Divisas globales: Twelve Data (requiere TWELVEDATA_API_KEY)
+- Tasas locales (BADLAR, TAMAR, etc.), Fondos Comunes (CAFCI), Bonos Soberanos
+  y Obligaciones Negociables: rendimientos.co (API pública no oficial, sin key)
+- Acciones Argentinas (Panel Líder): Yahoo Finance (endpoint público sin key,
+  tickers con sufijo .BA)
 
 Twelve Data free tier: 8 créditos/minuto, 800/día. Este script agrupa los
 símbolos en lotes de máximo 8 y espera 65 segundos entre lotes para no
 exceder el límite.
+
+Nota sobre robustez: todas las fuentes son de terceros no oficiales (salvo
+dolarapi/argentinadatos/coingecko que son APIs públicas estables). Si alguna
+falla un día puntual, el script sigue con las demás y esa sección
+simplemente no se actualiza ese día (no se rompe todo el proceso).
 """
 import json
 import os
@@ -96,6 +105,118 @@ def get_cripto():
     return out
 
 
+TASAS_LOCALES_KEYS = {
+    "badlar_tna": "BADLAR Privados (TNA)",
+    "tm20": "TM20 Privados",
+    "tamar_tna": "TAMAR Privados (TNA)",
+    "tasa_depositos_30d": "Depósitos a 30 días",
+    "tasa_adelantos": "Adelantos en Cta. Cte.",
+    "tasa_prestamos": "Préstamos Personales",
+}
+
+
+def get_tasas_locales():
+    data = fetch_json("https://rendimientos.co/api/bcra")
+    if not data or "data" not in data:
+        return None
+    by_key = {x.get("key"): x for x in data["data"]}
+    out = []
+    for key, nombre in TASAS_LOCALES_KEYS.items():
+        item = by_key.get(key)
+        if item and item.get("valor") is not None:
+            out.append({
+                "nombre": nombre,
+                "valor": item.get("valor"),
+                "unidad": item.get("unidad"),
+                "fecha": item.get("fecha"),
+            })
+    return out or None
+
+
+def get_fci():
+    data = fetch_json("https://rendimientos.co/api/cafci")
+    if not data or "data" not in data:
+        return None
+    top = sorted(
+        [x for x in data["data"] if x.get("patrimonio")],
+        key=lambda x: x["patrimonio"],
+        reverse=True,
+    )[:6]
+    out = []
+    for x in top:
+        out.append({
+            "nombre": x.get("nombre"),
+            "tna": x.get("tna"),
+            "categoria": x.get("category"),
+        })
+    return out or None
+
+
+BONOS_SOBERANOS = ["GD30", "GD35", "AL30", "AL29", "AE38", "AL35"]
+
+
+def get_bonos():
+    data = fetch_json("https://rendimientos.co/api/soberanos")
+    if not data or "data" not in data:
+        return None
+    by_symbol = {x.get("symbol"): x for x in data["data"]}
+    out = []
+    for sym in BONOS_SOBERANOS:
+        item = by_symbol.get(sym)
+        if item:
+            out.append({
+                "symbol": sym,
+                "price_usd": item.get("price_usd"),
+                "pct_change": item.get("pct_change"),
+            })
+    return out or None
+
+
+def get_ons():
+    data = fetch_json("https://rendimientos.co/api/ons")
+    if not data or "data" not in data:
+        return None
+    top = sorted(data["data"], key=lambda x: x.get("v") or 0, reverse=True)[:6]
+    out = []
+    for x in top:
+        out.append({
+            "symbol": x.get("symbol"),
+            "price": x.get("c"),
+            "pct_change": x.get("pct_change"),
+        })
+    return out or None
+
+
+ACCIONES_ARG_SYMBOLS = {
+    "YPFD.BA": "YPF S.A.",
+    "GGAL.BA": "Grupo Financiero Galicia",
+    "PAMP.BA": "Pampa Energía",
+    "BMA.BA": "Banco Macro",
+}
+
+
+def get_acciones_arg():
+    out = []
+    for symbol, nombre in ACCIONES_ARG_SYMBOLS.items():
+        data = fetch_json(f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}")
+        if not data:
+            continue
+        try:
+            meta = data["chart"]["result"][0]["meta"]
+            price = meta.get("regularMarketPrice")
+            prev = meta.get("previousClose")
+            pct = ((price - prev) / prev * 100) if (price and prev) else None
+            out.append({
+                "symbol": symbol,
+                "nombre": nombre,
+                "price": price,
+                "pct_change": pct,
+            })
+        except (KeyError, IndexError, TypeError, ZeroDivisionError) as e:
+            print(f"[WARN] No se pudo parsear Yahoo Finance para {symbol}: {e}")
+    return out or None
+
+
 # Símbolos Twelve Data por categoría (usando ETFs/acciones como proxy cuando
 # el activo "puro" no está disponible en el plan gratuito).
 TWELVEDATA_SYMBOLS = {
@@ -149,6 +270,11 @@ def main():
         "riesgo_pais": get_riesgo_pais(),
         "inflacion": get_inflacion(),
         "cripto": get_cripto(),
+        "tasas_locales": get_tasas_locales(),
+        "fci": get_fci(),
+        "bonds": get_bonos(),
+        "corporate": get_ons(),
+        "acciones_arg": get_acciones_arg(),
     }
 
     td = get_twelvedata()
