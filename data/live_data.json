@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-17T22:34:19.867167+00:00",
+  "updated_at": "2026-07-17T22:47:40.928628+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63911,
-      "change_24h": -0.2619488492662526
+      "usd": 63914,
+      "change_24h": -0.14429154649859502
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1838.66,
-      "change_24h": -1.9193070997237063
+      "usd": 1837.14,
+      "change_24h": -1.8061131861036306
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999375,
-      "change_24h": 0.015539363348868155
+      "usd": 0.999351,
+      "change_24h": 0.011976778364167027
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 567.09,
-      "change_24h": -1.3884808269865425
+      "usd": 566.88,
+      "change_24h": -1.2909803652879357
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 74.87,
-      "change_24h": -0.9529303243359188
+      "usd": 74.9,
+      "change_24h": -0.8583704600194071
     }
   ],
   "tasas_locales": [
@@ -373,7 +373,7 @@
       "nombre": "Merval",
       "region": "LATAM",
       "close": 3199934.5,
-      "currency": "",
+      "currency": "ARS",
       "percent_change": 0.4607948432418483,
       "percent_change_1y": 54.87545822294197
     },
@@ -483,29 +483,29 @@
     {
       "symbol": "EUR/USD",
       "nombre": "EUR/USD",
-      "close": "1.14415",
-      "percent_change": "0.033223463",
+      "close": "1.14397",
+      "percent_change": "0.017486033",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "USD/BRL",
-      "close": "5.11445",
-      "percent_change": "-0.021893943",
+      "close": "5.11059",
+      "percent_change": "-0.097349855",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "USD/JPY",
-      "close": "162.43951",
-      "percent_change": "0.017751296",
+      "close": "162.43338",
+      "percent_change": "0.013976913",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "GBP/USD",
-      "close": "1.34539",
-      "percent_change": "0.011893877",
+      "close": "1.34514",
+      "percent_change": "-0.0066903057",
       "currency": null
     }
   ]
