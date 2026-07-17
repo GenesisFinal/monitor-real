@@ -11,7 +11,10 @@ Fuentes:
   (sin key), idVariable 1187 (límite inferior) y 1188 (límite superior)
 - Riesgo país e inflación: api.argentinadatos.com (sin key)
 - Criptomonedas (actual e histórico): CoinGecko (sin key)
-- Índices/Acciones/ETFs/Commodities/Divisas globales (actual e histórico):
+- Índices bursátiles globales (actual e histórico): Yahoo Finance (sin key),
+  tickers reales (^DJI, ^GSPC, ^IXIC, ^FTSE, ^GDAXI, ^FCHI, ^IBEX, ^N225,
+  ^HSI, 000001.SS, ^BVSP, ^MERV, ^GSPTSE, ^AXJO), agrupados por región
+- Acciones/ETFs/Commodities/Divisas globales (actual e histórico):
   Twelve Data (requiere TWELVEDATA_API_KEY)
 - Tasas locales (actual): rendimientos.co (no oficial, sin key)
 - Tasas locales (histórico): BCRA API oficial v4.0 (sin key)
@@ -306,12 +309,119 @@ def get_acciones_arg():
 
 
 TWELVEDATA_SYMBOLS = {
-    "indices": {"SPY": "S&P 500 (proxy SPY)", "DIA": "Dow Jones (proxy DIA)", "QQQ": "Nasdaq (proxy QQQ)"},
     "stocks": {"AAPL": "Apple Inc.", "MSFT": "Microsoft Corp.", "AMZN": "Amazon.com Inc.", "GOOGL": "Alphabet Inc."},
     "etfs": {"SPY": "SPY (S&P 500)", "QQQ": "QQQ (Nasdaq 100)", "EEM": "EEM (Emergentes)"},
     "commodities": {"GLD": "Oro (proxy GLD)", "USO": "Petróleo (proxy USO)", "SLV": "Plata (proxy SLV)", "CORN": "Maíz (proxy CORN)"},
     "forex": {"EUR/USD": "EUR/USD", "USD/BRL": "USD/BRL", "USD/JPY": "USD/JPY", "GBP/USD": "GBP/USD"},
 }
+
+# Índices bursátiles globales: antes se usaban ETFs como "proxy" de los
+# índices reales vía Twelve Data (SPY por S&P 500, DIA por Dow Jones, QQQ
+# por Nasdaq), lo cual daba valores que NO son los del índice real. Se
+# reemplaza por Yahoo Finance (query1.finance.yahoo.com/v8/finance/chart),
+# que sí publica los tickers reales de cada índice (^DJI, ^GSPC, etc.) con
+# OHLCV histórico real, sin key. Agrupados por región para la UI.
+INDICES_GLOBALES = [
+    ("USA", [
+        ("^DJI", "Dow Jones Industrial Average"),
+        ("^GSPC", "S&P 500"),
+        ("^IXIC", "Nasdaq Composite"),
+    ]),
+    ("Europa", [
+        ("^FTSE", "FTSE 100"),
+        ("^GDAXI", "DAX"),
+        ("^FCHI", "CAC 40"),
+        ("^IBEX", "IBEX 35 (España)"),
+    ]),
+    ("Asia", [
+        ("^N225", "Nikkei 225"),
+        ("^HSI", "Hang Seng"),
+        ("000001.SS", "Shanghai Composite"),
+    ]),
+    ("LATAM", [
+        ("^BVSP", "Bovespa"),
+        ("^MERV", "Merval"),
+    ]),
+    ("Otros", [
+        ("^GSPTSE", "S&P/TSX"),
+        ("^AXJO", "ASX 200"),
+    ]),
+]
+
+
+def get_indices_globales():
+    out = []
+    for region, symbols in INDICES_GLOBALES:
+        for symbol, nombre in symbols:
+            data = fetch_json(
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?interval=1d&range=1y"
+            )
+            if not data:
+                continue
+            try:
+                result = data["chart"]["result"][0]
+                meta = result["meta"]
+                price = meta.get("regularMarketPrice")
+                prev = meta.get("chartPreviousClose")
+                pct_dia = ((price - prev) / prev * 100) if (price and prev) else None
+                closes = result.get("indicators", {}).get("quote", [{}])[0].get("close") or []
+                closes_validas = [c for c in closes if c is not None]
+                pct_1y = None
+                if price and closes_validas and closes_validas[0]:
+                    pct_1y = (price - closes_validas[0]) / closes_validas[0] * 100
+                out.append({
+                    "symbol": symbol,
+                    "nombre": nombre,
+                    "region": region,
+                    "close": price,
+                    "currency": meta.get("currency") or "",
+                    "percent_change": pct_dia,
+                    "percent_change_1y": pct_1y,
+                })
+            except (KeyError, IndexError, TypeError, ZeroDivisionError) as e:
+                print(f"[WARN] No se pudo parsear índice {symbol}: {e}")
+    return out or None
+
+
+def build_history_indices():
+    indices_out = {}
+    for region, symbols in INDICES_GLOBALES:
+        for symbol, nombre in symbols:
+            data = fetch_json(
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?interval=1d&range=5y"
+            )
+            if not data:
+                continue
+            try:
+                result = data["chart"]["result"][0]
+                ts = result["timestamp"]
+                q = result["indicators"]["quote"][0]
+                records = []
+                for i, t in enumerate(ts):
+                    c = q.get("close", [None] * len(ts))[i] if i < len(q.get("close", [])) else None
+                    if c is None:
+                        continue
+                    records.append({
+                        "ts": t,
+                        "o": q.get("open", [None] * len(ts))[i] if i < len(q.get("open", [])) else None,
+                        "h": q.get("high", [None] * len(ts))[i] if i < len(q.get("high", [])) else None,
+                        "l": q.get("low", [None] * len(ts))[i] if i < len(q.get("low", [])) else None,
+                        "c": c,
+                    })
+            except (KeyError, IndexError, TypeError):
+                print(f"[WARN] No se pudo parsear histórico Yahoo para {symbol}")
+                continue
+            daily, weekly = build_daily_weekly(
+                records,
+                date_fn=lambda r: datetime.fromtimestamp(r["ts"], tz=timezone.utc).date(),
+                point_fn=lambda r: {"o": r["o"], "h": r["h"], "l": r["l"], "c": r["c"]},
+            )
+            if daily or weekly:
+                indices_out[symbol] = {"nombre": nombre, "region": region, "daily": daily, "weekly": weekly}
+            time.sleep(0.5)  # cortesía con Yahoo Finance
+    if not indices_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "indices": indices_out}
 
 
 def chunked(items, n):
@@ -700,6 +810,7 @@ def main():
         "bonds": get_bonos(),
         "corporate": get_ons(),
         "acciones_arg": get_acciones_arg(),
+        "indices": get_indices_globales(),
     }
 
     td = get_twelvedata()
@@ -731,6 +842,7 @@ def main():
         "acciones_arg.json": build_history_acciones_arg(),
         "cripto.json": build_history_cripto(),
         "mercados_globales.json": build_history_twelvedata(),
+        "indices.json": build_history_indices(),
     }
     for filename, payload in historicos.items():
         if payload:

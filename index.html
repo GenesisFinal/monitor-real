@@ -2859,7 +2859,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
         function renderSampleChartFor(key) {
             const canvas = document.getElementById('chart-' + key);
             if (!canvas || typeof Chart === 'undefined') return;
-            const firstRow = document.querySelector('#tbl-' + key + ' tr');
+            const firstRow = document.querySelector('#tbl-' + key + ' tr[data-ticker]');
             const tickers = selectedTickers[key] && selectedTickers[key].size > 0
                 ? [...selectedTickers[key]]
                 : [firstRow ? firstRow.dataset.ticker : 'Serie'];
@@ -2901,7 +2901,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             corporate:    { file: 'ons.json',               path: d => normalizeOnsHistory(d),                  ohlc: false, unit: 'ARS', ownSource: true },
             bonds:        { file: 'bonos.json',             path: d => d.bonos,                                 ohlc: true,  unit: 'ARS' },
             acciones_arg: { file: 'acciones_arg.json',      path: d => d.acciones,                              ohlc: true,  unit: 'ARS' },
-            indices:      { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.indices),  ohlc: true,  unit: 'USD' },
+            indices:      { file: 'indices.json',            path: d => d.indices,                               ohlc: true,  unit: '' },
             stocks:       { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.stocks),   ohlc: true,  unit: 'USD' },
             etfs:         { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.etfs),     ohlc: true,  unit: 'USD' },
             commodities:  { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.commodities), ohlc: true, unit: 'USD' },
@@ -3051,7 +3051,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             const data = await ensureHistoryLoaded(cfg.file);
             const seriesRoot = data ? cfg.path(data) : null;
 
-            const firstRow = document.querySelector('#tbl-' + key + ' tr');
+            const firstRow = document.querySelector('#tbl-' + key + ' tr[data-ticker]');
             let tickers = selectedTickers[key] && selectedTickers[key].size > 0
                 ? [...selectedTickers[key]]
                 : [firstRow ? firstRow.dataset.ticker : null];
@@ -3304,6 +3304,36 @@ Stack: ${error ? error.stack : 'N/A'}`;
             renderRows(key, rows);
         }
 
+        const REGION_ORDER = ['USA', 'Europa', 'Asia', 'LATAM', 'Otros'];
+
+        function renderIndicesGlobales(items) {
+            if (!items || !items.length) return;
+            const byRegion = {};
+            items.forEach(it => {
+                const region = it.region || 'Otros';
+                if (!byRegion[region]) byRegion[region] = [];
+                byRegion[region].push(it);
+            });
+            const rows = [];
+            REGION_ORDER.forEach(region => {
+                const list = byRegion[region];
+                if (!list || !list.length) return;
+                rows.push(`<tr class="bg-slate-800/60 light:bg-slate-100"><td colspan="5" class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-brandBlue light:text-blue-700">${region}</td></tr>`);
+                list.forEach(it => {
+                    setSeriesKey('indices', it.nombre, it.symbol);
+                    const valor = (it.close != null)
+                        ? Number(it.close).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + (it.currency ? ' ' + it.currency : '')
+                        : '-';
+                    rows.push(buildRow('indices', it.nombre, [
+                        { value: valor },
+                        { value: fmtPct(it.percent_change), cls: pctClass(it.percent_change) },
+                        { value: fmtPct(it.percent_change_1y), cls: pctClass(it.percent_change_1y) }
+                    ]));
+                });
+            });
+            renderRows('indices', rows);
+        }
+
         function renderTasasLocales(items) {
             if (!items || !items.length) return;
             const rows = items.map(it => {
@@ -3385,7 +3415,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
 
                 renderDolar(data.dolar, data.banda_cambiaria);
                 renderCripto(data.cripto);
-                if (data.indices) renderTwelveData('indices', data.indices);
+                if (data.indices) renderIndicesGlobales(data.indices);
                 if (data.forex) renderTwelveData('forex', data.forex);
                 if (data.commodities) renderTwelveData('commodities', data.commodities);
                 if (data.stocks) renderTwelveData('stocks', data.stocks);
