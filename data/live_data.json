@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-17T22:04:42.956464+00:00",
+  "updated_at": "2026-07-17T22:34:19.867167+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64041,
-      "change_24h": -0.20304317713363199
+      "usd": 63911,
+      "change_24h": -0.2619488492662526
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1840.59,
-      "change_24h": -2.077057634341166
+      "usd": 1838.66,
+      "change_24h": -1.9193070997237063
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999393,
-      "change_24h": 0.018888297090369315
+      "usd": 0.999375,
+      "change_24h": 0.015539363348868155
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 567.87,
-      "change_24h": -1.4808124779649736
+      "usd": 567.09,
+      "change_24h": -1.3884808269865425
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.01,
-      "change_24h": -1.2006965708280788
+      "usd": 74.87,
+      "change_24h": -0.9529303243359188
     }
   ],
   "tasas_locales": [
@@ -483,29 +483,29 @@
     {
       "symbol": "EUR/USD",
       "nombre": "EUR/USD",
-      "close": "1.14406",
-      "percent_change": "0.025354748",
+      "close": "1.14415",
+      "percent_change": "0.033223463",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "USD/BRL",
-      "close": "5.11542",
-      "percent_change": "-0.0029322246",
+      "close": "5.11445",
+      "percent_change": "-0.021893943",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "USD/JPY",
-      "close": "162.44073",
-      "percent_change": "0.018502478",
+      "close": "162.43951",
+      "percent_change": "0.017751296",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "GBP/USD",
-      "close": "1.34531",
-      "percent_change": "0.0059469384",
+      "close": "1.34539",
+      "percent_change": "0.011893877",
       "currency": null
     }
   ]
