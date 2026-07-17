@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-17T22:47:40.928628+00:00",
+  "updated_at": "2026-07-17T23:04:01.362217+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63914,
-      "change_24h": -0.14429154649859502
+      "usd": 63893,
+      "change_24h": -0.010308927360798381
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1837.14,
-      "change_24h": -1.8061131861036306
+      "usd": 1836.87,
+      "change_24h": -1.5875034385915674
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999351,
-      "change_24h": 0.011976778364167027
+      "usd": 0.999315,
+      "change_24h": 0.005304953473301218
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 566.88,
-      "change_24h": -1.2909803652879357
+      "usd": 566.63,
+      "change_24h": -1.1492799563163507
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 74.9,
-      "change_24h": -0.8583704600194071
+      "usd": 74.95,
+      "change_24h": -0.40665317669166134
     }
   ],
   "tasas_locales": [
@@ -302,7 +302,7 @@
       "region": "Europa",
       "close": 10600.37,
       "currency": "GBP",
-      "percent_change": 0.2664516767284706,
+      "percent_change": 0.8032560811464708,
       "percent_change_1y": 18.141569461365787
     },
     {
@@ -482,30 +482,51 @@
   "forex": [
     {
       "symbol": "EUR/USD",
-      "nombre": "EUR/USD",
-      "close": "1.14397",
-      "percent_change": "0.017486033",
-      "currency": null
-    },
-    {
-      "symbol": "USD/BRL",
-      "nombre": "USD/BRL",
-      "close": "5.11059",
-      "percent_change": "-0.097349855",
-      "currency": null
-    },
-    {
-      "symbol": "USD/JPY",
-      "nombre": "USD/JPY",
-      "close": "162.43338",
-      "percent_change": "0.013976913",
+      "nombre": "Euro",
+      "close": "1.14389",
+      "percent_change": "0.010491620",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
-      "nombre": "GBP/USD",
-      "close": "1.34514",
-      "percent_change": "-0.0066903057",
+      "nombre": "Libra",
+      "close": "1.34505",
+      "percent_change": "-0.013380611",
+      "currency": null
+    },
+    {
+      "symbol": "USD/JPY",
+      "nombre": "Yen",
+      "close": "162.43438",
+      "percent_change": "0.014592636",
+      "currency": null
+    },
+    {
+      "symbol": "USD/BRL",
+      "nombre": "Real",
+      "close": "5.11155",
+      "percent_change": "-0.078583618",
+      "currency": null
+    },
+    {
+      "symbol": "USD/MXN",
+      "nombre": "Peso Mexicano",
+      "close": "17.53802",
+      "percent_change": "-0.043543532",
+      "currency": null
+    },
+    {
+      "symbol": "USD/UYU",
+      "nombre": "Peso Uruguayo",
+      "close": "40.17921",
+      "percent_change": "-0.012791049",
+      "currency": null
+    },
+    {
+      "symbol": "USD/ARS",
+      "nombre": "Peso Argentino",
+      "close": "1478.17373",
+      "percent_change": "-0.033324621",
       "currency": null
     }
   ]
