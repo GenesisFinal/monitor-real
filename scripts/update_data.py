@@ -1,26 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Actualiza data/live_data.json con datos reales de mercado.
+Actualiza data/live_data.json (valores actuales) y data/history/*.json
+(series históricas para gráficos con selector de rango y velas/OHLC).
 Se ejecuta diariamente vía GitHub Actions a las 20:00 hora Argentina (23:00 UTC).
 
 Fuentes:
-- Dólar (Argentina): dolarapi.com (sin key)
-- Riesgo país e inflación (Argentina): api.argentinadatos.com (sin key)
-- Criptomonedas: CoinGecko (sin key)
-- Índices/Acciones/ETFs/Commodities/Divisas globales: Twelve Data (requiere TWELVEDATA_API_KEY)
-- Tasas locales (BADLAR, TAMAR, etc.), Fondos Comunes (CAFCI), Bonos Soberanos
-  y Obligaciones Negociables: rendimientos.co (API pública no oficial, sin key)
-- Acciones Argentinas (Panel Líder): Yahoo Finance (endpoint público sin key,
-  tickers con sufijo .BA)
+- Dólar (actual e histórico): dolarapi.com / api.argentinadatos.com (sin key)
+- Riesgo país e inflación: api.argentinadatos.com (sin key)
+- Criptomonedas (actual e histórico): CoinGecko (sin key)
+- Índices/Acciones/ETFs/Commodities/Divisas globales (actual e histórico):
+  Twelve Data (requiere TWELVEDATA_API_KEY)
+- Tasas locales (actual): rendimientos.co (no oficial, sin key)
+- Tasas locales (histórico): BCRA API oficial v4.0 (sin key)
+- Fondos Comunes de Inversión (actual): rendimientos.co (no oficial, sin key)
+- Fondos Comunes de Inversión (histórico, fuente CAFCI): api.argentinadatos.com
+- Bonos Soberanos (actual): rendimientos.co (no oficial, sin key)
+- Bonos Soberanos (histórico OHLCV): data912.com (no oficial, sin key)
+- Obligaciones Negociables (actual): rendimientos.co (no oficial, sin key)
+- Obligaciones Negociables (histórico): SIN FUENTE GRATUITA CONOCIDA.
+  Se acumula una serie propia día a día a partir de hoy (ver build_history_ons_acumulado()).
+- Acciones Argentinas (actual): Yahoo Finance (sin key)
+- Acciones Argentinas (histórico OHLCV): data912.com (no oficial, sin key)
 
 Twelve Data free tier: 8 créditos/minuto, 800/día. Este script agrupa los
-símbolos en lotes de máximo 8 y espera 65 segundos entre lotes para no
-exceder el límite.
+símbolos en lotes de máximo 8 y espera entre llamadas para no exceder el límite.
 
 Nota sobre robustez: todas las fuentes son de terceros no oficiales (salvo
-dolarapi/argentinadatos/coingecko que son APIs públicas estables). Si alguna
-falla un día puntual, el script sigue con las demás y esa sección
+dolarapi/argentinadatos/coingecko/BCRA que son APIs públicas estables). Si
+alguna falla un día puntual, el script sigue con las demás y esa sección
 simplemente no se actualiza ese día (no se rompe todo el proceso).
 """
 import json
@@ -29,14 +37,16 @@ import time
 import urllib.request
 import urllib.error
 import urllib.parse
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date, timedelta
 
 TWELVEDATA_KEY = os.environ.get("TWELVEDATA_API_KEY", "")
 
-OUT_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "live_data.json")
+BASE_DIR = os.path.join(os.path.dirname(__file__), "..")
+OUT_PATH = os.path.join(BASE_DIR, "data", "live_data.json")
+HISTORY_DIR = os.path.join(BASE_DIR, "data", "history")
 
 
-def fetch_json(url, timeout=20):
+def fetch_json(url, timeout=25):
     req = urllib.request.Request(url, headers={"User-Agent": "monitor-real-bot/1.0"})
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
@@ -45,6 +55,78 @@ def fetch_json(url, timeout=20):
         print(f"[WARN] Fallo al pedir {url}: {e}")
         return None
 
+
+def save_json(path, data):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def load_json(path):
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+# ------------------------------------------------------------------
+# Utilidades genéricas para armar series "daily" (últimos ~13 meses) y
+# "weekly" (últimos ~5 años, un punto por semana ISO) a partir de una
+# lista de registros con fecha.
+# ------------------------------------------------------------------
+
+def _parse_date(s):
+    if not s:
+        return None
+    try:
+        return datetime.strptime(s[:10], "%Y-%m-%d").date()
+    except Exception:
+        return None
+
+
+def build_daily_weekly(records, date_fn, point_fn, days_daily=400, years_weekly=5):
+    """
+    records: lista de objetos crudos (dicts) ya ordenados o no.
+    date_fn(record) -> date | None
+    point_fn(record) -> dict (con clave "t" = fecha ISO agregada por esta función)
+    """
+    parsed = []
+    for r in records or []:
+        d = date_fn(r)
+        if d is None:
+            continue
+        pt = point_fn(r)
+        if pt is None:
+            continue
+        pt["t"] = d.isoformat()
+        parsed.append((d, pt))
+    parsed.sort(key=lambda x: x[0])
+    if not parsed:
+        return [], []
+
+    today = date.today()
+    cutoff_daily = today - timedelta(days=days_daily)
+    daily = [pt for d, pt in parsed if d >= cutoff_daily]
+
+    cutoff_weekly = today - timedelta(days=years_weekly * 365 + 10)
+    by_week = {}
+    for d, pt in parsed:
+        if d < cutoff_weekly:
+            continue
+        key = (d.isocalendar()[0], d.isocalendar()[1])
+        by_week[key] = pt  # se queda el último valor de cada semana ISO
+    weekly = [by_week[k] for k in sorted(by_week.keys())]
+
+    return daily, weekly
+
+
+# ------------------------------------------------------------------
+# Valores actuales (live_data.json) - sin cambios respecto a versiones
+# anteriores del script.
+# ------------------------------------------------------------------
 
 def get_dolares():
     data = fetch_json("https://dolarapi.com/v1/dolares")
@@ -126,6 +208,7 @@ def get_tasas_locales():
         if item and item.get("valor") is not None:
             out.append({
                 "nombre": nombre,
+                "key": key,
                 "valor": item.get("valor"),
                 "unidad": item.get("unidad"),
                 "fecha": item.get("fecha"),
@@ -142,10 +225,13 @@ def get_fci():
         key=lambda x: x["patrimonio"],
         reverse=True,
     )[:6]
+    nombre_a_slug = {v: k for k, v in FCI_SLUGS.items()}
     out = []
     for x in top:
+        nombre = x.get("nombre")
         out.append({
-            "nombre": x.get("nombre"),
+            "nombre": nombre,
+            "slug": nombre_a_slug.get(nombre),
             "tna": x.get("tna"),
             "categoria": x.get("category"),
         })
@@ -217,8 +303,6 @@ def get_acciones_arg():
     return out or None
 
 
-# Símbolos Twelve Data por categoría (usando ETFs/acciones como proxy cuando
-# el activo "puro" no está disponible en el plan gratuito).
 TWELVEDATA_SYMBOLS = {
     "indices": {"SPY": "S&P 500 (proxy SPY)", "DIA": "Dow Jones (proxy DIA)", "QQQ": "Nasdaq (proxy QQQ)"},
     "stocks": {"AAPL": "Apple Inc.", "MSFT": "Microsoft Corp.", "AMZN": "Amazon.com Inc.", "GOOGL": "Alphabet Inc."},
@@ -263,6 +347,289 @@ def get_twelvedata():
     return results
 
 
+# ------------------------------------------------------------------
+# Series históricas (data/history/*.json)
+# ------------------------------------------------------------------
+
+DOLAR_CASAS = ["oficial", "blue", "bolsa", "contadoconliqui", "mayorista", "cripto", "tarjeta"]
+
+
+def build_history_dolar():
+    casas_out = {}
+    for casa in DOLAR_CASAS:
+        data = fetch_json(f"https://api.argentinadatos.com/v1/cotizaciones/dolares/{casa}")
+        if not data:
+            continue
+        daily, weekly = build_daily_weekly(
+            data,
+            date_fn=lambda r: _parse_date(r.get("fecha")),
+            point_fn=lambda r: {"c": r.get("venta")},
+        )
+        if daily or weekly:
+            casas_out[casa] = {"daily": daily, "weekly": weekly}
+    if not casas_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "casas": casas_out}
+
+
+BCRA_TASAS_IDS = {
+    "badlar_tna": 7,
+    "tm20": 142,
+    "tamar_tna": 136,
+    "tasa_depositos_30d": 12,
+    "tasa_adelantos": 13,
+    "tasa_prestamos": 14,
+}
+
+
+def bcra_fetch_all(id_variable, desde, hasta):
+    """Pagina si hace falta (límite 1000 registros por página)."""
+    out = []
+    offset = 0
+    while True:
+        url = (
+            f"https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/{id_variable}"
+            f"?desde={desde}&hasta={hasta}&offset={offset}&limit=1000"
+        )
+        data = fetch_json(url)
+        if not data or "results" not in data or not data["results"]:
+            break
+        detalle = data["results"][0].get("detalle", [])
+        out.extend(detalle)
+        count = data.get("metadata", {}).get("resultset", {}).get("count", 0)
+        offset += 1000
+        if offset >= count or not detalle:
+            break
+    return out
+
+
+def build_history_tasas_locales():
+    hoy = date.today()
+    desde5 = (hoy - timedelta(days=5 * 365 + 10)).isoformat()
+    hasta = hoy.isoformat()
+    series_out = {}
+    for key, id_var in BCRA_TASAS_IDS.items():
+        detalle = bcra_fetch_all(id_var, desde5, hasta)
+        if not detalle:
+            continue
+        daily, weekly = build_daily_weekly(
+            detalle,
+            date_fn=lambda r: _parse_date(r.get("fecha")),
+            point_fn=lambda r: {"c": r.get("valor")},
+        )
+        if daily or weekly:
+            series_out[key] = {"daily": daily, "weekly": weekly}
+        time.sleep(1)  # cortesía con la API pública del BCRA
+    if not series_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "series": series_out}
+
+
+FCI_SLUGS = {
+    "mercado-fondo-clase-a": "Mercado Fondo - Clase A",
+    "fima-premium-clase-b": "Fima Premium - Clase B",
+    "fima-premium-clase-a": "Fima Premium - Clase A",
+    "pionero-pesos-plus-clase-b": "Pionero Pesos Plus - Clase B",
+    "pellegrini-renta-pesos-clase-b": "Pellegrini Renta Pesos - Clase B",
+    "super-ahorro-clase-a": "Super Ahorro $ - Clase A",
+}
+
+
+def build_history_fci():
+    fondos_out = {}
+    for slug, nombre in FCI_SLUGS.items():
+        data = fetch_json(f"https://api.argentinadatos.com/v1/finanzas/fci/fondos/{slug}/historico")
+        if not data or "historico" not in data:
+            continue
+        daily, weekly = build_daily_weekly(
+            data["historico"],
+            date_fn=lambda r: _parse_date(r.get("fecha")),
+            point_fn=lambda r: {"c": r.get("valorCuotaparte")},
+        )
+        if daily or weekly:
+            fondos_out[slug] = {"nombre": nombre, "daily": daily, "weekly": weekly}
+    if not fondos_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "fondos": fondos_out}
+
+
+def _ohlcv_point(r):
+    if r.get("c") is None:
+        return None
+    return {
+        "o": r.get("o"),
+        "h": r.get("h"),
+        "l": r.get("l"),
+        "c": r.get("c"),
+        "v": r.get("v"),
+    }
+
+
+def build_history_bonos():
+    bonos_out = {}
+    for sym in BONOS_SOBERANOS:
+        data = fetch_json(f"https://data912.com/historical/bonds/{sym}")
+        if not data or not isinstance(data, list):
+            continue
+        daily, weekly = build_daily_weekly(
+            data,
+            date_fn=lambda r: _parse_date(r.get("date")),
+            point_fn=_ohlcv_point,
+        )
+        if daily or weekly:
+            bonos_out[sym] = {"daily": daily, "weekly": weekly}
+    if not bonos_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "moneda": "ARS", "bonos": bonos_out}
+
+
+ACCIONES_ARG_TICKERS_DATA912 = {
+    "YPFD.BA": "YPFD",
+    "GGAL.BA": "GGAL",
+    "PAMP.BA": "PAMP",
+    "BMA.BA": "BMA",
+}
+
+
+def build_history_acciones_arg():
+    acciones_out = {}
+    for symbol_full, ticker912 in ACCIONES_ARG_TICKERS_DATA912.items():
+        data = fetch_json(f"https://data912.com/historical/stocks/{ticker912}")
+        if not data or not isinstance(data, list):
+            continue
+        daily, weekly = build_daily_weekly(
+            data,
+            date_fn=lambda r: _parse_date(r.get("date")),
+            point_fn=_ohlcv_point,
+        )
+        if daily or weekly:
+            acciones_out[symbol_full] = {"daily": daily, "weekly": weekly}
+    if not acciones_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "acciones": acciones_out}
+
+
+def build_history_cripto():
+    ids = {
+        "bitcoin": "Bitcoin (BTC)",
+        "ethereum": "Ethereum (ETH)",
+        "binancecoin": "BNB",
+        "solana": "Solana (SOL)",
+    }
+    monedas_out = {}
+    for cid, nombre in ids.items():
+        data = fetch_json(
+            f"https://api.coingecko.com/api/v3/coins/{cid}/market_chart?vs_currency=usd&days=1825"
+        )
+        if not data or "prices" not in data:
+            continue
+        records = [{"ts": p[0], "c": p[1]} for p in data["prices"]]
+        daily, weekly = build_daily_weekly(
+            records,
+            date_fn=lambda r: datetime.fromtimestamp(r["ts"] / 1000, tz=timezone.utc).date(),
+            point_fn=lambda r: {"c": r["c"]},
+        )
+        if daily or weekly:
+            monedas_out[cid] = {"nombre": nombre, "daily": daily, "weekly": weekly}
+        time.sleep(2)  # cortesía con el límite de CoinGecko free tier
+    if not monedas_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "monedas": monedas_out}
+
+
+def build_history_twelvedata():
+    if not TWELVEDATA_KEY:
+        print("[WARN] No hay TWELVEDATA_API_KEY, se omite histórico de mercados globales.")
+        return None
+
+    all_symbols = []
+    for cat, symmap in TWELVEDATA_SYMBOLS.items():
+        for sym in symmap:
+            if sym not in all_symbols:
+                all_symbols.append(sym)
+
+    raw_daily = {}
+    raw_weekly = {}
+    for i, sym in enumerate(all_symbols):
+        url_d = (
+            f"https://api.twelvedata.com/time_series?symbol={urllib.parse.quote(sym)}"
+            f"&interval=1day&outputsize=380&apikey={TWELVEDATA_KEY}"
+        )
+        data_d = fetch_json(url_d)
+        if data_d and data_d.get("status") == "ok":
+            raw_daily[sym] = data_d.get("values", [])
+        time.sleep(8)  # 8 créditos/minuto -> 1 símbolo cada ~8s
+
+        url_w = (
+            f"https://api.twelvedata.com/time_series?symbol={urllib.parse.quote(sym)}"
+            f"&interval=1week&outputsize=260&apikey={TWELVEDATA_KEY}"
+        )
+        data_w = fetch_json(url_w)
+        if data_w and data_w.get("status") == "ok":
+            raw_weekly[sym] = data_w.get("values", [])
+        time.sleep(8)
+
+    def to_points(values):
+        out = []
+        for v in values or []:
+            try:
+                out.append({
+                    "t": v["datetime"][:10],
+                    "o": float(v["open"]),
+                    "h": float(v["high"]),
+                    "l": float(v["low"]),
+                    "c": float(v["close"]),
+                })
+            except (KeyError, TypeError, ValueError):
+                continue
+        out.sort(key=lambda p: p["t"])
+        return out
+
+    categorias_out = {}
+    for cat, symmap in TWELVEDATA_SYMBOLS.items():
+        cat_out = {}
+        for sym, nombre in symmap.items():
+            daily = to_points(raw_daily.get(sym))
+            weekly = to_points(raw_weekly.get(sym))
+            if daily or weekly:
+                cat_out[sym] = {"nombre": nombre, "daily": daily, "weekly": weekly}
+        if cat_out:
+            categorias_out[cat] = cat_out
+    if not categorias_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "categorias": categorias_out}
+
+
+def build_history_ons_acumulado(ons_actuales):
+    """
+    No existe una fuente gratuita con histórico de ONs. En su lugar, se
+    acumula una serie propia: cada corrida agrega el snapshot del día a
+    un archivo que se conserva entre ejecuciones (se lee el existente y
+    se le agrega el punto de hoy, evitando duplicados por fecha).
+    """
+    if not ons_actuales:
+        return None
+    path = os.path.join(HISTORY_DIR, "ons.json")
+    existing = load_json(path) or {"acumulado_desde": date.today().isoformat(), "ons": {}}
+    hoy = date.today().isoformat()
+    ons_dict = existing.get("ons", {})
+    for item in ons_actuales:
+        sym = item.get("symbol")
+        if not sym or item.get("price") is None:
+            continue
+        serie = ons_dict.setdefault(sym, [])
+        if serie and serie[-1].get("t") == hoy:
+            serie[-1]["c"] = item["price"]
+        else:
+            serie.append({"t": hoy, "c": item["price"]})
+        # conservar como máximo ~5 años de puntos diarios
+        if len(serie) > 1900:
+            del serie[: len(serie) - 1900]
+    existing["ons"] = ons_dict
+    existing["updated_at"] = datetime.now(timezone.utc).isoformat()
+    return existing
+
+
 def main():
     live_data = {
         "updated_at": datetime.now(timezone.utc).isoformat(),
@@ -294,10 +661,30 @@ def main():
             if cat_out:
                 live_data[cat] = cat_out
 
-    os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
-    with open(OUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(live_data, f, ensure_ascii=False, indent=2)
+    save_json(OUT_PATH, live_data)
     print(f"OK: {OUT_PATH} actualizado.")
+
+    # ---- Series históricas ----
+    historicos = {
+        "dolar.json": build_history_dolar(),
+        "tasas_locales.json": build_history_tasas_locales(),
+        "fci.json": build_history_fci(),
+        "bonos.json": build_history_bonos(),
+        "acciones_arg.json": build_history_acciones_arg(),
+        "cripto.json": build_history_cripto(),
+        "mercados_globales.json": build_history_twelvedata(),
+    }
+    for filename, payload in historicos.items():
+        if payload:
+            save_json(os.path.join(HISTORY_DIR, filename), payload)
+            print(f"OK: data/history/{filename} actualizado.")
+        else:
+            print(f"[WARN] No se pudo actualizar data/history/{filename} (fuente sin datos hoy).")
+
+    ons_hist = build_history_ons_acumulado(live_data.get("corporate"))
+    if ons_hist:
+        save_json(os.path.join(HISTORY_DIR, "ons.json"), ons_hist)
+        print("OK: data/history/ons.json actualizado (serie propia acumulada).")
 
 
 if __name__ == "__main__":

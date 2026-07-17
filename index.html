@@ -76,6 +76,9 @@ Stack: ${error ? error.stack : 'N/A'}`;
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Adaptador de fechas + plugin de velas/OHLC para gráficos con datos reales -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@0.2.1/dist/chartjs-chart-financial.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* CSS Variables for Themes */
@@ -795,6 +798,57 @@ Stack: ${error ? error.stack : 'N/A'}`;
             background-color: rgba(226, 232, 240, 0.95);
             color: #0f172a;
             border-color: rgba(0, 0, 0, 0.15);
+        }
+        /* Controles de rango y tipo de gráfico (datos reales) */
+        .chart-controls-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 4px 10px 4px;
+        }
+        .chart-ctrl-group {
+            display: flex;
+            gap: 4px;
+            background: rgba(148, 163, 184, 0.08);
+            border-radius: 8px;
+            padding: 2px;
+        }
+        .chart-ctrl-btn {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 4px 9px;
+            border-radius: 6px;
+            color: #94a3b8;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+            white-space: nowrap;
+        }
+        .chart-ctrl-btn:hover {
+            color: #e2e8f0;
+        }
+        .chart-ctrl-btn.chart-ctrl-active {
+            background: var(--brand-blue, #2563eb);
+            color: #ffffff;
+        }
+        .chart-ctrl-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        body.light .chart-ctrl-btn {
+            color: #64748b;
+        }
+        body.light .chart-ctrl-btn:hover {
+            color: #0f172a;
+        }
+        .chart-source-note {
+            font-size: 10px;
+            color: #64748b;
+            margin-left: auto;
+            padding: 4px 2px;
         }
         /* Variation color overrides to bypass terminal theme !important rules */
         body.layout-terminal tr td.text-brandGreen,
@@ -2801,7 +2855,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
 
         const MESES = ['Ago','Sep','Oct','Nov','Dic','Ene','Feb','Mar','Abr','May','Jun','Jul'];
 
-        function renderChartFor(key) {
+        function renderSampleChartFor(key) {
             const canvas = document.getElementById('chart-' + key);
             if (!canvas || typeof Chart === 'undefined') return;
             const firstRow = document.querySelector('#tbl-' + key + ' tr');
@@ -2831,6 +2885,227 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     }
                 }
             });
+        }
+
+        // ============================================================
+        // Gráficos con datos reales: rango (1M/6M/12M/2A/5A) y tipo
+        // (línea / velas japonesas / barras OHLC) por panel.
+        // ============================================================
+
+        const REAL_DATA_CONFIG = {
+            exchange:     { file: 'dolar.json',            path: d => d.casas,                                 ohlc: false, unit: 'ARS' },
+            local_rates:  { file: 'tasas_locales.json',     path: d => d.series,                                ohlc: false, unit: '%' },
+            fci:          { file: 'fci.json',               path: d => d.fondos,                                ohlc: false, unit: 'VCP' },
+            cryptos:      { file: 'cripto.json',            path: d => d.monedas,                               ohlc: false, unit: 'USD' },
+            corporate:    { file: 'ons.json',               path: d => normalizeOnsHistory(d),                  ohlc: false, unit: 'ARS', ownSource: true },
+            bonds:        { file: 'bonos.json',             path: d => d.bonos,                                 ohlc: true,  unit: 'ARS' },
+            acciones_arg: { file: 'acciones_arg.json',      path: d => d.acciones,                              ohlc: true,  unit: 'ARS' },
+            indices:      { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.indices),  ohlc: true,  unit: 'USD' },
+            stocks:       { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.stocks),   ohlc: true,  unit: 'USD' },
+            etfs:         { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.etfs),     ohlc: true,  unit: 'USD' },
+            commodities:  { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.commodities), ohlc: true, unit: 'USD' },
+            forex:        { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.forex),    ohlc: true,  unit: '' }
+        };
+
+        function normalizeOnsHistory(d) {
+            // ons.json guarda series propias acumuladas desde hoy: { ons: { symbol: [{t,c}, ...] } }
+            // Se normaliza a la misma forma { daily, weekly } que usan los demás archivos.
+            const out = {};
+            const ons = (d && d.ons) || {};
+            Object.keys(ons).forEach(sym => {
+                out[sym] = { daily: ons[sym], weekly: ons[sym] };
+            });
+            return out;
+        }
+
+        const RANGES = {
+            '1m':  { label: '1M',  granularity: 'daily',  days: 31 },
+            '6m':  { label: '6M',  granularity: 'daily',  days: 186 },
+            '12m': { label: '12M', granularity: 'daily',  days: 366 },
+            '2a':  { label: '2A',  granularity: 'weekly', days: 731 },
+            '5a':  { label: '5A',  granularity: 'weekly', days: 1826 }
+        };
+
+        const chartRangeState = {};
+        const chartTypeState = {};
+        const historyCache = {};
+
+        async function ensureHistoryLoaded(file) {
+            if (historyCache[file]) return historyCache[file];
+            try {
+                const res = await fetch('data/history/' + file, { cache: 'no-store' });
+                if (!res.ok) throw new Error('No disponible: ' + file);
+                const data = await res.json();
+                historyCache[file] = data;
+                return data;
+            } catch (e) {
+                console.warn('[historia] no se pudo cargar', file, e);
+                return null;
+            }
+        }
+
+        function sliceByRange(seriesObj, rangeKey) {
+            if (!seriesObj) return [];
+            const range = RANGES[rangeKey];
+            const points = range.granularity === 'weekly' ? (seriesObj.weekly || []) : (seriesObj.daily || []);
+            const cutoff = Date.now() - range.days * 86400000;
+            return points.filter(p => new Date(p.t).getTime() >= cutoff);
+        }
+
+        function injectChartControls() {
+            Object.keys(REAL_DATA_CONFIG).forEach(key => {
+                const canvas = document.getElementById('chart-' + key);
+                if (!canvas || document.getElementById('chart-controls-' + key)) return;
+                const cfg = REAL_DATA_CONFIG[key];
+                chartRangeState[key] = '12m';
+                chartTypeState[key] = 'line';
+
+                const bar = document.createElement('div');
+                bar.id = 'chart-controls-' + key;
+                bar.className = 'chart-controls-bar';
+
+                const rangeGroup = document.createElement('div');
+                rangeGroup.className = 'chart-ctrl-group';
+                Object.keys(RANGES).forEach(rk => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'chart-ctrl-btn' + (rk === '12m' ? ' chart-ctrl-active' : '');
+                    btn.textContent = RANGES[rk].label;
+                    btn.onclick = () => setChartRange(key, rk);
+                    btn.dataset.range = rk;
+                    rangeGroup.appendChild(btn);
+                });
+                bar.appendChild(rangeGroup);
+
+                if (cfg.ohlc) {
+                    const typeGroup = document.createElement('div');
+                    typeGroup.className = 'chart-ctrl-group';
+                    [['line', 'Línea'], ['candles', 'Velas'], ['ohlc', 'Barras OHLC']].forEach(([tk, label]) => {
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'chart-ctrl-btn' + (tk === 'line' ? ' chart-ctrl-active' : '');
+                        btn.textContent = label;
+                        btn.onclick = () => setChartType(key, tk);
+                        btn.dataset.type = tk;
+                        typeGroup.appendChild(btn);
+                    });
+                    bar.appendChild(typeGroup);
+                }
+
+                const note = document.createElement('span');
+                note.className = 'chart-source-note';
+                note.textContent = cfg.ohlc ? 'Datos reales OHLC' : 'Datos reales';
+                bar.appendChild(note);
+
+                canvas.parentNode.insertBefore(bar, canvas);
+            });
+        }
+
+        function setChartRange(key, rangeKey) {
+            chartRangeState[key] = rangeKey;
+            const bar = document.getElementById('chart-controls-' + key);
+            if (bar) {
+                bar.querySelectorAll('[data-range]').forEach(b => b.classList.toggle('chart-ctrl-active', b.dataset.range === rangeKey));
+            }
+            renderChartFor(key);
+        }
+
+        function setChartType(key, typeKey) {
+            chartTypeState[key] = typeKey;
+            const bar = document.getElementById('chart-controls-' + key);
+            if (bar) {
+                bar.querySelectorAll('[data-type]').forEach(b => b.classList.toggle('chart-ctrl-active', b.dataset.type === typeKey));
+            }
+            renderChartFor(key);
+        }
+
+        async function renderRealChartFor(key) {
+            const canvas = document.getElementById('chart-' + key);
+            if (!canvas || typeof Chart === 'undefined') return;
+            const cfg = REAL_DATA_CONFIG[key];
+            const rangeKey = chartRangeState[key] || '12m';
+            const typeKey = chartTypeState[key] || 'line';
+
+            const data = await ensureHistoryLoaded(cfg.file);
+            const seriesRoot = data ? cfg.path(data) : null;
+
+            const firstRow = document.querySelector('#tbl-' + key + ' tr');
+            let tickers = selectedTickers[key] && selectedTickers[key].size > 0
+                ? [...selectedTickers[key]]
+                : [firstRow ? firstRow.dataset.ticker : null];
+            tickers = tickers.filter(Boolean);
+            if (typeKey !== 'line') tickers = tickers.slice(0, 1);
+
+            const palette = ['#2563eb', '#10b981', '#ef4444', '#f59e0b', '#6366f1', '#06b6d4'];
+            const map = seriesKeyMap[key] || {};
+
+            if (chartInstances[key]) { chartInstances[key].destroy(); chartInstances[key] = null; }
+            if (!seriesRoot) return;
+
+            if (typeKey === 'line') {
+                const datasets = tickers.slice(0, 6).map((t, i) => {
+                    const seriesId = map[t];
+                    const points = sliceByRange(seriesRoot[seriesId], rangeKey);
+                    return {
+                        label: t,
+                        data: points.map(p => ({ x: p.t, y: p.c })),
+                        borderColor: palette[i % palette.length],
+                        backgroundColor: palette[i % palette.length] + '22',
+                        tension: 0.25,
+                        pointRadius: 1.5,
+                        fill: false,
+                        parsing: false
+                    };
+                }).filter(ds => ds.data.length > 0);
+                if (!datasets.length) return;
+                chartInstances[key] = new Chart(canvas.getContext('2d'), {
+                    type: 'line',
+                    data: { datasets },
+                    options: chartOptionsReal()
+                });
+            } else {
+                const t = tickers[0];
+                const seriesId = map[t];
+                const points = sliceByRange(seriesRoot[seriesId], rangeKey);
+                if (!points.length) return;
+                const dataset = {
+                    label: t,
+                    data: points.map(p => ({ x: p.t, o: p.o, h: p.h, l: p.l, c: p.c })),
+                    color: { up: '#10b981', down: '#ef4444', unchanged: '#94a3b8' },
+                    borderColor: '#94a3b8'
+                };
+                chartInstances[key] = new Chart(canvas.getContext('2d'), {
+                    type: typeKey === 'candles' ? 'candlestick' : 'ohlc',
+                    data: { datasets: [dataset] },
+                    options: chartOptionsReal()
+                });
+            }
+        }
+
+        function chartOptionsReal() {
+            return {
+                responsive: true,
+                plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+                scales: {
+                    x: {
+                        type: 'timeseries',
+                        ticks: { color: '#94a3b8', font: { size: 10 } },
+                        grid: { color: 'rgba(148,163,184,0.08)' }
+                    },
+                    y: {
+                        ticks: { color: '#94a3b8', font: { size: 10 } },
+                        grid: { color: 'rgba(148,163,184,0.08)' }
+                    }
+                }
+            };
+        }
+
+        function renderChartFor(key) {
+            if (REAL_DATA_CONFIG[key]) {
+                renderRealChartFor(key);
+            } else {
+                renderSampleChartFor(key);
+            }
         }
 
         function exportChart(canvasId, title) {
@@ -2868,6 +3143,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     if (btn && i === 0) btn.classList.add('active-tab-btn');
                 });
             });
+            injectChartControls();
             renderChartFor('exchange');
             loadLiveData();
         });
@@ -2924,74 +3200,116 @@ Stack: ${error ? error.stack : 'N/A'}`;
             markLive(key);
         }
 
+        const seriesKeyMap = {};
+        function setSeriesKey(panelKey, displayName, seriesId) {
+            if (!seriesId) return;
+            if (!seriesKeyMap[panelKey]) seriesKeyMap[panelKey] = {};
+            seriesKeyMap[panelKey][displayName] = seriesId;
+        }
+
+        const DOLAR_NOMBRE_A_CASA = {
+            'Oficial': 'oficial', 'Blue': 'blue', 'Bolsa': 'bolsa',
+            'Contado con liquidación': 'contadoconliqui', 'Mayorista': 'mayorista',
+            'Cripto': 'cripto', 'Tarjeta': 'tarjeta'
+        };
+        const CRIPTO_NOMBRE_A_ID = {
+            'Bitcoin (BTC)': 'bitcoin', 'Ethereum (ETH)': 'ethereum',
+            'BNB': 'binancecoin', 'Solana (SOL)': 'solana'
+        };
+
         function renderDolar(dolar) {
             if (!dolar || !dolar.length) return;
-            const rows = dolar.map(d => buildRow('exchange', d.nombre, [
-                { value: d.compra ? '$' + Number(d.compra).toLocaleString('es-AR', { minimumFractionDigits: 2 }) : '-' },
-                { value: d.venta ? '$' + Number(d.venta).toLocaleString('es-AR', { minimumFractionDigits: 2 }) : '-' }
-            ]));
+            const rows = dolar.map(d => {
+                setSeriesKey('exchange', d.nombre, DOLAR_NOMBRE_A_CASA[d.nombre]);
+                return buildRow('exchange', d.nombre, [
+                    { value: d.compra ? '$' + Number(d.compra).toLocaleString('es-AR', { minimumFractionDigits: 2 }) : '-' },
+                    { value: d.venta ? '$' + Number(d.venta).toLocaleString('es-AR', { minimumFractionDigits: 2 }) : '-' }
+                ]);
+            });
             renderRows('exchange', rows);
         }
 
         function renderCripto(cripto) {
             if (!cripto || !cripto.length) return;
-            const rows = cripto.map(c => buildRow('cryptos', c.nombre, [
-                { value: '$' + Number(c.usd).toLocaleString('es-AR', { minimumFractionDigits: 2 }) },
-                { value: fmtPct(c.change_24h), cls: pctClass(c.change_24h) }
-            ]));
+            const rows = cripto.map(c => {
+                setSeriesKey('cryptos', c.nombre, CRIPTO_NOMBRE_A_ID[c.nombre]);
+                return buildRow('cryptos', c.nombre, [
+                    { value: '$' + Number(c.usd).toLocaleString('es-AR', { minimumFractionDigits: 2 }) },
+                    { value: fmtPct(c.change_24h), cls: pctClass(c.change_24h) }
+                ]);
+            });
             renderRows('cryptos', rows);
         }
 
         function renderTwelveData(key, items) {
             if (!items || !items.length) return;
-            const rows = items.map(it => buildRow(key, it.nombre, [
-                { value: fmtMoneda(it.close, it.currency) },
-                { value: fmtPct(it.percent_change), cls: pctClass(it.percent_change) }
-            ]));
+            const rows = items.map(it => {
+                setSeriesKey(key, it.nombre, it.symbol);
+                return buildRow(key, it.nombre, [
+                    { value: fmtMoneda(it.close, it.currency) },
+                    { value: fmtPct(it.percent_change), cls: pctClass(it.percent_change) }
+                ]);
+            });
             renderRows(key, rows);
         }
 
         function renderTasasLocales(items) {
             if (!items || !items.length) return;
-            const rows = items.map(it => buildRow('local_rates', it.nombre, [
-                { value: (it.valor != null ? Number(it.valor).toFixed(2) + '%' : '-') }
-            ]));
+            const rows = items.map(it => {
+                setSeriesKey('local_rates', it.nombre, it.key);
+                return buildRow('local_rates', it.nombre, [
+                    { value: (it.valor != null ? Number(it.valor).toFixed(2) + '%' : '-') }
+                ]);
+            });
             renderRows('local_rates', rows);
         }
 
         function renderFci(items) {
             if (!items || !items.length) return;
-            const rows = items.map(it => buildRow('fci', it.nombre, [
-                { value: (it.tna != null ? Number(it.tna).toFixed(2) + '%' : '-') },
-                { value: (it.categoria === 'mm' ? 'Money Market' : (it.categoria === 'rm' ? 'Renta Mixta' : (it.categoria || '-'))) }
-            ]));
+            const rows = items.map(it => {
+                setSeriesKey('fci', it.nombre, it.slug);
+                return buildRow('fci', it.nombre, [
+                    { value: (it.tna != null ? Number(it.tna).toFixed(2) + '%' : '-') },
+                    { value: (it.categoria === 'mm' ? 'Money Market' : (it.categoria === 'rm' ? 'Renta Mixta' : (it.categoria || '-'))) }
+                ]);
+            });
             renderRows('fci', rows);
         }
 
         function renderBonos(items) {
             if (!items || !items.length) return;
-            const rows = items.map(it => buildRow('bonds', it.symbol, [
-                { value: (it.price_usd != null ? 'USD ' + Number(it.price_usd).toFixed(2) : '-') },
-                { value: fmtPct(it.pct_change), cls: pctClass(it.pct_change) }
-            ]));
+            const rows = items.map(it => {
+                setSeriesKey('bonds', it.symbol, it.symbol);
+                return buildRow('bonds', it.symbol, [
+                    { value: (it.price_usd != null ? 'USD ' + Number(it.price_usd).toFixed(2) : '-') },
+                    { value: fmtPct(it.pct_change), cls: pctClass(it.pct_change) }
+                ]);
+            });
             renderRows('bonds', rows);
         }
 
         function renderOns(items) {
             if (!items || !items.length) return;
-            const rows = items.map(it => buildRow('corporate', it.symbol, [
-                { value: (it.price != null ? Number(it.price).toFixed(2) : '-') },
-                { value: fmtPct(it.pct_change), cls: pctClass(it.pct_change) }
-            ]));
+            const rows = items.map(it => {
+                setSeriesKey('corporate', it.symbol, it.symbol);
+                return buildRow('corporate', it.symbol, [
+                    { value: (it.price != null ? Number(it.price).toFixed(2) : '-') },
+                    { value: fmtPct(it.pct_change), cls: pctClass(it.pct_change) }
+                ]);
+            });
             renderRows('corporate', rows);
         }
 
         function renderAccionesArg(items) {
             if (!items || !items.length) return;
-            const rows = items.map(it => buildRow('acciones_arg', it.nombre + ' (' + it.symbol.replace('.BA', '') + ')', [
-                { value: (it.price != null ? '$' + Number(it.price).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-') },
-                { value: fmtPct(it.pct_change), cls: pctClass(it.pct_change) }
-            ]));
+            const rows = items.map(it => {
+                const name = it.nombre + ' (' + it.symbol.replace('.BA', '') + ')';
+                setSeriesKey('acciones_arg', name, it.symbol);
+                return buildRow('acciones_arg', name, [
+                    { value: (it.price != null ? '$' + Number(it.price).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-') },
+                    { value: fmtPct(it.pct_change), cls: pctClass(it.pct_change) }
+                ]);
+            });
             renderRows('acciones_arg', rows);
         }
 
