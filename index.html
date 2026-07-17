@@ -3054,8 +3054,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         backgroundColor: palette[i % palette.length] + '22',
                         tension: 0.25,
                         pointRadius: 1.5,
-                        fill: false,
-                        parsing: false
+                        fill: false
                     };
                 }).filter(ds => ds.data.length > 0);
                 if (!datasets.length) return;
