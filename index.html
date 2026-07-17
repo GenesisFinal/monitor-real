@@ -2929,6 +2929,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
 
         const chartRangeState = {};
         const chartTypeState = {};
+        const bandaVisibleState = {};
         const historyCache = {};
 
         async function ensureHistoryLoaded(file) {
@@ -2993,6 +2994,19 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     bar.appendChild(typeGroup);
                 }
 
+                if (key === 'exchange') {
+                    const bandaGroup = document.createElement('div');
+                    bandaGroup.className = 'chart-ctrl-group';
+                    const bandaBtn = document.createElement('button');
+                    bandaBtn.type = 'button';
+                    bandaBtn.id = 'chart-banda-toggle-' + key;
+                    bandaBtn.className = 'chart-ctrl-btn';
+                    bandaBtn.textContent = 'Banda cambiaria';
+                    bandaBtn.onclick = () => toggleBandaCambiaria(key);
+                    bandaGroup.appendChild(bandaBtn);
+                    bar.appendChild(bandaGroup);
+                }
+
                 const note = document.createElement('span');
                 note.className = 'chart-source-note';
                 note.textContent = cfg.ohlc ? 'Datos reales OHLC' : 'Datos reales';
@@ -3008,6 +3022,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
             if (bar) {
                 bar.querySelectorAll('[data-range]').forEach(b => b.classList.toggle('chart-ctrl-active', b.dataset.range === rangeKey));
             }
+            renderChartFor(key);
+        }
+
+        function toggleBandaCambiaria(key) {
+            bandaVisibleState[key] = !bandaVisibleState[key];
+            const btn = document.getElementById('chart-banda-toggle-' + key);
+            if (btn) btn.classList.toggle('chart-ctrl-active', bandaVisibleState[key]);
             renderChartFor(key);
         }
 
@@ -3057,6 +3078,35 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         fill: false
                     };
                 }).filter(ds => ds.data.length > 0);
+
+                if (key === 'exchange' && bandaVisibleState[key] && data && data.banda) {
+                    const bandaPoints = sliceByRange(data.banda, rangeKey);
+                    if (bandaPoints.length) {
+                        datasets.push({
+                            label: 'Banda cambiaria - piso',
+                            data: bandaPoints.map(p => ({ x: p.t, y: p.piso })),
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'transparent',
+                            borderDash: [6, 4],
+                            borderWidth: 1.5,
+                            tension: 0,
+                            pointRadius: 0,
+                            fill: false
+                        });
+                        datasets.push({
+                            label: 'Banda cambiaria - techo',
+                            data: bandaPoints.map(p => ({ x: p.t, y: p.techo })),
+                            borderColor: '#a855f7',
+                            backgroundColor: 'transparent',
+                            borderDash: [6, 4],
+                            borderWidth: 1.5,
+                            tension: 0,
+                            pointRadius: 0,
+                            fill: false
+                        });
+                    }
+                }
+
                 if (!datasets.length) return;
                 chartInstances[key] = new Chart(canvas.getContext('2d'), {
                     type: 'line',
@@ -3217,7 +3267,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             'BNB': 'binancecoin', 'Solana (SOL)': 'solana'
         };
 
-        function renderDolar(dolar) {
+        function renderDolar(dolar, bandaCambiaria) {
             if (!dolar || !dolar.length) return;
             const rows = dolar.map(d => {
                 setSeriesKey('exchange', d.nombre, DOLAR_NOMBRE_A_CASA[d.nombre]);
@@ -3226,6 +3276,12 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     { value: d.venta ? '$' + Number(d.venta).toLocaleString('es-AR', { minimumFractionDigits: 2 }) : '-' }
                 ]);
             });
+            if (bandaCambiaria && bandaCambiaria.piso != null && bandaCambiaria.techo != null) {
+                rows.push(buildRow('exchange', 'Banda cambiaria (piso / techo)', [
+                    { value: '$' + Number(bandaCambiaria.piso).toLocaleString('es-AR', { minimumFractionDigits: 2 }) },
+                    { value: '$' + Number(bandaCambiaria.techo).toLocaleString('es-AR', { minimumFractionDigits: 2 }) }
+                ]));
+            }
             renderRows('exchange', rows);
         }
 
@@ -3332,7 +3388,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 if (!res.ok) throw new Error('No se pudo cargar data/live_data.json');
                 const data = await res.json();
 
-                renderDolar(data.dolar);
+                renderDolar(data.dolar, data.banda_cambiaria);
                 renderCripto(data.cripto);
                 if (data.indices) renderTwelveData('indices', data.indices);
                 if (data.forex) renderTwelveData('forex', data.forex);

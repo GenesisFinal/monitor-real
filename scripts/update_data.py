@@ -7,6 +7,8 @@ Se ejecuta diariamente vía GitHub Actions a las 20:00 hora Argentina (23:00 UTC
 
 Fuentes:
 - Dólar (actual e histórico): dolarapi.com / api.argentinadatos.com (sin key)
+- Banda cambiaria (piso/techo, actual e histórico): BCRA API oficial v4.0
+  (sin key), idVariable 1187 (límite inferior) y 1188 (límite superior)
 - Riesgo país e inflación: api.argentinadatos.com (sin key)
 - Criptomonedas (actual e histórico): CoinGecko (sin key)
 - Índices/Acciones/ETFs/Commodities/Divisas globales (actual e histórico):
@@ -369,7 +371,62 @@ def build_history_dolar():
             casas_out[casa] = {"daily": daily, "weekly": weekly}
     if not casas_out:
         return None
-    return {"updated_at": datetime.now(timezone.utc).isoformat(), "casas": casas_out}
+    result = {"updated_at": datetime.now(timezone.utc).isoformat(), "casas": casas_out}
+    banda = build_history_banda_cambiaria()
+    if banda:
+        result["banda"] = banda
+    return result
+
+
+# Régimen de bandas cambiarias (BCRA, API oficial v4.0/monetarias).
+# idVariable confirmado por inspección directa del listado completo de
+# variables (no figuran en la categoría "tasas" sino en "Principales
+# Variables"): 1187 = límite inferior (piso), 1188 = límite superior (techo).
+# Vigente desde 2025-04-14 (lanzamiento del régimen de bandas).
+BANDA_IDS = {"piso": 1187, "techo": 1188}
+BANDA_DESDE = "2025-04-14"
+
+
+def get_banda_cambiaria():
+    hoy = date.today()
+    desde = (hoy - timedelta(days=10)).isoformat()
+    hasta = hoy.isoformat()
+    piso_detalle = bcra_fetch_all(BANDA_IDS["piso"], desde, hasta)
+    techo_detalle = bcra_fetch_all(BANDA_IDS["techo"], desde, hasta)
+    if not piso_detalle or not techo_detalle:
+        return None
+    piso_last = piso_detalle[0]
+    techo_last = techo_detalle[0]
+    return {
+        "piso": piso_last.get("valor"),
+        "techo": techo_last.get("valor"),
+        "fecha": piso_last.get("fecha"),
+    }
+
+
+def build_history_banda_cambiaria():
+    hoy = date.today()
+    hasta = hoy.isoformat()
+    piso_detalle = bcra_fetch_all(BANDA_IDS["piso"], BANDA_DESDE, hasta)
+    time.sleep(1)
+    techo_detalle = bcra_fetch_all(BANDA_IDS["techo"], BANDA_DESDE, hasta)
+    if not piso_detalle or not techo_detalle:
+        return None
+    piso_by_fecha = {r.get("fecha"): r.get("valor") for r in piso_detalle}
+    techo_by_fecha = {r.get("fecha"): r.get("valor") for r in techo_detalle}
+    fechas = sorted(set(piso_by_fecha) & set(techo_by_fecha))
+    merged = [
+        {"fecha": f, "piso": piso_by_fecha[f], "techo": techo_by_fecha[f]}
+        for f in fechas
+    ]
+    daily, weekly = build_daily_weekly(
+        merged,
+        date_fn=lambda r: _parse_date(r.get("fecha")),
+        point_fn=lambda r: {"piso": r.get("piso"), "techo": r.get("techo")},
+    )
+    if not (daily or weekly):
+        return None
+    return {"daily": daily, "weekly": weekly}
 
 
 BCRA_TASAS_IDS = {
@@ -634,6 +691,7 @@ def main():
     live_data = {
         "updated_at": datetime.now(timezone.utc).isoformat(),
         "dolar": get_dolares(),
+        "banda_cambiaria": get_banda_cambiaria(),
         "riesgo_pais": get_riesgo_pais(),
         "inflacion": get_inflacion(),
         "cripto": get_cripto(),
