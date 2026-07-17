@@ -1,0 +1,49 @@
+{
+  "updated_at": "2026-07-17T13:00:00.000Z",
+  "dolar": [
+    { "casa": "oficial", "nombre": "Oficial", "compra": 1450, "venta": 1500, "fecha": "2026-07-17T13:00:00.000Z" },
+    { "casa": "blue", "nombre": "Blue", "compra": 1505, "venta": 1525, "fecha": "2026-07-17T12:59:00.000Z" },
+    { "casa": "bolsa", "nombre": "Bolsa (MEP)", "compra": 1512.7, "venta": 1515.7, "fecha": "2026-07-17T12:59:00.000Z" },
+    { "casa": "contadoconliqui", "nombre": "Contado con liquidación", "compra": 1566.4, "venta": 1567.7, "fecha": "2026-07-17T12:59:00.000Z" },
+    { "casa": "mayorista", "nombre": "Mayorista", "compra": 1467, "venta": 1476, "fecha": "2026-07-16T16:35:00.000Z" },
+    { "casa": "cripto", "nombre": "Cripto", "compra": 1558.44, "venta": 1560.81, "fecha": "2026-07-17T12:59:00.000Z" },
+    { "casa": "tarjeta", "nombre": "Tarjeta", "compra": 1878.5, "venta": 1943.5, "fecha": "2026-07-17T10:00:00.000Z" }
+  ],
+  "riesgo_pais": { "valor": 410, "fecha": "2026-07-14" },
+  "inflacion": { "valor": 1.9, "fecha": "2026-06-30" },
+  "cripto": [
+    { "id": "bitcoin", "nombre": "Bitcoin (BTC)", "usd": 63969, "change_24h": -0.3138561797967158 },
+    { "id": "ethereum", "nombre": "Ethereum (ETH)", "usd": 1844.79, "change_24h": -1.3566869170016342 },
+    { "id": "tether", "nombre": "USDT", "usd": 0.999272, "change_24h": -0.0014181288850337963 },
+    { "id": "binancecoin", "nombre": "BNB", "usd": 565.57, "change_24h": -1.7256946251510228 },
+    { "id": "solana", "nombre": "Solana (SOL)", "usd": 75.21, "change_24h": -0.8755782911725465 }
+  ],
+  "indices": [
+    { "symbol": "SPY", "nombre": "S&P 500 (proxy SPY)", "close": "746.36", "percent_change": "-0.58077191", "currency": "USD" },
+    { "symbol": "DIA", "nombre": "Dow Jones (proxy DIA)", "close": "522.47", "percent_change": "-0.44967266", "currency": "USD" },
+    { "symbol": "QQQ", "nombre": "Nasdaq (proxy QQQ)", "close": "700.9", "percent_change": "-0.71394204", "currency": "USD" }
+  ],
+  "stocks": [
+    { "symbol": "AAPL", "nombre": "Apple Inc.", "close": "329.32", "percent_change": "-1.18226", "currency": "USD" },
+    { "symbol": "MSFT", "nombre": "Microsoft Corp.", "close": "394.41", "percent_change": "-1.66791", "currency": "USD" },
+    { "symbol": "AMZN", "nombre": "Amazon.com Inc.", "close": "248.635", "percent_change": "-0.50222073", "currency": "USD" },
+    { "symbol": "GOOGL", "nombre": "Alphabet Inc.", "close": "346.09", "percent_change": "-2.36134", "currency": "USD" }
+  ],
+  "etfs": [
+    { "symbol": "SPY", "nombre": "SPY (S&P 500)", "close": "746.36", "percent_change": "-0.58077191", "currency": "USD" },
+    { "symbol": "QQQ", "nombre": "QQQ (Nasdaq 100)", "close": "700.9", "percent_change": "-0.71394204", "currency": "USD" },
+    { "symbol": "EEM", "nombre": "EEM (Emergentes)", "close": "63.71", "percent_change": "-0.74778380", "currency": "USD" }
+  ],
+  "commodities": [
+    { "symbol": "GLD", "nombre": "Oro (proxy GLD)", "close": "368.33", "percent_change": "0.92339123", "currency": "USD" },
+    { "symbol": "USO", "nombre": "Petróleo (proxy USO)", "close": "124.14", "percent_change": "4.056996", "currency": "USD" },
+    { "symbol": "SLV", "nombre": "Plata (proxy SLV)", "close": "50.705", "percent_change": "0.62512525", "currency": "USD" },
+    { "symbol": "CORN", "nombre": "Maíz (proxy CORN)", "close": "17.72", "percent_change": "0.56753210", "currency": "USD" }
+  ],
+  "forex": [
+    { "symbol": "EUR/USD", "nombre": "EUR/USD", "close": "1.14343", "percent_change": "-0.076902238", "currency": null },
+    { "symbol": "USD/BRL", "nombre": "USD/BRL", "close": "5.11125", "percent_change": "0.16245473", "currency": null },
+    { "symbol": "USD/JPY", "nombre": "USD/JPY", "close": "162.47002", "percent_change": "0.056164960", "currency": null },
+    { "symbol": "GBP/USD", "nombre": "GBP/USD", "close": "1.34535", "percent_change": "-0.19806828", "currency": null }
+  ]
+}
