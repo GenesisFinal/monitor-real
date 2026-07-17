@@ -638,22 +638,137 @@ def _ohlcv_point(r):
     }
 
 
+# ------------------------------------------------------------------
+# Bonos soberanos: cronograma oficial de amortización, para ajustar el
+# precio histórico por valor residual (VR) y evitar los "saltos" que se
+# ven en el gráfico cada vez que el bono paga una cuota de capital (el
+# precio de mercado se cotiza "por 100 VN original", así que cuando se
+# amortiza una cuota el precio cae de golpe aunque no haya pérdida real
+# para el tenedor: cobra esa cuota en efectivo). El ajuste consiste en
+# recalcular el precio "por 100 de capital ORIGINAL" a "por 100 de VR
+# vigente a esa fecha" (precio técnico / paridad), que es continuo.
+#
+# Fuente (oficial, decretos de la reestructuración 2020, infoleg.gob.ar):
+# - Decreto 701/2020 Anexo (Globales, ley NY): GD30, GD35
+# - Decreto 676/2020 Anexo IV (Bonares, ley argentina): AL29, AL30, AL35,
+#   AE38 - términos económicos idénticos a su par "Global".
+# Confirmado que AL30/AE38 replican textualmente a GD30/GD38.
+# ------------------------------------------------------------------
+
+def _semestral_dates(start_year, start_month, count):
+    dates = []
+    y, m = start_year, start_month
+    for _ in range(count):
+        dates.append(f"{y:04d}-{m:02d}-09")
+        m += 6
+        if m > 12:
+            m -= 12
+            y += 1
+    return dates
+
+
+# AL30 / GD30: 13 cuotas semestrales (4% + 12x8%), 9-jul-2024 a 9-jul-2030
+_AL30_GD30_SCHEDULE = list(zip(_semestral_dates(2024, 7, 13), [4] + [8] * 12))
+# AL29: 10 cuotas iguales del 10%, 9-ene-2025 a 9-jul-2029
+_AL29_SCHEDULE = list(zip(_semestral_dates(2025, 1, 10), [10] * 10))
+# AL35 / GD35: 10 cuotas iguales del 10%, 9-ene-2031 a 9-jul-2035
+_AL35_GD35_SCHEDULE = list(zip(_semestral_dates(2031, 1, 10), [10] * 10))
+# AE38: 22 cuotas iguales de 100/22 %, 9-jul-2027 a 9-ene-2038
+_AE38_SCHEDULE = list(zip(_semestral_dates(2027, 7, 22), [100.0 / 22] * 22))
+
+BOND_AMORT_SCHEDULES = {
+    "AL30": _AL30_GD30_SCHEDULE,
+    "GD30": _AL30_GD30_SCHEDULE,
+    "AL29": _AL29_SCHEDULE,
+    "AL35": _AL35_GD35_SCHEDULE,
+    "GD35": _AL35_GD35_SCHEDULE,
+    "AE38": _AE38_SCHEDULE,
+}
+
+
+def _find_ex_date(dated_closes, fecha_teorica, window_days=5, umbral=-0.03):
+    """
+    La fecha de "corte" que efectivamente usa el mercado para reflejar el
+    pago de una cuota puede no coincidir con la fecha exacta del decreto
+    (settlement T+1/T+2, feriados, convención de cada cámara compensadora).
+    Se busca, dentro de +-window_days días corridos de la fecha teórica, el
+    día con la mayor caída porcentual (probable "ex-fecha" real de mercado).
+    Si no se detecta ninguna caída relevante (>3%), se usa la fecha teórica
+    sin modificar.
+    """
+    exp = _parse_date(fecha_teorica)
+    if exp is None:
+        return fecha_teorica
+    lo = (exp - timedelta(days=window_days)).isoformat()
+    hi = (exp + timedelta(days=window_days)).isoformat()
+    best_date, best_chg = None, umbral
+    for i in range(1, len(dated_closes)):
+        d, c = dated_closes[i]
+        if not (lo <= d <= hi) or not c:
+            continue
+        prev_c = dated_closes[i - 1][1]
+        if not prev_c:
+            continue
+        chg = (c - prev_c) / prev_c
+        if chg < best_chg:
+            best_chg, best_date = chg, d
+    return best_date or fecha_teorica
+
+
+def _residual_value_from_schedule(schedule, fecha_iso):
+    """% de valor residual (VR) vigente en fecha_iso, sobre 100 original."""
+    if not schedule or not fecha_iso:
+        return 100.0
+    amortizado = sum(pct for fecha_pago, pct in schedule if fecha_pago <= fecha_iso)
+    return max(100.0 - amortizado, 0.01)
+
+
 def build_history_bonos():
     bonos_out = {}
     for sym in BONOS_SOBERANOS:
         data = fetch_json(f"https://data912.com/historical/bonds/{sym}")
         if not data or not isinstance(data, list):
             continue
+
+        # Detectar la fecha real ("ex-fecha") de cada pago dentro de los
+        # datos de mercado, en vez de asumir que coincide con el decreto.
+        dated_closes = sorted(
+            [(str(r.get("date", ""))[:10], r.get("c")) for r in data if r.get("c") is not None and r.get("date")],
+            key=lambda x: x[0],
+        )
+        schedule = BOND_AMORT_SCHEDULES.get(sym)
+        effective_schedule = None
+        if schedule:
+            effective_schedule = [
+                (_find_ex_date(dated_closes, fecha_pago), pct) for fecha_pago, pct in schedule
+            ]
+
+        def _point_fn(r, _sched=effective_schedule):
+            p = _ohlcv_point(r)
+            if p is None:
+                return None
+            vr = _residual_value_from_schedule(_sched, str(r.get("date", ""))[:10])
+            factor = 100.0 / vr
+            for k in ("o", "h", "l", "c"):
+                if p.get(k) is not None:
+                    p[k] = round(p[k] * factor, 4)
+            return p
+
         daily, weekly = build_daily_weekly(
             data,
             date_fn=lambda r: _parse_date(r.get("date")),
-            point_fn=_ohlcv_point,
+            point_fn=_point_fn,
         )
         if daily or weekly:
             bonos_out[sym] = {"daily": daily, "weekly": weekly}
     if not bonos_out:
         return None
-    return {"updated_at": datetime.now(timezone.utc).isoformat(), "moneda": "ARS", "bonos": bonos_out}
+    return {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "moneda": "ARS",
+        "ajuste": "precio_tecnico_por_valor_residual",
+        "bonos": bonos_out,
+    }
 
 
 ACCIONES_ARG_TICKERS_DATA912 = {

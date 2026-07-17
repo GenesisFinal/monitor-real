@@ -2856,6 +2856,26 @@ Stack: ${error ? error.stack : 'N/A'}`;
 
         const MESES = ['Ago','Sep','Oct','Nov','Dic','Ene','Feb','Mar','Abr','May','Jun','Jul'];
 
+        function updateChartTitle(key, tickers) {
+            const canvas = document.getElementById('chart-' + key);
+            if (!canvas) return;
+            const h3 = canvas.parentElement && canvas.parentElement.querySelector('h3');
+            if (!h3 || !tickers || !tickers.length) return;
+            h3.textContent = tickers.length === 1
+                ? 'Evolución de ' + tickers[0]
+                : 'Evolución comparada de ' + tickers.join(', ');
+        }
+
+        // Base 100: para comparar 2+ series de distinta escala en el mismo
+        // gráfico se reexpresa cada una tomando su primer valor visible
+        // como 100. No se aplica al panel Dólar (las cotizaciones deben
+        // verse en su valor real).
+        function rebaseArrayTo100(arr) {
+            const first = arr.find(v => v != null && v !== 0);
+            if (!first) return arr;
+            return arr.map(v => (v != null ? Math.round((v / first) * 100 * 100) / 100 : v));
+        }
+
         function renderSampleChartFor(key) {
             const canvas = document.getElementById('chart-' + key);
             if (!canvas || typeof Chart === 'undefined') return;
@@ -2863,10 +2883,12 @@ Stack: ${error ? error.stack : 'N/A'}`;
             const tickers = selectedTickers[key] && selectedTickers[key].size > 0
                 ? [...selectedTickers[key]]
                 : [firstRow ? firstRow.dataset.ticker : 'Serie'];
+            updateChartTitle(key, tickers);
+            const baseRebase = key !== 'exchange' && tickers.length > 1;
             const palette = ['#2563eb', '#10b981', '#ef4444', '#f59e0b', '#6366f1', '#06b6d4'];
             const datasets = tickers.slice(0, 6).map((t, i) => ({
                 label: t,
-                data: sampleSeries(key + t),
+                data: baseRebase ? rebaseArrayTo100(sampleSeries(key + t)) : sampleSeries(key + t),
                 borderColor: palette[i % palette.length],
                 backgroundColor: palette[i % palette.length] + '22',
                 tension: 0.35,
@@ -2944,6 +2966,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 console.warn('[historia] no se pudo cargar', file, e);
                 return null;
             }
+        }
+
+        function rebasePointsTo100(points) {
+            const first = points.find(p => p.y != null && p.y !== 0);
+            if (!first) return points;
+            const base = first.y;
+            return points.map(p => ({ x: p.x, y: p.y != null ? Math.round((p.y / base) * 100 * 100) / 100 : null }));
         }
 
         function sliceByRange(seriesObj, rangeKey) {
@@ -3057,6 +3086,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 : [firstRow ? firstRow.dataset.ticker : null];
             tickers = tickers.filter(Boolean);
             if (typeKey !== 'line') tickers = tickers.slice(0, 1);
+            updateChartTitle(key, tickers);
+            const baseRebase = key !== 'exchange' && tickers.length > 1;
 
             const palette = ['#2563eb', '#10b981', '#ef4444', '#f59e0b', '#6366f1', '#06b6d4'];
             const map = seriesKeyMap[key] || {};
@@ -3068,9 +3099,10 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 const datasets = tickers.slice(0, 6).map((t, i) => {
                     const seriesId = map[t];
                     const points = sliceByRange(seriesRoot[seriesId], rangeKey);
+                    const raw = points.map(p => ({ x: p.t, y: p.c }));
                     return {
                         label: t,
-                        data: points.map(p => ({ x: p.t, y: p.c })),
+                        data: baseRebase ? rebasePointsTo100(raw) : raw,
                         borderColor: palette[i % palette.length],
                         backgroundColor: palette[i % palette.length] + '22',
                         tension: 0.25,
