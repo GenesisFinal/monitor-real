@@ -362,10 +362,16 @@ def get_indices_globales():
                 result = data["chart"]["result"][0]
                 meta = result["meta"]
                 price = meta.get("regularMarketPrice")
-                prev = meta.get("chartPreviousClose")
-                pct_dia = ((price - prev) / prev * 100) if (price and prev) else None
                 closes = result.get("indicators", {}).get("quote", [{}])[0].get("close") or []
                 closes_validas = [c for c in closes if c is not None]
+                # Var. Día %: precio actual vs. el cierre diario anterior real
+                # (NO se usa meta.chartPreviousClose: para range=1y ese campo
+                # es el cierre previo al INICIO del rango, es decir de hace
+                # ~1 año, y da variaciones diarias absurdas del 15-20%).
+                pct_dia = None
+                if price and len(closes_validas) >= 2:
+                    prev_close = closes_validas[-2]
+                    pct_dia = ((price - prev_close) / prev_close * 100) if prev_close else None
                 pct_1y = None
                 if price and closes_validas and closes_validas[0]:
                     pct_1y = (price - closes_validas[0]) / closes_validas[0] * 100
