@@ -1202,6 +1202,21 @@ Stack: ${error ? error.stack : 'N/A'}`;
                             </tbody>
                         </table>
                     </div>
+                    <div class="text-sm px-1">
+                        <a id="link-otras-divisas" href="#" target="_blank" rel="noopener" class="text-brandBlue hover:underline font-semibold">Otras Divisas</a>
+                    </div>
+                    <script>
+                        (function () {
+                            var ayer = new Date();
+                            ayer.setDate(ayer.getDate() - 1);
+                            var y = ayer.getFullYear();
+                            var m = String(ayer.getMonth() + 1).padStart(2, '0');
+                            var d = String(ayer.getDate()).padStart(2, '0');
+                            var fecha = y + '-' + m + '-' + d;
+                            var el = document.getElementById('link-otras-divisas');
+                            if (el) el.href = 'https://www.bcra.gob.ar/cotizaciones-por-fecha-2/?date2=' + fecha;
+                        })();
+                    </script>
                     <div class="glass-card rounded-2xl p-4 relative">
                         <button class="chart-export-btn" onclick="exportChart('chart-forex', 'Mercado de Divisas (Forex)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
                         <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
