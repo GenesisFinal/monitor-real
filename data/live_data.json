@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T00:46:02.893581+00:00",
+  "updated_at": "2026-07-18T01:09:43.475371+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63883,
-      "change_24h": 0.15125884513521892
+      "usd": 63857,
+      "change_24h": -0.1909832638980083
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1839.96,
-      "change_24h": -1.067768242884676
+      "usd": 1838.34,
+      "change_24h": -1.5586302098945668
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999332,
-      "change_24h": 0.010941392843773691
+      "usd": 0.999313,
+      "change_24h": 0.011707394788143612
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 567.91,
-      "change_24h": -0.7416934796016027
+      "usd": 566.92,
+      "change_24h": -1.250044577838011
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.07,
-      "change_24h": -0.15412400453778088
+      "usd": 75.02,
+      "change_24h": -0.6666242658596069
     }
   ],
   "tasas_locales": [
@@ -536,10 +536,29 @@
   ],
   "rates_intl": [
     {
-      "symbol": "US1Y-US",
+      "symbol": "FEDFUNDS-TARGET",
+      "nombre": "FED Funds Rate (EE.UU.)",
+      "close": 3.625,
+      "percent_change": null,
+      "display": "3.50% - 3.75%"
+    },
+    {
+      "symbol": "ECBMRRFR",
+      "nombre": "BCE (Zona Euro)",
+      "close": 2.4,
+      "percent_change": 0.0
+    },
+    {
+      "symbol": "SOFR",
+      "nombre": "SOFR",
+      "close": 3.62,
+      "percent_change": -0.5494505494505499
+    },
+    {
+      "symbol": "DGS1",
       "nombre": "US1Y",
-      "close": 4.004,
-      "percent_change": 0.4516
+      "close": 3.99,
+      "percent_change": 0.5037783375314866
     },
     {
       "symbol": "^FVX",
@@ -635,50 +654,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14376",
-      "percent_change": "-0.00087430165",
+      "close": "1.14378",
+      "percent_change": "0.00087430165",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34524",
-      "percent_change": "0.00074336731",
+      "close": "1.34525",
+      "percent_change": "0.0014867346",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.41374",
-      "percent_change": "0.0018841125",
+      "close": "162.41131",
+      "percent_change": "0.00038790552",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11449",
-      "percent_change": "-0.021112017",
+      "close": "5.11062",
+      "percent_change": "-0.096763411",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54499",
-      "percent_change": "-0.0038186081",
+      "close": "17.5443",
+      "percent_change": "-0.0077512046",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.17781",
-      "percent_change": "-0.016274993",
+      "close": "40.17788",
+      "percent_change": "-0.016100795",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1476.868",
-      "percent_change": "-0.12162918",
+      "close": "1477.30059",
+      "percent_change": "-0.092373771",
       "currency": null
     }
   ]
