@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T05:32:38.097234+00:00",
+  "updated_at": "2026-07-18T05:43:20.935947+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63929,
-      "change_24h": 1.2232298545569678
+      "usd": 63920,
+      "change_24h": 1.5589266814489822
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1844.52,
-      "change_24h": 0.4537346654391471
+      "usd": 1845.26,
+      "change_24h": 0.7512482010673632
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999286,
-      "change_24h": 0.016499217065958697
+      "usd": 0.99929,
+      "change_24h": 0.011529699945973642
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 566.84,
-      "change_24h": -0.5080702080598847
+      "usd": 566.86,
+      "change_24h": -0.30367453919622744
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 74.97,
-      "change_24h": 0.17473722342870945
+      "usd": 74.94,
+      "change_24h": 0.25307259972198065
     }
   ],
   "tasas_locales": [
@@ -2263,43 +2263,43 @@
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34522",
-      "percent_change": "-0.00074336731",
+      "close": "1.34523",
+      "percent_change": "0",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.41089",
-      "percent_change": "0.00012930184",
+      "close": "162.40973",
+      "percent_change": "-0.00058493690",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11091",
-      "percent_change": "-0.091094443",
+      "close": "5.11089",
+      "percent_change": "-0.091485406",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54929",
-      "percent_change": "0.020688877",
+      "close": "17.54909",
+      "percent_change": "0.019548994",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.17534",
-      "percent_change": "-0.022421664",
+      "close": "40.17763",
+      "percent_change": "-0.016722928",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.11878",
-      "percent_change": "-0.10466931",
+      "close": "1477.24539",
+      "percent_change": "-0.096106865",
       "currency": null
     }
   ]
