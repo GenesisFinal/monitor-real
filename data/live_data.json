@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T02:35:24.322630+00:00",
+  "updated_at": "2026-07-18T04:05:57.267358+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63972,
-      "change_24h": 0.9189541025625279
+      "usd": 63954,
+      "change_24h": 0.7825884534797751
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1843.74,
-      "change_24h": -0.060704537762453846
+      "usd": 1844.16,
+      "change_24h": -0.254527824658928
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999358,
-      "change_24h": 0.01796493332008279
+      "usd": 0.99934,
+      "change_24h": 0.017167970167157414
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 567.78,
-      "change_24h": -0.42291197174261386
+      "usd": 567.69,
+      "change_24h": -0.6571636607436386
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.31,
-      "change_24h": 0.3982700492484755
+      "usd": 75.28,
+      "change_24h": 0.28550197077690687
     }
   ],
   "tasas_locales": [
@@ -1111,36 +1111,385 @@
       ]
     }
   },
-  "bonds": [
+  "bonos_soberanos_usd": [
     {
-      "symbol": "GD30",
-      "price_usd": 57.99,
-      "pct_change": 0.15
+      "symbol": "BPD7",
+      "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2027",
+      "ley": "local",
+      "vencimiento": "2027-11-01",
+      "precio": 102.6,
+      "pct_change": 0.29,
+      "tir": 3.503,
+      "duration": 1.014
     },
     {
-      "symbol": "GD35",
-      "price_usd": 83.57,
-      "pct_change": -0.08
-    },
-    {
-      "symbol": "AL30",
-      "price_usd": 56.47,
-      "pct_change": 0.07
+      "symbol": "AO27",
+      "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2027",
+      "ley": "local",
+      "vencimiento": "2027-10-30",
+      "precio": 102.7,
+      "pct_change": 0,
+      "tir": 4.149,
+      "duration": 1.237
     },
     {
       "symbol": "AL29",
-      "price_usd": 55.37,
-      "pct_change": 0.19
+      "descripcion": "Bonar 2029 (ley Argentina)",
+      "ley": "local",
+      "vencimiento": "2029-07-09",
+      "precio": 55.37,
+      "pct_change": 0.19,
+      "tir": 5.91,
+      "duration": 1.68
+    },
+    {
+      "symbol": "GD29",
+      "descripcion": "Global 2029 (ley Nueva York)",
+      "ley": "NY",
+      "vencimiento": "2029-07-09",
+      "precio": 55.95,
+      "pct_change": 0.37,
+      "tir": 5.256,
+      "duration": 1.684
+    },
+    {
+      "symbol": "AL30",
+      "descripcion": "Bonar 2030 (ley Argentina)",
+      "ley": "local",
+      "vencimiento": "2030-07-09",
+      "precio": 56.47,
+      "pct_change": 0.07,
+      "tir": 7.376,
+      "duration": 2.128
+    },
+    {
+      "symbol": "AO28",
+      "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2028",
+      "ley": "local",
+      "vencimiento": "2028-10-31",
+      "precio": 97.89,
+      "pct_change": -0.11,
+      "tir": 7.371,
+      "duration": 2.137
+    },
+    {
+      "symbol": "GD30",
+      "descripcion": "Global 2030 (ley Nueva York)",
+      "ley": "NY",
+      "vencimiento": "2030-07-09",
+      "precio": 57.99,
+      "pct_change": 0.15,
+      "tir": 6.049,
+      "duration": 2.144
+    },
+    {
+      "symbol": "AO29",
+      "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2029",
+      "ley": "local",
+      "vencimiento": "2029-10-31",
+      "precio": 94.64,
+      "pct_change": 0,
+      "tir": 8.168,
+      "duration": 2.983
+    },
+    {
+      "symbol": "AN29",
+      "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2029",
+      "ley": "local",
+      "vencimiento": "2029-11-30",
+      "precio": 97.15,
+      "pct_change": 0.15,
+      "tir": 7.908,
+      "duration": 3.051
     },
     {
       "symbol": "AE38",
-      "price_usd": 83.64,
-      "pct_change": 0.08
+      "descripcion": "Bonar 2038 (ley Argentina)",
+      "ley": "local",
+      "vencimiento": "2038-01-09",
+      "precio": 83.64,
+      "pct_change": 0.08,
+      "tir": 8.853,
+      "duration": 4.896
+    },
+    {
+      "symbol": "GD38",
+      "descripcion": "Global 2038 (ley Nueva York)",
+      "ley": "NY",
+      "vencimiento": "2038-01-09",
+      "precio": 86.89,
+      "pct_change": -0.35,
+      "tir": 8.015,
+      "duration": 4.97
     },
     {
       "symbol": "AL35",
-      "price_usd": 80.82,
-      "pct_change": 0.24
+      "descripcion": "Bonar 2035 (ley Argentina)",
+      "ley": "local",
+      "vencimiento": "2035-07-09",
+      "precio": 80.82,
+      "pct_change": 0.24,
+      "tir": 8.855,
+      "duration": 5.644
+    },
+    {
+      "symbol": "GD35",
+      "descripcion": "Global 2035 (ley Nueva York)",
+      "ley": "NY",
+      "vencimiento": "2035-07-09",
+      "precio": 83.57,
+      "pct_change": -0.08,
+      "tir": 8.213,
+      "duration": 5.672
+    },
+    {
+      "symbol": "AL41",
+      "descripcion": "Bonar 2041 (ley Argentina)",
+      "ley": "local",
+      "vencimiento": "2041-07-09",
+      "precio": 76.91,
+      "pct_change": -0.15,
+      "tir": 7.791,
+      "duration": 6.392
+    },
+    {
+      "symbol": "GD41",
+      "descripcion": "Global 2041 (ley Nueva York)",
+      "ley": "NY",
+      "vencimiento": "2041-07-09",
+      "precio": 77.98,
+      "pct_change": -0.49,
+      "tir": 7.558,
+      "duration": 6.425
+    }
+  ],
+  "bonos_cer": [
+    {
+      "symbol": "X31L6",
+      "descripcion": "Letra del Tesoro (LECER) ajustada por CER, vto. jul. 2026",
+      "vencimiento": "2026-07-31",
+      "precio": 117.2,
+      "pct_change": 0.16,
+      "tir": 21.357,
+      "duration": 0.036
+    },
+    {
+      "symbol": "X30S6",
+      "descripcion": "Letra del Tesoro (LECER) ajustada por CER, vto. sep. 2026",
+      "vencimiento": "2026-09-30",
+      "precio": 112.19,
+      "pct_change": 0.12,
+      "tir": 4.304,
+      "duration": 0.203
+    },
+    {
+      "symbol": "TZXO6",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. oct. 2026",
+      "vencimiento": "2026-10-30",
+      "precio": 166.3,
+      "pct_change": 0.18,
+      "tir": 4.705,
+      "duration": 0.285
+    },
+    {
+      "symbol": "TX26",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2026",
+      "vencimiento": "2026-11-09",
+      "precio": 713.3,
+      "pct_change": 0.23,
+      "tir": 5.303,
+      "duration": 0.312
+    },
+    {
+      "symbol": "X30N6",
+      "descripcion": "Letra del Tesoro (LECER) ajustada por CER, vto. nov. 2026",
+      "vencimiento": "2026-11-30",
+      "precio": 120.36,
+      "pct_change": 0.18,
+      "tir": 5.202,
+      "duration": 0.37
+    },
+    {
+      "symbol": "TZXD6",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2026",
+      "vencimiento": "2026-12-15",
+      "precio": 292.5,
+      "pct_change": 0.17,
+      "tir": 5.048,
+      "duration": 0.411
+    },
+    {
+      "symbol": "TZXM7",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2027",
+      "vencimiento": "2027-03-31",
+      "precio": 215.7,
+      "pct_change": 0.16,
+      "tir": 5.47,
+      "duration": 0.701
+    },
+    {
+      "symbol": "TZX27",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2027",
+      "vencimiento": "2027-06-30",
+      "precio": 384.5,
+      "pct_change": 0,
+      "tir": 5.267,
+      "duration": 0.951
+    },
+    {
+      "symbol": "TX28",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2028",
+      "vencimiento": "2028-11-09",
+      "precio": 1699,
+      "pct_change": 0,
+      "tir": 7.074,
+      "duration": 1.267
+    },
+    {
+      "symbol": "TZXD7",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2027",
+      "vencimiento": "2027-12-15",
+      "precio": 268.7,
+      "pct_change": 0.09,
+      "tir": 7.734,
+      "duration": 1.411
+    },
+    {
+      "symbol": "TZX28",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2028",
+      "vencimiento": "2028-06-30",
+      "precio": 344.05,
+      "pct_change": 0.27,
+      "tir": 8.533,
+      "duration": 1.953
+    },
+    {
+      "symbol": "TX31",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2031",
+      "vencimiento": "2031-12-01",
+      "precio": 1454,
+      "pct_change": -0.2,
+      "tir": 8.791,
+      "duration": 2.863
+    },
+    {
+      "symbol": "DICP",
+      "descripcion": "Discount en pesos ajustado por CER (reestructuracion 2005)",
+      "vencimiento": "2034-01-02",
+      "precio": 48600,
+      "pct_change": 0.15,
+      "tir": 1.538,
+      "duration": 3.666
+    },
+    {
+      "symbol": "PARP",
+      "descripcion": "Par en pesos ajustado por CER (reestructuracion 2005)",
+      "vencimiento": "2038-12-31",
+      "precio": 37120,
+      "pct_change": 0.8,
+      "tir": 8.4,
+      "duration": 6.711
+    }
+  ],
+  "bonos_pesos": [
+    {
+      "symbol": "S31L6",
+      "descripcion": "LECAP Julio 31",
+      "vencimiento": "2026-07-31",
+      "precio": 117.1,
+      "tir": 14.798,
+      "duration": 0.036,
+      "pct_change": null
+    },
+    {
+      "symbol": "S14G6",
+      "descripcion": "LECAP Agosto 14",
+      "vencimiento": "2026-08-14",
+      "precio": 106.48,
+      "tir": 21.576,
+      "duration": 0.074,
+      "pct_change": null
+    },
+    {
+      "symbol": "S31G6",
+      "descripcion": "LECAP Agosto 31",
+      "vencimiento": "2026-08-31",
+      "precio": 124,
+      "tir": 22.444,
+      "duration": 0.121,
+      "pct_change": null
+    },
+    {
+      "symbol": "S30S6",
+      "descripcion": "LECAP Sept 30",
+      "vencimiento": "2026-09-30",
+      "precio": 112.599,
+      "tir": 23.573,
+      "duration": 0.203,
+      "pct_change": null
+    },
+    {
+      "symbol": "S30O6",
+      "descripcion": "LECAP Oct 30",
+      "vencimiento": "2026-10-30",
+      "precio": 127.25,
+      "tir": 23.951,
+      "duration": 0.285,
+      "pct_change": null
+    },
+    {
+      "symbol": "S13N6",
+      "descripcion": "LECAP Nov 13",
+      "vencimiento": "2026-11-13",
+      "precio": 102.06,
+      "tir": 24.843,
+      "duration": 0.323,
+      "pct_change": null
+    },
+    {
+      "symbol": "S30N6",
+      "descripcion": "LECAP Nov 30",
+      "vencimiento": "2026-11-30",
+      "precio": 119.64,
+      "tir": 24.883,
+      "duration": 0.37,
+      "pct_change": null
+    },
+    {
+      "symbol": "T15E7",
+      "descripcion": "BONCAP Ene 15/27",
+      "vencimiento": "2027-01-15",
+      "precio": 144.34,
+      "tir": 24.804,
+      "duration": 0.496,
+      "pct_change": null
+    },
+    {
+      "symbol": "T30A7",
+      "descripcion": "BONCAP Abr 30/27",
+      "vencimiento": "2027-04-30",
+      "precio": 131.72,
+      "tir": 25.462,
+      "duration": 0.784,
+      "pct_change": null
+    },
+    {
+      "symbol": "T31Y7",
+      "descripcion": "BONCAP May 31/27",
+      "vencimiento": "2027-05-31",
+      "precio": 124.45,
+      "tir": 25.476,
+      "duration": 0.868,
+      "pct_change": null
+    },
+    {
+      "symbol": "T30J7",
+      "descripcion": "BONCAP Jun 30/27",
+      "vencimiento": "2027-06-30",
+      "precio": 126.19,
+      "tir": 25.022,
+      "duration": 0.951,
+      "pct_change": null
     }
   ],
   "corporate": [
@@ -1287,10 +1636,10 @@
       "symbol": "000001.SS",
       "nombre": "Shanghai Composite",
       "region": "Asia",
-      "close": 3764.1548,
+      "close": 3764.155,
       "currency": "CNY",
-      "percent_change": -3.0459995708814165,
-      "percent_change_1y": 7.032759726801576
+      "percent_change": -3.0459944194460595,
+      "percent_change_1y": 7.03276541374941
     },
     {
       "symbol": "^BVSP",
@@ -1697,50 +2046,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14379",
-      "percent_change": "0.0017486033",
+      "close": "1.14378",
+      "percent_change": "0.00087430165",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34522",
-      "percent_change": "-0.00074336731",
+      "close": "1.34525",
+      "percent_change": "0.0014867346",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.41331",
-      "percent_change": "0.0016193516",
+      "close": "162.40188",
+      "percent_change": "-0.0054183629",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11067",
-      "percent_change": "-0.095786002",
+      "close": "5.11083",
+      "percent_change": "-0.092658296",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54472",
-      "percent_change": "-0.0053574502",
+      "close": "17.54378",
+      "percent_change": "-0.010714900",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.17797",
-      "percent_change": "-0.015876828",
+      "close": "40.18025",
+      "percent_change": "-0.010202977",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.01687",
-      "percent_change": "-0.11156133",
+      "close": "1477.22958",
+      "percent_change": "-0.097176071",
       "currency": null
     }
   ]
