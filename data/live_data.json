@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T15:24:02.175550+00:00",
+  "updated_at": "2026-07-18T16:12:15.957560+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64067,
-      "change_24h": 1.6005363537603075
+      "usd": 64076,
+      "change_24h": 1.004560154323441
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1844.09,
-      "change_24h": 1.58198118572996
+      "usd": 1842.11,
+      "change_24h": 0.6155262123775224
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.99931,
-      "change_24h": 0.008531155028279369
+      "usd": 0.999303,
+      "change_24h": 0.006334492412752397
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 569.87,
-      "change_24h": 1.681139827068619
+      "usd": 570.23,
+      "change_24h": 1.2088763617649334
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
       "usd": 74.87,
-      "change_24h": 1.330569193083445
+      "change_24h": 0.17423139415177505
     }
   ],
   "tasas_locales": [
@@ -1265,15 +1265,6 @@
   ],
   "bonos_cer": [
     {
-      "symbol": "X31L6",
-      "descripcion": "Letra del Tesoro (LECER) ajustada por CER, vto. jul. 2026",
-      "vencimiento": "2026-07-31",
-      "precio": 117.2,
-      "pct_change": 0.16,
-      "tir": 21.357,
-      "duration": 0.036
-    },
-    {
       "symbol": "X30S6",
       "descripcion": "Letra del Tesoro (LECER) ajustada por CER, vto. sep. 2026",
       "vencimiento": "2026-09-30",
@@ -2229,50 +2220,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.1439",
-      "percent_change": "0.011365921",
+      "close": "1.14393",
+      "percent_change": "0.013988826",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34524",
-      "percent_change": "0.00074336731",
+      "close": "1.34523",
+      "percent_change": "0",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.40797",
-      "percent_change": "-0.0016686095",
+      "close": "162.41081",
+      "percent_change": "0.000080043997",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11081",
-      "percent_change": "-0.093049259",
+      "close": "5.10973",
+      "percent_change": "-0.11416128",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54196",
-      "percent_change": "-0.021087836",
+      "close": "17.54296",
+      "percent_change": "-0.015388421",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.18867",
-      "percent_change": "0.010750454",
+      "close": "40.22165",
+      "percent_change": "0.092822206",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.38473",
-      "percent_change": "-0.086683509",
+      "close": "1478.00016",
+      "percent_change": "-0.045062900",
       "currency": null
     }
   ]
