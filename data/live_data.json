@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T17:05:40.491546+00:00",
+  "updated_at": "2026-07-18T17:27:35.212144+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64241,
-      "change_24h": 0.609196850158121
+      "usd": 64249,
+      "change_24h": 0.36831067707242743
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1844.26,
-      "change_24h": -0.08754562657682069
+      "usd": 1842.8,
+      "change_24h": -0.1882808464086593
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999285,
-      "change_24h": 0.008956449030003213
+      "usd": 0.999273,
+      "change_24h": 0.002271337845255529
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 570.44,
-      "change_24h": 0.7493055910137753
+      "usd": 570.54,
+      "change_24h": 0.828441815968087
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
       "usd": 75.1,
-      "change_24h": 0.2127246508661672
+      "change_24h": -0.1850481152259162
     }
   ],
   "tasas_locales": [
@@ -2164,7 +2164,7 @@
     }
   ],
   "acciones_mundiales": {
-    "updated_at": "2026-07-18T17:06:35.560684+00:00",
+    "updated_at": "2026-07-18T17:28:12.712899+00:00",
     "secciones": {
       "top_market_cap": [
         {
@@ -2321,7 +2321,7 @@
       "top_suba_diaria": [
         {
           "symbol": "MMNNF",
-          "nombre": "MUNTERS GROUP AB",
+          "nombre": "Munters Group AP",
           "precio": 20.4025,
           "pct_change": 34.227,
           "market_cap": 3724301824,
@@ -2411,7 +2411,7 @@
         },
         {
           "symbol": "TMRAF",
-          "nombre": "TOMRA SYSTEMS ASA",
+          "nombre": "Tomra Systems A/S/A",
           "precio": 11.49,
           "pct_change": 16.768,
           "market_cap": 3397597440,
@@ -2664,16 +2664,6 @@
           "wk52_low": 164.07
         },
         {
-          "symbol": "NU",
-          "nombre": "Nu Holdings Ltd.",
-          "precio": 13.59,
-          "pct_change": -1.45,
-          "market_cap": 65646284800,
-          "volumen": 112287916,
-          "wk52_high": 18.98,
-          "wk52_low": 11.2
-        },
-        {
           "symbol": "INTC",
           "nombre": "Intel Corporation",
           "precio": 95.04,
@@ -2682,6 +2672,16 @@
           "volumen": 120108222,
           "wk52_high": 142.35,
           "wk52_low": 18.97
+        },
+        {
+          "symbol": "NU",
+          "nombre": "Nu Holdings Ltd.",
+          "precio": 13.59,
+          "pct_change": -1.45,
+          "market_cap": 65646284800,
+          "volumen": 112287916,
+          "wk52_high": 18.98,
+          "wk52_low": 11.2
         },
         {
           "symbol": "SKHYV",
@@ -2850,7 +2850,7 @@
           "nombre": "ING Groep N.V.",
           "precio": 33.89,
           "pct_change": 0.0,
-          "market_cap": 96911646720,
+          "market_cap": 96879452160,
           "volumen": 500,
           "wk52_high": 33.89,
           "wk52_low": 21.95
