@@ -1129,6 +1129,14 @@ def get_bonos_cer():
             tir = _solve_ytm(flujos_reales, hoy, precio_real)
             dur = _macaulay_duration(flujos_reales, hoy, tir) if tir is not None else None
 
+        vto_cer = _parse_date(info["vencimiento"])
+        dtm_cer = (vto_cer - hoy).days if vto_cer else None
+        # Mismo criterio que Bonos Soberanos, LECAPs/BONCAPs y ONs: se
+        # excluyen instrumentos con duration menor a 0.20 y/o DTM menor
+        # a 45 dias.
+        if (dur is not None and dur < 0.20) or (dtm_cer is not None and dtm_cer < 45):
+            continue
+
         out.append({
             "symbol": sym,
             "descripcion": _bond_description(sym, "cer"),
