@@ -803,6 +803,123 @@ LECAP_TERMS = {
 }
 
 
+
+ON_FLUJOS = {
+    "AERB": {"ticker_d912": "AERBD", "emisor": "Aeropuertos Argentina 2000", "vencimiento": "2026-12-15",
+              "flujos": [("2026-12-15", 1.02637)]},
+    "ARC1": {"ticker_d912": "ARC1D", "emisor": "Aeropuertos Argentina 2000", "vencimiento": "2031-08-01",
+              "flujos": [("2026-08-03", 0.0296), ("2026-11-02", 0.0205), ("2027-02-01", 0.0683), ("2027-05-03", 0.0475), ("2027-08-02", 0.0612), ("2027-11-01", 0.0509), ("2028-02-01", 0.0739), ("2028-05-02", 0.0515), ("2028-08-01", 0.0154), ("2028-11-01", 0.0662), ("2029-02-01", 0.0856), ("2029-05-02", 0.0627), ("2029-08-01", 0.0777), ("2029-11-01", 0.0665), ("2030-02-01", 0.0832), ("2030-05-02", 0.0605), ("2030-08-01", 0.0755), ("2030-11-01", 0.0643), ("2031-02-03", 0.0851), ("2031-05-01", 0.0621), ("2031-08-01", 0.0466)]},
+    "AFCI": {"ticker_d912": "AFCID", "emisor": "Banco Comafi", "vencimiento": "2026-11-09",
+              "flujos": [("2026-11-09", 1.0331)]},
+    "BACG": {"ticker_d912": "BACGD", "emisor": "Banco Macro", "vencimiento": "2029-06-25",
+              "flujos": [("2026-12-23", 0.04), ("2027-06-23", 0.04), ("2027-12-23", 0.04), ("2028-06-23", 0.04), ("2028-12-26", 0.04), ("2029-06-25", 1.04)]},
+    "BACH": {"ticker_d912": "BACHD", "emisor": "Banco Macro", "vencimiento": "2031-01-28",
+              "flujos": [("2026-07-28", 0.04), ("2027-01-28", 0.04), ("2027-07-28", 0.04), ("2028-01-28", 0.04), ("2028-07-28", 0.04), ("2029-01-29", 0.04), ("2029-07-30", 0.04), ("2030-01-28", 0.04), ("2030-07-29", 0.04), ("2031-01-28", 1.04)]},
+    "BF37": {"ticker_d912": "BF37D", "emisor": "Banco BBVA Argentina", "vencimiento": "2026-08-24",
+              "flujos": [("2026-08-24", 1.030082)]},
+    "BF40": {"ticker_d912": "BF40D", "emisor": "Banco BBVA Argentina", "vencimiento": "2027-08-27",
+              "flujos": [("2026-08-27", 0.024795), ("2027-03-01", 0.025205), ("2027-08-27", 1.024795)]},
+    "BYCH": {"ticker_d912": "BYCHD", "emisor": "Banco Galicia", "vencimiento": "2028-10-10",
+              "flujos": [("2026-10-13", 0.0388), ("2027-04-12", 0.0388), ("2027-10-11", 0.0388), ("2028-04-10", 0.0388), ("2028-10-10", 1.0388)]},
+    "BYCV": {"ticker_d912": "BYCVD", "emisor": "Banco Galicia", "vencimiento": "2026-08-31",
+              "flujos": [("2026-08-31", 1.033904)]},
+    "BYCW": {"ticker_d912": "BYCWD", "emisor": "Banco Galicia", "vencimiento": "2026-11-30",
+              "flujos": [("2026-11-30", 1.0329)]},
+    "CP36O": {"ticker_d912": "CP36D", "emisor": "Compania General de Combustibles", "vencimiento": "2027-10-11",
+              "flujos": [("2026-10-13", 0.0326), ("2027-04-12", 0.0324), ("2027-10-11", 1.0328)]},
+    "CP37": {"ticker_d912": "CP37D", "emisor": "Compania General de Combustibles", "vencimiento": "2027-03-10",
+              "flujos": [("2026-09-10", 0.0176), ("2026-12-10", 0.0175), ("2027-03-10", 1.0173)]},
+    "CS44": {"ticker_d912": "CS44D", "emisor": "Cresud", "vencimiento": "2027-01-18",
+              "flujos": [("2027-01-18", 1.030247)]},
+    "CS47": {"ticker_d912": "CS47D", "emisor": "Cresud", "vencimiento": "2028-11-15",
+              "flujos": [("2026-11-16", 0.0353), ("2027-05-17", 0.0347), ("2027-11-15", 0.0353), ("2028-05-15", 0.0349), ("2028-11-15", 1.0353)]},
+    "CS50": {"ticker_d912": "CS50D", "emisor": "Cresud", "vencimiento": "2029-03-12",
+              "flujos": [("2026-09-10", 0.0544), ("2027-03-10", 0.036), ("2027-09-10", 0.0365), ("2028-03-10", 0.0362), ("2028-09-11", 0.0365), ("2029-03-12", 1.036)]},
+    "CS51": {"ticker_d912": "CS51D", "emisor": "Cresud", "vencimiento": "2027-01-20",
+              "flujos": [("2026-07-20", 0.0285), ("2027-01-20", 1.029)]},
+    "FO4A": {"ticker_d912": "FO4AD", "emisor": "Fideicomiso Financiero", "vencimiento": "2027-07-20",
+              "flujos": [("2026-07-20", 0.019696), ("2026-10-20", 0.019912), ("2027-01-20", 0.019912), ("2027-04-20", 0.019479), ("2027-07-20", 1.019696)]},
+    "GN47": {"ticker_d912": "GN47D", "emisor": "Genneia", "vencimiento": "2028-10-17",
+              "flujos": [("2026-10-19", 0.0301), ("2027-04-19", 0.0299), ("2027-10-18", 0.0301), ("2028-04-17", 0.0301), ("2028-10-17", 1.0301)]},
+    "GN49": {"ticker_d912": "GN49D", "emisor": "Genneia", "vencimiento": "2033-12-02",
+              "flujos": [("2026-12-02", 0.03875), ("2027-06-02", 0.03875), ("2027-12-02", 0.03875), ("2028-06-02", 0.03875), ("2028-12-04", 0.03875), ("2029-06-04", 0.03875), ("2029-12-03", 0.03875), ("2030-06-03", 0.03875), ("2030-12-02", 0.03875), ("2031-06-02", 0.03875), ("2031-12-02", 0.36875), ("2032-06-02", 0.025962), ("2032-12-02", 0.355962), ("2033-06-02", 0.013175), ("2033-12-02", 0.353175)]},
+    "HBCA": {"ticker_d912": "HBCAD", "emisor": "Banco Hipotecario", "vencimiento": "2026-08-24",
+              "flujos": [("2026-08-24", 1.0351)]},
+    "HBC": {"ticker_d912": "HBCDD", "emisor": "Banco Hipotecario", "vencimiento": "2026-11-23",
+              "flujos": [("2026-11-23", 1.03074)]},
+    "HJCF": {"ticker_d912": "HJCFD", "emisor": "John Deere Credit Compania Financiera", "vencimiento": "2026-10-21",
+              "flujos": [("2026-10-21", 1.0251)]},
+    "IRCN": {"ticker_d912": "IRCND", "emisor": "IRSA", "vencimiento": "2027-10-25",
+              "flujos": [("2026-07-23", 0.0285), ("2027-01-25", 0.029), ("2027-07-23", 0.0285), ("2027-10-25", 1.0145)]},
+    "IRCO": {"ticker_d912": "IRCOD", "emisor": "IRSA", "vencimiento": "2029-10-23",
+              "flujos": [("2026-07-23", 0.036), ("2027-01-25", 0.0365), ("2027-07-23", 0.036), ("2028-01-24", 0.0365), ("2028-07-24", 0.0362), ("2029-01-23", 0.0365), ("2029-07-23", 0.036), ("2029-10-23", 1.0183)]},
+    "LDCG": {"ticker_d912": "LDCGD", "emisor": "Ledesma", "vencimiento": "2027-10-04",
+              "flujos": [("2026-08-04", 0.0176), ("2026-11-04", 0.0176), ("2027-02-04", 0.0176), ("2027-05-04", 0.0171), ("2027-08-04", 0.0176), ("2027-10-04", 1.0117)]},
+    "LMS7": {"ticker_d912": "LMS7D", "emisor": "Aluar", "vencimiento": "2028-10-13",
+              "flujos": [("2026-10-13", 0.0967), ("2027-01-12", 0.0952), ("2027-04-12", 0.0935), ("2027-07-12", 0.0922), ("2027-10-13", 0.0908), ("2028-01-12", 0.0893), ("2028-04-12", 0.0877), ("2028-07-12", 0.0863), ("2028-10-13", 0.0852)]},
+    "LMS8": {"ticker_d912": "LMS8D", "emisor": "Aluar", "vencimiento": "2027-03-22",
+              "flujos": [("2026-09-21", 0.261979), ("2026-12-21", 0.257899), ("2027-03-22", 0.25395)]},
+    "LOC5": {"ticker_d912": "LOC5D", "emisor": "Loma Negra", "vencimiento": "2027-07-26",
+              "flujos": [("2026-07-24", 0.039671), ("2027-01-25", 0.040329), ("2027-07-26", 1.04011)]},
+    "MGCN": {"ticker_d912": "MGCND", "emisor": "Pampa Energia", "vencimiento": "2028-10-04",
+              "flujos": [("2026-10-05", 0.0288), ("2027-04-05", 0.0287), ("2027-10-04", 0.0288), ("2028-04-04", 0.0288), ("2028-10-04", 1.0288)]},
+    "MGCO": {"ticker_d912": "MGCOD", "emisor": "Pampa Energia", "vencimiento": "2034-12-18",
+              "flujos": [("2026-12-16", 0.039375), ("2027-06-16", 0.039375), ("2027-12-16", 0.039375), ("2028-06-16", 0.039375), ("2028-12-18", 0.039375), ("2029-06-18", 0.039375), ("2029-12-17", 0.039375), ("2030-06-18", 0.039375), ("2030-12-16", 0.039375), ("2031-06-16", 0.039375), ("2031-12-16", 0.039375), ("2032-06-16", 0.039375), ("2032-12-16", 0.039375), ("2033-06-16", 0.039375), ("2033-12-16", 0.039375), ("2034-06-16", 0.039375), ("2034-12-18", 1.039375)]},
+    "MGCR": {"ticker_d912": "MGCRD", "emisor": "Pampa Energia", "vencimiento": "2037-11-16",
+              "flujos": [("2026-11-16", 0.03875), ("2027-05-14", 0.03875), ("2027-11-15", 0.03875), ("2028-05-15", 0.03875), ("2028-11-14", 0.03875), ("2029-05-14", 0.03875), ("2029-11-14", 0.03875), ("2030-05-14", 0.03875), ("2030-11-14", 0.03875), ("2031-05-14", 0.03875), ("2031-11-14", 0.03875), ("2032-05-14", 0.03875), ("2032-11-15", 0.03875), ("2033-05-16", 0.03875), ("2033-11-14", 0.03875), ("2034-05-15", 0.03875), ("2034-11-14", 0.03875), ("2035-05-14", 0.03875), ("2035-11-14", 0.03875), ("2036-05-14", 0.03875), ("2036-11-14", 0.03875), ("2037-05-14", 0.03875), ("2037-11-16", 1.03875)]},
+    "OLC6": {"ticker_d912": "OLC6D", "emisor": "Oleoductos del Valle (Oldelval)", "vencimiento": "2029-06-05",
+              "flujos": [("2026-12-09", 0.037603), ("2027-06-07", 0.037397), ("2027-12-06", 0.037603), ("2028-06-05", 0.037603), ("2028-12-05", 0.037603), ("2029-06-05", 1.037397)]},
+    "PLC1": {"ticker_d912": "PLC1D", "emisor": "Pluspetrol", "vencimiento": "2028-01-27",
+              "flujos": [("2026-10-27", 0.0301), ("2027-04-27", 0.0299), ("2027-10-27", 0.0301), ("2028-01-27", 1.0151)]},
+    "PN35": {"ticker_d912": "PN35D", "emisor": "Pan American Energy", "vencimiento": "2029-09-27",
+              "flujos": [("2026-09-28", 0.0353), ("2027-03-29", 0.0347), ("2027-09-27", 0.0353), ("2028-03-27", 0.0349), ("2028-09-27", 0.0353), ("2029-03-27", 0.0347), ("2029-09-27", 1.0353)]},
+    "PN36": {"ticker_d912": "PN36D", "emisor": "Pan American Energy", "vencimiento": "2031-11-13",
+              "flujos": [("2026-11-13", 0.0365), ("2027-05-13", 0.036), ("2027-11-15", 0.0365), ("2028-05-15", 0.0362), ("2028-11-13", 0.0365), ("2029-05-14", 0.036), ("2029-11-13", 0.0365), ("2030-05-13", 0.036), ("2030-11-13", 0.0365), ("2031-05-13", 0.036), ("2031-11-13", 1.0365)]},
+    "RC2C": {"ticker_d912": "RC2CD", "emisor": "Arcor", "vencimiento": "2026-10-06",
+              "flujos": [("2026-10-06", 1.029581)]},
+    "T662": {"ticker_d912": "T662D", "emisor": "Tarjeta Naranja", "vencimiento": "2026-08-31",
+              "flujos": [("2026-08-31", 1.017274)]},
+    "TSC4": {"ticker_d912": "TSC4D", "emisor": "Transportadora de Gas del Sur (TGS)", "vencimiento": "2035-11-20",
+              "flujos": [("2026-11-23", 0.03875), ("2027-05-20", 0.03875), ("2027-11-22", 0.03875), ("2028-05-22", 0.03875), ("2028-11-21", 0.03875), ("2029-05-21", 0.03875), ("2029-11-21", 0.03875), ("2030-05-20", 0.03875), ("2030-11-21", 0.03875), ("2031-05-20", 0.03875), ("2031-11-20", 0.03875), ("2032-05-20", 0.03875), ("2032-11-22", 0.03875), ("2033-05-20", 0.03875), ("2033-11-21", 0.03875), ("2034-05-22", 0.03875), ("2034-11-20", 0.03875), ("2035-05-21", 0.03875), ("2035-11-20", 1.03875)]},
+    "TTC8": {"ticker_d912": "TTC8D", "emisor": "Tecpetrol", "vencimiento": "2027-10-25",
+              "flujos": [("2026-10-26", 0.025068), ("2027-04-26", 0.024932), ("2027-10-25", 1.025205)]},
+    "TTCB": {"ticker_d912": "TTCBD", "emisor": "Tecpetrol", "vencimiento": "2027-10-18",
+              "flujos": [("2026-10-16", 0.032589), ("2027-04-16", 0.032411), ("2027-10-18", 1.032945)]},
+    "TTC": {"ticker_d912": "TTCDD", "emisor": "Tecpetrol", "vencimiento": "2030-11-04",
+              "flujos": [("2026-11-03", 0.038125), ("2027-05-03", 0.038125), ("2027-11-03", 0.038125), ("2028-05-03", 0.038125), ("2028-11-03", 0.038125), ("2029-05-03", 0.038125), ("2029-11-05", 0.038125), ("2030-05-03", 0.038125), ("2030-11-04", 1.038125)]},
+    "VBC1": {"ticker_d912": "VBC1D", "emisor": "Banco de Valores", "vencimiento": "2027-03-11",
+              "flujos": [("2026-09-11", 0.037808), ("2027-03-11", 1.037192)]},
+    "VSCO": {"ticker_d912": "VSCOD", "emisor": "Vista Energy", "vencimiento": "2027-03-08",
+              "flujos": [("2026-09-07", 0.032767), ("2027-03-08", 1.032589)]},
+    "VSCP": {"ticker_d912": "VSCPD", "emisor": "Vista Energy", "vencimiento": "2029-05-03",
+              "flujos": [("2026-11-03", 0.040329), ("2027-05-03", 0.039671), ("2027-11-03", 0.290329), ("2028-05-03", 0.279918), ("2028-11-03", 0.270164), ("2029-05-03", 0.259918)]},
+    "VSCT": {"ticker_d912": "VSCTD", "emisor": "Vista Energy", "vencimiento": "2035-12-10",
+              "flujos": [("2026-12-10", 0.038125), ("2027-06-10", 0.038125), ("2027-12-10", 0.038125), ("2028-06-12", 0.038125), ("2028-12-11", 0.038125), ("2029-06-11", 0.038125), ("2029-12-10", 0.038125), ("2030-06-10", 0.038125), ("2030-12-10", 0.038125), ("2031-06-10", 0.038125), ("2031-12-10", 0.038125), ("2032-06-10", 0.038125), ("2032-12-10", 0.038125), ("2033-06-10", 0.038125), ("2033-12-12", 0.368125), ("2034-06-12", 0.025544), ("2034-12-11", 0.355544), ("2035-06-11", 0.012962), ("2035-12-10", 0.352963)]},
+    "VSCW": {"ticker_d912": "VSCWD", "emisor": "Vista Energy", "vencimiento": "2027-04-15",
+              "flujos": [("2026-10-15", 0.015123), ("2027-01-15", 0.015123), ("2027-04-15", 1.014795)]},
+    "YM34": {"ticker_d912": "YM34D", "emisor": "YPF", "vencimiento": "2034-01-17",
+              "flujos": [("2027-01-18", 0.04125), ("2027-07-19", 0.04125), ("2028-01-17", 0.04125), ("2028-07-17", 0.04125), ("2029-01-17", 0.04125), ("2029-07-17", 0.04125), ("2030-01-17", 0.04125), ("2030-07-17", 0.04125), ("2031-01-17", 0.04125), ("2031-07-17", 0.04125), ("2032-01-19", 0.34125), ("2032-07-19", 0.028875), ("2033-01-17", 0.328875), ("2033-07-18", 0.0165), ("2034-01-17", 0.4165)]},
+    "YM37": {"ticker_d912": "YM37D", "emisor": "YPF", "vencimiento": "2027-05-07",
+              "flujos": [("2026-08-07", 0.017644), ("2026-11-09", 0.017644), ("2027-02-08", 0.017644), ("2027-05-07", 1.017068)]},
+    "YM38": {"ticker_d912": "YM38D", "emisor": "YPF", "vencimiento": "2027-07-22",
+              "flujos": [("2026-07-22", 0.018699), ("2026-10-22", 0.018904), ("2027-01-22", 0.018904), ("2027-04-22", 0.018493), ("2027-07-22", 1.018699)]},
+    "YM40": {"ticker_d912": "YM40D", "emisor": "YPF", "vencimiento": "2028-08-28",
+              "flujos": [("2026-08-28", 0.0189), ("2026-11-30", 0.0189), ("2027-02-26", 0.0189), ("2027-05-28", 0.0183), ("2027-08-30", 0.0189), ("2027-11-29", 0.0189), ("2028-02-28", 0.0189), ("2028-05-29", 0.0185), ("2028-08-28", 1.0189)]},
+    "YMCX": {"ticker_d912": "YMCXD", "emisor": "YPF", "vencimiento": "2031-09-11",
+              "flujos": [("2026-09-11", 0.04375), ("2027-03-11", 0.04375), ("2027-09-13", 0.04375), ("2028-03-13", 0.04375), ("2028-09-11", 0.04375), ("2029-03-12", 0.04375), ("2029-09-11", 0.24375), ("2030-03-11", 0.035), ("2030-09-11", 0.235), ("2031-03-11", 0.02625), ("2031-09-11", 0.62625)]},
+    "YMCY": {"ticker_d912": "YMCYD", "emisor": "YPF", "vencimiento": "2028-10-10",
+              "flujos": [("2026-10-13", 0.016384), ("2027-01-11", 0.016384), ("2027-04-12", 0.016027), ("2027-07-12", 0.016205), ("2027-10-11", 0.016384), ("2028-01-10", 0.016384), ("2028-04-10", 0.016205), ("2028-07-10", 0.016205), ("2028-10-10", 1.016384)]},
+    "YMCZ": {"ticker_d912": "YMCZD", "emisor": "YPF", "vencimiento": "2028-10-10",
+              "flujos": [("2026-10-13", 0.035096), ("2027-04-12", 0.034904), ("2027-10-11", 0.035096), ("2028-04-10", 0.035096), ("2028-10-10", 1.035096)]},
+}
+
+
+def _on_description(config_key):
+    info = ON_FLUJOS.get(config_key)
+    if not info:
+        return config_key
+    return f"{info['emisor']} - ON {info['ticker_d912']} (vto. {info['vencimiento']})"
+
 BOND_DESCRIPTIONS = {
     # Soberanos USD (reestructuracion 2020)
     "AL29": "Bonar 2029 (ley Argentina)", "GD29": "Global 2029 (ley Nueva York)",
@@ -1089,6 +1206,67 @@ def get_bonos_pesos():
 
     candidatos.sort(key=lambda x: x["duration"])
     return candidatos or None
+
+
+
+def get_ons_usd(top_n=20):
+    """ONs en USD con mayor volumen operado. Mismo criterio que
+    get_bonos_soberanos_usd(): se matchea contra ON_FLUJOS (cronograma de
+    flujos futuros transcripto desde rendimientos.co/api/config) via el
+    ticker de liquidacion en USD (sufijo "D"), se ordena por volumen
+    operado (campo "v" de la API, vivo, no hardcodeado) y se toma el
+    top_n. No hay fuente publica y gratuita con cronograma de flujos para
+    ONs en Pesos ni ajustadas por CER (verificado: rendimientos.co y
+    data912.com solo cubren ONs liquidacion USD; el panel "BONOS IAMC" de
+    BYMA que si tiene TIR/Duracion para ONs en pesos esta pago)."""
+    data = fetch_json("https://rendimientos.co/api/ons")
+    if not data or "data" not in data:
+        return None
+    by_ticker = {}
+    for config_key, info in ON_FLUJOS.items():
+        by_ticker[info["ticker_d912"]] = config_key
+
+    candidatos = []
+    for item in data["data"]:
+        sym = item.get("symbol")
+        config_key = by_ticker.get(sym)
+        if not config_key:
+            continue
+        precio = item.get("c")
+        vol = item.get("v") or 0
+        if precio is None:
+            continue
+        candidatos.append((vol, config_key, sym, precio, item.get("pct_change")))
+
+    candidatos.sort(key=lambda x: x[0], reverse=True)
+    candidatos = candidatos[:top_n]
+
+    hoy = date.today()
+    out = []
+    for vol, config_key, sym, precio, pct_change in candidatos:
+        info = ON_FLUJOS[config_key]
+        # Los flujos de ON_FLUJOS estan expresados como fraccion del
+        # nominal original (1.0 = 100% del capital); los precios de
+        # mercado (campo "c") se cotizan cada 100 de valor nominal, igual
+        # que los bonos soberanos, asi que se escalan x100 para que sean
+        # comparables.
+        flujos = [(_parse_date(f), m * 100) for f, m in info["flujos"]]
+        flujos_fut = [(f, m) for f, m in flujos if f and f > hoy]
+        ytm = _solve_ytm(flujos_fut, hoy, precio)
+        dur = _macaulay_duration(flujos_fut, hoy, ytm) if ytm is not None else None
+        out.append({
+            "symbol": sym,
+            "descripcion": _on_description(config_key),
+            "emisor": info["emisor"],
+            "vencimiento": info["vencimiento"],
+            "precio": precio,
+            "pct_change": pct_change,
+            "tir": round(ytm * 100, 3) if ytm is not None else None,
+            "duration": round(dur, 3) if dur is not None else None,
+            "volumen": vol,
+        })
+    out.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
+    return out or None
 
 
 def get_ons():
@@ -2229,7 +2407,7 @@ def main():
         "bonos_soberanos_usd": get_bonos_soberanos_usd(),
         "bonos_cer": get_bonos_cer(),
         "bonos_pesos": get_bonos_pesos(),
-        "corporate": get_ons(),
+        "ons_usd": get_ons_usd(),
         "acciones_arg": get_acciones_arg(),
         "indices": get_indices_globales(),
         "commodities": get_commodities_globales(),
@@ -2275,11 +2453,6 @@ def main():
             print(f"OK: data/history/{filename} actualizado.")
         else:
             print(f"[WARN] No se pudo actualizar data/history/{filename} (fuente sin datos hoy).")
-
-    ons_hist = build_history_ons_acumulado(live_data.get("corporate"))
-    if ons_hist:
-        save_json(os.path.join(HISTORY_DIR, "ons.json"), ons_hist)
-        print("OK: data/history/ons.json actualizado (serie propia acumulada).")
 
 
 if __name__ == "__main__":
