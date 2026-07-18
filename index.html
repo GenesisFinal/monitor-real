@@ -1298,14 +1298,9 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">BCE (Zona Euro)</td>
                                     <td class="px-4 py-2.5 text-right font-mono">3.25%</td>
                                 </tr>
-<tr data-ticker="Tesoro EE.UU. 10 años" onclick="rowClick(event, 'rates', 'Tesoro EE.UU. 10 años')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'rates', 'Tesoro EE.UU. 10 años')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Tesoro EE.UU. 10 años</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">4.35%</td>
-                                </tr>
 <tr data-ticker="SOFR" onclick="rowClick(event, 'rates', 'SOFR')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
                                     <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'rates', 'SOFR')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">SOFR</td>
+                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">SOFR (Secured Overnight Financing Rate, tasa de referencia garantizada a un día en USD)</td>
                                     <td class="px-4 py-2.5 text-right font-mono">4.40%</td>
                                 </tr>
                             </tbody>
@@ -2954,7 +2949,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
             stocks:       { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.stocks),   ohlc: true,  unit: 'USD' },
             etfs:         { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.etfs),     ohlc: true,  unit: 'USD' },
             commodities:  { file: 'commodities.json', path: d => d.commodities, ohlc: true, unit: '' },
-            forex:        { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.forex),    ohlc: true,  unit: '' }
+            forex:        { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.forex),    ohlc: true,  unit: '' },
+            rates:        { file: 'tasas_internacionales.json', path: d => d.series, ohlc: false, unit: '%' }
         };
 
         function normalizeOnsHistory(d) {
@@ -3425,6 +3421,25 @@ Stack: ${error ? error.stack : 'N/A'}`;
             renderRows('commodities', rows);
         }
 
+        const TASAS_INTL_ORDER = ['US1Y', 'FVX', 'TNX', 'TYX', 'JP10Y-JP', 'GB10Y-GB', 'DE10Y-DE'];
+
+        function renderTasasInternacionales(items) {
+            if (!items || !items.length) return;
+            const tbody = document.getElementById('tbl-rates');
+            if (!tbody) return;
+            tbody.querySelectorAll('.dynamic-rate-row').forEach(el => el.remove());
+            const bySymbol = {};
+            items.forEach(it => { bySymbol[it.symbol] = it; });
+            TASAS_INTL_ORDER.forEach(sym => {
+                const it = bySymbol[sym];
+                if (!it) return;
+                setSeriesKey('rates', it.nombre, it.symbol);
+                const valor = (it.close != null) ? Number(it.close).toFixed(3) + '%' : '-';
+                const row = buildRow('rates', it.nombre, [{ value: valor }]).replace('<tr ', '<tr class="dynamic-rate-row" ');
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
         function renderTasasLocales(items) {
             if (!items || !items.length) return;
             const rows = items.map(it => {
@@ -3509,6 +3524,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 if (data.indices) renderIndicesGlobales(data.indices);
                 if (data.forex) renderTwelveData('forex', data.forex);
                 if (data.commodities) renderCommoditiesGlobales(data.commodities);
+                if (data.rates_intl) renderTasasInternacionales(data.rates_intl);
                 if (data.stocks) renderTwelveData('stocks', data.stocks);
                 if (data.etfs) renderTwelveData('etfs', data.etfs);
                 renderTasasLocales(data.tasas_locales);

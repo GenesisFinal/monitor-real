@@ -562,6 +562,172 @@ def build_history_commodities():
     return {"updated_at": datetime.now(timezone.utc).isoformat(), "commodities": commodities_out}
 
 
+# Tasas internacionales de referencia adicionales (FVX/TNX/TYX = índices
+# CBOE de rendimiento del Tesoro de EE.UU. a 5/10/30 años, vía Yahoo
+# Finance) y rendimientos de bonos soberanos a 10 años de otros países más
+# el Tesoro de EE.UU. a 1 año, obtenidos de la API pública de cotizaciones
+# de CNBC (misma que usa cnbc.com/quotes/<symbol>, sin API key). FED Funds,
+# BCE y SOFR se mantienen como están (no se modifican).
+TASAS_INTL_YAHOO = [("^FVX", "FVX"), ("^TNX", "TNX"), ("^TYX", "TYX")]
+TASAS_INTL_CNBC = [
+    ("US1Y-US", "US1Y"),
+    ("JP10Y-JP", "JP10Y-JP"),
+    ("GB10Y-GB", "GB10Y-GB"),
+    ("DE10Y-DE", "DE10Y-DE"),
+]
+
+
+def _cnbc_pct(s):
+    try:
+        return float(str(s).replace("%", "").replace("+", ""))
+    except (TypeError, ValueError):
+        return None
+
+
+def _cnbc_yield(s):
+    try:
+        return float(str(s).replace("%", ""))
+    except (TypeError, ValueError):
+        return None
+
+
+def _fetch_cnbc_quotes(symbols):
+    url = (
+        "https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol"
+        f"?symbols={urllib.parse.quote('|'.join(symbols))}"
+        "&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json"
+    )
+    data = fetch_json(url)
+    by_symbol = {}
+    if data:
+        try:
+            for q in data.get("FormattedQuoteResult", {}).get("FormattedQuote", []):
+                by_symbol[q.get("symbol")] = q
+        except (AttributeError, TypeError):
+            pass
+    return by_symbol
+
+
+def get_tasas_internacionales():
+    out = []
+    cnbc_by_symbol = _fetch_cnbc_quotes([sym for sym, _ in TASAS_INTL_CNBC])
+
+    # US1Y (CNBC) primero, según el orden solicitado.
+    q = cnbc_by_symbol.get("US1Y-US")
+    if q:
+        out.append({
+            "symbol": "US1Y-US",
+            "nombre": "US1Y",
+            "close": _cnbc_yield(q.get("last")),
+            "percent_change": _cnbc_pct(q.get("change_pct")),
+        })
+
+    # FVX, TNX, TYX (Yahoo Finance - índices CBOE de rendimiento del Tesoro).
+    for symbol, nombre in TASAS_INTL_YAHOO:
+        data = fetch_json(
+            f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?interval=1d&range=1y"
+        )
+        if not data:
+            continue
+        try:
+            result = data["chart"]["result"][0]
+            meta = result["meta"]
+            price = meta.get("regularMarketPrice")
+            closes = result.get("indicators", {}).get("quote", [{}])[0].get("close") or []
+            closes_validas = [c for c in closes if c is not None]
+            pct_dia = None
+            if price and len(closes_validas) >= 2:
+                prev_close = closes_validas[-2]
+                pct_dia = ((price - prev_close) / prev_close * 100) if prev_close else None
+            out.append({
+                "symbol": symbol,
+                "nombre": nombre,
+                "close": price,
+                "percent_change": pct_dia,
+            })
+        except (KeyError, IndexError, TypeError, ZeroDivisionError) as e:
+            print(f"[WARN] No se pudo parsear tasa {symbol}: {e}")
+
+    # JP10Y-JP, GB10Y-GB, DE10Y-DE (CNBC).
+    for symbol, nombre in TASAS_INTL_CNBC[1:]:
+        q = cnbc_by_symbol.get(symbol)
+        if q:
+            out.append({
+                "symbol": symbol,
+                "nombre": nombre,
+                "close": _cnbc_yield(q.get("last")),
+                "percent_change": _cnbc_pct(q.get("change_pct")),
+            })
+    return out or None
+
+
+def build_history_tasas_internacionales(rates_actuales):
+    """
+    FVX/TNX/TYX: histórico real de 5 años vía Yahoo Finance (mismo patrón
+    que índices y commodities). Los rendimientos soberanos de CNBC
+    (US1Y-US, JP10Y-JP, GB10Y-GB, DE10Y-DE) no tienen histórico gratuito
+    por API pública, así que se arma una serie propia acumulada día a día
+    (mismo mecanismo que ya se usa para las ONs).
+    """
+    series_out = {}
+    for symbol, nombre in TASAS_INTL_YAHOO:
+        data = fetch_json(
+            f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?interval=1d&range=5y"
+        )
+        if not data:
+            continue
+        try:
+            result = data["chart"]["result"][0]
+            ts = result["timestamp"]
+            q = result["indicators"]["quote"][0]
+            records = []
+            for i, t in enumerate(ts):
+                c = q.get("close", [None] * len(ts))[i] if i < len(q.get("close", [])) else None
+                if c is None:
+                    continue
+                records.append({"ts": t, "c": c})
+        except (KeyError, IndexError, TypeError):
+            print(f"[WARN] No se pudo parsear histórico Yahoo para {symbol}")
+            continue
+        daily, weekly = build_daily_weekly(
+            records,
+            date_fn=lambda r: datetime.fromtimestamp(r["ts"], tz=timezone.utc).date(),
+            point_fn=lambda r: {"c": r["c"]},
+        )
+        if daily or weekly:
+            series_out[symbol] = {"nombre": nombre, "daily": daily, "weekly": weekly}
+        time.sleep(0.5)
+
+    path = os.path.join(HISTORY_DIR, "tasas_internacionales.json")
+    existing = load_json(path) or {}
+    existing_series = existing.get("series", {})
+    hoy = date.today().isoformat()
+    cnbc_symbols = {sym for sym, _ in TASAS_INTL_CNBC}
+    for item in (rates_actuales or []):
+        sym = item.get("symbol")
+        if sym not in cnbc_symbols or item.get("close") is None:
+            continue
+        serie = existing_series.get(sym, {"nombre": item.get("nombre"), "daily": []})
+        daily = serie.get("daily", [])
+        if daily and daily[-1].get("t") == hoy:
+            daily[-1]["c"] = item["close"]
+        else:
+            daily.append({"t": hoy, "c": item["close"]})
+        if len(daily) > 1900:
+            del daily[: len(daily) - 1900]
+        serie["daily"] = daily
+        serie["weekly"] = daily
+        serie["nombre"] = item.get("nombre")
+        existing_series[sym] = serie
+    for sym, serie in existing_series.items():
+        if sym not in series_out:
+            series_out[sym] = serie
+
+    if not series_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "series": series_out}
+
+
 def chunked(items, n):
     items = list(items)
     for i in range(0, len(items), n):
@@ -1065,6 +1231,7 @@ def main():
         "acciones_arg": get_acciones_arg(),
         "indices": get_indices_globales(),
         "commodities": get_commodities_globales(),
+        "rates_intl": get_tasas_internacionales(),
     }
 
     td = get_twelvedata()
@@ -1098,6 +1265,7 @@ def main():
         "mercados_globales.json": build_history_twelvedata(),
         "indices.json": build_history_indices(),
         "commodities.json": build_history_commodities(),
+        "tasas_internacionales.json": build_history_tasas_internacionales(live_data.get("rates_intl")),
     }
     for filename, payload in historicos.items():
         if payload:
