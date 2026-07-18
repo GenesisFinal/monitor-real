@@ -2177,6 +2177,63 @@ def get_acciones_mundiales():
     return {"updated_at": datetime.now(timezone.utc).isoformat(), "secciones": out}
 
 
+def build_history_acciones_mundiales(acciones_mundiales_data):
+    """Historico OHLC (5 anios, diario + semanal) de todos los tickers que
+    aparecen en alguna de las 10 subsecciones de Acciones Mundiales. Mismo
+    patron que build_history_indices() (Yahoo chart, sin auth). Un ticker
+    puede repetirse en varias subsecciones (p.ej. una accion top-cap que
+    tambien esta en top-volumen); se trae el historico una sola vez por
+    simbolo."""
+    if not acciones_mundiales_data or not acciones_mundiales_data.get("secciones"):
+        return None
+
+    simbolos = set()
+    for items in acciones_mundiales_data["secciones"].values():
+        for it in items:
+            if it.get("symbol"):
+                simbolos.add(it["symbol"])
+
+    series_out = {}
+    for symbol in sorted(simbolos):
+        data = fetch_json(
+            f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?interval=1d&range=5y"
+        )
+        if not data:
+            continue
+        try:
+            result = data["chart"]["result"][0]
+            ts = result["timestamp"]
+            q = result["indicators"]["quote"][0]
+            records = []
+            for i, t in enumerate(ts):
+                c = q.get("close", [None] * len(ts))[i] if i < len(q.get("close", [])) else None
+                if c is None:
+                    continue
+                records.append({
+                    "ts": t,
+                    "o": q.get("open", [None] * len(ts))[i] if i < len(q.get("open", [])) else None,
+                    "h": q.get("high", [None] * len(ts))[i] if i < len(q.get("high", [])) else None,
+                    "l": q.get("low", [None] * len(ts))[i] if i < len(q.get("low", [])) else None,
+                    "c": c,
+                    "v": q.get("volume", [None] * len(ts))[i] if i < len(q.get("volume", [])) else None,
+                })
+        except (KeyError, IndexError, TypeError):
+            print(f"[WARN] No se pudo parsear histórico Yahoo para {symbol}")
+            continue
+        daily, weekly = build_daily_weekly(
+            records,
+            date_fn=lambda r: datetime.fromtimestamp(r["ts"], tz=timezone.utc).date(),
+            point_fn=lambda r: {"o": r["o"], "h": r["h"], "l": r["l"], "c": r["c"], "v": r["v"]},
+        )
+        if daily or weekly:
+            series_out[symbol] = {"daily": daily, "weekly": weekly}
+        time.sleep(0.3)  # cortesía con Yahoo Finance
+
+    if not series_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "series": series_out}
+
+
 def chunked(items, n):
     items = list(items)
     for i in range(0, len(items), n):
@@ -3260,6 +3317,7 @@ def main():
         "indices.json": build_history_indices(),
         "commodities.json": build_history_commodities(),
         "tasas_internacionales.json": build_history_tasas_internacionales(live_data.get("rates_intl")),
+        "acciones_mundiales_historia.json": build_history_acciones_mundiales(live_data.get("acciones_mundiales")),
         "bonos_usd_historia.json": build_history_bonos_usd(),
         "bonos_cer_historia.json": build_history_bonos_cer(),
         "bonos_pesos_historia.json": build_history_bonos_pesos(),

@@ -1865,12 +1865,12 @@ Stack: ${error ? error.stack : 'N/A'}`;
             </div>
             </section>
             </div>
-            <div id="panel-stocks" class="tab-panel hidden">
+                        <div id="panel-stocks" class="tab-panel hidden">
             <section class="mb-12">
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-building text-brandBlue"></i> Acciones de Mercados Globales
             </h2>
-            <p class="text-xs text-slate-400 light:text-slate-500 mb-6">Universo: NYSE / Nasdaq (EE.UU.), capitalización de mercado mínima USD 1.000 millones. Fuente: screener público de Yahoo Finance. Volatilidad semanal y RSI (14) calculados sobre las 200 empresas de mayor capitalización del universo filtrado.</p>
+            <p class="text-xs text-slate-400 light:text-slate-500 mb-6">Universo: NYSE / Nasdaq (EE.UU.), capitalización de mercado mínima USD 1.000 millones. Fuente: screener público de Yahoo Finance. Volatilidad semanal y RSI (14) calculados sobre las 200 empresas de mayor capitalización del universo filtrado. Marcá "Comp." en la tabla para graficar un ticker (línea, velas u OHLC, rango 1M-5A); con 2 o más marcados, el gráfico pasa a comparación base 100.</p>
             <div class="space-y-8">
                 <div class="space-y-2">
                     <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
@@ -1880,7 +1880,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -1888,8 +1889,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">Market Cap</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_market_cap" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_market_cap" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_market_cap', '1. Top Capitalización de Mercado')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_market_cap" height="200"></canvas>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -1900,7 +1906,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -1908,8 +1915,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">Market Cap</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_suba_diaria" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_suba_diaria" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_suba_diaria', '2. Top Suba Diaria de Precio')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_suba_diaria" height="200"></canvas>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -1920,7 +1932,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -1928,8 +1941,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">Market Cap</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_baja_diaria" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_baja_diaria" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_baja_diaria', '3. Top Baja Diaria de Precio')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_baja_diaria" height="200"></canvas>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -1940,7 +1958,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -1948,8 +1967,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">Máximo 52 sem.</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_nuevo_maximo" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_nuevo_maximo" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_nuevo_maximo', '4. Top Nuevo Máximo de Precio (52 sem.)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_nuevo_maximo" height="200"></canvas>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -1960,7 +1984,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -1968,8 +1993,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">Mínimo 52 sem.</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_nuevo_minimo" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_nuevo_minimo" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_nuevo_minimo', '5. Top Nuevo Mínimo de Precio (52 sem.)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_nuevo_minimo" height="200"></canvas>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -1980,7 +2010,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -1988,8 +2019,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">Volumen</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_volumen" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_volumen" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_volumen', '6. Top Mayor Volumen de Transacciones')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_volumen" height="200"></canvas>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -2000,7 +2036,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -2008,8 +2045,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">Volatilidad sem. %</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_volatilidad_alta" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_volatilidad_alta" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_volatilidad_alta', '7. Top Más Volátil de la Semana')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_volatilidad_alta" height="200"></canvas>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -2020,7 +2062,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -2028,8 +2071,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">Volatilidad sem. %</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_volatilidad_baja" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_volatilidad_baja" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_volatilidad_baja', '8. Top Menos Volátil de la Semana')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_volatilidad_baja" height="200"></canvas>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -2040,7 +2088,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -2048,8 +2097,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">RSI (14)</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_sobrecomprada" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_sobrecomprada" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_sobrecomprada', '9. Top Sobrecomprada (RSI)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_sobrecomprada" height="200"></canvas>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -2060,7 +2114,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                    <th class="w-8 px-2 py-2.5 text-center">#</th>
                                     <th class="px-3 py-2.5">Empresa</th>
                                     <th class="px-3 py-2.5 text-right">Ticker</th>
                                     <th class="px-3 py-2.5 text-right">Precio (USD)</th>
@@ -2068,8 +2123,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-3 py-2.5 text-right">RSI (14)</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-am-top_sobrevendida" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                            <tbody id="tbl-stocks_top_sobrevendida" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-stocks_top_sobrevendida', '10. Top Sobrevendida (RSI)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-stocks_top_sobrevendida" height="200"></canvas>
                     </div>
                 </div>
             </div>
@@ -3470,7 +3530,17 @@ Stack: ${error ? error.stack : 'N/A'}`;
             bonds_cer:    { file: 'bonos_cer_historia.json',   path: d => d.series, ohlc: true, unit: 'ARS' },
             bonds_pesos:  { file: 'bonos_pesos_historia.json', path: d => d.series, ohlc: true, unit: 'ARS' },
             bonds_usd:    { file: 'bonos_usd_historia.json',   path: d => d.series, ohlc: true, unit: 'USD' },
-            corporate_ons:{ file: 'ons_usd_historia.json',     path: d => d.series, ohlc: true, unit: 'USD' }
+            corporate_ons:{ file: 'ons_usd_historia.json',     path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_market_cap:      { file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_suba_diaria:     { file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_baja_diaria:     { file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_nuevo_maximo:    { file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_nuevo_minimo:    { file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_volumen:         { file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_volatilidad_alta:{ file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_volatilidad_baja:{ file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_sobrecomprada:   { file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },
+            stocks_top_sobrevendida:    { file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' }
         };
 
         function normalizeOnsHistory(d) {
@@ -3902,27 +3972,38 @@ Stack: ${error ? error.stack : 'N/A'}`;
             top_sobrecomprada: it => (it.rsi != null ? it.rsi.toFixed(1) : '-'),
             top_sobrevendida: it => (it.rsi != null ? it.rsi.toFixed(1) : '-'),
         };
-        function renderAccionesMundialesSeccion(key, items) {
-            const tbody = document.getElementById('tbl-am-' + key);
+        function renderAccionesMundialesSeccion(seccionKey, items) {
+            const key = 'stocks_' + seccionKey;
+            const tbody = document.getElementById('tbl-' + key);
             if (!tbody) return;
             if (!items || !items.length) {
-                tbody.innerHTML = '<tr><td colspan="6" class="px-3 py-3 text-center text-slate-500 text-xs">Sin datos</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" class="px-3 py-3 text-center text-slate-500 text-xs">Sin datos</td></tr>';
                 return;
             }
-            const extraFn = ACCIONES_MUNDIALES_EXTRA_COL[key] || (() => '-');
-            tbody.innerHTML = items.map((it, i) => `
-                <tr class="hover:bg-slate-800/40 light:hover:bg-slate-50">
-                    <td class="px-3 py-2 text-center text-slate-500 font-mono text-xs">${i + 1}</td>
+            const extraFn = ACCIONES_MUNDIALES_EXTRA_COL[seccionKey] || (() => '-');
+            tbody.innerHTML = items.map((it, i) => {
+                setSeriesKey(key, it.symbol, it.symbol);
+                return `<tr data-ticker="${it.symbol}" onclick="rowClick(event, '${key}', '${it.symbol}')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
+                    <td class="px-2 py-2 text-center"><input type="checkbox" onchange="toggleSelect(event, '${key}', '${it.symbol}')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
+                    <td class="px-2 py-2 text-center text-slate-500 font-mono text-xs">${i + 1}</td>
                     <td class="px-3 py-2 font-semibold text-white light:text-slate-800">${it.nombre || it.symbol}</td>
                     <td class="px-3 py-2 text-right font-mono">${it.symbol}</td>
                     <td class="px-3 py-2 text-right font-mono">${it.precio != null ? '$' + Number(it.precio).toFixed(2) : '-'}</td>
                     <td class="px-3 py-2 text-right font-mono ${pctClass(it.pct_change)}">${fmtPct(it.pct_change)}</td>
                     <td class="px-3 py-2 text-right font-mono">${extraFn(it)}</td>
-                </tr>`).join('');
+                </tr>`;
+            }).join('');
         }
         function renderAccionesMundiales(data) {
             if (!data || !data.secciones) return;
-            Object.keys(data.secciones).forEach(key => renderAccionesMundialesSeccion(key, data.secciones[key]));
+            Object.keys(data.secciones).forEach(seccionKey => renderAccionesMundialesSeccion(seccionKey, data.secciones[seccionKey]));
+            // Igual que con Bonos/ONs: si el usuario ya esta parado en el
+            // tab "Acciones Mundiales", hay que refrescar cada uno de los
+            // 10 graficos para que reflejen la seleccion default.
+            const panel = document.getElementById('panel-stocks');
+            if (panel && !panel.classList.contains('hidden')) {
+                Object.keys(data.secciones).forEach(seccionKey => renderChartFor('stocks_' + seccionKey));
+            }
         }
 
         function renderTwelveData(key, items) {
