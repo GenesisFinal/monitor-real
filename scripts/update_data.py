@@ -540,6 +540,556 @@ def get_bonos():
             })
     return out or None
 
+# ------------------------------------------------------------------
+# Datos de flujos de fondos (cash flows) de los bonos soberanos en USD,
+# fuente: rendimientos.co/api/config (seccion "soberanos"), que a su vez
+# reconstruye el cronograma oficial de cada bono (Bonares ley local /
+# Globales ley Nueva York, reestructuracion 2020). Cada flujo es el pago
+# total (renta + amortizacion) por cada 100 de valor nominal ORIGINAL,
+# en la fecha indicada. Se conservan tambien los flujos ya pagados (no
+# solo los futuros) porque en algunos casos se necesitan para validar
+# el cronograma; el filtro por fecha > hoy se aplica en tiempo de calculo.
+# ------------------------------------------------------------------
+
+SOBERANOS_FLUJOS = {
+    "AL29": {"ley": "local", "vencimiento": "2029-07-09", "flujos": [
+        ("2026-07-09", 10.35), ("2027-01-09", 10.3), ("2027-07-09", 10.25),
+        ("2028-01-09", 10.2), ("2028-07-09", 10.15), ("2029-01-09", 10.1),
+        ("2029-07-09", 10.05),
+    ]},
+    "GD29": {"ley": "NY", "vencimiento": "2029-07-09", "flujos": [
+        ("2026-07-09", 10.35), ("2027-01-09", 10.3), ("2027-07-09", 10.25),
+        ("2028-01-09", 10.2), ("2028-07-09", 10.15), ("2029-01-09", 10.1),
+        ("2029-07-09", 10.05),
+    ]},
+    "AO28": {"ley": "local", "vencimiento": "2028-10-31", "flujos": [
+        ("2026-04-30", 0.5), ("2026-05-29", 0.48), ("2026-06-30", 0.52),
+        ("2026-07-31", 0.5), ("2026-08-31", 0.5), ("2026-09-30", 0.5),
+        ("2026-10-30", 0.5), ("2026-11-30", 0.5), ("2026-12-30", 0.5),
+        ("2027-01-29", 0.48), ("2027-02-26", 0.45), ("2027-03-31", 0.58),
+        ("2027-04-30", 0.5), ("2027-05-31", 0.5), ("2027-06-30", 0.5),
+        ("2027-07-30", 0.5), ("2027-08-31", 0.5), ("2027-09-30", 0.5),
+        ("2027-10-29", 0.48), ("2027-11-30", 0.52), ("2027-12-30", 0.5),
+        ("2028-01-31", 0.5), ("2028-02-29", 0.48), ("2028-03-31", 0.5),
+        ("2028-04-28", 0.47), ("2028-05-31", 0.55), ("2028-06-30", 0.5),
+        ("2028-07-31", 0.5), ("2028-08-31", 0.5), ("2028-09-29", 0.48),
+        ("2028-10-31", 100.53),
+    ]},
+    "AO29": {"ley": "local", "vencimiento": "2029-10-31", "flujos": [
+        ("2026-08-31", 0.73), ("2026-09-30", 0.5), ("2026-10-30", 0.5),
+        ("2026-11-30", 0.5), ("2026-12-30", 0.5), ("2027-01-29", 0.48),
+        ("2027-02-26", 0.45), ("2027-03-31", 0.58), ("2027-04-30", 0.5),
+        ("2027-05-31", 0.5), ("2027-06-30", 0.5), ("2027-07-30", 0.5),
+        ("2027-08-31", 0.5), ("2027-09-30", 0.5), ("2027-10-29", 0.48),
+        ("2027-11-30", 0.52), ("2027-12-30", 0.5), ("2028-01-31", 0.5),
+        ("2028-02-29", 0.48), ("2028-03-31", 0.53), ("2028-04-28", 0.47),
+        ("2028-05-31", 0.55), ("2028-06-30", 0.5), ("2028-07-31", 0.5),
+        ("2028-08-31", 0.5), ("2028-09-29", 0.48), ("2028-10-31", 0.53),
+        ("2028-11-30", 0.5), ("2028-12-29", 0.48), ("2029-01-31", 0.53),
+        ("2029-02-28", 0.47), ("2029-03-28", 0.5), ("2029-04-30", 0.53),
+        ("2029-05-31", 0.5), ("2029-06-29", 0.48), ("2029-07-31", 0.53),
+        ("2029-08-31", 0.5), ("2029-09-28", 0.47), ("2029-10-31", 100.55),
+    ]},
+    "AL30": {"ley": "local", "vencimiento": "2030-07-09", "flujos": [
+        ("2026-07-09", 8.27), ("2027-01-09", 8.24), ("2027-07-09", 8.21),
+        ("2028-01-09", 8.42), ("2028-07-09", 8.35), ("2029-01-09", 8.28),
+        ("2029-07-09", 8.21), ("2030-01-09", 8.14), ("2030-07-09", 8.07),
+    ]},
+    "GD30": {"ley": "NY", "vencimiento": "2030-07-09", "flujos": [
+        ("2026-07-09", 8.27), ("2027-01-09", 8.24), ("2027-07-09", 8.21),
+        ("2028-01-09", 8.42), ("2028-07-09", 8.35), ("2029-01-09", 8.28),
+        ("2029-07-09", 8.21), ("2030-01-09", 8.14), ("2030-07-09", 8.07),
+    ]},
+    "AL35": {"ley": "local", "vencimiento": "2035-07-09", "flujos": [
+        ("2026-07-09", 2.0625), ("2027-01-09", 2.0625), ("2027-07-09", 2.0625),
+        ("2028-01-09", 2.375), ("2028-07-09", 2.375), ("2029-01-09", 2.5),
+        ("2029-07-09", 2.5), ("2030-01-09", 2.5), ("2030-07-09", 2.5),
+        ("2031-01-09", 12.5), ("2031-07-09", 12.25), ("2032-01-09", 12),
+        ("2032-07-09", 11.75), ("2033-01-09", 11.5), ("2033-07-09", 11.25),
+        ("2034-01-09", 11), ("2034-07-09", 10.75), ("2035-01-09", 10.5),
+        ("2035-07-09", 10.25),
+    ]},
+    "GD35": {"ley": "NY", "vencimiento": "2035-07-09", "flujos": [
+        ("2026-07-09", 2.0625), ("2027-01-09", 2.0625), ("2027-07-09", 2.0625),
+        ("2028-01-09", 2.375), ("2028-07-09", 2.375), ("2029-01-09", 2.5),
+        ("2029-07-09", 2.5), ("2030-01-09", 2.5), ("2030-07-09", 2.5),
+        ("2031-01-09", 12.5), ("2031-07-09", 12.25), ("2032-01-09", 12),
+        ("2032-07-09", 11.75), ("2033-01-09", 11.5), ("2033-07-09", 11.25),
+        ("2034-01-09", 11), ("2034-07-09", 10.75), ("2035-01-09", 10.5),
+        ("2035-07-09", 10.25),
+    ]},
+    "AE38": {"ley": "local", "vencimiento": "2038-01-09", "flujos": [
+        ("2026-07-09", 2.5), ("2027-01-09", 2.5), ("2027-07-09", 7.0455),
+        ("2028-01-09", 6.9318), ("2028-07-09", 6.8182), ("2029-01-09", 6.7045),
+        ("2029-07-09", 6.5909), ("2030-01-09", 6.4773), ("2030-07-09", 6.3636),
+        ("2031-01-09", 6.25), ("2031-07-09", 6.1364), ("2032-01-09", 6.0227),
+        ("2032-07-09", 5.9091), ("2033-01-09", 5.7955), ("2033-07-09", 5.6818),
+        ("2034-01-09", 5.5682), ("2034-07-09", 5.4545), ("2035-01-09", 5.3409),
+        ("2035-07-09", 5.2273), ("2036-01-09", 5.1136), ("2036-07-09", 5),
+        ("2037-01-09", 4.8864), ("2037-07-09", 4.7727), ("2038-01-09", 4.6591),
+    ]},
+    "GD38": {"ley": "NY", "vencimiento": "2038-01-09", "flujos": [
+        ("2026-07-09", 2.5), ("2027-01-09", 2.5), ("2027-07-09", 7.0455),
+        ("2028-01-09", 6.9318), ("2028-07-09", 6.8182), ("2029-01-09", 6.7045),
+        ("2029-07-09", 6.5909), ("2030-01-09", 6.4773), ("2030-07-09", 6.3636),
+        ("2031-01-09", 6.25), ("2031-07-09", 6.1364), ("2032-01-09", 6.0227),
+        ("2032-07-09", 5.9091), ("2033-01-09", 5.7955), ("2033-07-09", 5.6818),
+        ("2034-01-09", 5.5682), ("2034-07-09", 5.4545), ("2035-01-09", 5.3409),
+        ("2035-07-09", 5.2273), ("2036-01-09", 5.1136), ("2036-07-09", 5),
+        ("2037-01-09", 4.8864), ("2037-07-09", 4.7727), ("2038-01-09", 4.6591),
+    ]},
+    "AL41": {"ley": "local", "vencimiento": "2041-07-09", "flujos": [
+        ("2026-07-09", 1.5625), ("2027-01-09", 1.5625), ("2027-07-09", 1.5625),
+        ("2028-01-09", 5.1339), ("2028-07-09", 5.0714), ("2029-01-09", 5.0089),
+        ("2029-07-09", 4.9464), ("2030-01-09", 5.3996), ("2030-07-09", 5.3125),
+        ("2031-01-09", 5.2254), ("2031-07-09", 5.1384), ("2032-01-09", 5.0513),
+        ("2032-07-09", 4.9643), ("2033-01-09", 4.8772), ("2033-07-09", 4.7902),
+        ("2034-01-09", 4.7031), ("2034-07-09", 4.6161), ("2035-01-09", 4.529),
+        ("2035-07-09", 4.442), ("2036-01-09", 4.3549), ("2036-07-09", 4.2679),
+        ("2037-01-09", 4.1808), ("2037-07-09", 4.0938), ("2038-01-09", 4.0067),
+        ("2038-07-09", 3.9196), ("2039-01-09", 3.8326), ("2039-07-09", 3.7455),
+        ("2040-01-09", 3.6585), ("2040-07-09", 3.7455), ("2041-01-09", 3.8326),
+        ("2041-07-09", 3.9196),
+    ]},
+    "GD41": {"ley": "NY", "vencimiento": "2041-07-09", "flujos": [
+        ("2026-07-09", 1.5625), ("2027-01-09", 1.5625), ("2027-07-09", 1.5625),
+        ("2028-01-09", 5.1339), ("2028-07-09", 5.0714), ("2029-01-09", 5.0089),
+        ("2029-07-09", 4.9464), ("2030-01-09", 5.3996), ("2030-07-09", 5.3125),
+        ("2031-01-09", 5.2254), ("2031-07-09", 5.1384), ("2032-01-09", 5.0513),
+        ("2032-07-09", 4.9643), ("2033-01-09", 4.8772), ("2033-07-09", 4.7902),
+        ("2034-01-09", 4.7031), ("2034-07-09", 4.6161), ("2035-01-09", 4.529),
+        ("2035-07-09", 4.442), ("2036-01-09", 4.3549), ("2036-07-09", 4.2679),
+        ("2037-01-09", 4.1808), ("2037-07-09", 4.0938), ("2038-01-09", 4.0067),
+        ("2038-07-09", 3.9196), ("2039-01-09", 3.8326), ("2039-07-09", 3.7455),
+        ("2040-01-09", 3.6585), ("2040-07-09", 3.7455), ("2041-01-09", 3.8326),
+        ("2041-07-09", 3.9196),
+    ]},
+    "AO27": {"ley": "local", "vencimiento": "2027-10-30", "flujos": [
+        ("2026-03-31", 0.5667), ("2026-04-30", 0.5), ("2026-05-29", 0.4833),
+        ("2026-06-30", 0.5167), ("2026-07-31", 0.5), ("2026-08-31", 0.5),
+        ("2026-09-30", 0.5), ("2026-10-30", 0.5), ("2026-11-30", 0.5),
+        ("2026-12-31", 0.5), ("2027-01-29", 0.5), ("2027-02-26", 0.5),
+        ("2027-03-31", 0.5), ("2027-04-30", 0.5), ("2027-05-31", 0.5),
+        ("2027-06-30", 0.5), ("2027-07-30", 0.5), ("2027-08-31", 0.5),
+        ("2027-09-30", 0.5), ("2027-10-30", 100.5),
+    ]},
+    "AN29": {"ley": "local", "vencimiento": "2029-11-30", "flujos": [
+        ("2026-06-01", 3.0333), ("2026-11-30", 3.25), ("2027-05-31", 3.25),
+        ("2027-11-30", 3.25), ("2028-05-30", 3.25), ("2028-11-30", 3.25),
+        ("2029-05-30", 3.25), ("2029-11-30", 103.25),
+    ]},
+    "BPD7": {"ley": "local", "vencimiento": "2027-11-01", "flujos": [
+        ("2026-04-30", 2.5), ("2026-11-02", 2.5), ("2027-04-30", 52.5),
+        ("2027-11-01", 51.25),
+    ]},
+}
+
+
+# ------------------------------------------------------------------
+# Bonos ajustados por CER (BONCER/LECER). Cada flujo trae, por cada 100
+# de valor nominal ORIGINAL: la fraccion de capital que amortiza en esa
+# fecha ("amortizacion"), la tasa de interes anual real aplicada sobre
+# el capital residual ("tasa_interes") y la fraccion de anio del periodo
+# ("base", 0.5 = semestral). Fuente: rendimientos.co/api/config, seccion
+# "bonos_cer". Se listan todos los flujos (pasados y futuros) porque la
+# fraccion de capital ya amortizada hasta hoy hace falta para saber
+# cuanto capital residual (VNR) queda vigente.
+# ------------------------------------------------------------------
+
+CER_FLUJOS = {
+    "TZXO6": {"vencimiento": "2026-10-30", "cer_emision": 480.1526, "flujos": [
+        ("2026-10-30", 1.0, 0.0, 0.5),
+    ]},
+    "TX26": {"vencimiento": "2026-11-09", "cer_emision": 22.544, "flujos": [
+        ("2021-05-10", 0.0, 0.02, 0.5), ("2021-11-09", 0.0, 0.02, 0.5),
+        ("2022-05-09", 0.0, 0.02, 0.5), ("2022-11-09", 0.0, 0.02, 0.5),
+        ("2023-05-09", 0.0, 0.02, 0.5), ("2023-11-09", 0.0, 0.02, 0.5),
+        ("2024-05-09", 0.0, 0.02, 0.5), ("2024-11-11", 0.2, 0.02, 0.5),
+        ("2025-05-09", 0.2, 0.02, 0.5), ("2025-11-10", 0.2, 0.02, 0.5),
+        ("2026-05-11", 0.2, 0.02, 0.5), ("2026-11-09", 0.2, 0.02, 0.5),
+    ]},
+    "TZXD6": {"vencimiento": "2026-12-15", "cer_emision": 271.0476, "flujos": [
+        ("2026-12-15", 1.0, 0.0, 0.5),
+    ]},
+    "TZXM7": {"vencimiento": "2027-03-31", "cer_emision": 361.3176, "flujos": [
+        ("2027-03-31", 1.0, 0.0, 0.5),
+    ]},
+    "TZX27": {"vencimiento": "2027-06-30", "cer_emision": 200.388, "flujos": [
+        ("2027-06-30", 1.0, 0.0, 0.5),
+    ]},
+    "TZXD7": {"vencimiento": "2027-12-15", "cer_emision": 271.0476, "flujos": [
+        ("2027-12-15", 1.0, 0.0, 0.5),
+    ]},
+    "TZX28": {"vencimiento": "2028-06-30", "cer_emision": 200.388, "flujos": [
+        ("2028-06-30", 1.0, 0.0, 0.5),
+    ]},
+    "TX28": {"vencimiento": "2028-11-09", "cer_emision": 22.544, "flujos": [
+        ("2021-05-10", 0.0, 0.0225, 0.5), ("2021-11-09", 0.0, 0.0225, 0.5),
+        ("2022-05-09", 0.0, 0.0225, 0.5), ("2022-11-09", 0.0, 0.0225, 0.5),
+        ("2023-05-09", 0.0, 0.0225, 0.5), ("2023-11-09", 0.0, 0.0225, 0.5),
+        ("2024-05-09", 0.1, 0.0225, 0.5), ("2024-11-11", 0.1, 0.0225, 0.5),
+        ("2025-05-09", 0.1, 0.0225, 0.5), ("2025-11-10", 0.1, 0.0225, 0.5),
+        ("2026-05-11", 0.1, 0.0225, 0.5), ("2026-11-09", 0.1, 0.0225, 0.5),
+        ("2027-05-10", 0.1, 0.0225, 0.5), ("2027-11-09", 0.1, 0.0225, 0.5),
+        ("2028-05-09", 0.1, 0.0225, 0.5), ("2028-11-09", 0.1, 0.0225, 0.5),
+    ]},
+    "DICP": {"vencimiento": "2034-01-02", "cer_emision": 1.4551, "flujos": [
+        # Flujos pasados omitidos (bono emitido en 2004); el VNR vigente
+        # a hoy se toma directamente como dato (ver DICP_VNR_HOY abajo).
+        ("2026-12-31", 0.05, 0.0583, 0.5), ("2027-06-30", 0.05, 0.0583, 0.5),
+        ("2027-12-31", 0.05, 0.0583, 0.5), ("2028-06-30", 0.05, 0.0583, 0.5),
+        ("2029-01-02", 0.05, 0.0583, 0.5), ("2029-07-02", 0.05, 0.0583, 0.5),
+        ("2029-12-31", 0.05, 0.0583, 0.5), ("2030-07-01", 0.05, 0.0583, 0.5),
+        ("2030-12-31", 0.05, 0.0583, 0.5), ("2031-06-30", 0.05, 0.0583, 0.5),
+        ("2031-12-31", 0.05, 0.0583, 0.5), ("2032-06-30", 0.05, 0.0583, 0.5),
+        ("2032-12-31", 0.05, 0.0583, 0.5), ("2033-06-30", 0.05, 0.0583, 0.5),
+        ("2034-01-02", 0.05, 0.0583, 0.5),
+    ]},
+    "PARP": {"vencimiento": "2038-12-31", "cer_emision": 1.4551, "flujos": [
+        ("2026-09-30", 0.0, 0.0177, 0.5), ("2027-03-31", 0.0, 0.0177, 0.5),
+        ("2027-09-30", 0.0, 0.0177, 0.5), ("2028-03-31", 0.0, 0.0177, 0.5),
+        ("2028-10-02", 0.0, 0.0177, 0.5), ("2029-04-03", 0.0, 0.0177, 0.5),
+        ("2029-10-01", 0.05, 0.0248, 0.5), ("2030-04-01", 0.05, 0.0248, 0.5),
+        ("2030-09-30", 0.05, 0.0248, 0.5), ("2031-03-31", 0.05, 0.0248, 0.5),
+        ("2031-09-30", 0.05, 0.0248, 0.5), ("2032-03-31", 0.05, 0.0248, 0.5),
+        ("2032-09-30", 0.05, 0.0248, 0.5), ("2033-03-31", 0.05, 0.0248, 0.5),
+        ("2033-09-30", 0.05, 0.0248, 0.5), ("2034-03-31", 0.05, 0.0248, 0.5),
+        ("2034-10-02", 0.05, 0.0248, 0.5), ("2035-04-02", 0.05, 0.0248, 0.5),
+        ("2035-10-01", 0.05, 0.0248, 0.5), ("2036-03-31", 0.05, 0.0248, 0.5),
+        ("2036-09-30", 0.05, 0.0248, 0.5), ("2037-03-31", 0.05, 0.0248, 0.5),
+        ("2037-09-30", 0.05, 0.0248, 0.5), ("2038-03-31", 0.05, 0.0248, 0.5),
+        ("2038-09-30", 0.05, 0.0248, 0.5), ("2038-12-31", 0.05, 0.0248, 0.5),
+    ]},
+    "X31L6": {"vencimiento": "2026-07-31", "cer_emision": 685.5506, "flujos": [
+        ("2026-07-31", 1.0, 0.0, 0.5),
+    ]},
+    "X30S6": {"vencimiento": "2026-09-30", "cer_emision": 714.9849, "flujos": [
+        ("2026-09-30", 1.0, 0.0, 0.5),
+    ]},
+    "X30N6": {"vencimiento": "2026-11-30", "cer_emision": 659.6789, "flujos": [
+        ("2026-11-30", 1.0, 0.0, 0.5),
+    ]},
+    "TX31": {"vencimiento": "2031-12-01", "cer_emision": 46.913, "flujos": [
+        ("2026-11-30", 0.0, 0.025, 0.5), ("2027-05-31", 0.1, 0.025, 0.5),
+        ("2027-11-30", 0.1, 0.025, 0.5), ("2028-05-30", 0.1, 0.025, 0.5),
+        ("2028-11-30", 0.1, 0.025, 0.5), ("2029-05-30", 0.1, 0.025, 0.5),
+        ("2029-11-30", 0.1, 0.025, 0.5), ("2030-05-30", 0.1, 0.025, 0.5),
+        ("2030-12-02", 0.1, 0.025, 0.5), ("2031-05-30", 0.1, 0.025, 0.5),
+        ("2031-12-01", 0.1, 0.025, 0.5),
+    ]},
+}
+
+# VNR (capital residual, fraccion de 1) ya conocido a la fecha en que se
+# releva esta tabla (18/07/2026) para los bonos cuyos flujos pasados no
+# se transcribieron completos (emitidos hace muchos anios). Sirve como
+# capital de partida para descontar los flujos futuros listados arriba.
+CER_VNR_CONOCIDO = {
+    "DICP": (0.75, "2026-07-18"),
+    "PARP": (1.0, "2026-07-18"),
+}
+
+LECAP_TERMS = {
+    "S31L6": {"nombre": "LECAP Julio 31", "pago_final": 117.677, "fecha_vencimiento": "2026-07-31"},
+    "S14G6": {"nombre": "LECAP Agosto 14", "pago_final": 108.03, "fecha_vencimiento": "2026-08-14"},
+    "S31G6": {"nombre": "LECAP Agosto 31", "pago_final": 127.064, "fecha_vencimiento": "2026-08-31"},
+    "S30S6": {"nombre": "LECAP Sept 30", "pago_final": 117.536, "fecha_vencimiento": "2026-09-30"},
+    "S30O6": {"nombre": "LECAP Oct 30", "pago_final": 135.278, "fecha_vencimiento": "2026-10-30"},
+    "S13N6": {"nombre": "LECAP Nov 13", "pago_final": 109.65, "fecha_vencimiento": "2026-11-13"},
+    "S30N6": {"nombre": "LECAP Nov 30", "pago_final": 129.888, "fecha_vencimiento": "2026-11-30"},
+    "T15E7": {"nombre": "BONCAP Ene 15/27", "pago_final": 161.104, "fecha_vencimiento": "2027-01-15"},
+    "T30A7": {"nombre": "BONCAP Abr 30/27", "pago_final": 157.341, "fecha_vencimiento": "2027-04-30"},
+    "T31Y7": {"nombre": "BONCAP May 31/27", "pago_final": 151.563, "fecha_vencimiento": "2027-05-31"},
+    "T30J7": {"nombre": "BONCAP Jun 30/27", "pago_final": 156.037, "fecha_vencimiento": "2027-06-30"},
+}
+
+
+BOND_DESCRIPTIONS = {
+    # Soberanos USD (reestructuracion 2020)
+    "AL29": "Bonar 2029 (ley Argentina)", "GD29": "Global 2029 (ley Nueva York)",
+    "AL30": "Bonar 2030 (ley Argentina)", "GD30": "Global 2030 (ley Nueva York)",
+    "AL35": "Bonar 2035 (ley Argentina)", "GD35": "Global 2035 (ley Nueva York)",
+    "AE38": "Bonar 2038 (ley Argentina)", "GD38": "Global 2038 (ley Nueva York)",
+    "AL41": "Bonar 2041 (ley Argentina)", "GD41": "Global 2041 (ley Nueva York)",
+    "AO27": "Bono del Tesoro en USD, ley Argentina, vto. 2027",
+    "AO28": "Bono del Tesoro en USD, ley Argentina, vto. 2028",
+    "AO29": "Bono del Tesoro en USD, ley Argentina, vto. 2029",
+    "AN29": "Bono del Tesoro en USD, ley Argentina, vto. 2029",
+    "BPD7": "Bono del Tesoro en USD, ley Argentina, vto. 2027",
+    # CER
+    "TX26": "Bono del Tesoro en pesos ajustado por CER, vto. 2026",
+    "TX28": "Bono del Tesoro en pesos ajustado por CER, vto. 2028",
+    "TX31": "Bono del Tesoro en pesos ajustado por CER, vto. 2031",
+    "TZX27": "Bono del Tesoro en pesos ajustado por CER, vto. 2027",
+    "TZX28": "Bono del Tesoro en pesos ajustado por CER, vto. 2028",
+    "TZXD6": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2026",
+    "TZXD7": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2027",
+    "TZXM7": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2027",
+    "TZXO6": "Bono del Tesoro en pesos ajustado por CER, vto. oct. 2026",
+    "X30N6": "Letra del Tesoro (LECER) ajustada por CER, vto. nov. 2026",
+    "X30S6": "Letra del Tesoro (LECER) ajustada por CER, vto. sep. 2026",
+    "X31L6": "Letra del Tesoro (LECER) ajustada por CER, vto. jul. 2026",
+    "DICP": "Discount en pesos ajustado por CER (reestructuracion 2005)",
+    "PARP": "Par en pesos ajustado por CER (reestructuracion 2005)",
+}
+
+
+def _bond_description(ticker, categoria):
+    desc = BOND_DESCRIPTIONS.get(ticker)
+    if desc:
+        return desc
+    if categoria == "lecap":
+        info = LECAP_TERMS.get(ticker)
+        return info["nombre"] if info else ticker
+    return ticker
+
+
+# ------------------------------------------------------------------
+# Matematica financiera generica: valor presente / TIR / duration de
+# Macaulay a partir de un cronograma de flujos de fondos. Se usa tanto
+# para los bonos soberanos en USD (flujos nominales) como, con el
+# criterio de "TIR sobre CER" (CER congelado desde hoy), para los bonos
+# CER (flujos en unidades reales). Se resuelve la TIR por biseccion en
+# vez de Newton-Raphson: con cronogramas irregulares (cupones variables,
+# amortizaciones no uniformes) la biseccion es mas robusta y siempre
+# converge si existe una raiz en el rango [-90%, 500%], que cubre
+# cualquier rendimiento realista de estos instrumentos.
+# ------------------------------------------------------------------
+
+def _years_between(d1, d2):
+    return (d2 - d1).days / 365.0
+
+
+def _bond_pv_at_yield(flujos_futuros, valuation_date, r):
+    """flujos_futuros: lista de (date, monto). Devuelve el valor presente."""
+    pv = 0.0
+    for fecha, monto in flujos_futuros:
+        t = _years_between(valuation_date, fecha)
+        if t <= 0:
+            continue
+        pv += monto / ((1 + r) ** t)
+    return pv
+
+
+def _solve_ytm(flujos_futuros, valuation_date, target_price):
+    if not flujos_futuros or target_price is None or target_price <= 0:
+        return None
+    lo, hi = -0.9, 5.0
+
+    def f(r):
+        return _bond_pv_at_yield(flujos_futuros, valuation_date, r) - target_price
+
+    flo, fhi = f(lo), f(hi)
+    if flo * fhi > 0:
+        return None
+    for _ in range(200):
+        mid = (lo + hi) / 2
+        fm = f(mid)
+        if abs(fm) < 1e-9:
+            return mid
+        if flo * fm < 0:
+            hi, fhi = mid, fm
+        else:
+            lo, flo = mid, fm
+    return (lo + hi) / 2
+
+
+def _macaulay_duration(flujos_futuros, valuation_date, r):
+    pv_total = 0.0
+    weighted = 0.0
+    for fecha, monto in flujos_futuros:
+        t = _years_between(valuation_date, fecha)
+        if t <= 0:
+            continue
+        pv = monto / ((1 + r) ** t)
+        pv_total += pv
+        weighted += t * pv
+    if pv_total <= 0:
+        return None
+    return weighted / pv_total
+
+
+def _bcra_cer_hoy():
+    """Indice CER (BCRA, variable 30), valor vigente a la fecha de hoy o
+    la ultima fecha publicada anterior (el BCRA tambien publica valores
+    "proyectados" a futuro segun el cronograma de indices, asi que no
+    hay que tomar directamente el primer registro sin mirar la fecha)."""
+    data = fetch_json("https://api.bcra.gob.ar/estadisticas/v4.0/monetarias/30")
+    if not data or not data.get("results"):
+        return None
+    detalle = data["results"][0].get("detalle") or []
+    hoy = date.today().isoformat()
+    validos = [d for d in detalle if d.get("fecha") and d["fecha"] <= hoy and d.get("valor") is not None]
+    if not validos:
+        return None
+    validos.sort(key=lambda d: d["fecha"], reverse=True)
+    return validos[0]["valor"]
+
+
+def get_bonos_soberanos_usd():
+    data = fetch_json("https://rendimientos.co/api/soberanos")
+    if not data or "data" not in data:
+        return None
+    hoy = date.today()
+    out = []
+    for item in data["data"]:
+        sym = item.get("symbol")
+        precio = item.get("price_usd")
+        info = SOBERANOS_FLUJOS.get(sym)
+        if not info or precio is None:
+            continue
+        flujos = [(_parse_date(f), m) for f, m in info["flujos"]]
+        flujos_fut = [(f, m) for f, m in flujos if f and f > hoy]
+        ytm = _solve_ytm(flujos_fut, hoy, precio)
+        dur = _macaulay_duration(flujos_fut, hoy, ytm) if ytm is not None else None
+        out.append({
+            "symbol": sym,
+            "descripcion": _bond_description(sym, "usd"),
+            "ley": info["ley"],
+            "vencimiento": info["vencimiento"],
+            "precio": precio,
+            "pct_change": item.get("pct_change"),
+            "tir": round(ytm * 100, 3) if ytm is not None else None,
+            "duration": round(dur, 3) if dur is not None else None,
+        })
+    out.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
+    return out or None
+
+
+def get_bonos_cer():
+    data = fetch_json("https://rendimientos.co/api/cer-precios")
+    if not data or "data" not in data:
+        return None
+    cer_hoy = _bcra_cer_hoy()
+    if cer_hoy is None:
+        print("[WARN] No se pudo obtener el indice CER del BCRA: no se calcula TIR/duration de bonos CER.")
+    hoy = date.today()
+    out = []
+    for item in data["data"]:
+        sym = item.get("symbol")
+        precio = item.get("c")
+        info = CER_FLUJOS.get(sym)
+        if not info or precio is None:
+            continue
+        cer_emision = info["cer_emision"]
+        flujos_all = [(_parse_date(f), am, ti, base) for f, am, ti, base in info["flujos"]]
+
+        # Capital residual (VNR) vigente hoy: si el ticker tiene un punto
+        # de referencia conocido (CER_VNR_CONOCIDO, para bonos con
+        # historia muy larga) se parte de ahi y se descuentan las
+        # amortizaciones futuras ya transcurridas desde esa referencia;
+        # si no, se calcula sumando las amortizaciones de flujos pasados
+        # incluidos en la lista completa.
+        if sym in CER_VNR_CONOCIDO:
+            vnr_ref, fecha_ref = CER_VNR_CONOCIDO[sym]
+            fecha_ref_d = _parse_date(fecha_ref)
+            vnr_hoy = vnr_ref - sum(am for f, am, ti, b in flujos_all if fecha_ref_d < f <= hoy)
+        else:
+            vnr_hoy = 1.0 - sum(am for f, am, ti, b in flujos_all if f and f <= hoy)
+
+        flujos_fut_raw = [(f, am, ti, b) for f, am, ti, b in flujos_all if f and f > hoy]
+        # Flujo real (en unidades de 100 nominal ORIGINAL, sin ajuste por
+        # CER) de cada pago futuro: interes sobre el capital residual
+        # vigente justo antes de ese pago, mas la amortizacion de ese pago.
+        flujos_reales = []
+        vnr_restante = vnr_hoy
+        for fecha, amortizacion, tasa, base in flujos_fut_raw:
+            interes = vnr_restante * tasa * base * 100
+            principal = amortizacion * 100
+            flujos_reales.append((fecha, interes + principal))
+            vnr_restante -= amortizacion
+
+        tir = dur = None
+        if cer_hoy is not None and flujos_reales:
+            coeficiente = cer_hoy / cer_emision
+            precio_real = precio / coeficiente
+            tir = _solve_ytm(flujos_reales, hoy, precio_real)
+            dur = _macaulay_duration(flujos_reales, hoy, tir) if tir is not None else None
+
+        out.append({
+            "symbol": sym,
+            "descripcion": _bond_description(sym, "cer"),
+            "vencimiento": info["vencimiento"],
+            "precio": precio,
+            "pct_change": item.get("pct_change"),
+            "tir": round(tir * 100, 3) if tir is not None else None,
+            "duration": round(dur, 3) if dur is not None else None,
+        })
+    out.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
+    return out or None
+
+
+def _lecap_precios_previos():
+    path = os.path.join(HISTORY_DIR, "bonos_pesos_precios.json")
+    return load_json(path) or {}
+
+
+def _guardar_lecap_precios(precios_hoy):
+    path = os.path.join(HISTORY_DIR, "bonos_pesos_precios.json")
+    existing = load_json(path) or {"series": {}}
+    series = existing.setdefault("series", {})
+    hoy = date.today().isoformat()
+    for sym, precio in precios_hoy.items():
+        serie = series.setdefault(sym, [])
+        if serie and serie[-1].get("t") == hoy:
+            serie[-1]["c"] = precio
+        else:
+            serie.append({"t": hoy, "c": precio})
+        if len(serie) > 30:
+            del serie[: len(serie) - 30]
+    existing["updated_at"] = datetime.now(timezone.utc).isoformat()
+    save_json(path, existing)
+    return series
+
+
+def get_bonos_pesos():
+    data = fetch_json("https://rendimientos.co/api/lecaps")
+    if not data or "data" not in data:
+        return None
+    hoy = date.today()
+    precios_hoy = {}
+    candidatos = []
+    for item in data["data"]:
+        sym = item.get("symbol")
+        precio = item.get("price")
+        info = LECAP_TERMS.get(sym)
+        if not info or precio is None:
+            continue
+        vto = _parse_date(info["fecha_vencimiento"])
+        if not vto or vto <= hoy:
+            continue
+        dias = (vto - hoy).days
+        pago_final = info["pago_final"]
+        tea = (pago_final / precio) ** (365.0 / dias) - 1.0
+        precios_hoy[sym] = precio
+        candidatos.append({
+            "symbol": sym,
+            "descripcion": _bond_description(sym, "lecap"),
+            "vencimiento": info["fecha_vencimiento"],
+            "precio": precio,
+            "tir": round(tea * 100, 3),
+            "duration": round(dias / 365.0, 3),
+            "dias": dias,
+        })
+
+    # Variacion del dia: se auto-acumula un historial propio (no existe
+    # fuente publica gratuita con el cierre del dia anterior para LECAPs)
+    # y se compara el precio de hoy contra el ultimo guardado ayer. El
+    # primer dia que corre esto no hay punto de comparacion, asi que la
+    # variacion queda en None (se muestra "-") en vez de inventar un dato.
+    series = _guardar_lecap_precios(precios_hoy)
+    for c in candidatos:
+        serie = series.get(c["symbol"], [])
+        pct = None
+        if len(serie) >= 2:
+            ayer, hoy_pt = serie[-2], serie[-1]
+            if ayer.get("c"):
+                pct = (hoy_pt["c"] - ayer["c"]) / ayer["c"] * 100
+        c["pct_change"] = round(pct, 3) if pct is not None else None
+        del c["dias"]
+
+    candidatos.sort(key=lambda x: x["duration"])
+    return candidatos or None
+
 
 def get_ons():
     data = fetch_json("https://rendimientos.co/api/ons")
@@ -1676,7 +2226,9 @@ def main():
         "cripto": get_cripto(),
         "tasas_locales": get_tasas_locales(),
         "fci_secciones": get_fci_secciones(),
-        "bonds": get_bonos(),
+        "bonos_soberanos_usd": get_bonos_soberanos_usd(),
+        "bonos_cer": get_bonos_cer(),
+        "bonos_pesos": get_bonos_pesos(),
         "corporate": get_ons(),
         "acciones_arg": get_acciones_arg(),
         "indices": get_indices_globales(),
@@ -1710,7 +2262,6 @@ def main():
         "dolar.json": build_history_dolar(),
         "tasas_locales.json": build_history_tasas_locales(),
         "fci_secciones.json": build_history_fci_secciones(live_data.get("fci_secciones")),
-        "bonos.json": build_history_bonos(),
         "acciones_arg.json": build_history_acciones_arg(),
         "cripto.json": build_history_cripto(),
         "mercados_globales.json": build_history_twelvedata(),
