@@ -2406,16 +2406,31 @@ def build_history_bonos_usd():
         if daily or weekly:
             out[sym] = {"daily": daily, "weekly": weekly}
 
+    # Para los tickers sin cobertura en data912, se intenta primero
+    # bonistas.com (historia real, ya ajustada por valor residual segun
+    # su propio vR) antes de caer a la auto-acumulacion diaria.
+    BONISTAS_USD_MAP = {"AO27": "AO27", "AO28": "AO28", "AN29": "AN29", "BPD7": "BPD7D"}
+    faltantes = []
+    for sym in BONOS_USD_AUTOACUM:
+        ticker_bonistas = BONISTAS_USD_MAP.get(sym)
+        records = _fetch_bonistas_history(ticker_bonistas) if ticker_bonistas else None
+        if records:
+            daily, weekly = _series_from_adjusted_records(records)
+            if daily or weekly:
+                out[sym] = {"daily": daily, "weekly": weekly}
+                continue
+        faltantes.append(sym)
+
     live = fetch_json("https://rendimientos.co/api/soberanos")
     today_points = {}
     if live and "data" in live:
         for item in live["data"]:
             sym = item.get("symbol")
             precio = item.get("price_usd")
-            if sym in BONOS_USD_AUTOACUM and precio is not None:
+            if sym in faltantes and precio is not None:
                 today_points[sym] = {"o": precio, "h": precio, "l": precio, "c": precio, "v": None}
     acumulado = _accumulate_ohlc_series(os.path.join(HISTORY_DIR, "_acum_bonos_usd.json"), today_points)
-    for sym in BONOS_USD_AUTOACUM:
+    for sym in faltantes:
         info = SOBERANOS_FLUJOS.get(sym, {})
         payment_dates = [f for f, m in info.get("flujos", [])]
         daily, weekly = _build_bond_series(acumulado.get(sym, []), payment_dates)
@@ -2461,17 +2476,30 @@ def build_history_bonos_cer():
         if daily or weekly:
             out[sym] = {"daily": daily, "weekly": weekly}
 
-    auto_tickers = [s for s in CER_FLUJOS if s not in BONOS_USD_DATA912 and s not in BONOS_CER_DATA912]
+    # Para el resto (10 de 14), se intenta primero bonistas.com (mismo
+    # ticker, historia real ya ajustada por su propio vR) antes de caer
+    # a la auto-acumulacion diaria.
+    resto = [s for s in CER_FLUJOS if s not in BONOS_USD_DATA912 and s not in BONOS_CER_DATA912]
+    faltantes = []
+    for sym in resto:
+        records = _fetch_bonistas_history(sym)
+        if records:
+            daily, weekly = _series_from_adjusted_records(records)
+            if daily or weekly:
+                out[sym] = {"daily": daily, "weekly": weekly}
+                continue
+        faltantes.append(sym)
+
     live = fetch_json("https://rendimientos.co/api/cer-precios")
     today_points = {}
     if live and "data" in live:
         for item in live["data"]:
             sym = item.get("symbol")
             precio = item.get("c")
-            if sym in auto_tickers and precio is not None:
+            if sym in faltantes and precio is not None:
                 today_points[sym] = {"o": precio, "h": precio, "l": precio, "c": precio, "v": None}
     acumulado = _accumulate_ohlc_series(os.path.join(HISTORY_DIR, "_acum_bonos_cer.json"), today_points)
-    for sym in auto_tickers:
+    for sym in faltantes:
         daily, weekly = _build_bond_series(acumulado.get(sym, []), exact_schedule=_cer_amort_schedule(sym))
         if daily or weekly:
             out[sym] = {"daily": daily, "weekly": weekly}
@@ -2494,18 +2522,31 @@ def build_history_bonos_cer():
 # ------------------------------------------------------------------
 
 def build_history_bonos_pesos():
+    out = {}
+    faltantes = []
+    for sym in LECAP_TERMS:
+        # Bullet (un unico pago al vencimiento): no hace falta ajuste
+        # por valor residual, pero bonistas.com igual da mucha mas
+        # profundidad historica real que la auto-acumulacion propia.
+        records = _fetch_bonistas_history(sym)
+        if records:
+            daily, weekly = _series_from_adjusted_records(records)
+            if daily or weekly:
+                out[sym] = {"daily": daily, "weekly": weekly}
+                continue
+        faltantes.append(sym)
+
     path = os.path.join(HISTORY_DIR, "bonos_pesos_precios.json")
     existing = load_json(path) or {"series": {}}
     series = existing.get("series", {})
-    out = {}
-    for sym, puntos in series.items():
-        if sym not in LECAP_TERMS:
-            continue
+    for sym in faltantes:
+        puntos = series.get(sym, [])
         records = [{"date": p.get("t"), "o": p.get("c"), "h": p.get("c"),
                     "l": p.get("c"), "c": p.get("c"), "v": None} for p in puntos]
         daily, weekly = _build_bond_series(records)
         if daily or weekly:
             out[sym] = {"daily": daily, "weekly": weekly}
+
     if not out:
         return None
     return {
@@ -2526,28 +2567,42 @@ def build_history_bonos_pesos():
 # ------------------------------------------------------------------
 
 def build_history_ons_usd():
-    live = fetch_json("https://rendimientos.co/api/ons")
-    if not live or "data" not in live:
-        return None
-    by_ticker = {info["ticker_d912"]: key for key, info in ON_FLUJOS.items()}
-    today_points = {}
-    for item in live["data"]:
-        sym = item.get("symbol")
-        config_key = by_ticker.get(sym)
-        precio = item.get("c")
-        if config_key and precio is not None:
-            today_points[config_key] = {"o": precio, "h": precio, "l": precio, "c": precio, "v": item.get("v")}
-    acumulado = _accumulate_ohlc_series(os.path.join(HISTORY_DIR, "_acum_ons_usd.json"), today_points)
-
     out = {}
+    faltantes = []
     for config_key, info in ON_FLUJOS.items():
-        registros = acumulado.get(config_key, [])
-        if not registros:
-            continue
-        payment_dates = [f for f, m in info["flujos"]]
-        daily, weekly = _build_bond_series(registros, payment_dates)
-        if daily or weekly:
-            out[config_key] = {"daily": daily, "weekly": weekly}
+        # bonistas.com usa el mismo ticker de liquidacion en USD
+        # (ticker_d912, p.ej. "MGCRD") como slug de la pagina. Cubre un
+        # subconjunto de las 53 ONs trackeadas (no todas), con historia
+        # real de varias semanas y ajuste por vR ya aplicado.
+        records = _fetch_bonistas_history(info["ticker_d912"])
+        if records:
+            daily, weekly = _series_from_adjusted_records(records)
+            if daily or weekly:
+                out[config_key] = {"daily": daily, "weekly": weekly}
+                continue
+        faltantes.append(config_key)
+
+    live = fetch_json("https://rendimientos.co/api/ons")
+    if live and "data" in live:
+        by_ticker = {info["ticker_d912"]: key for key, info in ON_FLUJOS.items()}
+        today_points = {}
+        for item in live["data"]:
+            sym = item.get("symbol")
+            config_key = by_ticker.get(sym)
+            precio = item.get("c")
+            if config_key in faltantes and precio is not None:
+                today_points[config_key] = {"o": precio, "h": precio, "l": precio, "c": precio, "v": item.get("v")}
+        acumulado = _accumulate_ohlc_series(os.path.join(HISTORY_DIR, "_acum_ons_usd.json"), today_points)
+        for config_key in faltantes:
+            info = ON_FLUJOS[config_key]
+            registros = acumulado.get(config_key, [])
+            if not registros:
+                continue
+            payment_dates = [f for f, m in info["flujos"]]
+            daily, weekly = _build_bond_series(registros, payment_dates)
+            if daily or weekly:
+                out[config_key] = {"daily": daily, "weekly": weekly}
+
     if not out:
         return None
     return {
@@ -2556,6 +2611,67 @@ def build_history_ons_usd():
         "ajuste": "precio_tecnico_por_valor_residual",
         "series": out,
     }
+
+
+# ------------------------------------------------------------------
+# bonistas.com: fuente publica y gratuita adicional con historia diaria
+# real (o,h,l,c,v) para muchos bonos CER, LECAP/BONCAP, algunos
+# soberanos USD, y algunas ONs que no tienen cobertura en data912. La
+# pagina es un sitio Next.js estatico (SSG): el HTML plano ya trae el
+# JSON completo embebido en <script id="__NEXT_DATA__">, sin necesidad
+# de ejecutar JS ni de un navegador. Ademas del precio, el sitio ya
+# calcula un "valor residual" (vR, fraccion 0-1 del capital original no
+# amortizado) por dia - se usa para ajustar el precio "por 100 de VR
+# vigente" a "por 100 de capital ORIGINAL" (factor = 1/vR), el mismo
+# criterio de valor tecnico/paridad que ya se usa en el resto del
+# script, pero tomado directo del vR que reporta la fuente en vez de
+# estimarlo (mas preciso).
+# ------------------------------------------------------------------
+
+def _fetch_bonistas_history(ticker):
+    html = fetch_text(f"https://bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{ticker}")
+    if not html:
+        return None
+    m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html, re.S)
+    if not m:
+        return None
+    try:
+        data = json.loads(m.group(1))
+        h = data["props"]["pageProps"]["bondData"]["history"]
+        fechas = h["fecha"]
+    except (KeyError, TypeError, ValueError):
+        return None
+    if not fechas:
+        return None
+    n = len(fechas)
+    opens = h.get("open") or [None] * n
+    highs = h.get("high") or [None] * n
+    lows = h.get("low") or [None] * n
+    closes = h.get("close") or [None] * n
+    vols = h.get("volume") or [None] * n
+    vrs = h.get("vR") or [None] * n
+    out = []
+    for i, f in enumerate(fechas):
+        vr = vrs[i]
+        factor = (1.0 / vr) if vr else 1.0
+        def _adj(v):
+            return round(v * factor, 4) if v is not None else None
+        out.append({
+            "date": f,
+            "o": _adj(opens[i]), "h": _adj(highs[i]), "l": _adj(lows[i]), "c": _adj(closes[i]),
+            "v": vols[i],
+        })
+    return out
+
+
+def _series_from_adjusted_records(records):
+    """Ya vienen ajustados (bonistas aplica vR); solo arma daily/weekly."""
+    return build_daily_weekly(
+        records,
+        date_fn=lambda r: _parse_date(r.get("date")),
+        point_fn=lambda r: {"o": r.get("o"), "h": r.get("h"), "l": r.get("l"),
+                              "c": r.get("c"), "v": r.get("v")},
+    )
 
 
 ACCIONES_ARG_TICKERS_DATA912 = {
