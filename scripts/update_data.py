@@ -1958,14 +1958,33 @@ def build_history_tasas_internacionales(rates_actuales):
 ACCIONES_MUNDIALES_MKTCAP_MIN = 1_000_000_000
 
 
+_YAHOO_BROWSER_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+
 def _yahoo_get_crumb():
+    # Replica el flujo de yfinance: 1) visitar finance.yahoo.com para
+    # obtener cookies de sesion anonima, 2) usar esas cookies para pedir
+    # el crumb. Yahoo bloquea trafico que no "parece" un navegador real
+    # (headers minimos, sin Accept/Accept-Language), asi que se imitan
+    # esos headers explicitamente.
     try:
         jar = http.cookiejar.CookieJar()
         opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
-        headers = {"User-Agent": "Mozilla/5.0 (monitor-real-bot/1.0)"}
-        req1 = urllib.request.Request("https://finance.yahoo.com/", headers=headers)
-        opener.open(req1, timeout=20).read()
-        req2 = urllib.request.Request("https://query2.finance.yahoo.com/v1/test/getcrumb", headers=headers)
+        req1 = urllib.request.Request("https://fc.yahoo.com", headers=_YAHOO_BROWSER_HEADERS)
+        try:
+            opener.open(req1, timeout=20).read()
+        except urllib.error.HTTPError:
+            pass  # fc.yahoo.com puede devolver 404 pero igual setea cookies
+        req1b = urllib.request.Request("https://finance.yahoo.com/", headers=_YAHOO_BROWSER_HEADERS)
+        opener.open(req1b, timeout=20).read()
+        req2 = urllib.request.Request(
+            "https://query2.finance.yahoo.com/v1/test/getcrumb", headers=_YAHOO_BROWSER_HEADERS
+        )
         crumb = opener.open(req2, timeout=20).read().decode("utf-8", errors="replace").strip()
         if not crumb or "<html" in crumb.lower():
             return None, None
@@ -1986,10 +2005,9 @@ def _yahoo_screener_query(opener, crumb, query, sort_field, sort_type, size=15, 
             "query": query,
         }).encode("utf-8")
         url = "https://query2.finance.yahoo.com/v1/finance/screener?crumb=" + urllib.parse.quote(crumb)
-        req = urllib.request.Request(
-            url, data=body, method="POST",
-            headers={"User-Agent": "Mozilla/5.0 (monitor-real-bot/1.0)", "Content-Type": "application/json"},
-        )
+        headers = dict(_YAHOO_BROWSER_HEADERS)
+        headers["Content-Type"] = "application/json"
+        req = urllib.request.Request(url, data=body, method="POST", headers=headers)
         with opener.open(req, timeout=25) as resp:
             data = json.loads(resp.read().decode("utf-8", errors="replace"))
         result = data.get("finance", {}).get("result")
