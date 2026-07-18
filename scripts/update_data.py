@@ -44,6 +44,7 @@ import unicodedata
 import urllib.request
 import urllib.error
 import urllib.parse
+import http.cookiejar
 from datetime import datetime, timezone, date, timedelta
 
 TWELVEDATA_KEY = os.environ.get("TWELVEDATA_API_KEY", "")
@@ -1342,7 +1343,12 @@ def get_acciones_arg():
 
 
 TWELVEDATA_SYMBOLS = {
-    "stocks": {"AAPL": "Apple Inc.", "MSFT": "Microsoft Corp.", "AMZN": "Amazon.com Inc.", "GOOGL": "Alphabet Inc."},
+    # "stocks" (Apple/Microsoft/Amazon/Alphabet, 4 tickers fijos) fue
+    # reemplazado por get_acciones_mundiales(): 10 subsecciones de
+    # ranking (top capitalizacion, suba/baja diaria, nuevos maximos/
+    # minimos, volumen, volatilidad semanal, RSI) sobre todo el universo
+    # NYSE/Nasdaq con capitalizacion >= USD 1.000M, via el screener de
+    # Yahoo Finance.
     "etfs": {"SPY": "SPY (S&P 500)", "QQQ": "QQQ (Nasdaq 100)", "EEM": "EEM (Emergentes)"},
     "forex": {
         "EUR/USD": "Euro",
@@ -1931,6 +1937,226 @@ def build_history_tasas_internacionales(rates_actuales):
     if not series_out:
         return None
     return {"updated_at": datetime.now(timezone.utc).isoformat(), "series": series_out}
+
+
+# ------------------------------------------------------------------
+# Acciones Mundiales: 10 subsecciones de ranking (top capitalizacion,
+# suba/baja diaria, nuevos maximos/minimos de 52 semanas, volumen,
+# volatilidad semanal alta/baja, RSI sobrecomprada/sobrevendida) sobre
+# el universo NYSE/Nasdaq (EE.UU.) con capitalizacion >= USD 1.000M.
+#
+# Fuente: el screener publico de Yahoo Finance (el mismo que usa
+# finance.yahoo.com/screener). No requiere API key, pero desde 2024
+# exige un token "crumb" ligado a una cookie de sesion anonima (sin
+# login) para las consultas POST personalizadas -- se replica el mismo
+# flujo que usan librerias como yfinance: 1) GET a finance.yahoo.com
+# para obtener las cookies, 2) GET a /v1/test/getcrumb con esas cookies
+# para obtener el crumb, 3) POST a /v1/finance/screener con el crumb en
+# la query string y las cookies en cada request subsiguiente.
+# ------------------------------------------------------------------
+
+ACCIONES_MUNDIALES_MKTCAP_MIN = 1_000_000_000
+
+
+def _yahoo_get_crumb():
+    try:
+        jar = http.cookiejar.CookieJar()
+        opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
+        headers = {"User-Agent": "Mozilla/5.0 (monitor-real-bot/1.0)"}
+        req1 = urllib.request.Request("https://finance.yahoo.com/", headers=headers)
+        opener.open(req1, timeout=20).read()
+        req2 = urllib.request.Request("https://query2.finance.yahoo.com/v1/test/getcrumb", headers=headers)
+        crumb = opener.open(req2, timeout=20).read().decode("utf-8", errors="replace").strip()
+        if not crumb or "<html" in crumb.lower():
+            return None, None
+        return opener, crumb
+    except Exception as e:
+        print(f"[WARN] No se pudo obtener el crumb de Yahoo Finance: {e}")
+        return None, None
+
+
+def _yahoo_screener_query(opener, crumb, query, sort_field, sort_type, size=15, offset=0):
+    try:
+        body = json.dumps({
+            "size": size,
+            "offset": offset,
+            "sortField": sort_field,
+            "sortType": sort_type,
+            "quoteType": "EQUITY",
+            "query": query,
+        }).encode("utf-8")
+        url = "https://query2.finance.yahoo.com/v1/finance/screener?crumb=" + urllib.parse.quote(crumb)
+        req = urllib.request.Request(
+            url, data=body, method="POST",
+            headers={"User-Agent": "Mozilla/5.0 (monitor-real-bot/1.0)", "Content-Type": "application/json"},
+        )
+        with opener.open(req, timeout=25) as resp:
+            data = json.loads(resp.read().decode("utf-8", errors="replace"))
+        result = data.get("finance", {}).get("result")
+        if not result:
+            return []
+        return result[0].get("quotes", [])
+    except Exception as e:
+        print(f"[WARN] Fallo la consulta al screener de Yahoo (sort={sort_field}): {e}")
+        return []
+
+
+def _yahoo_screener_paginated(opener, crumb, query, sort_field, sort_type, total_needed, page_size=250):
+    out = []
+    offset = 0
+    while len(out) < total_needed:
+        quotes = _yahoo_screener_query(opener, crumb, query, sort_field, sort_type, size=page_size, offset=offset)
+        if not quotes:
+            break
+        out.extend(quotes)
+        offset += page_size
+        if len(quotes) < page_size:
+            break
+    return out[:total_needed]
+
+
+def _accion_mundial_item(q):
+    return {
+        "symbol": q.get("symbol"),
+        "nombre": q.get("shortName") or q.get("longName") or q.get("symbol"),
+        "precio": q.get("regularMarketPrice"),
+        "pct_change": round(q["regularMarketChangePercent"], 3) if q.get("regularMarketChangePercent") is not None else None,
+        "market_cap": q.get("marketCap"),
+        "volumen": q.get("regularMarketVolume"),
+        "wk52_high": q.get("fiftyTwoWeekHigh"),
+        "wk52_low": q.get("fiftyTwoWeekLow"),
+    }
+
+
+def _rsi_14(closes):
+    """RSI de Wilder (14 periodos). Necesita al menos 15 cierres diarios."""
+    if len(closes) < 15:
+        return None
+    deltas = [closes[i] - closes[i - 1] for i in range(1, len(closes))]
+    gains = [d if d > 0 else 0.0 for d in deltas]
+    losses = [-d if d < 0 else 0.0 for d in deltas]
+    avg_gain = sum(gains[:14]) / 14
+    avg_loss = sum(losses[:14]) / 14
+    for i in range(14, len(deltas)):
+        avg_gain = (avg_gain * 13 + gains[i]) / 14
+        avg_loss = (avg_loss * 13 + losses[i]) / 14
+    if avg_loss == 0:
+        return 100.0
+    rs = avg_gain / avg_loss
+    return round(100 - (100 / (1 + rs)), 2)
+
+
+def _volatilidad_semanal(closes):
+    """Desvio estandar de los retornos diarios de la ultima semana (5
+    ruedas), expresado en % (no anualizado: es una medida relativa
+    simple para comparar entre acciones, no una cifra financiera
+    estandar tipo VIX)."""
+    if len(closes) < 6:
+        return None
+    ultimos = closes[-6:]
+    retornos = [(ultimos[i] / ultimos[i - 1] - 1) for i in range(1, len(ultimos)) if ultimos[i - 1]]
+    if len(retornos) < 2:
+        return None
+    media = sum(retornos) / len(retornos)
+    var = sum((r - media) ** 2 for r in retornos) / (len(retornos) - 1)
+    return round((var ** 0.5) * 100, 3)
+
+
+def get_acciones_mundiales():
+    opener, crumb = _yahoo_get_crumb()
+    if not opener or not crumb:
+        print("[WARN] No se pudo autenticar contra el screener de Yahoo Finance: se omite Acciones Mundiales.")
+        return None
+
+    filtro_base = {
+        "operator": "AND",
+        "operands": [
+            {"operator": "GT", "operands": ["intradaymarketcap", ACCIONES_MUNDIALES_MKTCAP_MIN]},
+            {"operator": "EQ", "operands": ["region", "us"]},
+        ],
+    }
+
+    out = {}
+
+    # 1) Top capitalizacion, 2) Top suba diaria, 3) Top baja diaria,
+    # 6) Top volumen: el screener ya devuelve el ranking ordenado sobre
+    # TODO el universo filtrado (no hace falta traer mas datos).
+    out["top_market_cap"] = [_accion_mundial_item(q) for q in
+        _yahoo_screener_query(opener, crumb, filtro_base, "intradaymarketcap", "DESC", size=15)]
+    out["top_suba_diaria"] = [_accion_mundial_item(q) for q in
+        _yahoo_screener_query(opener, crumb, filtro_base, "percentchange", "DESC", size=15)]
+    out["top_baja_diaria"] = [_accion_mundial_item(q) for q in
+        _yahoo_screener_query(opener, crumb, filtro_base, "percentchange", "ASC", size=15)]
+    out["top_volumen"] = [_accion_mundial_item(q) for q in
+        _yahoo_screener_query(opener, crumb, filtro_base, "dayvolume", "DESC", size=15)]
+
+    # 4) Nuevos maximos y 5) nuevos minimos de 52 semanas: el screener no
+    # tiene un campo directo para "distancia al maximo/minimo de 52
+    # semanas", asi que se trae un pool amplio (top 500 por
+    # capitalizacion, paginado) y se filtra localmente comparando precio
+    # actual vs. fiftyTwoWeekHigh/Low (ya vienen en cada cotizacion).
+    pool_500 = _yahoo_screener_paginated(opener, crumb, filtro_base, "intradaymarketcap", "DESC", 500)
+
+    nuevos_maximos = [
+        q for q in pool_500
+        if q.get("regularMarketPrice") and q.get("fiftyTwoWeekHigh")
+        and q["regularMarketPrice"] >= q["fiftyTwoWeekHigh"] * 0.999
+    ]
+    nuevos_maximos.sort(key=lambda q: q.get("regularMarketChangePercent") or -999, reverse=True)
+    out["top_nuevo_maximo"] = [_accion_mundial_item(q) for q in nuevos_maximos[:15]]
+
+    nuevos_minimos = [
+        q for q in pool_500
+        if q.get("regularMarketPrice") and q.get("fiftyTwoWeekLow")
+        and q["regularMarketPrice"] <= q["fiftyTwoWeekLow"] * 1.001
+    ]
+    nuevos_minimos.sort(key=lambda q: q.get("regularMarketChangePercent") or 999)
+    out["top_nuevo_minimo"] = [_accion_mundial_item(q) for q in nuevos_minimos[:15]]
+
+    # 7-10) Volatilidad semanal y RSI: requieren historial diario de
+    # precios (no vienen en el screener), asi que se calculan sobre un
+    # subconjunto acotado -- las primeras 200 del pool de 500 por
+    # capitalizacion (empresas grandes/liquidas, todas ya por encima del
+    # piso de USD 1.000M) -- para mantener acotada la cantidad de
+    # pedidos HTTP adicionales dentro de la corrida diaria.
+    candidatos_hist = pool_500[:200]
+    metricas = []
+    for q in candidatos_hist:
+        sym = q.get("symbol")
+        if not sym:
+            continue
+        data = fetch_json(
+            f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(sym)}?interval=1d&range=2mo"
+        )
+        if not data:
+            continue
+        try:
+            result = data["chart"]["result"][0]
+            closes = result.get("indicators", {}).get("quote", [{}])[0].get("close") or []
+            closes = [c for c in closes if c is not None]
+        except (KeyError, IndexError, TypeError):
+            continue
+        if len(closes) < 15:
+            continue
+        vol = _volatilidad_semanal(closes)
+        rsi = _rsi_14(closes)
+        metricas.append((q, vol, rsi))
+
+    con_vol = [(q, v, r) for q, v, r in metricas if v is not None]
+    con_vol.sort(key=lambda x: x[1], reverse=True)
+    out["top_volatilidad_alta"] = [dict(_accion_mundial_item(q), volatilidad_semanal=v) for q, v, r in con_vol[:5]]
+    con_vol.sort(key=lambda x: x[1])
+    out["top_volatilidad_baja"] = [dict(_accion_mundial_item(q), volatilidad_semanal=v) for q, v, r in con_vol[:5]]
+
+    con_rsi = [(q, v, r) for q, v, r in metricas if r is not None]
+    con_rsi.sort(key=lambda x: x[2], reverse=True)
+    out["top_sobrecomprada"] = [dict(_accion_mundial_item(q), rsi=r) for q, v, r in con_rsi[:5]]
+    con_rsi.sort(key=lambda x: x[2])
+    out["top_sobrevendida"] = [dict(_accion_mundial_item(q), rsi=r) for q, v, r in con_rsi[:5]]
+
+    if not any(out.values()):
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "secciones": out}
 
 
 def chunked(items, n):
@@ -2982,6 +3208,7 @@ def main():
         "commodities": get_commodities_globales(),
         "rates_intl": get_tasas_internacionales(),
         "plazos_fijos": get_plazos_fijos(),
+        "acciones_mundiales": get_acciones_mundiales(),
     }
 
     td = get_twelvedata()

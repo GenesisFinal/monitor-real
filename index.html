@@ -1870,55 +1870,206 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-building text-brandBlue"></i> Acciones de Mercados Globales
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
+            <p class="text-xs text-slate-400 light:text-slate-500 mb-6">Universo: NYSE / Nasdaq (EE.UU.), capitalización de mercado mínima USD 1.000 millones. Fuente: screener público de Yahoo Finance. Volatilidad semanal y RSI (14) calculados sobre las 200 empresas de mayor capitalización del universo filtrado.</p>
+            <div class="space-y-8">
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-building" style="color:#10b981"></i> 1. Top Capitalización de Mercado
+                    </h3>
                     <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Empresa</th>
-                                    <th class="px-4 py-3 text-right">Ticker</th>
-<th class="px-4 py-3 text-right">Último (USD)</th>
-<th class="px-4 py-3 text-right">Var. Día %</th>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">Market Cap</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-stocks" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="Apple Inc." onclick="rowClick(event, 'stocks', 'Apple Inc.')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'stocks', 'Apple Inc.')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Apple Inc.</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">AAPL</td>
-<td class="px-4 py-2.5 text-right font-mono">228.40</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandGreen">+0.5%</td>
-                                </tr>
-<tr data-ticker="Microsoft Corp." onclick="rowClick(event, 'stocks', 'Microsoft Corp.')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'stocks', 'Microsoft Corp.')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Microsoft Corp.</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">MSFT</td>
-<td class="px-4 py-2.5 text-right font-mono">445.10</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandGreen">+0.3%</td>
-                                </tr>
-<tr data-ticker="Amazon.com Inc." onclick="rowClick(event, 'stocks', 'Amazon.com Inc.')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'stocks', 'Amazon.com Inc.')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Amazon.com Inc.</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">AMZN</td>
-<td class="px-4 py-2.5 text-right font-mono">198.70</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandRed">-0.2%</td>
-                                </tr>
-<tr data-ticker="Alphabet Inc." onclick="rowClick(event, 'stocks', 'Alphabet Inc.')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'stocks', 'Alphabet Inc.')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Alphabet Inc.</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">GOOGL</td>
-<td class="px-4 py-2.5 text-right font-mono">178.90</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandGreen">+0.7%</td>
-                                </tr>
-                            </tbody>
+                            <tbody id="tbl-am-top_market_cap" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
                         </table>
                     </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-stocks', 'Acciones de Mercados Globales')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-stocks" height="90"></canvas>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-arrow-trend-up" style="color:#22c55e"></i> 2. Top Suba Diaria de Precio
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">Market Cap</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-am-top_suba_diaria" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-arrow-trend-down" style="color:#ef4444"></i> 3. Top Baja Diaria de Precio
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">Market Cap</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-am-top_baja_diaria" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-mountain" style="color:#3b82f6"></i> 4. Top Nuevo Máximo de Precio (52 sem.)
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">Máximo 52 sem.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-am-top_nuevo_maximo" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-water" style="color:#f97316"></i> 5. Top Nuevo Mínimo de Precio (52 sem.)
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">Mínimo 52 sem.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-am-top_nuevo_minimo" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group" style="color:#8b5cf6"></i> 6. Top Mayor Volumen de Transacciones
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">Volumen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-am-top_volumen" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-bolt" style="color:#eab308"></i> 7. Top Más Volátil de la Semana
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">Volatilidad sem. %</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-am-top_volatilidad_alta" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-feather" style="color:#06b6d4"></i> 8. Top Menos Volátil de la Semana
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">Volatilidad sem. %</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-am-top_volatilidad_baja" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-fire" style="color:#dc2626"></i> 9. Top Sobrecomprada (RSI)
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">RSI (14)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-am-top_sobrecomprada" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-snowflake" style="color:#0ea5e9"></i> 10. Top Sobrevendida (RSI)
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-10 px-3 py-2.5 text-center">#</th>
+                                    <th class="px-3 py-2.5">Empresa</th>
+                                    <th class="px-3 py-2.5 text-right">Ticker</th>
+                                    <th class="px-3 py-2.5 text-right">Precio (USD)</th>
+                                    <th class="px-3 py-2.5 text-right">Var. Día %</th>
+                                    <th class="px-3 py-2.5 text-right">RSI (14)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-am-top_sobrevendida" class="divide-y divide-darkBorder/40 light:divide-gray-200"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -3722,6 +3873,58 @@ Stack: ${error ? error.stack : 'N/A'}`;
             renderRows('cryptos', rows);
         }
 
+        // Acciones Mundiales: 10 subsecciones de ranking (sin selector de
+        // gráfico, son tablas de "top N" puras). El formato de la columna
+        // extra (Market Cap / Volumen / Máximo-Mínimo 52 sem. / Volatilidad
+        // / RSI) depende de la subsección.
+        function fmtMarketCap(v) {
+            if (v == null) return '-';
+            if (v >= 1e12) return '$' + (v / 1e12).toFixed(2) + ' B';
+            if (v >= 1e9) return '$' + (v / 1e9).toFixed(2) + ' MM';
+            return '$' + (v / 1e6).toFixed(0) + ' M';
+        }
+        function fmtVolumenAcciones(v) {
+            if (v == null) return '-';
+            if (v >= 1e9) return (v / 1e9).toFixed(2) + 'B';
+            if (v >= 1e6) return (v / 1e6).toFixed(2) + 'M';
+            if (v >= 1e3) return (v / 1e3).toFixed(0) + 'K';
+            return String(v);
+        }
+        const ACCIONES_MUNDIALES_EXTRA_COL = {
+            top_market_cap: it => fmtMarketCap(it.market_cap),
+            top_suba_diaria: it => fmtMarketCap(it.market_cap),
+            top_baja_diaria: it => fmtMarketCap(it.market_cap),
+            top_nuevo_maximo: it => (it.wk52_high != null ? '$' + Number(it.wk52_high).toFixed(2) : '-'),
+            top_nuevo_minimo: it => (it.wk52_low != null ? '$' + Number(it.wk52_low).toFixed(2) : '-'),
+            top_volumen: it => fmtVolumenAcciones(it.volumen),
+            top_volatilidad_alta: it => (it.volatilidad_semanal != null ? it.volatilidad_semanal.toFixed(2) + '%' : '-'),
+            top_volatilidad_baja: it => (it.volatilidad_semanal != null ? it.volatilidad_semanal.toFixed(2) + '%' : '-'),
+            top_sobrecomprada: it => (it.rsi != null ? it.rsi.toFixed(1) : '-'),
+            top_sobrevendida: it => (it.rsi != null ? it.rsi.toFixed(1) : '-'),
+        };
+        function renderAccionesMundialesSeccion(key, items) {
+            const tbody = document.getElementById('tbl-am-' + key);
+            if (!tbody) return;
+            if (!items || !items.length) {
+                tbody.innerHTML = '<tr><td colspan="6" class="px-3 py-3 text-center text-slate-500 text-xs">Sin datos</td></tr>';
+                return;
+            }
+            const extraFn = ACCIONES_MUNDIALES_EXTRA_COL[key] || (() => '-');
+            tbody.innerHTML = items.map((it, i) => `
+                <tr class="hover:bg-slate-800/40 light:hover:bg-slate-50">
+                    <td class="px-3 py-2 text-center text-slate-500 font-mono text-xs">${i + 1}</td>
+                    <td class="px-3 py-2 font-semibold text-white light:text-slate-800">${it.nombre || it.symbol}</td>
+                    <td class="px-3 py-2 text-right font-mono">${it.symbol}</td>
+                    <td class="px-3 py-2 text-right font-mono">${it.precio != null ? '$' + Number(it.precio).toFixed(2) : '-'}</td>
+                    <td class="px-3 py-2 text-right font-mono ${pctClass(it.pct_change)}">${fmtPct(it.pct_change)}</td>
+                    <td class="px-3 py-2 text-right font-mono">${extraFn(it)}</td>
+                </tr>`).join('');
+        }
+        function renderAccionesMundiales(data) {
+            if (!data || !data.secciones) return;
+            Object.keys(data.secciones).forEach(key => renderAccionesMundialesSeccion(key, data.secciones[key]));
+        }
+
         function renderTwelveData(key, items) {
             if (!items || !items.length) return;
             const rows = items.map(it => {
@@ -4113,7 +4316,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 if (data.commodities) renderCommoditiesGlobales(data.commodities);
                 if (data.rates_intl) renderTasasInternacionales(data.rates_intl);
                 if (data.plazos_fijos) renderPlazosFijos(data.plazos_fijos);
-                if (data.stocks) renderTwelveData('stocks', data.stocks);
+                if (data.acciones_mundiales) renderAccionesMundiales(data.acciones_mundiales);
                 if (data.etfs) renderTwelveData('etfs', data.etfs);
                 renderTasasLocales(data.tasas_locales);
                 renderFciSecciones(data.fci_secciones);
