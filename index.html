@@ -3495,7 +3495,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
                     scales: {
                         x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(148,163,184,0.08)' } },
-                        y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(148,163,184,0.08)' } }
+                        y: { ticks: { color: '#94a3b8', font: { size: 10 }, callback: (v) => fmtChartNum(v) }, grid: { color: 'rgba(148,163,184,0.08)' } }
                     }
                 }
             });
@@ -3782,10 +3782,33 @@ Stack: ${error ? error.stack : 'N/A'}`;
             }
         }
 
+        // Formatea un numero a como maximo 2 decimales, sin arrastrar el
+        // ruido de punto flotante que traen algunas fuentes (ej.
+        // 202.80999755859375 -> "202.81").
+        function fmtChartNum(v) {
+            if (v == null || isNaN(v)) return v;
+            return Number(v).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+        }
+
         function chartOptionsReal() {
             return {
                 responsive: true,
-                plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+                plugins: {
+                    legend: { labels: { color: '#94a3b8', font: { size: 10 } } },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                const raw = ctx.raw || {};
+                                if (raw.o != null && raw.c != null) {
+                                    // velas / OHLC
+                                    return `${ctx.dataset.label}: O ${fmtChartNum(raw.o)} · H ${fmtChartNum(raw.h)} · L ${fmtChartNum(raw.l)} · C ${fmtChartNum(raw.c)}`;
+                                }
+                                const y = raw.y != null ? raw.y : ctx.parsed.y;
+                                return `${ctx.dataset.label}: ${fmtChartNum(y)}`;
+                            }
+                        }
+                    }
+                },
                 scales: {
                     x: {
                         type: 'timeseries',
@@ -3793,7 +3816,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                         grid: { color: 'rgba(148,163,184,0.08)' }
                     },
                     y: {
-                        ticks: { color: '#94a3b8', font: { size: 10 } },
+                        ticks: { color: '#94a3b8', font: { size: 10 }, callback: (v) => fmtChartNum(v) },
                         grid: { color: 'rgba(148,163,184,0.08)' }
                     }
                 }
@@ -4289,12 +4312,12 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     scales: {
                         x: {
                             title: { display: true, text: 'Duration (años)', color: '#94a3b8', font: { size: 10 } },
-                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            ticks: { color: '#94a3b8', font: { size: 10 }, callback: (v) => fmtChartNum(v) },
                             grid: { color: 'rgba(148,163,184,0.08)' }
                         },
                         y: {
                             title: { display: true, text: 'TIR (%)', color: '#94a3b8', font: { size: 10 } },
-                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            ticks: { color: '#94a3b8', font: { size: 10 }, callback: (v) => fmtChartNum(v) },
                             grid: { color: 'rgba(148,163,184,0.08)' }
                         }
                     }
