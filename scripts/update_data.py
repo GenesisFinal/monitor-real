@@ -2349,8 +2349,20 @@ def _build_bond_series(records, payment_dates=None, exact_schedule=None):
     """
     pts = [dict(r) for r in (records or [])]
     if exact_schedule:
+        # La fecha teorica del cronograma oficial puede no coincidir con
+        # la fecha real en que el mercado refleja el pago (settlement,
+        # feriados, convencion de cada camara compensadora) - se ajusta
+        # cada fecha teorica a la "ex-fecha" real detectada en los datos
+        # (ver _find_ex_date), igual que hacia build_history_bonos().
+        dated_closes = sorted(
+            [(p.get("date"), p.get("c")) for p in pts if p.get("c") is not None and p.get("date")],
+            key=lambda x: x[0],
+        )
+        effective_schedule = [
+            (_find_ex_date(dated_closes, fecha_pago), pct) for fecha_pago, pct in exact_schedule
+        ]
         for p in pts:
-            vr = _residual_value_from_schedule(exact_schedule, p.get("date"))
+            vr = _residual_value_from_schedule(effective_schedule, p.get("date"))
             factor = 100.0 / vr
             for k in ("o", "h", "l", "c"):
                 if p.get(k) is not None:
