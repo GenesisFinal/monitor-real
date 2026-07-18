@@ -2953,7 +2953,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             indices:      { file: 'indices.json',            path: d => d.indices,                               ohlc: true,  unit: '' },
             stocks:       { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.stocks),   ohlc: true,  unit: 'USD' },
             etfs:         { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.etfs),     ohlc: true,  unit: 'USD' },
-            commodities:  { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.commodities), ohlc: true, unit: 'USD' },
+            commodities:  { file: 'commodities.json', path: d => d.commodities, ohlc: true, unit: '' },
             forex:        { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.forex),    ohlc: true,  unit: '' }
         };
 
@@ -3399,6 +3399,32 @@ Stack: ${error ? error.stack : 'N/A'}`;
             renderRows('indices', rows);
         }
 
+        const COMMODITY_REGION_ORDER = ['Metales', 'Energía', 'Granos', 'Otros'];
+
+        function renderCommoditiesGlobales(items) {
+            if (!items || !items.length) return;
+            const byRegion = {};
+            items.forEach(it => {
+                const region = it.region || 'Otros';
+                if (!byRegion[region]) byRegion[region] = [];
+                byRegion[region].push(it);
+            });
+            const rows = [];
+            COMMODITY_REGION_ORDER.forEach(region => {
+                const list = byRegion[region];
+                if (!list || !list.length) return;
+                rows.push(`<tr class="bg-slate-800/60 light:bg-slate-100"><td colspan="4" class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-brandBlue light:text-blue-700">${region}</td></tr>`);
+                list.forEach(it => {
+                    setSeriesKey('commodities', it.nombre, it.symbol);
+                    rows.push(buildRow('commodities', it.nombre, [
+                        { value: fmtMoneda(it.close, it.currency) },
+                        { value: fmtPct(it.percent_change), cls: pctClass(it.percent_change) }
+                    ]));
+                });
+            });
+            renderRows('commodities', rows);
+        }
+
         function renderTasasLocales(items) {
             if (!items || !items.length) return;
             const rows = items.map(it => {
@@ -3482,7 +3508,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 renderCripto(data.cripto);
                 if (data.indices) renderIndicesGlobales(data.indices);
                 if (data.forex) renderTwelveData('forex', data.forex);
-                if (data.commodities) renderTwelveData('commodities', data.commodities);
+                if (data.commodities) renderCommoditiesGlobales(data.commodities);
                 if (data.stocks) renderTwelveData('stocks', data.stocks);
                 if (data.etfs) renderTwelveData('etfs', data.etfs);
                 renderTasasLocales(data.tasas_locales);

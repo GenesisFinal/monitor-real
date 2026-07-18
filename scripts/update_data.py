@@ -311,7 +311,6 @@ def get_acciones_arg():
 TWELVEDATA_SYMBOLS = {
     "stocks": {"AAPL": "Apple Inc.", "MSFT": "Microsoft Corp.", "AMZN": "Amazon.com Inc.", "GOOGL": "Alphabet Inc."},
     "etfs": {"SPY": "SPY (S&P 500)", "QQQ": "QQQ (Nasdaq 100)", "EEM": "EEM (Emergentes)"},
-    "commodities": {"GLD": "Oro (proxy GLD)", "USO": "Petróleo (proxy USO)", "SLV": "Plata (proxy SLV)", "CORN": "Maíz (proxy CORN)"},
     "forex": {
         "EUR/USD": "Euro",
         "GBP/USD": "Libra",
@@ -444,6 +443,123 @@ def build_history_indices():
     if not indices_out:
         return None
     return {"updated_at": datetime.now(timezone.utc).isoformat(), "indices": indices_out}
+
+
+# Commodities: antes se usaban ETFs como "proxy" (GLD por Oro, USO por
+# Petróleo, SLV por Plata, CORN por Maíz) vía Twelve Data, lo cual no refleja
+# el precio real de cada materia prima. Se reemplaza por Yahoo Finance
+# (futuros reales de cada commodity: COMEX, NYMEX, CBOT, ICE), agrupados por
+# categoría para la UI. Zinc no tiene fuente gratuita confiable en tiempo
+# real (ni Yahoo ni Twelve Data lo ofrecen como spot/futuro) y se omite.
+# Yahoo Finance cotiza granos/algodón/café/azúcar/jugo de naranja en
+# centavos de dólar (currency="USX"), no en dólares. Se normalizan a USD
+# (dividiendo por 100) para que la tabla muestre un valor homogéneo.
+COMMODITIES_USX_SYMBOLS = {"ZS=F", "ZC=F", "ZW=F", "CT=F", "KC=F", "SB=F", "OJ=F"}
+
+COMMODITIES_GLOBALES = [
+    ("Metales", [
+        ("GC=F", "Oro"),
+        ("SI=F", "Plata"),
+        ("PL=F", "Platino"),
+        ("HG=F", "Cobre"),
+        ("ALI=F", "Aluminio"),
+    ]),
+    ("Energía", [
+        ("CL=F", "WTI"),
+        ("BZ=F", "Brent"),
+        ("NG=F", "Gas"),
+        ("RB=F", "Gasolina"),
+    ]),
+    ("Granos", [
+        ("ZS=F", "Soja"),
+        ("ZC=F", "Maíz"),
+        ("ZW=F", "Trigo"),
+    ]),
+    ("Otros", [
+        ("CT=F", "Algodón"),
+        ("KC=F", "Café"),
+        ("CC=F", "Cacao"),
+        ("SB=F", "Azúcar"),
+        ("OJ=F", "Jugo de Naranja"),
+    ]),
+]
+
+
+def get_commodities_globales():
+    out = []
+    for region, symbols in COMMODITIES_GLOBALES:
+        for symbol, nombre in symbols:
+            data = fetch_json(
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?interval=1d&range=1y"
+            )
+            if not data:
+                continue
+            try:
+                result = data["chart"]["result"][0]
+                meta = result["meta"]
+                price = meta.get("regularMarketPrice")
+                closes = result.get("indicators", {}).get("quote", [{}])[0].get("close") or []
+                closes_validas = [c for c in closes if c is not None]
+                pct_dia = None
+                if price and len(closes_validas) >= 2:
+                    prev_close = closes_validas[-2]
+                    pct_dia = ((price - prev_close) / prev_close * 100) if prev_close else None
+                if symbol in COMMODITIES_USX_SYMBOLS and price is not None:
+                    price = price / 100
+                out.append({
+                    "symbol": symbol,
+                    "nombre": nombre,
+                    "region": region,
+                    "close": price,
+                    "currency": "USD",
+                    "percent_change": pct_dia,
+                })
+            except (KeyError, IndexError, TypeError, ZeroDivisionError) as e:
+                print(f"[WARN] No se pudo parsear commodity {symbol}: {e}")
+    return out or None
+
+
+def build_history_commodities():
+    commodities_out = {}
+    for region, symbols in COMMODITIES_GLOBALES:
+        for symbol, nombre in symbols:
+            data = fetch_json(
+                f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?interval=1d&range=5y"
+            )
+            if not data:
+                continue
+            try:
+                result = data["chart"]["result"][0]
+                ts = result["timestamp"]
+                q = result["indicators"]["quote"][0]
+                records = []
+                for i, t in enumerate(ts):
+                    c = q.get("close", [None] * len(ts))[i] if i < len(q.get("close", [])) else None
+                    if c is None:
+                        continue
+                    def _norm(v):
+                        return (v / 100) if (v is not None and symbol in COMMODITIES_USX_SYMBOLS) else v
+                    records.append({
+                        "ts": t,
+                        "o": _norm(q.get("open", [None] * len(ts))[i] if i < len(q.get("open", [])) else None),
+                        "h": _norm(q.get("high", [None] * len(ts))[i] if i < len(q.get("high", [])) else None),
+                        "l": _norm(q.get("low", [None] * len(ts))[i] if i < len(q.get("low", [])) else None),
+                        "c": _norm(c),
+                    })
+            except (KeyError, IndexError, TypeError):
+                print(f"[WARN] No se pudo parsear histórico Yahoo para {symbol}")
+                continue
+            daily, weekly = build_daily_weekly(
+                records,
+                date_fn=lambda r: datetime.fromtimestamp(r["ts"], tz=timezone.utc).date(),
+                point_fn=lambda r: {"o": r["o"], "h": r["h"], "l": r["l"], "c": r["c"]},
+            )
+            if daily or weekly:
+                commodities_out[symbol] = {"nombre": nombre, "region": region, "daily": daily, "weekly": weekly}
+            time.sleep(0.5)  # cortesía con Yahoo Finance
+    if not commodities_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "commodities": commodities_out}
 
 
 def chunked(items, n):
@@ -948,6 +1064,7 @@ def main():
         "corporate": get_ons(),
         "acciones_arg": get_acciones_arg(),
         "indices": get_indices_globales(),
+        "commodities": get_commodities_globales(),
     }
 
     td = get_twelvedata()
@@ -980,6 +1097,7 @@ def main():
         "cripto.json": build_history_cripto(),
         "mercados_globales.json": build_history_twelvedata(),
         "indices.json": build_history_indices(),
+        "commodities.json": build_history_commodities(),
     }
     for filename, payload in historicos.items():
         if payload:
