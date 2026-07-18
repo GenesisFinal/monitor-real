@@ -61,6 +61,16 @@ def fetch_json(url, timeout=25):
         return None
 
 
+def fetch_text(url, timeout=25):
+    req = urllib.request.Request(url, headers={"User-Agent": "monitor-real-bot/1.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.read().decode("utf-8", errors="replace")
+    except Exception as e:
+        print(f"[WARN] Fallo al pedir {url}: {e}")
+        return None
+
+
 def save_json(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
@@ -661,13 +671,89 @@ def get_tasas_internacionales():
     return out or None
 
 
+def _build_history_jp10y():
+    """Japón 10Y: Ministry of Finance, CSV histórico oficial diario desde 1974."""
+    url = "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/historical/jgbcme_all.csv"
+    data = fetch_text(url)
+    if not data:
+        return None
+    lines = data.strip().splitlines()
+    records = []
+    for line in lines[2:]:
+        parts = line.split(",")
+        if len(parts) < 11:
+            continue
+        fecha_raw, v10y = parts[0].strip(), parts[10].strip()
+        if not v10y or v10y == "-":
+            continue
+        try:
+            y, m, d = fecha_raw.split("/")
+            fecha = date(int(y), int(m), int(d))
+            records.append({"fecha": fecha, "c": float(v10y)})
+        except (ValueError, IndexError):
+            continue
+    return build_daily_weekly(records, date_fn=lambda r: r["fecha"], point_fn=lambda r: {"c": r["c"]})
+
+
+def _build_history_de10y():
+    """Alemania 10Y (Bund): Deutsche Bundesbank, API SDMX oficial (BBSIS)."""
+    url = (
+        "https://api.statistiken.bundesbank.de/rest/data/BBSIS/"
+        "D.I.ZST.ZI.EUR.S1311.B.A604.R10XX.R.A.A._Z._Z.A?format=json&lang=en"
+    )
+    data = fetch_json(url)
+    if not data:
+        return None
+    try:
+        obs_dim = data["data"]["structure"]["dimensions"]["observation"][0]["values"]
+        series_keys = list(data["data"]["dataSets"][0]["series"].keys())
+        obs = data["data"]["dataSets"][0]["series"][series_keys[0]]["observations"]
+        records = []
+        for k, v in obs.items():
+            fecha_raw = obs_dim[int(k)]["name"]
+            try:
+                records.append({"fecha": _parse_date(fecha_raw), "c": float(v[0])})
+            except (ValueError, TypeError, IndexError):
+                continue
+    except (KeyError, IndexError, TypeError):
+        return None
+    return build_daily_weekly(records, date_fn=lambda r: r["fecha"], point_fn=lambda r: {"c": r["c"]})
+
+
+def _build_history_gb10y():
+    """Reino Unido 10Y (Gilt): Bank of England, Interactive Statistical Database (IUDMNZC)."""
+    url = (
+        "https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp"
+        "?csv.x=yes&Datefrom=01/Jan/2000&Dateto=now&SeriesCodes=IUDMNZC"
+        "&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N"
+    )
+    data = fetch_text(url)
+    if not data:
+        return None
+    lines = data.strip().splitlines()
+    records = []
+    for line in lines[1:]:
+        parts = line.split(",")
+        if len(parts) < 2:
+            continue
+        fecha_raw, valor = parts[0].strip(), parts[1].strip()
+        try:
+            fecha = datetime.strptime(fecha_raw, "%d %b %Y").date()
+            records.append({"fecha": fecha, "c": float(valor)})
+        except (ValueError, IndexError):
+            continue
+    return build_daily_weekly(records, date_fn=lambda r: r["fecha"], point_fn=lambda r: {"c": r["c"]})
+
+
 def build_history_tasas_internacionales(rates_actuales):
     """
     FVX/TNX/TYX: histórico real de 5 años vía Yahoo Finance (mismo patrón
-    que índices y commodities). Los rendimientos soberanos de CNBC
-    (US1Y-US, JP10Y-JP, GB10Y-GB, DE10Y-DE) no tienen histórico gratuito
-    por API pública, así que se arma una serie propia acumulada día a día
-    (mismo mecanismo que ya se usa para las ONs).
+    que índices y commodities). US1Y (Tesoro EE.UU. a 1 año) no tiene
+    histórico gratuito por API pública, así que se arma una serie propia
+    acumulada día a día (mismo mecanismo que ya se usa para las ONs). Los
+    rendimientos soberanos de Japón, Alemania y Reino Unido usan histórico
+    real oficial: Ministry of Finance (Japón), Deutsche Bundesbank
+    (Alemania) y Bank of England (Reino Unido).
     """
     series_out = {}
     for symbol, nombre in TASAS_INTL_YAHOO:
@@ -698,14 +784,29 @@ def build_history_tasas_internacionales(rates_actuales):
             series_out[symbol] = {"nombre": nombre, "daily": daily, "weekly": weekly}
         time.sleep(0.5)
 
+    oficiales = {
+        "JP10Y-JP": ("JP10Y-JP", _build_history_jp10y),
+        "DE10Y-DE": ("DE10Y-DE", _build_history_de10y),
+        "GB10Y-GB": ("GB10Y-GB", _build_history_gb10y),
+    }
+    for sym, (nombre, fn) in oficiales.items():
+        try:
+            result = fn()
+        except Exception as e:
+            print(f"[WARN] No se pudo obtener histórico oficial de {sym}: {e}")
+            result = None
+        if result:
+            daily, weekly = result
+            if daily or weekly:
+                series_out[sym] = {"nombre": nombre, "daily": daily, "weekly": weekly}
+
     path = os.path.join(HISTORY_DIR, "tasas_internacionales.json")
     existing = load_json(path) or {}
     existing_series = existing.get("series", {})
     hoy = date.today().isoformat()
-    cnbc_symbols = {sym for sym, _ in TASAS_INTL_CNBC}
     for item in (rates_actuales or []):
         sym = item.get("symbol")
-        if sym not in cnbc_symbols or item.get("close") is None:
+        if sym != "US1Y-US" or item.get("close") is None:
             continue
         serie = existing_series.get(sym, {"nombre": item.get("nombre"), "daily": []})
         daily = serie.get("daily", [])
@@ -719,9 +820,8 @@ def build_history_tasas_internacionales(rates_actuales):
         serie["weekly"] = daily
         serie["nombre"] = item.get("nombre")
         existing_series[sym] = serie
-    for sym, serie in existing_series.items():
-        if sym not in series_out:
-            series_out[sym] = serie
+    if "US1Y-US" in existing_series and "US1Y-US" not in series_out:
+        series_out["US1Y-US"] = existing_series["US1Y-US"]
 
     if not series_out:
         return None
