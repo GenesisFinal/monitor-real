@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T02:01:40.033509+00:00",
+  "updated_at": "2026-07-18T02:22:16.917512+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63919,
-      "change_24h": 0.6899625935893785
+      "usd": 63950,
+      "change_24h": 0.7080391132437778
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1841.78,
-      "change_24h": -0.49083479025257726
+      "usd": 1843.17,
+      "change_24h": -0.3384961781886507
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999332,
-      "change_24h": 0.020720261217827333
+      "usd": 0.999276,
+      "change_24h": 0.01106846532312075
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 566.53,
-      "change_24h": -0.806906626969554
+      "usd": 567.02,
+      "change_24h": -0.747620447402185
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.18,
-      "change_24h": 0.16258297246947684
+      "usd": 75.24,
+      "change_24h": 0.1423021589968675
     }
   ],
   "tasas_locales": [
@@ -146,21 +146,12 @@
       "moneda": "Pesos",
       "items": [
         {
-          "nombre": "Adcap Ahorro Dinámico Fondo de Dinero - Clase C",
-          "slug": "adcap-ahorro-dinamico-fondo-de-dinero-clase-c",
-          "administradora": "Adcap Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 7613447405.7,
-          "doce_meses": 36.5306,
-          "en_el_anio": 27.1111,
-          "origen": "rentabilidad"
-        },
-        {
-          "nombre": "Super Ahorro Plus - Clase I",
-          "slug": "super-ahorro-plus-clase-i",
+          "nombre": "Super Ahorro Plus - Clase H",
+          "slug": "super-ahorro-plus-clase-h",
           "administradora": "Santander Asset Management G.F.C.I.S.A.",
-          "patrimonio": 0,
-          "doce_meses": 36.0606,
-          "en_el_anio": 27.0331,
+          "patrimonio": 106680051240.22,
+          "doce_meses": 33.815,
+          "en_el_anio": 24.6928,
           "origen": "rentabilidad"
         },
         {
@@ -171,6 +162,15 @@
           "doce_meses": 33.54,
           "en_el_anio": 25.1321,
           "origen": "gestora"
+        },
+        {
+          "nombre": "Chaco FCI Money Market - Clase B",
+          "slug": "chaco-fci-money-market-clase-b",
+          "administradora": "Nuevo Chaco Fondos S.A.S.G.F.C.I.",
+          "patrimonio": 63409229537.23,
+          "doce_meses": 33.4926,
+          "en_el_anio": 24.7959,
+          "origen": "rentabilidad"
         },
         {
           "nombre": "Lombard Renta en Pesos",
@@ -296,30 +296,30 @@
           "origen": "rentabilidad"
         },
         {
-          "nombre": "MEGAQM Estrategia 6 - Clase B",
-          "slug": "megaqm-estrategia-6-clase-b",
-          "administradora": "MEGA QM S.A.",
-          "patrimonio": 2026229.86,
-          "doce_meses": 4589.156,
-          "en_el_anio": -0.8978,
+          "nombre": "Consultatio Deuda Argentina - Clase C",
+          "slug": "consultatio-deuda-argentina-clase-c",
+          "administradora": "One618 Asset Management S.G.F.C.I.S.A.",
+          "patrimonio": 32039457328.19,
+          "doce_meses": 63.7964,
+          "en_el_anio": 27.2831,
           "origen": "rentabilidad"
         },
         {
-          "nombre": "Adcap Balanceado V - Clase B",
-          "slug": "adcap-balanceado-v-clase-b",
-          "administradora": "Adcap Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 0,
-          "doce_meses": 493.381,
-          "en_el_anio": 39.284,
+          "nombre": "Consultatio One Ahorro - Clase B",
+          "slug": "consultatio-one-ahorro-clase-b",
+          "administradora": "One618 Asset Management S.G.F.C.I.S.A.",
+          "patrimonio": 40867053616.41,
+          "doce_meses": 59.6938,
+          "en_el_anio": 28.1274,
           "origen": "rentabilidad"
         },
         {
-          "nombre": "Adcap Patrimonio IV - Clase A",
-          "slug": "adcap-patrimonio-iv-clase-a",
-          "administradora": "Adcap Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 6915831.15,
-          "doce_meses": 119.0663,
-          "en_el_anio": 17.0972,
+          "nombre": "Schroder Renta Performance - Clase B",
+          "slug": "schroder-renta-performance-clase-b",
+          "administradora": "Schroder S.A.S.G.F.C.I.",
+          "patrimonio": 40609629399.87,
+          "doce_meses": 57.9628,
+          "en_el_anio": 24.6476,
           "origen": "rentabilidad"
         },
         {
@@ -446,24 +446,6 @@
           "origen": "rentabilidad"
         },
         {
-          "nombre": "Allaria Equity Selection - Clase B",
-          "slug": "allaria-equity-selection-clase-b",
-          "administradora": "Allaria Fondos Administrados S.G.F.C.I.S.A.",
-          "patrimonio": 4908493415.67,
-          "doce_meses": 63.5978,
-          "en_el_anio": 20.5457,
-          "origen": "rentabilidad"
-        },
-        {
-          "nombre": "FBA Acciones Latinoamericanas — FBA Acciones Latinoamericana - Clase B",
-          "slug": "fba-acciones-latinoamericanas-fba-acciones-latinoamericana-clase-b",
-          "administradora": "BBVA Asset Management Argentina S.A.U.S.G.F.C.I.",
-          "patrimonio": 6852638983.37,
-          "doce_meses": 61.9492,
-          "en_el_anio": 24.5105,
-          "origen": "rentabilidad"
-        },
-        {
           "nombre": "Consultatio Acciones Argentina - Clase C",
           "slug": "consultatio-acciones-argentina-clase-c",
           "administradora": "One618 Asset Management S.G.F.C.I.S.A.",
@@ -482,6 +464,15 @@
           "origen": "gestora"
         },
         {
+          "nombre": "Fima PB Acciones - Clase A",
+          "slug": "fima-pb-acciones-clase-a",
+          "administradora": "Galicia Asset Management S.A.U.",
+          "patrimonio": 40926614427.24,
+          "doce_meses": 58.3559,
+          "en_el_anio": 3.891,
+          "origen": "rentabilidad"
+        },
+        {
           "nombre": "Delta Select - Clase B",
           "slug": "delta-select-clase-b",
           "administradora": "Delta Asset Management S.A.",
@@ -489,15 +480,6 @@
           "doce_meses": 56.164,
           "en_el_anio": 5.2627,
           "origen": "patrimonio"
-        },
-        {
-          "nombre": "Cocos Acciones - Clase A",
-          "slug": "cocos-acciones-clase-a",
-          "administradora": "Cocos Asset Management S.A.",
-          "patrimonio": 5769582546.9,
-          "doce_meses": 55.3455,
-          "en_el_anio": 4.61,
-          "origen": "gestora"
         },
         {
           "nombre": "Superfondo Acciones - Clase A",
@@ -527,51 +509,6 @@
           "origen": "patrimonio"
         },
         {
-          "nombre": "Toronto Trust Multimercado - Clase B",
-          "slug": "toronto-trust-multimercado-clase-b",
-          "administradora": "Investis Asset Management S.A.S.G.F.C.I.",
-          "patrimonio": 4231337205.84,
-          "doce_meses": 52.2996,
-          "en_el_anio": 1.8668,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "Allaria Acciones - Clase A",
-          "slug": "allaria-acciones-clase-a",
-          "administradora": "Allaria Fondos Administrados S.G.F.C.I.S.A.",
-          "patrimonio": 16481721727.29,
-          "doce_meses": 51.1215,
-          "en_el_anio": 3.4442,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "Pellegrini Acciones - Clase A",
-          "slug": "pellegrini-acciones-clase-a",
-          "administradora": "Pellegrini S.A.S.G.F.C.I.",
-          "patrimonio": 29081949510.46,
-          "doce_meses": 50.569,
-          "en_el_anio": 2.5026,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "Lombard Acciones Lideres",
-          "slug": "lombard-acciones-lideres",
-          "administradora": "Patagonia Inversora S.A.S.G.F.C.I",
-          "patrimonio": 19547976239.67,
-          "doce_meses": 50.344,
-          "en_el_anio": 1.9615,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "IAM Renta Variable - Clase B",
-          "slug": "iam-renta-variable-clase-b",
-          "administradora": "Industrial Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 2693968705.58,
-          "doce_meses": 46.6575,
-          "en_el_anio": 3.522,
-          "origen": "gestora"
-        },
-        {
           "nombre": "Fima Acciones - Clase A",
           "slug": "fima-acciones-clase-a",
           "administradora": "Galicia Asset Management S.A.U.",
@@ -587,30 +524,39 @@
       "moneda": "Pesos",
       "items": [
         {
-          "nombre": "MEGAQM Estrategia 8 - Clase B",
-          "slug": "megaqm-estrategia-8-clase-b",
-          "administradora": "MEGA QM S.A.",
-          "patrimonio": 480802.9,
-          "doce_meses": 62338.5038,
-          "en_el_anio": 51137.0265,
+          "nombre": "Schroder Retorno Absoluto - Clase B",
+          "slug": "schroder-retorno-absoluto-clase-b",
+          "administradora": "Schroder S.A.S.G.F.C.I.",
+          "patrimonio": 41397607502.66,
+          "doce_meses": 57.9511,
+          "en_el_anio": 24.8179,
           "origen": "rentabilidad"
         },
         {
-          "nombre": "Adcap Gestión Estratégica I - Clase B",
-          "slug": "adcap-gestion-estrategica-i-clase-b",
-          "administradora": "Adcap Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 0,
-          "doce_meses": 506.8952,
-          "en_el_anio": null,
+          "nombre": "Gainvest Capital III - Clase B",
+          "slug": "gainvest-capital-iii-clase-b",
+          "administradora": "StoneX Asset Management S.A.",
+          "patrimonio": 37233313917.67,
+          "doce_meses": 52.7818,
+          "en_el_anio": 21.461,
           "origen": "rentabilidad"
         },
         {
-          "nombre": "Consultatio Retorno Absoluto - Clase C",
-          "slug": "consultatio-retorno-absoluto-clase-c",
-          "administradora": "One618 Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 0,
-          "doce_meses": 97.9295,
-          "en_el_anio": 8.7038,
+          "nombre": "Allaria Gestion II - Clase C",
+          "slug": "allaria-gestion-ii-clase-c",
+          "administradora": "Allaria Fondos Administrados S.G.F.C.I.S.A.",
+          "patrimonio": 43736178740.74,
+          "doce_meses": 52.5196,
+          "en_el_anio": 23.9095,
+          "origen": "rentabilidad"
+        },
+        {
+          "nombre": "SF Value - Clase A",
+          "slug": "sf-value-clase-a",
+          "administradora": "Delta Asset Management S.A.",
+          "patrimonio": 35405321530.67,
+          "doce_meses": 49.694,
+          "en_el_anio": 3.3803,
           "origen": "rentabilidad"
         },
         {
@@ -632,15 +578,6 @@
           "origen": "patrimonio"
         },
         {
-          "nombre": "Consultatio Gestion I - Clase B",
-          "slug": "consultatio-gestion-i-clase-b",
-          "administradora": "One618 Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 27228937937.55,
-          "doce_meses": 45.3273,
-          "en_el_anio": 16.8881,
-          "origen": "gestora"
-        },
-        {
           "nombre": "SBS Tavelli Global - Clase P",
           "slug": "sbs-tavelli-global-clase-p",
           "administradora": "SBS Asset Management S.A.S.G.F.C.I.",
@@ -656,24 +593,6 @@
           "patrimonio": 119061318944.78,
           "doce_meses": 42.4251,
           "en_el_anio": 12.9878,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "Pellegrini Retorno Total - Clase B",
-          "slug": "pellegrini-retorno-total-clase-b",
-          "administradora": "Pellegrini S.A.S.G.F.C.I.",
-          "patrimonio": 17112379031.81,
-          "doce_meses": 39.7916,
-          "en_el_anio": 20.711,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "Lombard Pesos Plus",
-          "slug": "lombard-pesos-plus",
-          "administradora": "Patagonia Inversora S.A.S.G.F.C.I",
-          "patrimonio": 21535294982.79,
-          "doce_meses": 38.3867,
-          "en_el_anio": 12.9432,
           "origen": "gestora"
         },
         {
@@ -695,30 +614,12 @@
           "origen": "patrimonio"
         },
         {
-          "nombre": "Fima Mix I - Clase A",
-          "slug": "fima-mix-i-clase-a",
-          "administradora": "Galicia Asset Management S.A.U.",
-          "patrimonio": 18501450936.86,
-          "doce_meses": 22.5034,
-          "en_el_anio": 4.9912,
-          "origen": "gestora"
-        },
-        {
           "nombre": "Toronto Trust Balanceado - Clase B",
           "slug": "toronto-trust-balanceado-clase-b",
           "administradora": "Investis Asset Management S.A.S.G.F.C.I.",
           "patrimonio": 32206545514.16,
           "doce_meses": 19.6717,
           "en_el_anio": 15.4457,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "IAM Renta Mixta - Clase B",
-          "slug": "iam-renta-mixta-clase-b",
-          "administradora": "Industrial Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 682664726.75,
-          "doce_meses": -3.662,
-          "en_el_anio": -2.8299,
           "origen": "gestora"
         },
         {
@@ -737,49 +638,13 @@
       "moneda": "Pesos",
       "items": [
         {
-          "nombre": "Adcap Financiamiento 1 - Clase B",
-          "slug": "adcap-financiamiento-1-clase-b",
-          "administradora": "Adcap Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 10021353065.21,
-          "doce_meses": 826.6406,
-          "en_el_anio": 684.4728,
+          "nombre": "Fundcorp Performance Multiestrategia - Clase C",
+          "slug": "fundcorp-performance-multiestrategia-clase-c",
+          "administradora": "CMF Asset Management S.A.U.",
+          "patrimonio": 37440789607.76,
+          "doce_meses": 48.1252,
+          "en_el_anio": 21.5216,
           "origen": "rentabilidad"
-        },
-        {
-          "nombre": "GMC Retorno Total II - Clase C",
-          "slug": "gmc-retorno-total-ii-clase-c",
-          "administradora": "GMC Asset Management S.A.U.",
-          "patrimonio": 8987182536.11,
-          "doce_meses": 95.0779,
-          "en_el_anio": -0.1626,
-          "origen": "rentabilidad"
-        },
-        {
-          "nombre": "Ualintec Retorno Total - Clase C",
-          "slug": "ualintec-retorno-total-clase-c",
-          "administradora": "Ualá Fondos S.A.U.",
-          "patrimonio": 1178482.88,
-          "doce_meses": 66.607,
-          "en_el_anio": 9.1708,
-          "origen": "rentabilidad"
-        },
-        {
-          "nombre": "Galileo Renta Fija - Clase B",
-          "slug": "galileo-renta-fija-clase-b",
-          "administradora": "Delta Asset Management S.A.",
-          "patrimonio": 13707592334.86,
-          "doce_meses": 59.5599,
-          "en_el_anio": 28.7577,
-          "origen": "rentabilidad"
-        },
-        {
-          "nombre": "Allaria Diversificado - Clase A",
-          "slug": "allaria-diversificado-clase-a",
-          "administradora": "Allaria Fondos Administrados S.G.F.C.I.S.A.",
-          "patrimonio": 21154480436.97,
-          "doce_meses": 50.1001,
-          "en_el_anio": 23.1893,
-          "origen": "gestora"
         },
         {
           "nombre": "Consultatio Balance Fund - Clase B",
@@ -797,7 +662,16 @@
           "patrimonio": 55111298088.17,
           "doce_meses": 41.1889,
           "en_el_anio": 18.9246,
-          "origen": "patrimonio"
+          "origen": "rentabilidad"
+        },
+        {
+          "nombre": "Pionero Renta Estrategico - Clase B",
+          "slug": "pionero-renta-estrategico-clase-b",
+          "administradora": "Macro Fondos S.G.F.C.I.S.A.",
+          "patrimonio": 45671514117.12,
+          "doce_meses": 38.367,
+          "en_el_anio": 14.9216,
+          "origen": "rentabilidad"
         },
         {
           "nombre": "Cocos Pesos Plus - Clase A",
@@ -1886,50 +1760,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14385",
-      "percent_change": "0.0069944132",
+      "close": "1.14384",
+      "percent_change": "0.0061201116",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34526",
-      "percent_change": "0.0022301019",
+      "close": "1.34524",
+      "percent_change": "0.00074336731",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.39846",
-      "percent_change": "-0.0075241357",
+      "close": "162.41142",
+      "percent_change": "0.00045563506",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.1122",
-      "percent_change": "-0.065877312",
+      "close": "5.11064",
+      "percent_change": "-0.096372447",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54452",
-      "percent_change": "-0.0064973332",
+      "close": "17.54478",
+      "percent_change": "-0.0050154853",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.1764",
-      "percent_change": "-0.019783821",
+      "close": "40.17864",
+      "percent_change": "-0.014209512",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1476.9984",
-      "percent_change": "-0.11281043",
+      "close": "1477.03555",
+      "percent_change": "-0.11029803",
       "currency": null
     }
   ]
