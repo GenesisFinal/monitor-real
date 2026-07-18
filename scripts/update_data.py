@@ -412,8 +412,15 @@ def get_fci_secciones():
     # Piso de patrimonio para fondos en Pesos: equivalente a USD 20 millones
     # al tipo de cambio oficial venta (el patrimonio de los fondos, sean en
     # pesos o en dolares, se reporta siempre en pesos). Se descartan los
-    # fondos en pesos por debajo de ese piso antes de elegir gestoras y
-    # rankings, para no listar fondos demasiado chicos.
+    # fondos por debajo de ese piso antes de elegir gestoras y rankings,
+    # para no listar fondos demasiado chicos. El campo "patrimonio" de la
+    # API viene expresado en la moneda propia del fondo (confirmado
+    # comparando patrimonio vs. valorCuotaparte de fondos en dolares: el
+    # cociente da una cantidad de cuotapartes razonable solo si el
+    # patrimonio ya esta en USD, no en pesos), por lo que a los fondos en
+    # dolares el piso de USD 20 millones se les aplica directamente, y a
+    # los fondos en pesos se les aplica su equivalente en pesos al tipo
+    # de cambio oficial venta.
     dolar_oficial = _get_dolar_oficial_venta()
     piso_patrimonio_ars = (FCI_PATRIMONIO_MINIMO_USD * dolar_oficial) if dolar_oficial else None
     if piso_patrimonio_ars is None:
@@ -428,6 +435,8 @@ def get_fci_secciones():
             ]
             if moneda_key == "ars" and piso_patrimonio_ars is not None:
                 subset = [f for f in subset if (f.get("patrimonio") or 0) >= piso_patrimonio_ars]
+            elif moneda_key == "usd":
+                subset = [f for f in subset if (f.get("patrimonio") or 0) >= FCI_PATRIMONIO_MINIMO_USD]
             if not subset:
                 continue
 
