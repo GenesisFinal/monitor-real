@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T01:09:43.475371+00:00",
+  "updated_at": "2026-07-18T01:30:05.138738+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63857,
-      "change_24h": -0.1909832638980083
+      "usd": 63953,
+      "change_24h": 0.08612698558795445
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1838.34,
-      "change_24h": -1.5586302098945668
+      "usd": 1841.76,
+      "change_24h": -1.103776689321312
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999313,
-      "change_24h": 0.011707394788143612
+      "usd": 0.999302,
+      "change_24h": 0.01270396519671773
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 566.92,
-      "change_24h": -1.250044577838011
+      "usd": 566.86,
+      "change_24h": -1.161958684205238
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.02,
-      "change_24h": -0.6666242658596069
+      "usd": 75.11,
+      "change_24h": -0.4714087069300543
     }
   ],
   "tasas_locales": [
@@ -597,6 +597,116 @@
       "percent_change": -0.1506
     }
   ],
+  "plazos_fijos": [
+    {
+      "nombre": "Crédito Regional Compañía Financiera S.a.u.",
+      "entidad": "CRÉDITO REGIONAL COMPAÑÍA FINANCIERA S.A.U.",
+      "tna": 23.0,
+      "destacado": true
+    },
+    {
+      "nombre": "Reba Compañia Financiera S.a.",
+      "entidad": "REBA COMPAÑIA FINANCIERA S.A.",
+      "tna": 23.0,
+      "destacado": true
+    },
+    {
+      "nombre": "Banco Meridian S.a.",
+      "entidad": "BANCO MERIDIAN S.A.",
+      "tna": 22.25,
+      "destacado": true
+    },
+    {
+      "nombre": "Mariva",
+      "entidad": "BANCO MARIVA S.A.",
+      "tna": 21.0,
+      "destacado": false
+    },
+    {
+      "nombre": "Del Sol",
+      "entidad": "BANCO DEL SOL S.A.",
+      "tna": 21.0,
+      "destacado": false
+    },
+    {
+      "nombre": "Provincia BA",
+      "entidad": "BANCO DE LA PROVINCIA DE BUENOS AIRES",
+      "tna": 19.5,
+      "destacado": false
+    },
+    {
+      "nombre": "Nación",
+      "entidad": "BANCO DE LA NACION ARGENTINA",
+      "tna": 19.0,
+      "destacado": false
+    },
+    {
+      "nombre": "Macro",
+      "entidad": "BANCO MACRO S.A.",
+      "tna": 18.75,
+      "destacado": false
+    },
+    {
+      "nombre": "BBVA",
+      "entidad": "BANCO BBVA ARGENTINA S.A.",
+      "tna": 18.25,
+      "destacado": false
+    },
+    {
+      "nombre": "Piano",
+      "entidad": "Banco Piano",
+      "tna": 17.5,
+      "destacado": false
+    },
+    {
+      "nombre": "Galicia",
+      "entidad": "BANCO DE GALICIA Y BUENOS AIRES S.A.",
+      "tna": 17.5,
+      "destacado": false
+    },
+    {
+      "nombre": "ICBC",
+      "entidad": "INDUSTRIAL AND COMMERCIAL BANK OF CHINA (ARGENTINA) S.A.U.",
+      "tna": 17.2,
+      "destacado": false
+    },
+    {
+      "nombre": "Banco Hipotecario",
+      "entidad": "BANCO HIPOTECARIO S.A.",
+      "tna": 17.0,
+      "destacado": false
+    },
+    {
+      "nombre": "Comafi",
+      "entidad": "BANCO COMAFI SOCIEDAD ANONIMA",
+      "tna": 17.0,
+      "destacado": false
+    },
+    {
+      "nombre": "Ciudad",
+      "entidad": "BANCO DE LA CIUDAD DE BUENOS AIRES",
+      "tna": 17.0,
+      "destacado": false
+    },
+    {
+      "nombre": "Brubank",
+      "entidad": "Brubank",
+      "tna": 17.0,
+      "destacado": false
+    },
+    {
+      "nombre": "Banco Santander",
+      "entidad": "BANCO SANTANDER ARGENTINA S.A.",
+      "tna": 16.0,
+      "destacado": false
+    },
+    {
+      "nombre": "Banco Patagonia",
+      "entidad": "BANCO PATAGONIA S.A.",
+      "tna": 16.0,
+      "destacado": false
+    }
+  ],
   "stocks": [
     {
       "symbol": "AAPL",
@@ -654,50 +764,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14378",
-      "percent_change": "0.00087430165",
+      "close": "1.14384",
+      "percent_change": "0.0061201116",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34525",
-      "percent_change": "0.0014867346",
+      "close": "1.34523",
+      "percent_change": "0",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.41131",
-      "percent_change": "0.00038790552",
+      "close": "162.41114",
+      "percent_change": "0.00028323261",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11062",
-      "percent_change": "-0.096763411",
+      "close": "5.11057",
+      "percent_change": "-0.097740819",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.5443",
-      "percent_change": "-0.0077512046",
+      "close": "17.54467",
+      "percent_change": "-0.0056424210",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.17788",
-      "percent_change": "-0.016100795",
+      "close": "40.17783",
+      "percent_change": "-0.016225222",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.30059",
-      "percent_change": "-0.092373771",
+      "close": "1477.22678",
+      "percent_change": "-0.097365431",
       "currency": null
     }
   ]
