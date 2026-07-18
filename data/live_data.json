@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T00:12:27.055797+00:00",
+  "updated_at": "2026-07-18T00:29:32.366967+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63862,
-      "change_24h": 0.18135031161777984
+      "usd": 63949,
+      "change_24h": 0.32761500001865007
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1839.54,
-      "change_24h": -1.1572115032389083
+      "usd": 1841.75,
+      "change_24h": -0.9485158249093021
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999285,
-      "change_24h": 0.003510220763337971
+      "usd": 0.999291,
+      "change_24h": 0.010159218509310161
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 567.5,
-      "change_24h": -0.686183522689155
+      "usd": 568.2,
+      "change_24h": -0.6405920492237366
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.01,
-      "change_24h": -0.2653362848638039
+      "usd": 75.15,
+      "change_24h": -0.1609780015855616
     }
   ],
   "tasas_locales": [
@@ -150,31 +150,31 @@
     {
       "nombre": "Fima Premium - Clase B",
       "slug": "fima-premium-clase-b",
-      "tna": 17.66,
+      "tna": 17.54,
       "categoria": "mm"
     },
     {
       "nombre": "Fima Premium - Clase A",
       "slug": "fima-premium-clase-a",
-      "tna": 16.18,
+      "tna": 16.07,
       "categoria": "mm"
     },
     {
       "nombre": "Pionero Pesos Plus - Clase B",
       "slug": "pionero-pesos-plus-clase-b",
-      "tna": 17.59,
-      "categoria": "mm"
-    },
-    {
-      "nombre": "Pellegrini Renta Pesos - Clase B",
-      "slug": "pellegrini-renta-pesos-clase-b",
-      "tna": 19.42,
+      "tna": 17.28,
       "categoria": "mm"
     },
     {
       "nombre": "Super Ahorro $ - Clase A",
       "slug": "super-ahorro-clase-a",
       "tna": 16.4,
+      "categoria": "mm"
+    },
+    {
+      "nombre": "Pellegrini Renta Pesos - Clase B",
+      "slug": "pellegrini-renta-pesos-clase-b",
+      "tna": 19.44,
       "categoria": "mm"
     }
   ],
@@ -534,6 +534,50 @@
       "percent_change": 4.147979687336239
     }
   ],
+  "rates_intl": [
+    {
+      "symbol": "US1Y-US",
+      "nombre": "US1Y",
+      "close": 4.004,
+      "percent_change": 0.4516
+    },
+    {
+      "symbol": "^FVX",
+      "nombre": "FVX",
+      "close": 4.273,
+      "percent_change": -0.21018366916277503
+    },
+    {
+      "symbol": "^TNX",
+      "nombre": "TNX",
+      "close": 4.541,
+      "percent_change": -0.6128205018489492
+    },
+    {
+      "symbol": "^TYX",
+      "nombre": "TYX",
+      "close": 5.064,
+      "percent_change": -0.6669291734077505
+    },
+    {
+      "symbol": "JP10Y-JP",
+      "nombre": "JP10Y-JP",
+      "close": 2.692,
+      "percent_change": 0.1722
+    },
+    {
+      "symbol": "GB10Y-GB",
+      "nombre": "GB10Y-GB",
+      "close": 4.9722,
+      "percent_change": 0.3937
+    },
+    {
+      "symbol": "DE10Y-DE",
+      "nombre": "DE10Y-DE",
+      "close": 3.1417,
+      "percent_change": -0.1506
+    }
+  ],
   "stocks": [
     {
       "symbol": "AAPL",
@@ -591,50 +635,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14384",
-      "percent_change": "0.0061201116",
+      "close": "1.14379",
+      "percent_change": "0.0017486033",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34528",
-      "percent_change": "0.0037168365",
+      "close": "1.34527",
+      "percent_change": "0.0029734692",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.40737",
-      "percent_change": "-0.0020380433",
+      "close": "162.41205",
+      "percent_change": "0.00084354058",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11053",
-      "percent_change": "-0.098522745",
+      "close": "5.11058",
+      "percent_change": "-0.097545337",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54398",
-      "percent_change": "-0.0095750174",
+      "close": "17.54509",
+      "percent_change": "-0.0032486666",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.1794",
-      "percent_change": "-0.012318228",
+      "close": "40.17819",
+      "percent_change": "-0.015329351",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.45713",
-      "percent_change": "-0.081787205",
+      "close": "1477.23796",
+      "percent_change": "-0.096609344",
       "currency": null
     }
   ]
