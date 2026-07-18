@@ -1256,6 +1256,7 @@ def get_ons_usd(top_n=20):
         dur = _macaulay_duration(flujos_fut, hoy, ytm) if ytm is not None else None
         out.append({
             "symbol": sym,
+            "series_id": config_key,
             "descripcion": _on_description(config_key),
             "emisor": info["emisor"],
             "vencimiento": info["vencimiento"],

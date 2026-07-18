@@ -3857,7 +3857,12 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 const precioTxt = it.precio != null ? Number(it.precio).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-';
                 const tirTxt = it.tir != null ? it.tir.toFixed(2) + '%' : '-';
                 const durTxt = it.duration != null ? it.duration.toFixed(2) : '-';
-                setSeriesKey(key, it.symbol, it.symbol);
+                // series_id: la clave con la que el precio/OHLC de este
+                // instrumento esta guardado en el archivo de historia
+                // (para ONs no coincide con el ticker de mercado que se
+                // muestra en la tabla, p.ej. "RC2CD" en pantalla vs
+                // "RC2C" como clave interna en ON_FLUJOS/el JSON).
+                setSeriesKey(key, it.symbol, it.series_id || it.symbol);
                 return `<tr data-ticker="${it.symbol}" onclick="rowClick(event, '${key}', '${it.symbol}')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
                     <td class="px-2 py-2 text-center"><input type="checkbox" onchange="toggleSelect(event, '${key}', '${it.symbol}')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
                     <td class="px-3 py-2 font-semibold text-white light:text-slate-800 cursor-help" title="${(it.descripcion || '').replace(/"/g, '&quot;')}">${it.symbol}</td>
