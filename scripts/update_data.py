@@ -1151,8 +1151,8 @@ def _guardar_lecap_precios(precios_hoy):
             serie[-1]["c"] = precio
         else:
             serie.append({"t": hoy, "c": precio})
-        if len(serie) > 30:
-            del serie[: len(serie) - 30]
+        if len(serie) > 2000:
+            del serie[: len(serie) - 2000]
     existing["updated_at"] = datetime.now(timezone.utc).isoformat()
     save_json(path, existing)
     return series
@@ -2247,6 +2247,304 @@ def build_history_bonos():
     }
 
 
+# ------------------------------------------------------------------
+# Historia OHLC generica para instrumentos sin cobertura en data912
+# (ONs, algunos soberanos USD, la mayoria de los bonos CER, LECAPs/
+# BONCAPs en pesos): se auto-acumula un punto por dia (o=h=l=c=precio
+# de cierre del dia, ya que las fuentes gratuitas disponibles solo dan
+# un precio de cierre diario, no rango intradiario real) en un archivo
+# que se conserva entre corridas del workflow. La serie crece dia a dia
+# desde que se empieza a trackear cada instrumento.
+# ------------------------------------------------------------------
+
+def _accumulate_ohlc_series(path, today_points, max_records=2000):
+    """
+    today_points: dict symbol -> {"o","h","l","c","v"} de hoy.
+    Devuelve el acumulado completo {symbol: [{"date": iso, "o","h","l","c","v"}, ...]}.
+    """
+    existing = load_json(path) or {}
+    hoy = date.today().isoformat()
+    for sym, pt in today_points.items():
+        if pt.get("c") is None:
+            continue
+        serie = existing.setdefault(sym, [])
+        record = {"date": hoy, "o": pt.get("o"), "h": pt.get("h"), "l": pt.get("l"),
+                  "c": pt.get("c"), "v": pt.get("v")}
+        if serie and serie[-1].get("date") == hoy:
+            serie[-1] = record
+        else:
+            serie.append(record)
+        if len(serie) > max_records:
+            existing[sym] = serie[-max_records:]
+    save_json(path, existing)
+    return existing
+
+
+def _empirical_vr_adjust(points, payment_dates, window_days=6, umbral=-0.02):
+    """
+    points: lista de dicts con 'date' (ISO) y 'o','h','l','c', ordenada o no.
+    payment_dates: fechas ISO de pagos conocidos (pasados y futuros) del
+    instrumento (de *_FLUJOS). Cuando no se conoce el desglose exacto
+    amortizacion/interes de cada pago (caso de SOBERANOS_FLUJOS y
+    ON_FLUJOS, que traen el monto total del cupon), se detecta empiricamente:
+    si hay una caida de precio fuerte (> umbral) dentro de una ventana
+    alrededor de una fecha de pago conocida, se interpreta esa caida como
+    amortizacion de capital (no perdida real, ya que el bono se cotiza
+    "por 100 de valor nominal ORIGINAL") y se reescala el "precio tecnico"
+    de todos los puntos posteriores para que la serie sea continua.
+    """
+    pts = sorted(points, key=lambda r: r.get("date") or "")
+    if not pts or not payment_dates:
+        return pts
+    closes = [(p.get("date"), p.get("c")) for p in pts]
+    cum_factor = 1.0
+    applied_from = []
+    for fecha_pago in payment_dates:
+        exp = _parse_date(fecha_pago)
+        if exp is None:
+            continue
+        lo = (exp - timedelta(days=window_days)).isoformat()
+        hi = (exp + timedelta(days=window_days)).isoformat()
+        best_date, best_drop = None, umbral
+        for i in range(1, len(closes)):
+            d, c = closes[i]
+            if not d or not (lo <= d <= hi) or c is None:
+                continue
+            prev_c = closes[i - 1][1]
+            if not prev_c:
+                continue
+            chg = (c - prev_c) / prev_c
+            if chg < best_drop:
+                best_drop, best_date = chg, d
+        if best_date:
+            cum_factor = cum_factor / (1.0 + best_drop)
+            applied_from.append((best_date, cum_factor))
+    if not applied_from:
+        return pts
+    applied_from.sort(key=lambda x: x[0])
+    for p in pts:
+        d = p.get("date")
+        factor = 1.0
+        for fecha_desde, f in applied_from:
+            if d and d >= fecha_desde:
+                factor = f
+        if factor != 1.0:
+            for k in ("o", "h", "l", "c"):
+                if p.get(k) is not None:
+                    p[k] = round(p[k] * factor, 4)
+    return pts
+
+
+def _build_bond_series(records, payment_dates=None, exact_schedule=None):
+    """
+    records: lista de dicts con 'date' (ISO) y 'o','h','l','c','v'.
+    exact_schedule: [(fecha_pago, pct_amortizado_0a100), ...] cuando se
+    conoce el desglose exacto de amortizacion (bonos CER, via
+    CER_FLUJOS, o los soberanos con cronograma oficial conocido via
+    BOND_AMORT_SCHEDULES) - mas preciso que la deteccion empirica.
+    payment_dates: fechas de pago conocidas, usadas solo si no hay
+    exact_schedule (deteccion empirica de saltos, ver _empirical_vr_adjust).
+    Devuelve (daily, weekly) ya ajustados por valor residual.
+    """
+    pts = [dict(r) for r in (records or [])]
+    if exact_schedule:
+        for p in pts:
+            vr = _residual_value_from_schedule(exact_schedule, p.get("date"))
+            factor = 100.0 / vr
+            for k in ("o", "h", "l", "c"):
+                if p.get(k) is not None:
+                    p[k] = round(p[k] * factor, 4)
+    elif payment_dates:
+        pts = _empirical_vr_adjust(pts, payment_dates)
+
+    daily, weekly = build_daily_weekly(
+        pts,
+        date_fn=lambda r: _parse_date(r.get("date")),
+        point_fn=lambda r: {"o": r.get("o"), "h": r.get("h"), "l": r.get("l"),
+                              "c": r.get("c"), "v": r.get("v")},
+    )
+    return daily, weekly
+
+
+# ------------------------------------------------------------------
+# Historia OHLC de Bonos Soberanos en USD, ajustada por valor residual.
+# 10 de los 15 tickers tienen historia real (OHLCV) en data912; los
+# otros 5 (AO27, AO28, AO29, AN29, BPD7 - bonos del Tesoro en USD que
+# no forman parte de la reestructuracion 2020) no tienen fuente publica
+# con historico, asi que se auto-acumulan desde hoy.
+# ------------------------------------------------------------------
+
+BONOS_USD_DATA912 = ["AE38", "AL29", "AL30", "AL35", "AL41", "GD29", "GD30", "GD35", "GD38", "GD41"]
+BONOS_USD_AUTOACUM = ["AO27", "AO28", "AO29", "AN29", "BPD7"]
+
+
+def build_history_bonos_usd():
+    out = {}
+    for sym in BONOS_USD_DATA912:
+        data = fetch_json(f"https://data912.com/historical/bonds/{sym}")
+        if not data or not isinstance(data, list):
+            continue
+        records = [{"date": str(r.get("date", ""))[:10], "o": r.get("o"), "h": r.get("h"),
+                    "l": r.get("l"), "c": r.get("c"), "v": r.get("v")} for r in data]
+        info = SOBERANOS_FLUJOS.get(sym, {})
+        payment_dates = [f for f, m in info.get("flujos", [])]
+        exact = BOND_AMORT_SCHEDULES.get(sym)
+        daily, weekly = _build_bond_series(records, payment_dates, exact_schedule=exact)
+        if daily or weekly:
+            out[sym] = {"daily": daily, "weekly": weekly}
+
+    live = fetch_json("https://rendimientos.co/api/soberanos")
+    today_points = {}
+    if live and "data" in live:
+        for item in live["data"]:
+            sym = item.get("symbol")
+            precio = item.get("price_usd")
+            if sym in BONOS_USD_AUTOACUM and precio is not None:
+                today_points[sym] = {"o": precio, "h": precio, "l": precio, "c": precio, "v": None}
+    acumulado = _accumulate_ohlc_series(os.path.join(HISTORY_DIR, "_acum_bonos_usd.json"), today_points)
+    for sym in BONOS_USD_AUTOACUM:
+        info = SOBERANOS_FLUJOS.get(sym, {})
+        payment_dates = [f for f, m in info.get("flujos", [])]
+        daily, weekly = _build_bond_series(acumulado.get(sym, []), payment_dates)
+        if daily or weekly:
+            out[sym] = {"daily": daily, "weekly": weekly}
+
+    if not out:
+        return None
+    return {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "moneda": "USD",
+        "ajuste": "precio_tecnico_por_valor_residual",
+        "series": out,
+    }
+
+
+# ------------------------------------------------------------------
+# Historia OHLC de Bonos CER, ajustada por valor residual. 4 de los 14
+# tickers tienen historia real en data912; el resto se auto-acumula.
+# El ajuste por VR es exacto (no empirico) porque CER_FLUJOS ya trae el
+# desglose de "amortizacion" por separado del interes.
+# ------------------------------------------------------------------
+
+BONOS_CER_DATA912 = ["TX26", "TX28", "DICP", "PARP"]
+
+
+def _cer_amort_schedule(config_key):
+    info = CER_FLUJOS.get(config_key)
+    if not info:
+        return None
+    return [(f, amort * 100) for f, amort, tasa, base in info["flujos"] if amort]
+
+
+def build_history_bonos_cer():
+    out = {}
+    for sym in BONOS_CER_DATA912:
+        data = fetch_json(f"https://data912.com/historical/bonds/{sym}")
+        if not data or not isinstance(data, list):
+            continue
+        records = [{"date": str(r.get("date", ""))[:10], "o": r.get("o"), "h": r.get("h"),
+                    "l": r.get("l"), "c": r.get("c"), "v": r.get("v")} for r in data]
+        daily, weekly = _build_bond_series(records, exact_schedule=_cer_amort_schedule(sym))
+        if daily or weekly:
+            out[sym] = {"daily": daily, "weekly": weekly}
+
+    auto_tickers = [s for s in CER_FLUJOS if s not in BONOS_USD_DATA912 and s not in BONOS_CER_DATA912]
+    live = fetch_json("https://rendimientos.co/api/cer-precios")
+    today_points = {}
+    if live and "data" in live:
+        for item in live["data"]:
+            sym = item.get("symbol")
+            precio = item.get("c")
+            if sym in auto_tickers and precio is not None:
+                today_points[sym] = {"o": precio, "h": precio, "l": precio, "c": precio, "v": None}
+    acumulado = _accumulate_ohlc_series(os.path.join(HISTORY_DIR, "_acum_bonos_cer.json"), today_points)
+    for sym in auto_tickers:
+        daily, weekly = _build_bond_series(acumulado.get(sym, []), exact_schedule=_cer_amort_schedule(sym))
+        if daily or weekly:
+            out[sym] = {"daily": daily, "weekly": weekly}
+
+    if not out:
+        return None
+    return {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "moneda": "ARS",
+        "ajuste": "precio_tecnico_por_valor_residual",
+        "series": out,
+    }
+
+
+# ------------------------------------------------------------------
+# Historia OHLC de Bonos en Pesos (LECAP/BONCAP). Son bullet (un unico
+# pago al vencimiento, sin amortizaciones intermedias), asi que no
+# necesitan ajuste por valor residual. Se reutiliza/amplia el mismo
+# archivo que ya se usaba para calcular la variacion diaria.
+# ------------------------------------------------------------------
+
+def build_history_bonos_pesos():
+    path = os.path.join(HISTORY_DIR, "bonos_pesos_precios.json")
+    existing = load_json(path) or {"series": {}}
+    series = existing.get("series", {})
+    out = {}
+    for sym, puntos in series.items():
+        if sym not in LECAP_TERMS:
+            continue
+        records = [{"date": p.get("t"), "o": p.get("c"), "h": p.get("c"),
+                    "l": p.get("c"), "c": p.get("c"), "v": None} for p in puntos]
+        daily, weekly = _build_bond_series(records)
+        if daily or weekly:
+            out[sym] = {"daily": daily, "weekly": weekly}
+    if not out:
+        return None
+    return {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "moneda": "ARS",
+        "ajuste": "sin_ajuste_bullet",
+        "series": out,
+    }
+
+
+# ------------------------------------------------------------------
+# Historia OHLC de Obligaciones Negociables en USD. Sin cobertura en
+# data912: se auto-acumula desde hoy para los 53 tickers trackeados en
+# ON_FLUJOS (no solo el top-N por volumen del dia, para que la serie no
+# tenga huecos si un ticker sale/entra del top-N de un dia a otro). El
+# ajuste por VR es empirico (ON_FLUJOS trae el monto total del cupon,
+# sin desglose amortizacion/interes).
+# ------------------------------------------------------------------
+
+def build_history_ons_usd():
+    live = fetch_json("https://rendimientos.co/api/ons")
+    if not live or "data" not in live:
+        return None
+    by_ticker = {info["ticker_d912"]: key for key, info in ON_FLUJOS.items()}
+    today_points = {}
+    for item in live["data"]:
+        sym = item.get("symbol")
+        config_key = by_ticker.get(sym)
+        precio = item.get("c")
+        if config_key and precio is not None:
+            today_points[config_key] = {"o": precio, "h": precio, "l": precio, "c": precio, "v": item.get("v")}
+    acumulado = _accumulate_ohlc_series(os.path.join(HISTORY_DIR, "_acum_ons_usd.json"), today_points)
+
+    out = {}
+    for config_key, info in ON_FLUJOS.items():
+        registros = acumulado.get(config_key, [])
+        if not registros:
+            continue
+        payment_dates = [f for f, m in info["flujos"]]
+        daily, weekly = _build_bond_series(registros, payment_dates)
+        if daily or weekly:
+            out[config_key] = {"daily": daily, "weekly": weekly}
+    if not out:
+        return None
+    return {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "moneda": "USD",
+        "ajuste": "precio_tecnico_por_valor_residual",
+        "series": out,
+    }
+
+
 ACCIONES_ARG_TICKERS_DATA912 = {
     "YPFD.BA": "YPFD",
     "GGAL.BA": "GGAL",
@@ -2446,6 +2744,10 @@ def main():
         "indices.json": build_history_indices(),
         "commodities.json": build_history_commodities(),
         "tasas_internacionales.json": build_history_tasas_internacionales(live_data.get("rates_intl")),
+        "bonos_usd_historia.json": build_history_bonos_usd(),
+        "bonos_cer_historia.json": build_history_bonos_cer(),
+        "bonos_pesos_historia.json": build_history_bonos_pesos(),
+        "ons_usd_historia.json": build_history_ons_usd(),
     }
     for filename, payload in historicos.items():
         if payload:

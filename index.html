@@ -1666,7 +1666,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-gavel text-brandBlue"></i> Bonos Soberanos
             </h2>
-            <p class="text-xs text-slate-400 light:text-slate-500 mb-6">TIR y Duration calculados a partir del cronograma de flujos de fondos de cada bono y su precio de mercado. Para los bonos CER, la TIR es "TIR sobre CER" (real, asumiendo ajuste por CER nulo desde hoy). Pasá el mouse sobre el ticker para ver la descripción del bono.</p>
+            <p class="text-xs text-slate-400 light:text-slate-500 mb-6">TIR y Duration calculados a partir del cronograma de flujos de fondos de cada bono y su precio de mercado. Para los bonos CER, la TIR es "TIR sobre CER" (real, asumiendo ajuste por CER nulo desde hoy). Pasá el mouse sobre el ticker para ver la descripción del bono. El gráfico de evolución de precio está ajustado por valor residual para no mostrar saltos artificiales cada vez que el bono amortiza capital.</p>
             <div class="space-y-8">
                 <div class="space-y-3">
                     <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
@@ -1677,6 +1677,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                             <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-xs text-left">
                                 <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase">
                                     <tr>
+                                        <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
                                         <th class="px-3 py-2.5">Ticker</th>
                                         <th class="px-3 py-2.5 text-right">Precio</th>
                                         <th class="px-3 py-2.5 text-right">Var. Día</th>
@@ -1684,15 +1685,20 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                         <th class="px-3 py-2.5 text-right">Duration</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tbl-bonos-cer" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                                <tbody id="tbl-bonds_cer" class="divide-y divide-darkBorder/40 light:divide-gray-200">
                                 </tbody>
                             </table>
                         </div>
                         <div class="lg:col-span-3 glass-card rounded-2xl p-4 relative">
-                            <button class="chart-export-btn" onclick="exportChart('chart-bonos-cer-curva', 'Bonos ajustados por CER')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                            <button class="chart-export-btn" onclick="exportChart('chart-bonds_cer-curva', 'Bonos ajustados por CER')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
                             <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Curva de rendimientos: TIR × Duration</h4>
-                            <canvas id="chart-bonos-cer-curva" height="200"></canvas>
+                            <canvas id="chart-bonds_cer-curva" height="200"></canvas>
                         </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-bonds_cer', 'Bonos ajustados por CER')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-bonds_cer" height="90"></canvas>
                     </div>
                 </div>
                 <div class="space-y-3">
@@ -1704,6 +1710,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                             <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-xs text-left">
                                 <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase">
                                     <tr>
+                                        <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
                                         <th class="px-3 py-2.5">Ticker</th>
                                         <th class="px-3 py-2.5 text-right">Precio</th>
                                         <th class="px-3 py-2.5 text-right">Var. Día</th>
@@ -1711,15 +1718,20 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                         <th class="px-3 py-2.5 text-right">Duration</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tbl-bonos-pesos" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                                <tbody id="tbl-bonds_pesos" class="divide-y divide-darkBorder/40 light:divide-gray-200">
                                 </tbody>
                             </table>
                         </div>
                         <div class="lg:col-span-3 glass-card rounded-2xl p-4 relative">
-                            <button class="chart-export-btn" onclick="exportChart('chart-bonos-pesos-curva', 'Bonos en Pesos')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                            <button class="chart-export-btn" onclick="exportChart('chart-bonds_pesos-curva', 'Bonos en Pesos')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
                             <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Curva de rendimientos: TIR × Duration</h4>
-                            <canvas id="chart-bonos-pesos-curva" height="200"></canvas>
+                            <canvas id="chart-bonds_pesos-curva" height="200"></canvas>
                         </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-bonds_pesos', 'Bonos en Pesos')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-bonds_pesos" height="90"></canvas>
                     </div>
                 </div>
                 <div class="space-y-3">
@@ -1731,6 +1743,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                             <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-xs text-left">
                                 <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase">
                                     <tr>
+                                        <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
                                         <th class="px-3 py-2.5">Ticker</th>
                                         <th class="px-3 py-2.5 text-right">Precio</th>
                                         <th class="px-3 py-2.5 text-right">Var. Día</th>
@@ -1738,15 +1751,20 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                         <th class="px-3 py-2.5 text-right">Duration</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tbl-bonos-usd" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                                <tbody id="tbl-bonds_usd" class="divide-y divide-darkBorder/40 light:divide-gray-200">
                                 </tbody>
                             </table>
                         </div>
                         <div class="lg:col-span-3 glass-card rounded-2xl p-4 relative">
-                            <button class="chart-export-btn" onclick="exportChart('chart-bonos-usd-curva', 'Bonos en USD (ley local y extranjera)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                            <button class="chart-export-btn" onclick="exportChart('chart-bonds_usd-curva', 'Bonos en USD (ley local y extranjera)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
                             <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Curva de rendimientos: TIR × Duration</h4>
-                            <canvas id="chart-bonos-usd-curva" height="200"></canvas>
+                            <canvas id="chart-bonds_usd-curva" height="200"></canvas>
                         </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-bonds_usd', 'Bonos en USD (ley local y extranjera)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-bonds_usd" height="90"></canvas>
                     </div>
                 </div>
             </div>
@@ -1760,7 +1778,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <p class="text-xs text-slate-400 light:text-slate-600 mb-4">
                 Solo se muestran ONs en USD: no existe una fuente publica y gratuita con cronograma de flujos
                 para calcular TIR y Duration de ONs en Pesos o ajustadas por CER (el unico dato disponible para
-                esas categorias, el panel "BONOS IAMC" de BYMA, es un servicio pago).
+                esas categorias, el panel "BONOS IAMC" de BYMA, es un servicio pago). El gráfico de evolución de
+                precio está ajustado por valor residual (detección empírica de saltos por amortización de capital).
             </p>
             <div class="space-y-6">
                 <div class="space-y-3">
@@ -1772,6 +1791,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                             <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-xs text-left">
                                 <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase">
                                     <tr>
+                                        <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
                                         <th class="px-3 py-2.5">Ticker</th>
                                         <th class="px-3 py-2.5 text-right">Precio</th>
                                         <th class="px-3 py-2.5 text-right">Var. Día</th>
@@ -1779,15 +1799,20 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                         <th class="px-3 py-2.5 text-right">Duration</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tbl-ons-usd" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                                <tbody id="tbl-corporate_ons" class="divide-y divide-darkBorder/40 light:divide-gray-200">
                                 </tbody>
                             </table>
                         </div>
                         <div class="lg:col-span-3 glass-card rounded-2xl p-4 relative">
-                            <button class="chart-export-btn" onclick="exportChart('chart-ons-usd-curva', 'ONs en USD (mayor volumen operado)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                            <button class="chart-export-btn" onclick="exportChart('chart-corporate_ons-curva', 'ONs en USD (mayor volumen operado)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
                             <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Curva de rendimientos: TIR × Duration</h4>
-                            <canvas id="chart-ons-usd-curva" height="200"></canvas>
+                            <canvas id="chart-corporate_ons-curva" height="200"></canvas>
                         </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-corporate_ons', 'ONs en USD (mayor volumen operado)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                        <canvas id="chart-corporate_ons" height="90"></canvas>
                     </div>
                 </div>
             </div>
@@ -3243,7 +3268,11 @@ Stack: ${error ? error.stack : 'N/A'}`;
             etfs:         { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.etfs),     ohlc: true,  unit: 'USD' },
             commodities:  { file: 'commodities.json', path: d => d.commodities, ohlc: true, unit: '' },
             forex:        { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.forex),    ohlc: true,  unit: '' },
-            rates:        { file: 'tasas_internacionales.json', path: d => d.series, ohlc: false, unit: '%' }
+            rates:        { file: 'tasas_internacionales.json', path: d => d.series, ohlc: false, unit: '%' },
+            bonds_cer:    { file: 'bonos_cer_historia.json',   path: d => d.series, ohlc: true, unit: 'ARS' },
+            bonds_pesos:  { file: 'bonos_pesos_historia.json', path: d => d.series, ohlc: true, unit: 'ARS' },
+            bonds_usd:    { file: 'bonos_usd_historia.json',   path: d => d.series, ohlc: true, unit: 'USD' },
+            corporate_ons:{ file: 'ons_usd_historia.json',     path: d => d.series, ohlc: true, unit: 'USD' }
         };
 
         function normalizeOnsHistory(d) {
@@ -3305,7 +3334,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 if (!canvas || document.getElementById('chart-controls-' + key)) return;
                 const cfg = REAL_DATA_CONFIG[key];
                 chartRangeState[key] = '12m';
-                chartTypeState[key] = 'line';
+                chartTypeState[key] = cfg.ohlc ? 'ohlc' : 'line';
 
                 const bar = document.createElement('div');
                 bar.id = 'chart-controls-' + key;
@@ -3330,7 +3359,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     [['line', 'Línea'], ['candles', 'Velas'], ['ohlc', 'Barras OHLC']].forEach(([tk, label]) => {
                         const btn = document.createElement('button');
                         btn.type = 'button';
-                        btn.className = 'chart-ctrl-btn' + (tk === 'line' ? ' chart-ctrl-active' : '');
+                        btn.className = 'chart-ctrl-btn' + (tk === 'ohlc' ? ' chart-ctrl-active' : '');
                         btn.textContent = label;
                         btn.onclick = () => setChartType(key, tk);
                         btn.dataset.type = tk;
@@ -3817,18 +3846,20 @@ Stack: ${error ? error.stack : 'N/A'}`;
             });
         }
 
-        function renderBonosTabla(tbodyId, items) {
+        function renderBonosTabla(key, tbodyId, items) {
             const tbody = document.getElementById(tbodyId);
             if (!tbody) return;
             if (!items || !items.length) {
-                tbody.innerHTML = '<tr><td colspan="5" class="px-3 py-3 text-center text-slate-500 text-xs">Sin datos</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" class="px-3 py-3 text-center text-slate-500 text-xs">Sin datos</td></tr>';
                 return;
             }
             const rows = items.map(it => {
                 const precioTxt = it.precio != null ? Number(it.precio).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-';
                 const tirTxt = it.tir != null ? it.tir.toFixed(2) + '%' : '-';
                 const durTxt = it.duration != null ? it.duration.toFixed(2) : '-';
-                return `<tr class="hover:bg-slate-800/40 light:hover:bg-slate-50">
+                setSeriesKey(key, it.symbol, it.symbol);
+                return `<tr data-ticker="${it.symbol}" onclick="rowClick(event, '${key}', '${it.symbol}')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
+                    <td class="px-2 py-2 text-center"><input type="checkbox" onchange="toggleSelect(event, '${key}', '${it.symbol}')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
                     <td class="px-3 py-2 font-semibold text-white light:text-slate-800 cursor-help" title="${(it.descripcion || '').replace(/"/g, '&quot;')}">${it.symbol}</td>
                     <td class="px-3 py-2 text-right font-mono">${precioTxt}</td>
                     <td class="px-3 py-2 text-right font-mono${pctClass(it.pct_change)}">${fmtPct(it.pct_change)}</td>
@@ -3936,14 +3967,23 @@ Stack: ${error ? error.stack : 'N/A'}`;
             });
         }
 
-        function renderBonosSoberanos(key, canvasKey, items, color) {
-            renderBonosTabla('tbl-' + key, items);
-            renderBonosCurva('chart-' + canvasKey + '-curva', items, color);
+        function renderBonosSoberanos(key, items, color) {
+            renderBonosTabla(key, 'tbl-' + key, items);
+            renderBonosCurva('chart-' + key + '-curva', items, color);
+            // El grafico de evolucion (linea/velas/OHLC) se dispara solo,
+            // vía renderChartsForTab/renderChartFor, cuando el usuario
+            // esta parado en el tab correspondiente (igual que Dolar/FCI).
+            // Si ya esta activo, hay que refrescarlo para reflejar la
+            // seleccion default (primer ticker, ya ordenado por duration).
+            if (REAL_DATA_CONFIG[key] && document.getElementById('panel-' + (key.startsWith('bonds') ? 'bonds' : 'corporate')) &&
+                !document.getElementById('panel-' + (key.startsWith('bonds') ? 'bonds' : 'corporate')).classList.contains('hidden')) {
+                renderChartFor(key);
+            }
         }
 
         function renderOnsUsd(items) {
             if (!items || !items.length) return;
-            renderBonosSoberanos('ons-usd', 'ons-usd', items, '#10b981');
+            renderBonosSoberanos('corporate_ons', items, '#10b981');
         }
 
         function renderAccionesArg(items) {
@@ -3989,9 +4029,9 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 if (data.etfs) renderTwelveData('etfs', data.etfs);
                 renderTasasLocales(data.tasas_locales);
                 renderFciSecciones(data.fci_secciones);
-                if (data.bonos_cer) renderBonosSoberanos('bonos-cer', 'bonos-cer', data.bonos_cer, '#f59e0b');
-                if (data.bonos_pesos) renderBonosSoberanos('bonos-pesos', 'bonos-pesos', data.bonos_pesos, '#6366f1');
-                if (data.bonos_soberanos_usd) renderBonosSoberanos('bonos-usd', 'bonos-usd', data.bonos_soberanos_usd, '#10b981');
+                if (data.bonos_cer) renderBonosSoberanos('bonds_cer', data.bonos_cer, '#f59e0b');
+                if (data.bonos_pesos) renderBonosSoberanos('bonds_pesos', data.bonos_pesos, '#6366f1');
+                if (data.bonos_soberanos_usd) renderBonosSoberanos('bonds_usd', data.bonos_soberanos_usd, '#10b981');
                 if (data.ons_usd) renderOnsUsd(data.ons_usd);
                 renderAccionesArg(data.acciones_arg);
                 if (data.riesgo_pais && data.riesgo_pais.valor != null) {
