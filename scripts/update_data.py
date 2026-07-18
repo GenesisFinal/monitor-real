@@ -2407,11 +2407,23 @@ def build_history_bonos_usd():
             out[sym] = {"daily": daily, "weekly": weekly}
 
     # Para los tickers sin cobertura en data912, se intenta primero
-    # bonistas.com (historia real, ya ajustada por valor residual segun
-    # su propio vR) antes de caer a la auto-acumulacion diaria.
+    # iol.invertironline.com (historia real mucho mas profunda, sin
+    # login), despues bonistas.com, y recien al final se cae a la
+    # auto-acumulacion diaria.
+    IOL_USD_MAP = {"AO27": "AO27", "AO28": "AO28", "AN29": "AN29", "BPD7": "BPD7D"}
     BONISTAS_USD_MAP = {"AO27": "AO27", "AO28": "AO28", "AN29": "AN29", "BPD7": "BPD7D"}
     faltantes = []
     for sym in BONOS_USD_AUTOACUM:
+        ticker_iol = IOL_USD_MAP.get(sym)
+        records = _fetch_iol_history(ticker_iol) if ticker_iol else None
+        if records:
+            info = SOBERANOS_FLUJOS.get(sym, {})
+            payment_dates = [f for f, m in info.get("flujos", [])]
+            exact = BOND_AMORT_SCHEDULES.get(sym)
+            daily, weekly = _build_bond_series(records, payment_dates, exact_schedule=exact)
+            if daily or weekly:
+                out[sym] = {"daily": daily, "weekly": weekly}
+                continue
         ticker_bonistas = BONISTAS_USD_MAP.get(sym)
         records = _fetch_bonistas_history(ticker_bonistas) if ticker_bonistas else None
         if records:
@@ -2482,6 +2494,12 @@ def build_history_bonos_cer():
     resto = [s for s in CER_FLUJOS if s not in BONOS_USD_DATA912 and s not in BONOS_CER_DATA912]
     faltantes = []
     for sym in resto:
+        records = _fetch_iol_history(sym)
+        if records:
+            daily, weekly = _build_bond_series(records, exact_schedule=_cer_amort_schedule(sym))
+            if daily or weekly:
+                out[sym] = {"daily": daily, "weekly": weekly}
+                continue
         records = _fetch_bonistas_history(sym)
         if records:
             daily, weekly = _series_from_adjusted_records(records)
@@ -2526,8 +2544,15 @@ def build_history_bonos_pesos():
     faltantes = []
     for sym in LECAP_TERMS:
         # Bullet (un unico pago al vencimiento): no hace falta ajuste
-        # por valor residual, pero bonistas.com igual da mucha mas
-        # profundidad historica real que la auto-acumulacion propia.
+        # por valor residual. iol.invertironline.com da mucha mas
+        # profundidad historica real que bonistas.com y que la
+        # auto-acumulacion propia.
+        records = _fetch_iol_history(sym)
+        if records:
+            daily, weekly = _series_from_adjusted_records(records)
+            if daily or weekly:
+                out[sym] = {"daily": daily, "weekly": weekly}
+                continue
         records = _fetch_bonistas_history(sym)
         if records:
             daily, weekly = _series_from_adjusted_records(records)
@@ -2570,11 +2595,22 @@ def build_history_ons_usd():
     out = {}
     faltantes = []
     for config_key, info in ON_FLUJOS.items():
-        # bonistas.com usa el mismo ticker de liquidacion en USD
-        # (ticker_d912, p.ej. "MGCRD") como slug de la pagina. Cubre un
-        # subconjunto de las 53 ONs trackeadas (no todas), con historia
-        # real de varias semanas y ajuste por vR ya aplicado.
-        records = _fetch_bonistas_history(info["ticker_d912"])
+        # iol.invertironline.com usa el mismo ticker de liquidacion en
+        # USD (ticker_d912, p.ej. "MGCRD") como simbolo de busqueda.
+        # Cubre practicamente todas las 53 ONs trackeadas, con
+        # historia real de meses/anios (precios brutos, se ajustan por
+        # VR empirico igual que la auto-acumulacion).
+        ticker = info["ticker_d912"]
+        records = _fetch_iol_history(ticker)
+        if records:
+            payment_dates = [f for f, m in info["flujos"]]
+            daily, weekly = _build_bond_series(records, payment_dates)
+            if daily or weekly:
+                out[config_key] = {"daily": daily, "weekly": weekly}
+                continue
+        # bonistas.com como segundo intento (ya trae ajuste por su
+        # propio vR).
+        records = _fetch_bonistas_history(ticker)
         if records:
             daily, weekly = _series_from_adjusted_records(records)
             if daily or weekly:
@@ -2666,6 +2702,82 @@ def _fetch_bonistas_history(ticker):
             "v": vols[i],
         })
     return out
+
+
+# ------------------------------------------------------------------
+# iol.invertironline.com: fuente publica y gratuita, SIN login, con
+# historia diaria real (o,h,l,c,v) mucho mas profunda y con mayor
+# cobertura que data912 y bonistas.com juntos (verificado: cubre CER,
+# USD soberanos, LECAP/BONCAP y las 53 ONs trackeadas, con series de
+# hasta varios anios). Flujo de 2 pedidos, sin cookies ni token CSRF:
+#   1) GET /titulo/datoshistoricos?simbolo=X&mercado=bcba -> resuelve
+#      el "idtitulo" interno (input oculto en el HTML).
+#   2) POST /Titulo/DatosHistoricos con idtitulo + rango de fechas
+#      amplio -> devuelve un fragmento HTML con la tabla completa.
+# Los precios que devuelve son BRUTOS (sin ajustar por vR), a
+# diferencia de bonistas.com, asi que se procesan con el mismo
+# _build_bond_series (ajuste exacto/empirico) que data912.
+# ------------------------------------------------------------------
+
+def _fetch_iol_history(ticker):
+    try:
+        page = fetch_text(
+            f"https://iol.invertironline.com/titulo/datoshistoricos?simbolo={ticker.lower()}&mercado=bcba"
+        )
+        if not page:
+            return None
+        m = re.search(r'id="IdTitulo"[^>]*value="(\d+)"', page)
+        if not m:
+            return None
+        idtitulo = m.group(1)
+        hoy = datetime.now().strftime("%d/%m/%Y")
+        body = urllib.parse.urlencode({
+            "desdehasta": f"01/01/2015 - {hoy}",
+            "idtitulo": idtitulo,
+            "idfrecuencias": "1",
+        }).encode("utf-8")
+        req = urllib.request.Request(
+            "https://iol.invertironline.com/Titulo/DatosHistoricos",
+            data=body,
+            headers={
+                "User-Agent": "monitor-real-bot/1.0",
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                "X-Requested-With": "XMLHttpRequest",
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=25) as resp:
+            html = resp.read().decode("utf-8", errors="replace")
+    except Exception as e:
+        print(f"[WARN] Fallo IOL historico {ticker}: {e}")
+        return None
+
+    def _num(s):
+        s = s.strip().replace(",", "")
+        if not s:
+            return None
+        try:
+            return float(s)
+        except ValueError:
+            return None
+
+    out = []
+    for row_html in re.findall(r'<tr[^>]*>(.*?)</tr>', html, re.S):
+        cells = [re.sub(r'<[^>]+>', '', c).strip() for c in re.findall(r'<td[^>]*>(.*?)</td>', row_html, re.S)]
+        if len(cells) < 5:
+            continue
+        dm = re.match(r'(\d{2})/(\d{2})/(\d{4})', cells[0])
+        if not dm:
+            continue
+        mm, dd, yyyy = dm.groups()
+        fecha_iso = f"{yyyy}-{mm}-{dd}"
+        o, h, l, c = _num(cells[1]), _num(cells[2]), _num(cells[3]), _num(cells[4])
+        vol = _num(cells[7]) if len(cells) > 7 else None
+        if c is None:
+            continue
+        out.append({"date": fecha_iso, "o": o, "h": h, "l": l, "c": c, "v": vol})
+    out.sort(key=lambda r: r["date"])
+    return out or None
 
 
 def _series_from_adjusted_records(records):
