@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T05:43:20.935947+00:00",
+  "updated_at": "2026-07-18T06:28:03.435182+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63920,
-      "change_24h": 1.5589266814489822
+      "usd": 63945,
+      "change_24h": 1.7244459307324274
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1845.26,
-      "change_24h": 0.7512482010673632
+      "usd": 1845.05,
+      "change_24h": 0.6920678353478734
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.99929,
-      "change_24h": 0.011529699945973642
+      "usd": 0.999286,
+      "change_24h": 0.01628013904981609
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 566.86,
-      "change_24h": -0.30367453919622744
+      "usd": 567.8,
+      "change_24h": -0.10770084101950908
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 74.94,
-      "change_24h": 0.25307259972198065
+      "usd": 75.0,
+      "change_24h": 0.5000136206774034
     }
   ],
   "tasas_locales": [
@@ -2210,22 +2210,22 @@
     {
       "symbol": "MSFT",
       "nombre": "Microsoft Corp.",
-      "close": "393.76999",
-      "percent_change": "-1.82748",
+      "close": "393.82001",
+      "percent_change": "-1.81501",
       "currency": "USD"
     },
     {
       "symbol": "AMZN",
       "nombre": "Amazon.com Inc.",
-      "close": "247.25999",
-      "percent_change": "-1.052465",
+      "close": "247.23000",
+      "percent_change": "-1.064470",
       "currency": "USD"
     },
     {
       "symbol": "GOOGL",
       "nombre": "Alphabet Inc.",
-      "close": "346.62000",
-      "percent_change": "-2.21181",
+      "close": "346.76999",
+      "percent_change": "-2.16950",
       "currency": "USD"
     }
   ],
@@ -2233,15 +2233,15 @@
     {
       "symbol": "SPY",
       "nombre": "SPY (S&P 500)",
-      "close": "743.15503",
-      "percent_change": "-1.0076915",
+      "close": "743.28998",
+      "percent_change": "-0.98971560",
       "currency": "USD"
     },
     {
       "symbol": "QQQ",
       "nombre": "QQQ (Nasdaq 100)",
-      "close": "695.29999",
-      "percent_change": "-1.50721",
+      "close": "695.33002",
+      "percent_change": "-1.50296",
       "currency": "USD"
     },
     {
@@ -2256,50 +2256,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14384",
-      "percent_change": "0.0061201116",
+      "close": "1.1438",
+      "percent_change": "0.0026229050",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34523",
-      "percent_change": "0",
+      "close": "1.34527",
+      "percent_change": "0.0029734692",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.40973",
-      "percent_change": "-0.00058493690",
+      "close": "162.40775",
+      "percent_change": "-0.0018040686",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11089",
-      "percent_change": "-0.091485406",
+      "close": "5.11078",
+      "percent_change": "-0.093635704",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54909",
-      "percent_change": "0.019548994",
+      "close": "17.54502",
+      "percent_change": "-0.0036476257",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.17763",
-      "percent_change": "-0.016722928",
+      "close": "40.18081",
+      "percent_change": "-0.0088093997",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.24539",
-      "percent_change": "-0.096106865",
+      "close": "1477.80115",
+      "percent_change": "-0.058521648",
       "currency": null
     }
   ]
