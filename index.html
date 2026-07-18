@@ -3038,7 +3038,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 }
             });
             const activeTab = currentTabPerGroup[name];
-            if (activeTab) renderChartFor(activeTab);
+            if (activeTab) renderChartsForTab(activeTab);
         }
 
         function switchTab(key) {
@@ -3050,7 +3050,25 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 const btn = document.getElementById('btn-tab-' + k);
                 if (btn) btn.classList.toggle('active-tab-btn', k === key);
             });
-            renderChartFor(key);
+            renderChartsForTab(key);
+        }
+
+        // Algunos tabs (p.ej. "fci") agrupan varias subsecciones, cada una
+        // con su propia clave en REAL_DATA_CONFIG con prefijo "<tab>_"
+        // (fci_ars_mm, fci_ars_rf, ...) en vez de una unica clave "fci".
+        // Al entrar al tab hay que renderizar el grafico de cada una.
+        function renderChartsForTab(key) {
+            if (REAL_DATA_CONFIG[key]) {
+                renderChartFor(key);
+                return;
+            }
+            const prefix = key + '_';
+            const subKeys = Object.keys(REAL_DATA_CONFIG).filter(k => k.startsWith(prefix));
+            if (subKeys.length) {
+                subKeys.forEach(k => renderChartFor(k));
+            } else {
+                renderChartFor(key);
+            }
         }
 
         function toggleSelect(evt, key, ticker) {
