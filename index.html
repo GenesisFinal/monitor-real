@@ -1392,52 +1392,272 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-wallet text-brandBlue"></i> Fondos Comunes de Inversión
             </h2>
-            <div class="space-y-6">
+            <p class="text-xs text-slate-400 light:text-slate-500 mb-6">Para cada categoría: fondos de Cocos, Allaria, One618, Toronto, Schroders, Compass, Pellegrini, Fima, Patagonia y Banco Industrial (cuando operan en esa moneda y categoría), más los 5 de mayor rentabilidad a 12 meses y los 5 de mayor patrimonio.</p>
+            <div class="space-y-2">
+            <div class="mb-8">
+                <h3 class="text-lg font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2 border-b border-darkBorder light:border-gray-200 pb-2">
+                    <i class="fas fa-money-bill-wave text-brandGreen"></i> FCI de Pesos
+                </h3>
+                <div class="space-y-8">
                 <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Money Market
+                    </h3>
                     <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
                                 <tr>
                                     <th class="w-12 px-4 py-3 text-center">Comparar</th>
                                     <th class="px-4 py-3">Fondo</th>
-                                    <th class="px-4 py-3 text-right">TNA %</th>
-<th class="px-4 py-3 text-right">Categoría</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl-fci" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="Money Market en Pesos - Clase A" onclick="rowClick(event, 'fci', 'Money Market en Pesos - Clase A')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'fci', 'Money Market en Pesos - Clase A')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Money Market en Pesos - Clase A</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">1.0000</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandGreen">+2.90%</td>
-                                </tr>
-<tr data-ticker="Money Market en Dólares - Clase A" onclick="rowClick(event, 'fci', 'Money Market en Dólares - Clase A')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'fci', 'Money Market en Dólares - Clase A')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Money Market en Dólares - Clase A</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">1.0000</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandGreen">+0.35%</td>
-                                </tr>
-<tr data-ticker="Renta Fija Pesos - Clase A" onclick="rowClick(event, 'fci', 'Renta Fija Pesos - Clase A')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'fci', 'Renta Fija Pesos - Clase A')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Renta Fija Pesos - Clase A</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">2.4500</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandGreen">+3.10%</td>
-                                </tr>
-<tr data-ticker="Renta Variable Acciones - Clase A" onclick="rowClick(event, 'fci', 'Renta Variable Acciones - Clase A')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'fci', 'Renta Variable Acciones - Clase A')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Renta Variable Acciones - Clase A</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">5.8200</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandGreen">+4.60%</td>
-                                </tr>
+                            <tbody id="tbl-fci_ars_mm" class="divide-y divide-darkBorder/40 light:divide-gray-200">
                             </tbody>
                         </table>
                     </div>
                     <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-fci', 'Fondos Comunes de Inversión')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-fci" height="90"></canvas>
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_ars_mm', 'Money Market')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_ars_mm" height="90"></canvas>
                     </div>
                 </div>
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Renta Fija
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
+                                    <th class="px-4 py-3">Fondo</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-fci_ars_rf" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_ars_rf', 'Renta Fija')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_ars_rf" height="90"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Renta Variable
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
+                                    <th class="px-4 py-3">Fondo</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-fci_ars_rv" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_ars_rv', 'Renta Variable')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_ars_rv" height="90"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Renta Mixta
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
+                                    <th class="px-4 py-3">Fondo</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-fci_ars_rm" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_ars_rm', 'Renta Mixta')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_ars_rm" height="90"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Retorno Total
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
+                                    <th class="px-4 py-3">Fondo</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-fci_ars_rt" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_ars_rt', 'Retorno Total')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_ars_rt" height="90"></canvas>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="mb-8">
+                <h3 class="text-lg font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2 border-b border-darkBorder light:border-gray-200 pb-2">
+                    <i class="fas fa-dollar-sign text-brandGreen"></i> FCI de Dólares
+                </h3>
+                <div class="space-y-8">
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Money Market
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
+                                    <th class="px-4 py-3">Fondo</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-fci_usd_mm" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_usd_mm', 'Money Market')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_usd_mm" height="90"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Renta Fija
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
+                                    <th class="px-4 py-3">Fondo</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-fci_usd_rf" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_usd_rf', 'Renta Fija')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_usd_rf" height="90"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Renta Variable
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
+                                    <th class="px-4 py-3">Fondo</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-fci_usd_rv" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_usd_rv', 'Renta Variable')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_usd_rv" height="90"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Renta Mixta
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
+                                    <th class="px-4 py-3">Fondo</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-fci_usd_rm" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_usd_rm', 'Renta Mixta')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_usd_rm" height="90"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
+                        <i class="fas fa-layer-group text-brandBlue"></i> Retorno Total
+                    </h3>
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
+                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
+                                <tr>
+                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
+                                    <th class="px-4 py-3">Fondo</th>
+                                    <th class="px-4 py-3">Sociedad Gerente</th>
+                                    <th class="px-4 py-3 text-right">Rent. 12 meses</th>
+                                    <th class="px-4 py-3 text-right">Patrimonio (ARS)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-fci_usd_rt" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 relative">
+                        <button class="chart-export-btn" onclick="exportChart('chart-fci_usd_rt', 'Retorno Total')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                        <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (marcá "Comparar" en la tabla)</h4>
+                        <canvas id="chart-fci_usd_rt" height="90"></canvas>
+                    </div>
+                </div>
+                </div>
+            </div>
             </div>
             </section>
             </div>
@@ -2958,7 +3178,16 @@ Stack: ${error ? error.stack : 'N/A'}`;
         const REAL_DATA_CONFIG = {
             exchange:     { file: 'dolar.json',            path: d => d.casas,                                 ohlc: false, unit: 'ARS' },
             local_rates:  { file: 'tasas_locales.json',     path: d => d.series,                                ohlc: false, unit: '%' },
-            fci:          { file: 'fci.json',               path: d => d.fondos,                                ohlc: false, unit: 'VCP' },
+            fci_ars_mm:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
+            fci_ars_rf:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
+            fci_ars_rv:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
+            fci_ars_rm:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
+            fci_ars_rt:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
+            fci_usd_mm:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
+            fci_usd_rf:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
+            fci_usd_rv:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
+            fci_usd_rm:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
+            fci_usd_rt:    { file: 'fci_secciones.json',       path: d => d.series,                                ohlc: false, unit: 'VCP' },
             cryptos:      { file: 'cripto.json',            path: d => d.monedas,                               ohlc: false, unit: 'USD' },
             corporate:    { file: 'ons.json',               path: d => normalizeOnsHistory(d),                  ohlc: false, unit: 'ARS', ownSource: true },
             bonds:        { file: 'bonos.json',             path: d => d.bonos,                                 ohlc: true,  unit: 'ARS' },
@@ -3504,17 +3733,42 @@ Stack: ${error ? error.stack : 'N/A'}`;
             tbody.innerHTML = rows.join('');
         }
 
-        function renderFci(items) {
+        const FCI_ORIGEN_BADGE = {
+            rentabilidad: '<span class="ml-2 text-[10px] font-semibold uppercase tracking-wide text-brandGreen">Top rentabilidad</span>',
+            patrimonio: '<span class="ml-2 text-[10px] font-semibold uppercase tracking-wide text-brandBlue">Top patrimonio</span>',
+        };
 
-            if (!items || !items.length) return;
-            const rows = items.map(it => {
-                setSeriesKey('fci', it.nombre, it.slug);
-                return buildRow('fci', it.nombre, [
-                    { value: (it.tna != null ? Number(it.tna).toFixed(2) + '%' : '-') },
-                    { value: (it.categoria === 'mm' ? 'Money Market' : (it.categoria === 'rm' ? 'Renta Mixta' : (it.categoria || '-'))) }
-                ]);
+        function fmtPatrimonioFci(v) {
+            if (v == null) return '-';
+            const n = Number(v);
+            if (Number.isNaN(n)) return '-';
+            if (Math.abs(n) >= 1e6) return '$' + (n / 1e6).toFixed(1) + ' M';
+            if (Math.abs(n) >= 1e3) return '$' + (n / 1e3).toFixed(0) + ' mil';
+            return '$' + n.toFixed(0);
+        }
+
+        function renderFciSecciones(secciones) {
+            if (!secciones) return;
+            Object.keys(secciones).forEach(key => {
+                const seccion = secciones[key];
+                const items = seccion && seccion.items;
+                if (!items || !items.length) return;
+                const tbody = document.getElementById('tbl-' + key);
+                if (!tbody) return;
+                const rows = items.map(it => {
+                    setSeriesKey(key, it.nombre, it.slug);
+                    const badge = FCI_ORIGEN_BADGE[it.origen] || '';
+                    return `<tr data-ticker="${it.nombre}" onclick="rowClick(event, '${key}', '${it.nombre}')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
+                        <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, '${key}', '${it.nombre}')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
+                        <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">${it.nombre}${badge}</td>
+                        <td class="px-4 py-2.5 text-slate-300 light:text-slate-600">${it.administradora || '-'}</td>
+                        <td class="px-4 py-2.5 text-right font-mono${pctClass(it.doce_meses)}">${fmtPct(it.doce_meses)}</td>
+                        <td class="px-4 py-2.5 text-right font-mono">${fmtPatrimonioFci(it.patrimonio)}</td>
+                    </tr>`;
+                });
+                tbody.innerHTML = rows.join('');
+                markLive(key);
             });
-            renderRows('fci', rows);
         }
 
         function renderBonos(items) {
@@ -3583,7 +3837,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 if (data.stocks) renderTwelveData('stocks', data.stocks);
                 if (data.etfs) renderTwelveData('etfs', data.etfs);
                 renderTasasLocales(data.tasas_locales);
-                renderFci(data.fci);
+                renderFciSecciones(data.fci_secciones);
                 renderBonos(data.bonds);
                 renderOns(data.corporate);
                 renderAccionesArg(data.acciones_arg);

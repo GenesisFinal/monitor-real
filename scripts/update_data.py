@@ -38,7 +38,9 @@ simplemente no se actualiza ese día (no se rompe todo el proceso).
 """
 import json
 import os
+import re
 import time
+import unicodedata
 import urllib.request
 import urllib.error
 import urllib.parse
@@ -329,6 +331,163 @@ def get_fci():
             "categoria": x.get("category"),
         })
     return out or None
+
+
+# ------------------------------------------------------------------
+# FCI por moneda y categoria (Money Market / Renta Fija / Renta
+# Variable / Renta Mixta / Retorno Total), cada subseccion con los
+# fondos de las administradoras solicitadas (si operan en esa
+# combinacion moneda+categoria) mas los 5 de mayor rentabilidad a 12
+# meses y los 5 de mayor patrimonio. Fuente: api.argentinadatos.com,
+# que expone moneda/administradora/rendimientos a 12 meses para el
+# universo completo de fondos registrados en la CNV (a diferencia de
+# rendimientos.co/api/cafci, que solo cubre 2 de las 5 categorias).
+# ------------------------------------------------------------------
+
+FCI_MANAGERS = [
+    ("Cocos", {"admin": ["COCOS"]}),
+    ("Allaria", {"admin": ["ALLARIA"]}),
+    ("One618", {"admin": ["ONE618"]}),
+    ("Toronto", {"nombre": ["TORONTO"]}),
+    ("Schroders", {"admin": ["SCHRODER"]}),
+    ("Compass", {"nombre": ["COMPASS"]}),
+    ("Pellegrini", {"admin": ["PELLEGRINI"]}),
+    ("Fima", {"nombre": ["FIMA"]}),
+    ("Patagonia", {"admin": ["PATAGONIA"]}),
+    ("Banco Industrial", {"admin": ["INDUSTRIAL"]}),
+]
+
+FCI_CATEGORIAS = [
+    ("mm", "Money Market", "Mercado de Dinero"),
+    ("rf", "Renta Fija", "Renta Fija"),
+    ("rv", "Renta Variable", "Renta Variable"),
+    ("rm", "Renta Mixta", "Renta Mixta"),
+    ("rt", "Retorno Total", "Retorno Total"),
+]
+
+FCI_MONEDAS = [
+    ("ars", "Pesos", ["Peso Argentina"]),
+    ("usd", "Dolares", ["Dolar Estadounidense", "Dolar Estadounidense Billete"]),
+]
+
+
+def _slugify_fondo(nombre):
+    if not nombre:
+        return None
+    s = unicodedata.normalize("NFKD", nombre)
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    s = s.lower()
+    s = re.sub(r"[^a-z0-9]+", "-", s)
+    return s.strip("-") or None
+
+
+def _fci_match_manager(fondo, criterios):
+    admin = (fondo.get("administradora") or "").upper()
+    nombre = (fondo.get("nombre") or "").upper()
+    for kw in criterios.get("admin", []):
+        if kw in admin:
+            return True
+    for kw in criterios.get("nombre", []):
+        if kw in nombre:
+            return True
+    return False
+
+
+def get_fci_secciones():
+    data = fetch_json("https://api.argentinadatos.com/v1/finanzas/fci/fondos")
+    if not data or "fondos" not in data:
+        return None
+    fondos = [f for f in data["fondos"] if isinstance(f, dict) and f.get("nombre") and f.get("fondoId") is not None]
+
+    secciones = {}
+    for moneda_key, moneda_label, moneda_valores in FCI_MONEDAS:
+        for cat_key, cat_label, tipo_renta in FCI_CATEGORIAS:
+            subset = [
+                f for f in fondos
+                if f.get("moneda") in moneda_valores and f.get("tipoRenta") == tipo_renta
+            ]
+            if not subset:
+                continue
+
+            elegidos = {}  # fondoId -> (fondo, origen)
+
+            # 1) un fondo por cada administradora solicitada (el de mayor patrimonio si hay mas de uno)
+            for nombre_mgr, criterios in FCI_MANAGERS:
+                candidatos = [f for f in subset if _fci_match_manager(f, criterios)]
+                if not candidatos:
+                    continue
+                mejor = max(candidatos, key=lambda f: f.get("patrimonio") or 0)
+                elegidos[mejor["fondoId"]] = (mejor, "gestora")
+
+            # 2) los 5 de mayor rentabilidad a 12 meses
+            con_rendimiento = [
+                f for f in subset
+                if (f.get("rendimientos") or {}).get("doceMeses") is not None
+            ]
+            top_rentabilidad = sorted(
+                con_rendimiento,
+                key=lambda f: f["rendimientos"]["doceMeses"],
+                reverse=True,
+            )[:5]
+            for f in top_rentabilidad:
+                elegidos.setdefault(f["fondoId"], (f, "rentabilidad"))
+
+            # 3) los 5 de mayor patrimonio
+            con_patrimonio = [f for f in subset if f.get("patrimonio")]
+            top_patrimonio = sorted(con_patrimonio, key=lambda f: f["patrimonio"], reverse=True)[:5]
+            for f in top_patrimonio:
+                elegidos.setdefault(f["fondoId"], (f, "patrimonio"))
+
+            out = []
+            for fondo, origen in elegidos.values():
+                nombre = fondo.get("nombre")
+                rend = fondo.get("rendimientos") or {}
+                out.append({
+                    "nombre": nombre,
+                    "slug": _slugify_fondo(nombre),
+                    "administradora": fondo.get("administradora"),
+                    "patrimonio": fondo.get("patrimonio"),
+                    "doce_meses": rend.get("doceMeses"),
+                    "en_el_anio": rend.get("enElAnio"),
+                    "origen": origen,
+                })
+            out.sort(key=lambda x: (x["doce_meses"] is None, -(x["doce_meses"] or 0)))
+
+            secciones[f"fci_{moneda_key}_{cat_key}"] = {
+                "categoria": cat_label,
+                "moneda": moneda_label,
+                "items": out,
+            }
+
+    return secciones or None
+
+
+def build_history_fci_secciones(fci_secciones):
+    if not fci_secciones:
+        return None
+    series_out = {}
+    vistos = set()
+    for seccion in fci_secciones.values():
+        for item in seccion.get("items", []):
+            slug = item.get("slug")
+            nombre = item.get("nombre")
+            if not slug or slug in vistos:
+                continue
+            vistos.add(slug)
+            data = fetch_json(f"https://api.argentinadatos.com/v1/finanzas/fci/fondos/{slug}/historico")
+            if not data or "historico" not in data:
+                continue
+            daily, weekly = build_daily_weekly(
+                data["historico"],
+                date_fn=lambda r: _parse_date(r.get("fecha")),
+                point_fn=lambda r: {"c": r.get("valorCuotaparte")},
+            )
+            if daily or weekly:
+                series_out[slug] = {"nombre": nombre, "daily": daily, "weekly": weekly}
+            time.sleep(0.15)
+    if not series_out:
+        return None
+    return {"updated_at": datetime.now(timezone.utc).isoformat(), "series": series_out}
 
 
 BONOS_SOBERANOS = ["GD30", "GD35", "AL30", "AL29", "AE38", "AL35"]
@@ -1485,7 +1644,7 @@ def main():
         "inflacion": get_inflacion(),
         "cripto": get_cripto(),
         "tasas_locales": get_tasas_locales(),
-        "fci": get_fci(),
+        "fci_secciones": get_fci_secciones(),
         "bonds": get_bonos(),
         "corporate": get_ons(),
         "acciones_arg": get_acciones_arg(),
@@ -1519,7 +1678,7 @@ def main():
     historicos = {
         "dolar.json": build_history_dolar(),
         "tasas_locales.json": build_history_tasas_locales(),
-        "fci.json": build_history_fci(),
+        "fci_secciones.json": build_history_fci_secciones(live_data.get("fci_secciones")),
         "bonos.json": build_history_bonos(),
         "acciones_arg.json": build_history_acciones_arg(),
         "cripto.json": build_history_cripto(),
