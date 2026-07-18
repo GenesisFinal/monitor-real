@@ -3522,7 +3522,6 @@ Stack: ${error ? error.stack : 'N/A'}`;
             cryptos:      { file: 'cripto.json',            path: d => d.monedas,                               ohlc: false, unit: 'USD' },
             acciones_arg: { file: 'acciones_arg.json',      path: d => d.acciones,                              ohlc: true,  unit: 'ARS' },
             indices:      { file: 'indices.json',            path: d => d.indices,                               ohlc: true,  unit: '' },
-            stocks:       { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.stocks),   ohlc: true,  unit: 'USD' },
             etfs:         { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.etfs),     ohlc: true,  unit: 'USD' },
             commodities:  { file: 'commodities.json', path: d => d.commodities, ohlc: true, unit: '' },
             forex:        { file: 'mercados_globales.json', path: d => (d.categorias && d.categorias.forex),    ohlc: true,  unit: '' },
