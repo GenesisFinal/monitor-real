@@ -2644,12 +2644,16 @@ def _fetch_bonistas_history(ticker):
     if not fechas:
         return None
     n = len(fechas)
-    opens = h.get("open") or [None] * n
-    highs = h.get("high") or [None] * n
-    lows = h.get("low") or [None] * n
-    closes = h.get("close") or [None] * n
-    vols = h.get("volume") or [None] * n
-    vrs = h.get("vR") or [None] * n
+
+    def _col(name):
+        vals = h.get(name) or []
+        # Algunos tickers traen columnas mas cortas que "fecha" (datos
+        # inconsistentes del lado de la fuente); se rellena con None en
+        # vez de asumir que todas las columnas tienen el mismo largo.
+        return (list(vals) + [None] * n)[:n]
+
+    opens, highs, lows, closes = _col("open"), _col("high"), _col("low"), _col("close")
+    vols, vrs = _col("volume"), _col("vR")
     out = []
     for i, f in enumerate(fechas):
         vr = vrs[i]
