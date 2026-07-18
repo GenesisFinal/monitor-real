@@ -3421,7 +3421,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             renderRows('commodities', rows);
         }
 
-        const TASAS_INTL_ORDER = ['US1Y', 'FVX', 'TNX', 'TYX', 'JP10Y-JP', 'GB10Y-GB', 'DE10Y-DE'];
+        const TASAS_INTL_ORDER = ['US1Y-US', '^FVX', '^TNX', '^TYX', 'JP10Y-JP', 'GB10Y-GB', 'DE10Y-DE'];
 
         function renderTasasInternacionales(items) {
             if (!items || !items.length) return;
