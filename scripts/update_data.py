@@ -572,15 +572,31 @@ def build_history_commodities():
     return {"updated_at": datetime.now(timezone.utc).isoformat(), "commodities": commodities_out}
 
 
-# Tasas internacionales de referencia adicionales (FVX/TNX/TYX = índices
-# CBOE de rendimiento del Tesoro de EE.UU. a 5/10/30 años, vía Yahoo
-# Finance) y rendimientos de bonos soberanos a 10 años de otros países más
-# el Tesoro de EE.UU. a 1 año, obtenidos de la API pública de cotizaciones
-# de CNBC (misma que usa cnbc.com/quotes/<symbol>, sin API key). FED Funds,
-# BCE y SOFR se mantienen como están (no se modifican).
+# Tasas internacionales de referencia. Fuentes, todas gratuitas y sin API
+# key:
+#  - FED Funds Rate, BCE, SOFR y US1Y: FRED (Federal Reserve Economic Data,
+#    api del St. Louis Fed) vía el endpoint público fredgraph.csv, que
+#    entrega la serie completa sin necesidad de key. FED Funds Rate se
+#    arma con el rango objetivo real de la FOMC (DFEDTARL/DFEDTARU), no un
+#    valor estático; BCE usa la tasa de refinanciación principal
+#    (ECBMRRFR); SOFR usa la serie SOFR publicada por la Fed de Nueva
+#    York/FRED; US1Y usa el rendimiento del Tesoro de EE.UU. a 1 año
+#    (DGS1). Antes FED Funds/BCE eran valores fijos sin histórico y SOFR/
+#    US1Y no tenían gráfico real - por eso no graficaban.
+#  - FVX/TNX/TYX: índices CBOE de rendimiento del Tesoro de EE.UU. a
+#    5/10/30 años, vía Yahoo Finance.
+#  - JP10Y-JP/GB10Y-GB/DE10Y-DE: valor en vivo vía la API pública de
+#    cotizaciones de CNBC (misma que usa cnbc.com/quotes/<symbol>); el
+#    histórico usa fuentes oficiales (Ministry of Finance, Bundesbank,
+#    Bank of England).
+TASAS_INTL_FRED = [
+    ("FEDFUNDS-TARGET", "FED Funds Rate (EE.UU.)", "range", ("DFEDTARL", "DFEDTARU")),
+    ("ECBMRRFR", "BCE (Zona Euro)", "single", None),
+    ("SOFR", "SOFR", "single", None),
+    ("DGS1", "US1Y", "single", None),
+]
 TASAS_INTL_YAHOO = [("^FVX", "FVX"), ("^TNX", "TNX"), ("^TYX", "TYX")]
 TASAS_INTL_CNBC = [
-    ("US1Y-US", "US1Y"),
     ("JP10Y-JP", "JP10Y-JP"),
     ("GB10Y-GB", "GB10Y-GB"),
     ("DE10Y-DE", "DE10Y-DE"),
@@ -618,19 +634,78 @@ def _fetch_cnbc_quotes(symbols):
     return by_symbol
 
 
+def _fetch_fred_csv(series_id, cosd=None):
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={urllib.parse.quote(series_id)}"
+    if cosd:
+        url += f"&cosd={cosd}"
+    return fetch_text(url)
+
+
+def _parse_fred_csv(text):
+    if not text:
+        return []
+    lines = text.strip().splitlines()
+    records = []
+    for line in lines[1:]:
+        parts = line.split(",")
+        if len(parts) < 2:
+            continue
+        fecha_raw, valor_raw = parts[0].strip(), parts[1].strip()
+        if valor_raw in ("", ".", "NA"):
+            continue
+        fecha = _parse_date(fecha_raw)
+        if not fecha:
+            continue
+        try:
+            records.append({"fecha": fecha, "c": float(valor_raw)})
+        except (TypeError, ValueError):
+            continue
+    return records
+
+
+def _fred_last_value(series_id, cosd):
+    records = _parse_fred_csv(_fetch_fred_csv(series_id, cosd=cosd))
+    if not records:
+        return None, None
+    records.sort(key=lambda r: r["fecha"])
+    last = records[-1]["c"]
+    prev = records[-2]["c"] if len(records) >= 2 else None
+    pct = ((last - prev) / prev * 100) if prev else None
+    return last, pct
+
+
 def get_tasas_internacionales():
     out = []
     cnbc_by_symbol = _fetch_cnbc_quotes([sym for sym, _ in TASAS_INTL_CNBC])
 
-    # US1Y (CNBC) primero, según el orden solicitado.
-    q = cnbc_by_symbol.get("US1Y-US")
-    if q:
-        out.append({
-            "symbol": "US1Y-US",
-            "nombre": "US1Y",
-            "close": _cnbc_yield(q.get("last")),
-            "percent_change": _cnbc_pct(q.get("change_pct")),
-        })
+    # FED Funds Rate, BCE, SOFR, US1Y - todas vía FRED, con ~60 días de
+    # ventana para asegurar al menos dos observaciones (series diarias que
+    # a veces no se actualizan en fines de semana/feriados).
+    cosd = (date.today() - timedelta(days=60)).isoformat()
+    for symbol, nombre, kind, extra in TASAS_INTL_FRED:
+        if kind == "range":
+            lower_id, upper_id = extra
+            lower, lower_pct = _fred_last_value(lower_id, cosd)
+            upper, upper_pct = _fred_last_value(upper_id, cosd)
+            if lower is None or upper is None:
+                continue
+            out.append({
+                "symbol": symbol,
+                "nombre": nombre,
+                "close": round((lower + upper) / 2, 3),
+                "percent_change": None,
+                "display": f"{lower:.2f}% - {upper:.2f}%",
+            })
+        else:
+            valor, pct = _fred_last_value(symbol, cosd)
+            if valor is None:
+                continue
+            out.append({
+                "symbol": symbol,
+                "nombre": nombre,
+                "close": valor,
+                "percent_change": pct,
+            })
 
     # FVX, TNX, TYX (Yahoo Finance - índices CBOE de rendimiento del Tesoro).
     for symbol, nombre in TASAS_INTL_YAHOO:
@@ -659,7 +734,7 @@ def get_tasas_internacionales():
             print(f"[WARN] No se pudo parsear tasa {symbol}: {e}")
 
     # JP10Y-JP, GB10Y-GB, DE10Y-DE (CNBC).
-    for symbol, nombre in TASAS_INTL_CNBC[1:]:
+    for symbol, nombre in TASAS_INTL_CNBC:
         q = cnbc_by_symbol.get(symbol)
         if q:
             out.append({
@@ -745,17 +820,47 @@ def _build_history_gb10y():
     return build_daily_weekly(records, date_fn=lambda r: r["fecha"], point_fn=lambda r: {"c": r["c"]})
 
 
+def _build_history_fred_single(series_id):
+    records = _parse_fred_csv(_fetch_fred_csv(series_id))
+    if not records:
+        return None
+    return build_daily_weekly(records, date_fn=lambda r: r["fecha"], point_fn=lambda r: {"c": r["c"]})
+
+
+def _build_history_fed_funds_range():
+    lower = {r["fecha"]: r["c"] for r in _parse_fred_csv(_fetch_fred_csv("DFEDTARL"))}
+    upper = {r["fecha"]: r["c"] for r in _parse_fred_csv(_fetch_fred_csv("DFEDTARU"))}
+    fechas = sorted(set(lower) & set(upper))
+    if not fechas:
+        return None
+    records = [{"fecha": f, "c": round((lower[f] + upper[f]) / 2, 3)} for f in fechas]
+    return build_daily_weekly(records, date_fn=lambda r: r["fecha"], point_fn=lambda r: {"c": r["c"]})
+
+
 def build_history_tasas_internacionales(rates_actuales):
     """
-    FVX/TNX/TYX: histórico real de 5 años vía Yahoo Finance (mismo patrón
-    que índices y commodities). US1Y (Tesoro EE.UU. a 1 año) no tiene
-    histórico gratuito por API pública, así que se arma una serie propia
-    acumulada día a día (mismo mecanismo que ya se usa para las ONs). Los
-    rendimientos soberanos de Japón, Alemania y Reino Unido usan histórico
-    real oficial: Ministry of Finance (Japón), Deutsche Bundesbank
-    (Alemania) y Bank of England (Reino Unido).
+    FED Funds Rate, BCE, SOFR y US1Y: histórico real vía FRED (rango
+    objetivo de la FOMC para FED Funds, ECBMRRFR para BCE, SOFR y DGS1
+    para US1Y). FVX/TNX/TYX: histórico real de 5 años vía Yahoo Finance
+    (mismo patrón que índices y commodities). Los rendimientos soberanos
+    de Japón, Alemania y Reino Unido usan histórico real oficial:
+    Ministry of Finance (Japón), Deutsche Bundesbank (Alemania) y Bank of
+    England (Reino Unido).
     """
     series_out = {}
+
+    for symbol, nombre, kind, extra in TASAS_INTL_FRED:
+        try:
+            result = _build_history_fed_funds_range() if kind == "range" else _build_history_fred_single(symbol)
+        except Exception as e:
+            print(f"[WARN] No se pudo obtener histórico FRED de {symbol}: {e}")
+            result = None
+        if result:
+            daily, weekly = result
+            if daily or weekly:
+                series_out[symbol] = {"nombre": nombre, "daily": daily, "weekly": weekly}
+        time.sleep(0.3)
+
     for symbol, nombre in TASAS_INTL_YAHOO:
         data = fetch_json(
             f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?interval=1d&range=5y"
@@ -799,29 +904,6 @@ def build_history_tasas_internacionales(rates_actuales):
             daily, weekly = result
             if daily or weekly:
                 series_out[sym] = {"nombre": nombre, "daily": daily, "weekly": weekly}
-
-    path = os.path.join(HISTORY_DIR, "tasas_internacionales.json")
-    existing = load_json(path) or {}
-    existing_series = existing.get("series", {})
-    hoy = date.today().isoformat()
-    for item in (rates_actuales or []):
-        sym = item.get("symbol")
-        if sym != "US1Y-US" or item.get("close") is None:
-            continue
-        serie = existing_series.get(sym, {"nombre": item.get("nombre"), "daily": []})
-        daily = serie.get("daily", [])
-        if daily and daily[-1].get("t") == hoy:
-            daily[-1]["c"] = item["close"]
-        else:
-            daily.append({"t": hoy, "c": item["close"]})
-        if len(daily) > 1900:
-            del daily[: len(daily) - 1900]
-        serie["daily"] = daily
-        serie["weekly"] = daily
-        serie["nombre"] = item.get("nombre")
-        existing_series[sym] = serie
-    if "US1Y-US" in existing_series and "US1Y-US" not in series_out:
-        series_out["US1Y-US"] = existing_series["US1Y-US"]
 
     if not series_out:
         return None
