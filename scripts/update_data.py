@@ -393,11 +393,31 @@ def _fci_match_manager(fondo, criterios):
     return False
 
 
+def _get_dolar_oficial_venta():
+    data = fetch_json("https://dolarapi.com/v1/dolares/oficial")
+    if not data or data.get("venta") is None:
+        return None
+    return data["venta"]
+
+
+FCI_PATRIMONIO_MINIMO_USD = 20_000_000
+
+
 def get_fci_secciones():
     data = fetch_json("https://api.argentinadatos.com/v1/finanzas/fci/fondos")
     if not data or "fondos" not in data:
         return None
     fondos = [f for f in data["fondos"] if isinstance(f, dict) and f.get("nombre") and f.get("fondoId") is not None]
+
+    # Piso de patrimonio para fondos en Pesos: equivalente a USD 20 millones
+    # al tipo de cambio oficial venta (el patrimonio de los fondos, sean en
+    # pesos o en dolares, se reporta siempre en pesos). Se descartan los
+    # fondos en pesos por debajo de ese piso antes de elegir gestoras y
+    # rankings, para no listar fondos demasiado chicos.
+    dolar_oficial = _get_dolar_oficial_venta()
+    piso_patrimonio_ars = (FCI_PATRIMONIO_MINIMO_USD * dolar_oficial) if dolar_oficial else None
+    if piso_patrimonio_ars is None:
+        print("[WARN] No se pudo obtener el dolar oficial: no se aplica piso de patrimonio a FCI en pesos.")
 
     secciones = {}
     for moneda_key, moneda_label, moneda_valores in FCI_MONEDAS:
@@ -406,6 +426,8 @@ def get_fci_secciones():
                 f for f in fondos
                 if f.get("moneda") in moneda_valores and f.get("tipoRenta") == tipo_renta
             ]
+            if moneda_key == "ars" and piso_patrimonio_ars is not None:
+                subset = [f for f in subset if (f.get("patrimonio") or 0) >= piso_patrimonio_ars]
             if not subset:
                 continue
 
