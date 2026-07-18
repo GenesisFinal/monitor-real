@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T02:22:16.917512+00:00",
+  "updated_at": "2026-07-18T02:35:24.322630+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63950,
-      "change_24h": 0.7080391132437778
+      "usd": 63972,
+      "change_24h": 0.9189541025625279
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1843.17,
-      "change_24h": -0.3384961781886507
+      "usd": 1843.74,
+      "change_24h": -0.060704537762453846
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999276,
-      "change_24h": 0.01106846532312075
+      "usd": 0.999358,
+      "change_24h": 0.01796493332008279
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 567.02,
-      "change_24h": -0.747620447402185
+      "usd": 567.78,
+      "change_24h": -0.42291197174261386
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.24,
-      "change_24h": 0.1423021589968675
+      "usd": 75.31,
+      "change_24h": 0.3982700492484755
     }
   ],
   "tasas_locales": [
@@ -707,12 +707,12 @@
       "moneda": "Dolares",
       "items": [
         {
-          "nombre": "IAM Liquidez en Dólares - Clase Ley Nº 27.743",
-          "slug": "iam-liquidez-en-dolares-clase-ley-no-27-743",
+          "nombre": "IAM Liquidez en Dólares - Clase B",
+          "slug": "iam-liquidez-en-dolares-clase-b",
           "administradora": "Industrial Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 300020.85,
-          "doce_meses": 2.3084,
-          "en_el_anio": 1.9502,
+          "patrimonio": 205758759.71,
+          "doce_meses": 2.3076,
+          "en_el_anio": 1.9493,
           "origen": "rentabilidad"
         },
         {
@@ -723,6 +723,15 @@
           "doce_meses": 2.3048,
           "en_el_anio": 2.0825,
           "origen": "gestora"
+        },
+        {
+          "nombre": "Adcap Ahorro Dólares - Clase C",
+          "slug": "adcap-ahorro-dolares-clase-c",
+          "administradora": "Adcap Asset Management S.G.F.C.I.S.A.",
+          "patrimonio": 30874510.31,
+          "doce_meses": 2.1186,
+          "en_el_anio": 1.7863,
+          "origen": "rentabilidad"
         },
         {
           "nombre": "MEGAQM Liquidez Dólar - Clase B",
@@ -839,12 +848,21 @@
           "origen": "gestora"
         },
         {
-          "nombre": "Argenfunds Renta Crecimiento - Clase B",
-          "slug": "argenfunds-renta-crecimiento-clase-b",
-          "administradora": "Argenfunds S.A.",
-          "patrimonio": 823.2,
-          "doce_meses": 34.8937,
-          "en_el_anio": -11.7424,
+          "nombre": "Balanz Capital Renta Fija en Dólares - Clase A",
+          "slug": "balanz-capital-renta-fija-en-dolares-clase-a",
+          "administradora": "Balanz S.G.F.C.I.S.A.U.",
+          "patrimonio": 47630178.53,
+          "doce_meses": 32.0257,
+          "en_el_anio": 12.0786,
+          "origen": "rentabilidad"
+        },
+        {
+          "nombre": "Pionero Renta Fija Dólares - Clase A",
+          "slug": "pionero-renta-fija-dolares-clase-a",
+          "administradora": "Macro Fondos S.G.F.C.I.S.A.",
+          "patrimonio": 39779037.98,
+          "doce_meses": 30.4382,
+          "en_el_anio": 10.8005,
           "origen": "rentabilidad"
         },
         {
@@ -854,7 +872,7 @@
           "patrimonio": 4620196887.93,
           "doce_meses": 26.9377,
           "en_el_anio": 4.2614,
-          "origen": "patrimonio"
+          "origen": "rentabilidad"
         },
         {
           "nombre": "Compass Renta Fija - Clase F",
@@ -863,15 +881,6 @@
           "patrimonio": 41082389155.98,
           "doce_meses": 26.7678,
           "en_el_anio": 4.0102,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "Pellegrini Renta Dolares — Pellegrini Renta Dólares - Clase C",
-          "slug": "pellegrini-renta-dolares-pellegrini-renta-dolares-clase-c",
-          "administradora": "Pellegrini S.A.S.G.F.C.I.",
-          "patrimonio": 7314914.68,
-          "doce_meses": 18.3576,
-          "en_el_anio": 9.7055,
           "origen": "gestora"
         },
         {
@@ -971,30 +980,12 @@
           "origen": "rentabilidad"
         },
         {
-          "nombre": "Fima Acciones Latinoamerica - Clase C",
-          "slug": "fima-acciones-latinoamerica-clase-c",
-          "administradora": "Galicia Asset Management S.A.U.",
-          "patrimonio": 30239.98,
-          "doce_meses": 41.3838,
-          "en_el_anio": 17.1047,
-          "origen": "rentabilidad"
-        },
-        {
           "nombre": "Fima Mix Dólares - Clase A",
           "slug": "fima-mix-dolares-clase-a",
           "administradora": "Galicia Asset Management S.A.U.",
           "patrimonio": 112372036.13,
           "doce_meses": 18.5589,
           "en_el_anio": 9.4153,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "Compass Renta Mixta Dólares - Clase A",
-          "slug": "compass-renta-mixta-dolares-clase-a",
-          "administradora": "Investis Asset Management S.A.S.G.F.C.I.",
-          "patrimonio": 18638052.65,
-          "doce_meses": 7.8635,
-          "en_el_anio": 3.197,
           "origen": "gestora"
         }
       ]
@@ -1003,33 +994,6 @@
       "categoria": "Renta Mixta",
       "moneda": "Dolares",
       "items": [
-        {
-          "nombre": "MEGAQM Gestión Balanceada Dólares - Clase B",
-          "slug": "megaqm-gestion-balanceada-dolares-clase-b",
-          "administradora": "MEGA QM S.A.",
-          "patrimonio": 3688565.79,
-          "doce_meses": 31.1185,
-          "en_el_anio": 11.1145,
-          "origen": "rentabilidad"
-        },
-        {
-          "nombre": "Argenfunds Renta Mixta Plus - Clase E",
-          "slug": "argenfunds-renta-mixta-plus-clase-e",
-          "administradora": "Argenfunds S.A.",
-          "patrimonio": 0,
-          "doce_meses": 19.225,
-          "en_el_anio": 2.1338,
-          "origen": "rentabilidad"
-        },
-        {
-          "nombre": "Allaria Renta Mixta Dólares - Clase B",
-          "slug": "allaria-renta-mixta-dolares-clase-b",
-          "administradora": "Allaria Fondos Administrados S.G.F.C.I.S.A.",
-          "patrimonio": 1709930.75,
-          "doce_meses": 13.2358,
-          "en_el_anio": -0.12,
-          "origen": "rentabilidad"
-        },
         {
           "nombre": "Gainvest Global IV - Clase B",
           "slug": "gainvest-global-iv-clase-b",
@@ -1040,22 +1004,22 @@
           "origen": "rentabilidad"
         },
         {
-          "nombre": "IAM Renta Global - Clase B",
-          "slug": "iam-renta-global-clase-b",
-          "administradora": "Industrial Asset Management S.G.F.C.I.S.A.",
-          "patrimonio": 26208.06,
-          "doce_meses": 11.7716,
-          "en_el_anio": 5.0288,
-          "origen": "gestora"
-        },
-        {
           "nombre": "Pionero Dólar Dinámico - Clase B",
           "slug": "pionero-dolar-dinamico-clase-b",
           "administradora": "Macro Fondos S.G.F.C.I.S.A.",
           "patrimonio": 48485122.83,
           "doce_meses": 10.0308,
           "en_el_anio": 5.2724,
-          "origen": "patrimonio"
+          "origen": "rentabilidad"
+        },
+        {
+          "nombre": "Schroder Retorno Total - Clase B",
+          "slug": "schroder-retorno-total-clase-b",
+          "administradora": "Schroder S.A.S.G.F.C.I.",
+          "patrimonio": 45144554.41,
+          "doce_meses": 9.9558,
+          "en_el_anio": 4.568,
+          "origen": "rentabilidad"
         },
         {
           "nombre": "Galileo Multi Strategy - Clase A",
@@ -1064,16 +1028,7 @@
           "patrimonio": 46030417.09,
           "doce_meses": 9.9273,
           "en_el_anio": 8.7253,
-          "origen": "patrimonio"
-        },
-        {
-          "nombre": "Toronto Trust Renta Dólar - Clase A",
-          "slug": "toronto-trust-renta-dolar-clase-a",
-          "administradora": "Investis Asset Management S.A.S.G.F.C.I.",
-          "patrimonio": 11033689.81,
-          "doce_meses": 7.2159,
-          "en_el_anio": 4.358,
-          "origen": "gestora"
+          "origen": "rentabilidad"
         },
         {
           "nombre": "Schroder Retorno Total Cuatro - Clase B",
@@ -1082,15 +1037,6 @@
           "patrimonio": 159400159.2,
           "doce_meses": 2.8501,
           "en_el_anio": 1.464,
-          "origen": "gestora"
-        },
-        {
-          "nombre": "Cocos Renta Dólar - Clase A - Ley N° 27.743",
-          "slug": "cocos-renta-dolar-clase-a-ley-n-27-743",
-          "administradora": "Cocos Asset Management S.A.",
-          "patrimonio": 309083.6,
-          "doce_meses": null,
-          "en_el_anio": -0.9456,
           "origen": "gestora"
         },
         {
@@ -1110,15 +1056,6 @@
           "doce_meses": null,
           "en_el_anio": 3.5219,
           "origen": "gestora"
-        },
-        {
-          "nombre": "Compass Renta Mixta Dólares III\t- Clase A",
-          "slug": "compass-renta-mixta-dolares-iii-clase-a",
-          "administradora": "Investis Asset Management S.A.S.G.F.C.I.",
-          "patrimonio": 4687248.5,
-          "doce_meses": null,
-          "en_el_anio": -1.3579,
-          "origen": "gestora"
         }
       ]
     },
@@ -1134,15 +1071,6 @@
           "doce_meses": 56.8417,
           "en_el_anio": 13.2221,
           "origen": "gestora"
-        },
-        {
-          "nombre": "Compass Best Ideas - Clase E",
-          "slug": "compass-best-ideas-clase-e",
-          "administradora": "Investis Asset Management S.A.S.G.F.C.I.",
-          "patrimonio": 0,
-          "doce_meses": 36.1354,
-          "en_el_anio": 9.5317,
-          "origen": "rentabilidad"
         },
         {
           "nombre": "Allaria Dólar Retorno Total - Clase A",
@@ -1161,6 +1089,15 @@
           "doce_meses": 16.5127,
           "en_el_anio": 8.3991,
           "origen": "gestora"
+        },
+        {
+          "nombre": "Compass Best Ideas - Clase B",
+          "slug": "compass-best-ideas-clase-b",
+          "administradora": "Investis Asset Management S.A.S.G.F.C.I.",
+          "patrimonio": 39460930.77,
+          "doce_meses": 8.4863,
+          "en_el_anio": 5.1841,
+          "origen": "rentabilidad"
         },
         {
           "nombre": "Galileo Event Driven - Clase B",
@@ -1760,50 +1697,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14384",
-      "percent_change": "0.0061201116",
+      "close": "1.14379",
+      "percent_change": "0.0017486033",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34524",
-      "percent_change": "0.00074336731",
+      "close": "1.34522",
+      "percent_change": "-0.00074336731",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.41142",
-      "percent_change": "0.00045563506",
+      "close": "162.41331",
+      "percent_change": "0.0016193516",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11064",
-      "percent_change": "-0.096372447",
+      "close": "5.11067",
+      "percent_change": "-0.095786002",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54478",
-      "percent_change": "-0.0050154853",
+      "close": "17.54472",
+      "percent_change": "-0.0053574502",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.17864",
-      "percent_change": "-0.014209512",
+      "close": "40.17797",
+      "percent_change": "-0.015876828",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.03555",
-      "percent_change": "-0.11029803",
+      "close": "1477.01687",
+      "percent_change": "-0.11156133",
       "currency": null
     }
   ]
