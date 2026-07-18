@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T05:21:54.881428+00:00",
+  "updated_at": "2026-07-18T05:32:38.097234+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63892,
-      "change_24h": 0.9145090572359597
+      "usd": 63929,
+      "change_24h": 1.2232298545569678
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1842.78,
-      "change_24h": -0.031036056840367268
+      "usd": 1844.52,
+      "change_24h": 0.4537346654391471
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999281,
-      "change_24h": 0.010204163070961133
+      "usd": 0.999286,
+      "change_24h": 0.016499217065958697
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 566.93,
-      "change_24h": -0.7459159741209609
+      "usd": 566.84,
+      "change_24h": -0.5080702080598847
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 74.93,
-      "change_24h": -0.1057521821718835
+      "usd": 74.97,
+      "change_24h": 0.17473722342870945
     }
   ],
   "tasas_locales": [
@@ -1495,6 +1495,7 @@
   "ons_usd": [
     {
       "symbol": "RC2CD",
+      "series_id": "RC2C",
       "descripcion": "Arcor - ON RC2CD (vto. 2026-10-06)",
       "emisor": "Arcor",
       "vencimiento": "2026-10-06",
@@ -1506,6 +1507,7 @@
     },
     {
       "symbol": "AFCID",
+      "series_id": "AFCI",
       "descripcion": "Banco Comafi - ON AFCID (vto. 2026-11-09)",
       "emisor": "Banco Comafi",
       "vencimiento": "2026-11-09",
@@ -1517,6 +1519,7 @@
     },
     {
       "symbol": "VSCOD",
+      "series_id": "VSCO",
       "descripcion": "Vista Energy - ON VSCOD (vto. 2027-03-08)",
       "emisor": "Vista Energy",
       "vencimiento": "2027-03-08",
@@ -1528,6 +1531,7 @@
     },
     {
       "symbol": "VSCWD",
+      "series_id": "VSCW",
       "descripcion": "Vista Energy - ON VSCWD (vto. 2027-04-15)",
       "emisor": "Vista Energy",
       "vencimiento": "2027-04-15",
@@ -1539,6 +1543,7 @@
     },
     {
       "symbol": "YM37D",
+      "series_id": "YM37",
       "descripcion": "YPF - ON YM37D (vto. 2027-05-07)",
       "emisor": "YPF",
       "vencimiento": "2027-05-07",
@@ -1550,6 +1555,7 @@
     },
     {
       "symbol": "YM38D",
+      "series_id": "YM38",
       "descripcion": "YPF - ON YM38D (vto. 2027-07-22)",
       "emisor": "YPF",
       "vencimiento": "2027-07-22",
@@ -1561,6 +1567,7 @@
     },
     {
       "symbol": "LOC5D",
+      "series_id": "LOC5",
       "descripcion": "Loma Negra - ON LOC5D (vto. 2027-07-26)",
       "emisor": "Loma Negra",
       "vencimiento": "2027-07-26",
@@ -1572,6 +1579,7 @@
     },
     {
       "symbol": "VSCPD",
+      "series_id": "VSCP",
       "descripcion": "Vista Energy - ON VSCPD (vto. 2029-05-03)",
       "emisor": "Vista Energy",
       "vencimiento": "2029-05-03",
@@ -1583,6 +1591,7 @@
     },
     {
       "symbol": "BACGD",
+      "series_id": "BACG",
       "descripcion": "Banco Macro - ON BACGD (vto. 2029-06-25)",
       "emisor": "Banco Macro",
       "vencimiento": "2029-06-25",
@@ -1594,6 +1603,7 @@
     },
     {
       "symbol": "PN35D",
+      "series_id": "PN35",
       "descripcion": "Pan American Energy - ON PN35D (vto. 2029-09-27)",
       "emisor": "Pan American Energy",
       "vencimiento": "2029-09-27",
@@ -1605,6 +1615,7 @@
     },
     {
       "symbol": "IRCOD",
+      "series_id": "IRCO",
       "descripcion": "IRSA - ON IRCOD (vto. 2029-10-23)",
       "emisor": "IRSA",
       "vencimiento": "2029-10-23",
@@ -1616,6 +1627,7 @@
     },
     {
       "symbol": "TTCDD",
+      "series_id": "TTC",
       "descripcion": "Tecpetrol - ON TTCDD (vto. 2030-11-04)",
       "emisor": "Tecpetrol",
       "vencimiento": "2030-11-04",
@@ -1627,6 +1639,7 @@
     },
     {
       "symbol": "YMCXD",
+      "series_id": "YMCX",
       "descripcion": "YPF - ON YMCXD (vto. 2031-09-11)",
       "emisor": "YPF",
       "vencimiento": "2031-09-11",
@@ -1638,6 +1651,7 @@
     },
     {
       "symbol": "BACHD",
+      "series_id": "BACH",
       "descripcion": "Banco Macro - ON BACHD (vto. 2031-01-28)",
       "emisor": "Banco Macro",
       "vencimiento": "2031-01-28",
@@ -1649,6 +1663,7 @@
     },
     {
       "symbol": "PN36D",
+      "series_id": "PN36",
       "descripcion": "Pan American Energy - ON PN36D (vto. 2031-11-13)",
       "emisor": "Pan American Energy",
       "vencimiento": "2031-11-13",
@@ -1660,6 +1675,7 @@
     },
     {
       "symbol": "YM34D",
+      "series_id": "YM34",
       "descripcion": "YPF - ON YM34D (vto. 2034-01-17)",
       "emisor": "YPF",
       "vencimiento": "2034-01-17",
@@ -1671,6 +1687,7 @@
     },
     {
       "symbol": "MGCOD",
+      "series_id": "MGCO",
       "descripcion": "Pampa Energia - ON MGCOD (vto. 2034-12-18)",
       "emisor": "Pampa Energia",
       "vencimiento": "2034-12-18",
@@ -1682,6 +1699,7 @@
     },
     {
       "symbol": "VSCTD",
+      "series_id": "VSCT",
       "descripcion": "Vista Energy - ON VSCTD (vto. 2035-12-10)",
       "emisor": "Vista Energy",
       "vencimiento": "2035-12-10",
@@ -1693,6 +1711,7 @@
     },
     {
       "symbol": "TSC4D",
+      "series_id": "TSC4",
       "descripcion": "Transportadora de Gas del Sur (TGS) - ON TSC4D (vto. 2035-11-20)",
       "emisor": "Transportadora de Gas del Sur (TGS)",
       "vencimiento": "2035-11-20",
@@ -1704,6 +1723,7 @@
     },
     {
       "symbol": "MGCRD",
+      "series_id": "MGCR",
       "descripcion": "Pampa Energia - ON MGCRD (vto. 2037-11-16)",
       "emisor": "Pampa Energia",
       "vencimiento": "2037-11-16",
@@ -2243,43 +2263,43 @@
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34524",
-      "percent_change": "0.00074336731",
+      "close": "1.34522",
+      "percent_change": "-0.00074336731",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.41026",
-      "percent_change": "-0.00025860368",
+      "close": "162.41089",
+      "percent_change": "0.00012930184",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11089",
-      "percent_change": "-0.091485406",
+      "close": "5.11091",
+      "percent_change": "-0.091094443",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54812",
-      "percent_change": "0.014020561",
+      "close": "17.54929",
+      "percent_change": "0.020688877",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.17586",
-      "percent_change": "-0.021127628",
+      "close": "40.17534",
+      "percent_change": "-0.022421664",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.77907",
-      "percent_change": "-0.060014885",
+      "close": "1477.11878",
+      "percent_change": "-0.10466931",
       "currency": null
     }
   ]
