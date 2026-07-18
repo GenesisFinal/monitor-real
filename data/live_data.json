@@ -1,33 +1,33 @@
 {
-  "updated_at": "2026-07-18T06:28:03.435182+00:00",
+  "updated_at": "2026-07-18T14:25:50.011920+00:00",
   "dolar": [
     {
       "casa": "oficial",
       "nombre": "Oficial",
       "compra": 1450,
       "venta": 1500,
-      "fecha": "2026-07-17T18:00:00.000Z"
+      "fecha": "2026-07-17T18:55:00.000Z"
     },
     {
       "casa": "blue",
       "nombre": "Blue",
       "compra": 1510,
       "venta": 1530,
-      "fecha": "2026-07-17T20:59:00.000Z"
+      "fecha": "2026-07-18T11:59:00.000Z"
     },
     {
       "casa": "bolsa",
       "nombre": "Bolsa",
       "compra": 1518.3,
       "venta": 1521.9,
-      "fecha": "2026-07-17T20:59:00.000Z"
+      "fecha": "2026-07-18T11:59:00.000Z"
     },
     {
       "casa": "contadoconliqui",
       "nombre": "Contado con liquidación",
       "compra": 1572.1,
       "venta": 1575.9,
-      "fecha": "2026-07-17T20:59:00.000Z"
+      "fecha": "2026-07-18T11:59:00.000Z"
     },
     {
       "casa": "mayorista",
@@ -39,16 +39,16 @@
     {
       "casa": "cripto",
       "nombre": "Cripto",
-      "compra": 1567.52,
-      "venta": 1569.85,
-      "fecha": "2026-07-17T20:59:00.000Z"
+      "compra": 1571,
+      "venta": 1573.43,
+      "fecha": "2026-07-18T11:59:00.000Z"
     },
     {
       "casa": "tarjeta",
       "nombre": "Tarjeta",
       "compra": 1885,
       "venta": 1950,
-      "fecha": "2026-07-17T18:00:00.000Z"
+      "fecha": "2026-07-17T18:55:00.000Z"
     }
   ],
   "banda_cambiaria": {
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63945,
-      "change_24h": 1.7244459307324274
+      "usd": 64098,
+      "change_24h": 1.420815519122841
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1845.05,
-      "change_24h": 0.6920678353478734
+      "usd": 1842.36,
+      "change_24h": 1.071904140028905
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999286,
-      "change_24h": 0.01628013904981609
+      "usd": 0.999298,
+      "change_24h": 0.018307678790786635
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 567.8,
-      "change_24h": -0.10770084101950908
+      "usd": 570.33,
+      "change_24h": 1.5979448821515891
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.0,
-      "change_24h": 0.5000136206774034
+      "usd": 74.76,
+      "change_24h": 0.3864021704886175
     }
   ],
   "tasas_locales": [
@@ -1997,17 +1997,17 @@
       "symbol": "KC=F",
       "nombre": "Café",
       "region": "Otros",
-      "close": 3.2110000000000003,
+      "close": 3.0469999999999997,
       "currency": "USD",
-      "percent_change": -0.062243324172670186
+      "percent_change": -5.166507445890426
     },
     {
       "symbol": "CC=F",
       "nombre": "Cacao",
       "region": "Otros",
-      "close": 5610.0,
+      "close": 5753.0,
       "currency": "USD",
-      "percent_change": 7.553680981595091
+      "percent_change": 10.295245398773007
     },
     {
       "symbol": "SB=F",
@@ -2256,50 +2256,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.1438",
-      "percent_change": "0.0026229050",
+      "close": "1.14378",
+      "percent_change": "0.00087430165",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34527",
-      "percent_change": "0.0029734692",
+      "close": "1.34526",
+      "percent_change": "0.0022301019",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.40775",
-      "percent_change": "-0.0018040686",
+      "close": "162.41261",
+      "percent_change": "0.0011883455",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11078",
-      "percent_change": "-0.093635704",
+      "close": "5.11102",
+      "percent_change": "-0.088944145",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54502",
-      "percent_change": "-0.0036476257",
+      "close": "17.54281",
+      "percent_change": "-0.016243333",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.18081",
-      "percent_change": "-0.0088093997",
+      "close": "40.19102",
+      "percent_change": "0.016598502",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.80115",
-      "percent_change": "-0.058521648",
+      "close": "1477.00234",
+      "percent_change": "-0.11254397",
       "currency": null
     }
   ]
