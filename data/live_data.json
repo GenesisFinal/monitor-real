@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T04:05:57.267358+00:00",
+  "updated_at": "2026-07-18T04:46:16.896331+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 63954,
-      "change_24h": 0.7825884534797751
+      "usd": 63902,
+      "change_24h": 0.609674824181134
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1844.16,
-      "change_24h": -0.254527824658928
+      "usd": 1842.06,
+      "change_24h": -0.4705238516970032
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.99934,
-      "change_24h": 0.017167970167157414
+      "usd": 0.999256,
+      "change_24h": 0.014652354724388481
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 567.69,
-      "change_24h": -0.6571636607436386
+      "usd": 567.01,
+      "change_24h": -0.8822102278216797
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.28,
-      "change_24h": 0.28550197077690687
+      "usd": 75.04,
+      "change_24h": 0.04237184962221951
     }
   ],
   "tasas_locales": [
@@ -1492,36 +1492,226 @@
       "pct_change": null
     }
   ],
-  "corporate": [
+  "ons_usd": [
     {
-      "symbol": "DNCBD",
-      "price": 100.15,
-      "pct_change": 0.15
+      "symbol": "RC2CD",
+      "descripcion": "Arcor - ON RC2CD (vto. 2026-10-06)",
+      "emisor": "Arcor",
+      "vencimiento": "2026-10-06",
+      "precio": 102.7,
+      "pct_change": 0,
+      "tir": 1.152,
+      "duration": 0.219,
+      "volumen": 416021
     },
     {
-      "symbol": "DNCAD",
-      "price": 105.95,
-      "pct_change": -0.04
+      "symbol": "AFCID",
+      "descripcion": "Banco Comafi - ON AFCID (vto. 2026-11-09)",
+      "emisor": "Banco Comafi",
+      "vencimiento": "2026-11-09",
+      "precio": 102.35,
+      "pct_change": 0.14,
+      "tir": 3.034,
+      "duration": 0.312,
+      "volumen": 41600
     },
     {
-      "symbol": "PLC7D",
-      "price": 102.2,
-      "pct_change": -0.38
+      "symbol": "VSCOD",
+      "descripcion": "Vista Energy - ON VSCOD (vto. 2027-03-08)",
+      "emisor": "Vista Energy",
+      "vencimiento": "2027-03-08",
+      "precio": 106.95,
+      "pct_change": -0.32,
+      "tir": -0.621,
+      "duration": 0.623,
+      "volumen": 326493
     },
     {
-      "symbol": "YM43D",
-      "price": 101.45,
-      "pct_change": 0.19
+      "symbol": "VSCWD",
+      "descripcion": "Vista Energy - ON VSCWD (vto. 2027-04-15)",
+      "emisor": "Vista Energy",
+      "vencimiento": "2027-04-15",
+      "precio": 100.6,
+      "pct_change": -0.09,
+      "tir": 5.342,
+      "duration": 0.731,
+      "volumen": 609551
+    },
+    {
+      "symbol": "YM37D",
+      "descripcion": "YPF - ON YM37D (vto. 2027-05-07)",
+      "emisor": "YPF",
+      "vencimiento": "2027-05-07",
+      "precio": 104.7,
+      "pct_change": 0.28,
+      "tir": 2.832,
+      "duration": 0.778,
+      "volumen": 299144
+    },
+    {
+      "symbol": "YM38D",
+      "descripcion": "YPF - ON YM38D (vto. 2027-07-22)",
+      "emisor": "YPF",
+      "vencimiento": "2027-07-22",
+      "precio": 105.55,
+      "pct_change": -0.14,
+      "tir": 3.743,
+      "duration": 0.967,
+      "volumen": 41654
+    },
+    {
+      "symbol": "LOC5D",
+      "descripcion": "Loma Negra - ON LOC5D (vto. 2027-07-26)",
+      "emisor": "Loma Negra",
+      "vencimiento": "2027-07-26",
+      "precio": 107.85,
+      "pct_change": 0.32,
+      "tir": 3.99,
+      "duration": 0.967,
+      "volumen": 41650
+    },
+    {
+      "symbol": "VSCPD",
+      "descripcion": "Vista Energy - ON VSCPD (vto. 2029-05-03)",
+      "emisor": "Vista Energy",
+      "vencimiento": "2029-05-03",
+      "precio": 108.65,
+      "pct_change": -0.22,
+      "tir": 4.425,
+      "duration": 1.904,
+      "volumen": 52066
+    },
+    {
+      "symbol": "BACGD",
+      "descripcion": "Banco Macro - ON BACGD (vto. 2029-06-25)",
+      "emisor": "Banco Macro",
+      "vencimiento": "2029-06-25",
+      "precio": 107.15,
+      "pct_change": -0.13,
+      "tir": 5.588,
+      "duration": 2.675,
+      "volumen": 38000
+    },
+    {
+      "symbol": "PN35D",
+      "descripcion": "Pan American Energy - ON PN35D (vto. 2029-09-27)",
+      "emisor": "Pan American Energy",
+      "vencimiento": "2029-09-27",
+      "precio": 107.45,
+      "pct_change": -0.13,
+      "tir": 5.249,
+      "duration": 2.872,
+      "volumen": 129914
+    },
+    {
+      "symbol": "IRCOD",
+      "descripcion": "IRSA - ON IRCOD (vto. 2029-10-23)",
+      "emisor": "IRSA",
+      "vencimiento": "2029-10-23",
+      "precio": 108.4,
+      "pct_change": 0.27,
+      "tir": 5.67,
+      "duration": 2.879,
+      "volumen": 41171
+    },
+    {
+      "symbol": "TTCDD",
+      "descripcion": "Tecpetrol - ON TTCDD (vto. 2030-11-04)",
+      "emisor": "Tecpetrol",
+      "vencimiento": "2030-11-04",
+      "precio": 109.25,
+      "pct_change": 0.64,
+      "tir": 5.654,
+      "duration": 3.72,
+      "volumen": 48000
+    },
+    {
+      "symbol": "YMCXD",
+      "descripcion": "YPF - ON YMCXD (vto. 2031-09-11)",
+      "emisor": "YPF",
+      "vencimiento": "2031-09-11",
+      "precio": 114,
+      "pct_change": 0.35,
+      "tir": 6.04,
+      "duration": 3.785,
+      "volumen": 466830
+    },
+    {
+      "symbol": "BACHD",
+      "descripcion": "Banco Macro - ON BACHD (vto. 2031-01-28)",
+      "emisor": "Banco Macro",
+      "vencimiento": "2031-01-28",
+      "precio": 111.6,
+      "pct_change": 0.45,
+      "tir": 6.081,
+      "duration": 3.788,
+      "volumen": 45000
+    },
+    {
+      "symbol": "PN36D",
+      "descripcion": "Pan American Energy - ON PN36D (vto. 2031-11-13)",
+      "emisor": "Pan American Energy",
+      "vencimiento": "2031-11-13",
+      "precio": 109.45,
+      "pct_change": 0.41,
+      "tir": 5.539,
+      "duration": 4.497,
+      "volumen": 74638
     },
     {
       "symbol": "YM34D",
-      "price": 109.2,
-      "pct_change": 0
+      "descripcion": "YPF - ON YM34D (vto. 2034-01-17)",
+      "emisor": "YPF",
+      "vencimiento": "2034-01-17",
+      "precio": 109.2,
+      "pct_change": 0,
+      "tir": 6.607,
+      "duration": 5.283,
+      "volumen": 893350
     },
     {
-      "symbol": "YM42D",
-      "price": 105.55,
-      "pct_change": -0.14
+      "symbol": "MGCOD",
+      "descripcion": "Pampa Energia - ON MGCOD (vto. 2034-12-18)",
+      "emisor": "Pampa Energia",
+      "vencimiento": "2034-12-18",
+      "precio": 108.95,
+      "pct_change": 0.42,
+      "tir": 6.678,
+      "duration": 6.37,
+      "volumen": 282000
+    },
+    {
+      "symbol": "VSCTD",
+      "descripcion": "Vista Energy - ON VSCTD (vto. 2035-12-10)",
+      "emisor": "Vista Energy",
+      "vencimiento": "2035-12-10",
+      "precio": 108.55,
+      "pct_change": 0,
+      "tir": 6.508,
+      "duration": 6.396,
+      "volumen": 114000
+    },
+    {
+      "symbol": "TSC4D",
+      "descripcion": "Transportadora de Gas del Sur (TGS) - ON TSC4D (vto. 2035-11-20)",
+      "emisor": "Transportadora de Gas del Sur (TGS)",
+      "vencimiento": "2035-11-20",
+      "precio": 108.8,
+      "pct_change": 0.36,
+      "tir": 6.752,
+      "duration": 6.849,
+      "volumen": 143000
+    },
+    {
+      "symbol": "MGCRD",
+      "descripcion": "Pampa Energia - ON MGCRD (vto. 2037-11-16)",
+      "emisor": "Pampa Energia",
+      "vencimiento": "2037-11-16",
+      "precio": 107.3,
+      "pct_change": 0.51,
+      "tir": 7.094,
+      "duration": 7.763,
+      "volumen": 723000
     }
   ],
   "acciones_arg": [
@@ -1683,97 +1873,97 @@
       "symbol": "GC=F",
       "nombre": "Oro",
       "region": "Metales",
-      "close": 4023.0,
+      "close": 4018.8,
       "currency": "USD",
-      "percent_change": 0.938375688161569
+      "percent_change": 0.8329963250270275
     },
     {
       "symbol": "SI=F",
       "nombre": "Plata",
       "region": "Metales",
-      "close": 56.22,
+      "close": 56.326,
       "currency": "USD",
-      "percent_change": 0.5760513740055565
+      "percent_change": 0.7656824918576509
     },
     {
       "symbol": "PL=F",
       "nombre": "Platino",
       "region": "Metales",
-      "close": 1603.5,
+      "close": 1612.5,
       "currency": "USD",
-      "percent_change": -1.9685732183831013
+      "percent_change": -1.4183500559044286
     },
     {
       "symbol": "HG=F",
       "nombre": "Cobre",
       "region": "Metales",
-      "close": 6.271,
+      "close": 6.265,
       "currency": "USD",
-      "percent_change": -0.39707756987849513
+      "percent_change": -0.49237617210792445
     },
     {
       "symbol": "ALI=F",
       "nombre": "Aluminio",
       "region": "Metales",
-      "close": 3452.75,
+      "close": 3452.0,
       "currency": "USD",
-      "percent_change": -0.9396069430497777
+      "percent_change": -0.9611246593028261
     },
     {
       "symbol": "CL=F",
       "nombre": "WTI",
       "region": "Energía",
-      "close": 81.77,
+      "close": 81.78,
       "currency": "USD",
-      "percent_change": 3.5718849408018825
+      "percent_change": 3.584551185750012
     },
     {
       "symbol": "BZ=F",
       "nombre": "Brent",
       "region": "Energía",
-      "close": 88.09,
+      "close": 88.1,
       "currency": "USD",
-      "percent_change": 4.582686084801948
+      "percent_change": 4.594558338869914
     },
     {
       "symbol": "NG=F",
       "nombre": "Gas",
       "region": "Energía",
-      "close": 2.916,
+      "close": 2.911,
       "currency": "USD",
-      "percent_change": 2.0293897527228952
+      "percent_change": 1.8544422394294782
     },
     {
       "symbol": "RB=F",
       "nombre": "Gasolina",
       "region": "Energía",
-      "close": 3.1892,
+      "close": 3.1916,
       "currency": "USD",
-      "percent_change": -2.9074167886692552
+      "percent_change": -2.8343507533916896
     },
     {
       "symbol": "ZS=F",
       "nombre": "Soja",
       "region": "Granos",
-      "close": 12.025,
+      "close": 12.03,
       "currency": "USD",
-      "percent_change": 0.6276150627615062
+      "percent_change": 0.6694560669456067
     },
     {
       "symbol": "ZC=F",
       "nombre": "Maíz",
       "region": "Granos",
-      "close": 4.6825,
+      "close": 4.675,
       "currency": "USD",
-      "percent_change": 6.058890147225368
+      "percent_change": 5.889014722536806
     },
     {
       "symbol": "ZW=F",
       "nombre": "Trigo",
       "region": "Granos",
-      "close": 6.8475,
+      "close": 6.8275,
       "currency": "USD",
-      "percent_change": 1.4820303816228233
+      "percent_change": 1.1856243052982587
     },
     {
       "symbol": "CT=F",
@@ -2000,22 +2190,22 @@
     {
       "symbol": "MSFT",
       "nombre": "Microsoft Corp.",
-      "close": "393.82001",
-      "percent_change": "-1.81501",
+      "close": "393.76999",
+      "percent_change": "-1.82748",
       "currency": "USD"
     },
     {
       "symbol": "AMZN",
       "nombre": "Amazon.com Inc.",
-      "close": "247.23000",
-      "percent_change": "-1.064470",
+      "close": "247.25999",
+      "percent_change": "-1.052465",
       "currency": "USD"
     },
     {
       "symbol": "GOOGL",
       "nombre": "Alphabet Inc.",
-      "close": "346.76999",
-      "percent_change": "-2.16950",
+      "close": "346.62000",
+      "percent_change": "-2.21181",
       "currency": "USD"
     }
   ],
@@ -2023,15 +2213,15 @@
     {
       "symbol": "SPY",
       "nombre": "SPY (S&P 500)",
-      "close": "743.28998",
-      "percent_change": "-0.98971560",
+      "close": "743.15503",
+      "percent_change": "-1.0076915",
       "currency": "USD"
     },
     {
       "symbol": "QQQ",
       "nombre": "QQQ (Nasdaq 100)",
-      "close": "695.33002",
-      "percent_change": "-1.50296",
+      "close": "695.29999",
+      "percent_change": "-1.50721",
       "currency": "USD"
     },
     {
@@ -2046,50 +2236,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14378",
-      "percent_change": "0.00087430165",
+      "close": "1.14384",
+      "percent_change": "0.0061201116",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34525",
-      "percent_change": "0.0014867346",
+      "close": "1.34524",
+      "percent_change": "0.00074336731",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.40188",
-      "percent_change": "-0.0054183629",
+      "close": "162.40734",
+      "percent_change": "-0.0020565150",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11083",
-      "percent_change": "-0.092658296",
+      "close": "5.11086",
+      "percent_change": "-0.092071851",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.54378",
-      "percent_change": "-0.010714900",
+      "close": "17.54438",
+      "percent_change": "-0.0072952514",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.18025",
-      "percent_change": "-0.010202977",
+      "close": "40.17596",
+      "percent_change": "-0.020878775",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.22958",
-      "percent_change": "-0.097176071",
+      "close": "1476.99717",
+      "percent_change": "-0.11289361",
       "currency": null
     }
   ]
