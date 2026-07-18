@@ -1058,6 +1058,13 @@ def get_bonos_soberanos_usd():
         flujos_fut = [(f, m) for f, m in flujos if f and f > hoy]
         ytm = _solve_ytm(flujos_fut, hoy, precio)
         dur = _macaulay_duration(flujos_fut, hoy, ytm) if ytm is not None else None
+        vto = _parse_date(info["vencimiento"])
+        dtm = (vto - hoy).days if vto else None
+        # Se excluyen bonos con duration menor a 0.20 y/o DTM menor a 45
+        # dias: son instrumentos practicamente a la par de su vencimiento,
+        # sin utilidad para el analisis de curva TIR/Duration.
+        if (dur is not None and dur < 0.20) or (dtm is not None and dtm < 45):
+            continue
         out.append({
             "symbol": sym,
             "descripcion": _bond_description(sym, "usd"),
@@ -1175,6 +1182,11 @@ def get_bonos_pesos():
         if not vto or vto <= hoy:
             continue
         dias = (vto - hoy).days
+        duration_lecap = dias / 365.0
+        # Se excluyen LECAPs/BONCAPs con duration menor a 0.20 y/o DTM
+        # menor a 45 dias: practicamente a la par de su vencimiento.
+        if duration_lecap < 0.20 or dias < 45:
+            continue
         pago_final = info["pago_final"]
         tea = (pago_final / precio) ** (365.0 / dias) - 1.0
         precios_hoy[sym] = precio
@@ -1254,6 +1266,12 @@ def get_ons_usd(top_n=20):
         flujos_fut = [(f, m) for f, m in flujos if f and f > hoy]
         ytm = _solve_ytm(flujos_fut, hoy, precio)
         dur = _macaulay_duration(flujos_fut, hoy, ytm) if ytm is not None else None
+        vto_on = _parse_date(info["vencimiento"])
+        dtm_on = (vto_on - hoy).days if vto_on else None
+        # Se excluyen ONs con duration menor a 0.20 y/o DTM menor a 45
+        # dias: practicamente a la par de su vencimiento.
+        if (dur is not None and dur < 0.20) or (dtm_on is not None and dtm_on < 45):
+            continue
         out.append({
             "symbol": sym,
             "series_id": config_key,
