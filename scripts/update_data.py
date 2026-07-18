@@ -231,6 +231,84 @@ def get_tasas_locales():
     return out or None
 
 
+# Plazos Fijos por banco (sección "Plazos Fijos" dentro de Tasas Locales).
+# Fuente: ArgentinaDatos (api.argentinadatos.com), que agrega el listado
+# de bancos con tasas de depósitos a plazo fijo publicado por el BCRA.
+# Solo valores (no se grafican): se usa tnaClientes como tasa de
+# referencia de cada banco, tal como la publica el BCRA para comparación
+# entre entidades. Se buscan los bancos pedidos por nombre (coincidencia
+# de texto contra el nombre legal de la entidad) y se agregan además los
+# 3 bancos con mayor TNA de todo el mercado (que no estén ya en la
+# lista), todo ordenado de mayor a menor tasa.
+PLAZO_FIJO_BANCOS = [
+    ("Banco Santander", ["SANTANDER"]),
+    ("Banco Patagonia", ["PATAGONIA"]),
+    ("Banco Hipotecario", ["HIPOTECARIO"]),
+    ("Comafi", ["COMAFI"]),
+    ("Ciudad", ["CIUDAD DE BUENOS AIRES"]),
+    ("Brubank", ["BRUBANK"]),
+    ("ICBC", ["ICBC", "INDUSTRIAL AND COMMERCIAL BANK"]),
+    ("Piano", ["PIANO"]),
+    ("Galicia", ["GALICIA"]),
+    ("BBVA", ["BBVA"]),
+    ("Macro", ["MACRO"]),
+    ("Nación", ["NACION ARGENTINA"]),
+    ("Provincia BA", ["PROVINCIA DE BUENOS AIRES"]),
+    ("Mariva", ["MARIVA"]),
+    ("Del Sol", ["BANCO DEL SOL"]),
+]
+
+
+def _titulo_banco(entidad):
+    return " ".join(w.capitalize() if len(w) > 3 else w for w in entidad.split())
+
+
+def get_plazos_fijos():
+    data = fetch_json("https://api.argentinadatos.com/v1/finanzas/tasas/plazoFijo")
+    if not data:
+        return None
+
+    def valida(item):
+        return isinstance(item, dict) and item.get("entidad") and item.get("tnaClientes")
+
+    bancos_validos = [x for x in data if valida(x)]
+
+    out = []
+    usados = set()
+    for nombre_pedido, keywords in PLAZO_FIJO_BANCOS:
+        match = None
+        for item in bancos_validos:
+            entidad_upper = item["entidad"].upper()
+            if any(kw in entidad_upper for kw in keywords):
+                match = item
+                break
+        if match:
+            out.append({
+                "nombre": nombre_pedido,
+                "entidad": match["entidad"],
+                "tna": round(match["tnaClientes"] * 100, 3),
+                "destacado": False,
+            })
+            usados.add(match["entidad"])
+
+    # Los 3 bancos con mayor TNA del mercado que no estén ya incluidos.
+    restantes = sorted(
+        [x for x in bancos_validos if x["entidad"] not in usados],
+        key=lambda x: x["tnaClientes"],
+        reverse=True,
+    )[:3]
+    for item in restantes:
+        out.append({
+            "nombre": _titulo_banco(item["entidad"]),
+            "entidad": item["entidad"],
+            "tna": round(item["tnaClientes"] * 100, 3),
+            "destacado": True,
+        })
+
+    out.sort(key=lambda x: x["tna"], reverse=True)
+    return out or None
+
+
 def get_fci():
     data = fetch_json("https://rendimientos.co/api/cafci")
     if not data or "data" not in data:
@@ -1414,6 +1492,7 @@ def main():
         "indices": get_indices_globales(),
         "commodities": get_commodities_globales(),
         "rates_intl": get_tasas_internacionales(),
+        "plazos_fijos": get_plazos_fijos(),
     }
 
     td = get_twelvedata()
