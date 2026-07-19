@@ -722,83 +722,39 @@ SOBERANOS_FLUJOS = {
 # ------------------------------------------------------------------
 
 CER_FLUJOS = {
-    # TZXA7 y TZXY7 (tarea 3.2): bullet, 100% amortizacion al vencimiento,
-    # ajuste CER +0.00% (sin spread de cupon; confirmado en la ficha de
-    # cada bono, ver abajo), mismo patron que TZXO6/TZXD6/etc.
-    # "cer_emision" no esta publicado directamente en ninguna fuente
-    # gratuita accesible desde este entorno (BCRA/MAE no respondieron
-    # con datos parseables), asi que se derivo indirectamente a partir
-    # de: cer_emision = cer_hoy * 100 / VT, usando el Valor Tecnico (VT)
-    # y que son bullet con VNR=1 (sin amortizaciones previas). Fuentes
-    # (todas consultadas 19/07/2026):
-    #  - VT TZXA7 = 122.85 (app.docta.com.ar/dashboard/market/CER/ticker/TZXA7,
-    #    bono "Tesoro De La Nacion Argentina 30.04.2027 Ajuste por CER +0.00%")
-    #  - VT TZXY7 = 114.67 (app.docta.com.ar/dashboard/market/CER/ticker/TZXY7,
-    #    bono "Tesoro De La Nacion Argentina 31.05.2027 Ajuste por CER +0.00%")
-    #  - CER del 16/07/2026 = 808.0418 (ikiwi.net.ar/coeficiente-de-estabilizacion-de-referencia-cer/,
-    #    que cita como fuente al BCRA). Hay un desfasaje de ~1 a 3 dias
-    #    habiles entre esta fecha del CER y la fecha de las cotizaciones
-    #    de Docta (17-19/07/2026); dado que el CER varia muy poco dia a
-    #    dia, el error introducido en cer_emision es marginal (<0.3%),
-    #    pero queda documentado por transparencia. Si se dispone de una
-    #    fuente mejor (ISIN/prospecto BCRA con el CER de emision exacto),
-    #    reemplazar estos valores.
-    "TZXA7": {"vencimiento": "2027-04-30", "cer_emision": 657.747, "flujos": [
-        ("2027-04-30", 1.0, 0.0, 0.5),
-    ]},
-    "TZXY7": {"vencimiento": "2027-05-31", "cer_emision": 704.667, "flujos": [
-        ("2027-05-31", 1.0, 0.0, 0.5),
-    ]},
-    # PENDIENTE (tarea 3.2, no completado aun): TZXS7, TZXM8, TZXS8,
-    # TZXM9, TZXO7, TZXD8 y CUAP. Corrida del 19/07/2026 (con acceso a
-    # WebSearch + fetch puntual) confirmo lo siguiente, pero sigue sin
-    # ser suficiente para cargar flujos verificados:
-    #  - TZXS7 (vto. 2027-09-30): CONFIRMADO cuantitativamente que NO es
-    #    bullet zero-cupon. Fuente: bonistas.com/bono-cotizacion-rendimiento-precio-hoy/TZXS7
-    #    (consultado 19/07/2026): Precio=103.55, VT=110.76, TIR=5.78%,
-    #    MD=1.13. Si fuese bullet puro, la duration de Macaulay deberia
-    #    ser igual al tiempo al vencimiento (~1.20 anios desde
-    #    19/07/2026), pero MD publicada es 1.13 (menor), lo que solo se
-    #    explica por un cupon/interes intermedio antes del vencimiento
-    #    (consistente con la ficha de Docta "Ajuste por CER +2.16%").
-    #    No cargar como bullet simple: distorsionaria la TIR/duration.
-    #    Falta: periodicidad y monto exacto del cupon (prospecto MAE/BCRA
-    #    o ficha Docta con flujo detallado).
+    # PENDIENTE (tarea 3.2, no completado aun): TZXS7, TZXM8, TZXS8, TZXM9,
+    # TZXO7, TZXD8 y CUAP.
+    #  - TZXS7 (vto. 2027-09-30): NO cargar como bullet. Evidencia
+    #    cuantitativa (corrida 19/07/2026, bonistas.com/bono-cotizacion-rendimiento-precio-hoy/TZXS7):
+    #    Precio=103.55, VT=110.76, TIR=5.78%, MD=1.13. Si fuese bullet
+    #    puro la duration de Macaulay deberia igualar el tiempo al
+    #    vencimiento (~1.20 anios), pero MD publicada es menor (1.13),
+    #    lo que solo se explica por un cupon/interes intermedio antes
+    #    del vencimiento (consistente con la ficha de Docta "Ajuste por
+    #    CER +2.16%", a diferencia de TZXA7/TZXY7 que son "+0.00%").
+    #    Falta: periodicidad y monto exacto del cupon (prospecto MAE/BCRA).
     #  - TZXM8 (2028-03-31), TZXS8 (2028-09-29), TZXM9 (2029-03-28),
     #    TZXO7 (2027-10-29), TZXD8 (2028-12-15): confirmados como bonos
-    #    cero cupon ajustados por CER (bullet) via busqueda web (Portfolio
-    #    Personal / Max Capital / Cohen), pero bonistas.com no devolvio
-    #    ficha individual parseable para estos 5 tickers en los intentos
-    #    de esta corrida (la pagina existe segun el patron de URL, pero
-    #    no aparecio en resultados de busqueda, y fetch puntual requiere
-    #    que la URL exacta haya aparecido antes en un resultado de
-    #    busqueda o mensaje, por restriccion de "provenance" de la
-    #    herramienta). Sin el Valor Tecnico (VT) no se puede derivar
-    #    "cer_emision" con el mismo metodo usado en TZXA7/TZXY7. Proximo
-    #    paso: reintentar WebSearch con la URL exacta entre comillas
-    #    (ej. "bonistas.com/bono-cotizacion-rendimiento-precio-hoy/TZXM8")
-    #    hasta que aparezca en resultados, o probar
-    #    app.docta.com.ar/dashboard/market/CER/ticker/<TICKER> (paginas
-    #    de listado como /dashboard/bonos/general/soberanos/cer son
-    #    client-side rendered y no exponen la tabla en el HTML crudo).
-    #  - CUAP (vto. 2045-12-31): CONFIRMADO que no es bullet puro, y
-    #    esta corrida (19/07/2026) obtuvo un dato adicional directo de
-    #    bonistas.com/bono-cotizacion-rendimiento-precio-hoy/CUAP:
-    #    Precio=46980.00, VT=75940.33, Paridad=61.86%, TIR=7.90%,
-    #    MD=10.13, Fecha Emision=31/12/2003 (coincide con lo ya sabido
-    #    via portfoliopersonal.com/files/bonos/CUAP.pdf: interes real
-    #    3.31% TNA semestral desde 30/06/2014, capitalizado antes de esa
-    #    fecha, amortizacion en 20 cuotas semestrales 30/06/2036 a
-    #    31/12/2045). El VT confirma la paridad (61.86%) pero NO resuelve
-    #    el dato que falta: el VNR (capital ajustado, fraccion del
-    #    nominal original) vigente hoy, necesario porque la
-    #    capitalizacion 2003-2014 lo dejo por encima de 1.0. Sin ese VNR
-    #    verificado no se puede armar el flujo real (ver patron
-    #    DICP_VNR_HOY/CER_VNR_CONOCIDO mas abajo para replicar el mismo
-    #    mecanismo una vez que se consiga ese dato). No forzar un VNR sin
-    #    verificar para no distorsionar la TIR/duration de un bono con
-    #    paridad ~62% y MD~10.
-    "TZXO6": {"vencimiento": "2026-10-30", "cer_emision": 480.1526, "flujos": [
+    #    cero cupon ajustados por CER (bullet) via busqueda web, pero
+    #    todavia falta su fecha de emision exacta (no una fecha de
+    #    licitacion/llamado, que no necesariamente coincide con la
+    #    liquidacion) para poder consultar el CER de esa fecha en la API
+    #    oficial datos.gob.ar/series/api/series/?ids=94.2_CD_D_0_0_10
+    #    (el mismo metodo usado con exito para TZXA7/TZXY7 arriba).
+    #  - CUAP (vto. 2045-12-31): CONFIRMADO que no es bullet puro.
+    #    Fuente: portfoliopersonal.com/files/bonos/CUAP.pdf y
+    #    bonistas.com/bono-cotizacion-rendimiento-precio-hoy/CUAP
+    #    (Precio=46980.00, VT=75940.33, Paridad=61.86%, TIR=7.90%,
+    #    MD=10.13): paga interes real de 3.31% TNA (base 30/360)
+    #    semestral el 30/6 y 31/12 desde el 30/06/2014 (antes de esa
+    #    fecha el interes se capitalizaba), y amortiza en 20 cuotas
+    #    semestrales iguales (30/6 y 31/12) desde el 30/06/2036 hasta el
+    #    31/12/2045. Falta el VNR (capital ajustado) vigente hoy, mayor a
+    #    1.0 sobre el nominal original por la capitalizacion 2003-2014
+    #    (ver patron DICP_VNR_HOY/CER_VNR_CONOCIDO mas abajo). No forzar
+    #    un VNR sin verificar: distorsionaria la TIR/duration de un bono
+    #    con paridad ~62% y MD~10.
+        "TZXO6": {"vencimiento": "2026-10-30", "cer_emision": 480.1526, "flujos": [
         ("2026-10-30", 1.0, 0.0, 0.5),
     ]},
     "TX26": {"vencimiento": "2026-11-09", "cer_emision": 22.544, "flujos": [
@@ -815,23 +771,22 @@ CER_FLUJOS = {
     "TZXM7": {"vencimiento": "2027-03-31", "cer_emision": 361.3176, "flujos": [
         ("2027-03-31", 1.0, 0.0, 0.5),
     ]},
-    # TZXA7/TZXY7/TZXS7: Boncer cero cupon (bullet, sin interes periodico)
-    # emitidos en 2025/2026. cer_emision verificado contra la API oficial
-    # del dataset "CER, UVA y UVI" de datos.gob.ar (fuente primaria: BCRA),
-    # serie 94.2_CD_D_0_0_10, tomando el valor de CER publicado en la
-    # fecha de emision de cada bono (fecha "Fecha Emision" confirmada via
+    # TZXA7/TZXY7: Boncer cero cupon (bullet, sin interes periodico),
+    # ajuste CER +0.00% (sin spread), emitidos en 2025. cer_emision
+    # verificado contra la API oficial del dataset "CER, UVA y UVI" de
+    # datos.gob.ar (fuente primaria: BCRA), serie 94.2_CD_D_0_0_10,
+    # tomando el valor de CER publicado en la fecha de emision de cada
+    # bono (fecha "Fecha Emision" confirmada via
     # bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{TICKER}):
     # TZXA7 emitido 28/11/2025 (CER=659.6788956665248), TZXY7 emitido
-    # 15/12/2025 (CER=668.2343291710602), TZXS7 emitido 31/3/2026
-    # (CER=735.3076309157017).
+    # 15/12/2025 (CER=668.2343291710602). TZXS7 (mismo vencimiento
+    # 2027-09-30) NO se carga: tiene ajuste "CER +2.16%" (spread real,
+    # no bullet puro), ver nota en el bloque PENDIENTE mas arriba.
     "TZXA7": {"vencimiento": "2027-04-30", "cer_emision": 659.6788956665248, "flujos": [
         ("2027-04-30", 1.0, 0.0, 0.5),
     ]},
     "TZXY7": {"vencimiento": "2027-05-31", "cer_emision": 668.2343291710602, "flujos": [
         ("2027-05-31", 1.0, 0.0, 0.5),
-    ]},
-    "TZXS7": {"vencimiento": "2027-09-30", "cer_emision": 735.3076309157017, "flujos": [
-        ("2027-09-30", 1.0, 0.0, 0.5),
     ]},
     "TZX27": {"vencimiento": "2027-06-30", "cer_emision": 200.388, "flujos": [
         ("2027-06-30", 1.0, 0.0, 0.5),
@@ -1152,8 +1107,6 @@ BOND_DESCRIPTIONS = {
     "TZXD7": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2027",
     "TZXM7": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2027",
     "TZXO6": "Bono del Tesoro en pesos ajustado por CER, vto. oct. 2026",
-    "TZXA7": "Bono del Tesoro en pesos ajustado por CER, vto. abr. 2027",
-    "TZXY7": "Bono del Tesoro en pesos ajustado por CER, vto. may. 2027",
     "X30N6": "Letra del Tesoro (LECER) ajustada por CER, vto. nov. 2026",
     "X30S6": "Letra del Tesoro (LECER) ajustada por CER, vto. sep. 2026",
     "X31L6": "Letra del Tesoro (LECER) ajustada por CER, vto. jul. 2026",
@@ -1161,7 +1114,6 @@ BOND_DESCRIPTIONS = {
     "PARP": "Par en pesos ajustado por CER (reestructuracion 2005)",
     "TZXA7": "Bono del Tesoro en pesos ajustado por CER, vto. abr. 2027",
     "TZXY7": "Bono del Tesoro en pesos ajustado por CER, vto. may. 2027",
-    "TZXS7": "Bono del Tesoro en pesos ajustado por CER, vto. sep. 2027",
 }
 
 
