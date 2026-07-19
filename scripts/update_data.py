@@ -36,6 +36,7 @@ dolarapi/argentinadatos/coingecko/BCRA que son APIs públicas estables). Si
 alguna falla un día puntual, el script sigue con las demás y esa sección
 simplemente no se actualiza ese día (no se rompe todo el proceso).
 """
+import calendar
 import json
 import os
 import re
@@ -1280,6 +1281,43 @@ def _macaulay_duration(flujos_futuros, valuation_date, r):
     return weighted / pv_total
 
 
+# Shocks de TIR (en puntos porcentuales) para la tabla de sensibilidad
+# TIR-precio, replicando los escenarios que muestra bonistas.com en la
+# pagina de detalle de cada bono.
+TIR_SHOCKS_PP = [-3, -2, -1, 1, 2, 3, 5, 10]
+
+
+def _tir_price_sensitivity(flujos_futuros, valuation_date, tir_base, precio_base):
+    """Tabla de sensibilidad precio-TIR: para cada shock de TIR (en
+    puntos porcentuales) sobre la TIR actual, la variacion porcentual
+    que tendria el precio si el mercado convalidara esa nueva TIR,
+    manteniendo el mismo cronograma de flujos futuros. Se calcula
+    revaluando el valor presente de los mismos flujos a la TIR
+    desplazada. Devuelve None si falta algun dato base (TIR o precio)."""
+    if tir_base is None or precio_base is None or precio_base <= 0 or not flujos_futuros:
+        return None
+    out = {}
+    for shock_pp in TIR_SHOCKS_PP:
+        nueva_tir = tir_base + shock_pp / 100.0
+        if nueva_tir <= -0.99:
+            out[str(shock_pp)] = None
+            continue
+        nuevo_precio = _bond_pv_at_yield(flujos_futuros, valuation_date, nueva_tir)
+        out[str(shock_pp)] = round((nuevo_precio - precio_base) / precio_base * 100, 2)
+    return out
+
+
+def _add_months(d, months):
+    """Suma (o resta, si months es negativo) una cantidad entera de
+    meses a una fecha, ajustando el dia si el mes destino tiene menos
+    dias (ej. 31/agosto - 6 meses = 28/febrero o 29 en bisiesto)."""
+    m = d.month - 1 + months
+    y = d.year + m // 12
+    m = m % 12 + 1
+    ultimo_dia_mes = calendar.monthrange(y, m)[1]
+    return date(y, m, min(d.day, ultimo_dia_mes))
+
+
 def _bcra_cer_hoy():
     """Indice CER (BCRA, variable 30), valor vigente a la fecha de hoy o
     la ultima fecha publicada anterior (el BCRA tambien publica valores
@@ -1320,6 +1358,13 @@ def get_bonos_soberanos_usd():
         # sin utilidad para el analisis de curva TIR/Duration.
         if (dur is not None and dur < 0.20) or (dtm is not None and dtm < 45):
             continue
+        # Nota: Valor Tecnico y Paridad no se calculan para bonos
+        # soberanos en USD: SOBERANOS_FLUJOS solo registra el monto total
+        # de cada pago (cupon+amortizacion combinados), sin separar la
+        # tasa de interes del cronograma de amortizacion, dato
+        # imprescindible para calcular el interes corrido sin inventarlo.
+        # La sensibilidad TIR-precio si es exacta: solo depende del
+        # cronograma de flujos totales, no de la separacion capital/interes.
         out.append({
             "symbol": sym,
             "descripcion": _bond_description(sym, "usd"),
@@ -1329,6 +1374,7 @@ def get_bonos_soberanos_usd():
             "pct_change": item.get("pct_change"),
             "tir": round(ytm * 100, 3) if ytm is not None else None,
             "duration": round(dur, 3) if dur is not None else None,
+            "sensibilidad_tir": _tir_price_sensitivity(flujos_fut, hoy, ytm, precio),
         })
     out.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
     return out or None
@@ -1377,12 +1423,40 @@ def get_bonos_cer():
             flujos_reales.append((fecha, interes + principal))
             vnr_restante -= amortizacion
 
-        tir = dur = None
+        tir = dur = valor_tecnico = paridad = None
+        sensibilidad = None
+        precio_real = None
         if cer_hoy is not None and flujos_reales:
             coeficiente = cer_hoy / cer_emision
             precio_real = precio / coeficiente
             tir = _solve_ytm(flujos_reales, hoy, precio_real)
             dur = _macaulay_duration(flujos_reales, hoy, tir) if tir is not None else None
+
+            # Valor Tecnico = capital residual ajustado por CER + interes
+            # corrido del cupon en curso. Para bonos bullet (tasa=0 en el
+            # unico flujo futuro, la mayoria de este diccionario) el
+            # interes corrido es 0 por construccion. Para bonos con
+            # cupon real (ej. CUAP) se prorratea la tasa del proximo pago
+            # sobre los dias transcurridos desde el pago anterior, que se
+            # infiere restando periodos de "base" años (asumiendo pagos
+            # calendario fijos, valido para todos los cronogramas
+            # semestrales de este diccionario).
+            capital_hoy = vnr_hoy * 100 * coeficiente
+            interes_corrido = 0.0
+            if flujos_fut_raw:
+                fecha_prox, _am_prox, tasa_prox, base_prox = flujos_fut_raw[0]
+                if tasa_prox and tasa_prox > 0:
+                    meses_periodo = round(base_prox * 12)
+                    fecha_pago_anterior = _add_months(fecha_prox, -meses_periodo)
+                    dias_periodo = (fecha_prox - fecha_pago_anterior).days
+                    dias_transcurridos = (hoy - fecha_pago_anterior).days
+                    if dias_periodo > 0:
+                        fraccion = max(0.0, min(1.0, dias_transcurridos / dias_periodo))
+                        interes_corrido = vnr_hoy * 100 * tasa_prox * fraccion * coeficiente
+            valor_tecnico = round(capital_hoy + interes_corrido, 2)
+            if valor_tecnico > 0:
+                paridad = round(precio / valor_tecnico * 100, 2)
+            sensibilidad = _tir_price_sensitivity(flujos_reales, hoy, tir, precio_real)
 
         vto_cer = _parse_date(info["vencimiento"])
         dtm_cer = (vto_cer - hoy).days if vto_cer else None
@@ -1400,6 +1474,9 @@ def get_bonos_cer():
             "pct_change": item.get("pct_change"),
             "tir": round(tir * 100, 3) if tir is not None else None,
             "duration": round(dur, 3) if dur is not None else None,
+            "valor_tecnico": valor_tecnico,
+            "paridad": paridad,
+            "sensibilidad_tir": sensibilidad,
         })
     out.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
     return out or None
@@ -1507,6 +1584,7 @@ def get_bonos_pesos():
             "pct_change": None,
             "tir": round(ytm * 100, 3) if ytm is not None else None,
             "duration": round(dur, 3) if dur is not None else None,
+            "sensibilidad_tir": _tir_price_sensitivity(flujos_fut, hoy, ytm, precio),
         })
 
     candidatos.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
@@ -1721,6 +1799,7 @@ def get_ons_usd(top_n=20):
             "tir": round(ytm * 100, 3) if ytm is not None else None,
             "duration": round(dur, 3) if dur is not None else None,
             "volumen": vol,
+            "sensibilidad_tir": _tir_price_sensitivity(flujos_fut, hoy, ytm, precio),
         })
     out.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
     return out or None

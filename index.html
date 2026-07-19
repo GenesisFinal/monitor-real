@@ -4410,11 +4410,31 @@ Stack: ${error ? error.stack : 'N/A'}`;
             });
         }
 
+        // Cache de los items completos (con valor_tecnico, paridad,
+        // sensibilidad_tir, etc.) por panel y ticker, para el modal de
+        // detalle: evita tener que volver a buscar el dato en el JSON
+        // original al hacer click.
+        const bondDetailData = {};
+
+        function _ensureDetailColumn(tbody) {
+            const table = tbody.closest('table');
+            if (!table) return;
+            const headRow = table.querySelector('thead tr');
+            if (headRow && !headRow.querySelector('.bond-detail-th')) {
+                const th = document.createElement('th');
+                th.className = 'bond-detail-th px-2 py-2.5 text-center';
+                th.textContent = 'Detalle';
+                headRow.appendChild(th);
+            }
+        }
+
         function renderBonosTabla(key, tbodyId, items) {
             const tbody = document.getElementById(tbodyId);
             if (!tbody) return;
+            _ensureDetailColumn(tbody);
+            bondDetailData[key] = {};
             if (!items || !items.length) {
-                tbody.innerHTML = '<tr><td colspan="6" class="px-3 py-3 text-center text-slate-500 text-xs">Sin datos</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" class="px-3 py-3 text-center text-slate-500 text-xs">Sin datos</td></tr>';
                 return;
             }
             const rows = items.map(it => {
@@ -4427,6 +4447,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 // muestra en la tabla, p.ej. "RC2CD" en pantalla vs
                 // "RC2C" como clave interna en ON_FLUJOS/el JSON).
                 setSeriesKey(key, it.symbol, it.series_id || it.symbol);
+                bondDetailData[key][it.symbol] = it;
                 return `<tr data-ticker="${it.symbol}" onclick="rowClick(event, '${key}', '${it.symbol}')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
                     <td class="px-2 py-2 text-center"><input type="checkbox" onchange="toggleSelect(event, '${key}', '${it.symbol}')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
                     <td class="px-3 py-2 font-semibold text-white light:text-slate-800 cursor-help" title="${(it.descripcion || '').replace(/"/g, '&quot;')}">${it.symbol}</td>
@@ -4434,9 +4455,109 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     <td class="px-3 py-2 text-right font-mono${pctClass(it.pct_change)}">${fmtPct(it.pct_change)}</td>
                     <td class="px-3 py-2 text-right font-mono">${tirTxt}</td>
                     <td class="px-3 py-2 text-right font-mono">${durTxt}</td>
+                    <td class="px-2 py-2 text-center"><button onclick="event.stopPropagation(); openBondDetail('${key}', '${it.symbol}')" title="Ver detalle" class="text-slate-400 hover:text-brandBlue light:hover:text-brandBlue transition-colors">&#128269;</button></td>
                 </tr>`;
             });
             tbody.innerHTML = rows.join('');
+        }
+
+        // ============================================================
+        // Modal de detalle de bono (estilo bonistas.com/AL30D): cabecera
+        // Precio/TIR/VT/DM, tabla de datos y sensibilidad TIR-precio.
+        // Los datos de VT/paridad/sensibilidad vienen ya calculados por
+        // el backend (scripts/update_data.py); el Apertura/Mínimo/Máximo
+        // se toma de la última barra OHLC ya cacheada en historia (si el
+        // panel la tiene cargada), sin inventar valores intradía que no
+        // existen en ninguna fuente gratuita disponible.
+        // ============================================================
+
+        function fmtMoneda(v, decimales) {
+            if (v == null || isNaN(v)) return '-';
+            return Number(v).toLocaleString('es-AR', { minimumFractionDigits: decimales != null ? decimales : 2, maximumFractionDigits: decimales != null ? decimales : 2 });
+        }
+
+        function _detailRow(label, value) {
+            return `<tr><td class="px-3 py-1.5 text-slate-400 light:text-slate-500">${label}</td><td class="px-3 py-1.5 text-right font-mono text-white light:text-slate-800">${value}</td></tr>`;
+        }
+
+        function renderSensibilidadTable(sens) {
+            const cont = document.getElementById('bond-detail-sensibilidad');
+            if (!sens) {
+                cont.innerHTML = '<p class="text-xs text-slate-500">No disponible para este instrumento (falta TIR o precio base).</p>';
+                return;
+            }
+            const shocks = ['-3', '-2', '-1', '1', '2', '3', '5', '10'];
+            const headCells = shocks.map(s => `<th class="px-2 py-1.5 text-center font-normal">${s > 0 ? '+' : ''}${s}%</th>`).join('');
+            const valCells = shocks.map(s => {
+                const v = sens[s];
+                const cls = v == null ? '' : (v >= 0 ? ' text-emerald-400' : ' text-red-400');
+                return `<td class="px-2 py-1.5 text-center font-mono${cls}">${v != null ? (v >= 0 ? '+' : '') + v.toFixed(2) + '%' : '-'}</td>`;
+            }).join('');
+            cont.innerHTML = `<table class="w-full text-xs border-collapse">
+                <thead><tr class="text-slate-400 light:text-slate-500 border-b border-darkBorder light:border-gray-200">${headCells}</tr></thead>
+                <tbody><tr>${valCells}</tr></tbody>
+            </table>`;
+        }
+
+        async function openBondDetail(key, symbol) {
+            const it = (bondDetailData[key] || {})[symbol];
+            if (!it) return;
+            document.getElementById('bond-detail-ticker').textContent = symbol;
+            document.getElementById('bond-detail-desc').textContent = it.descripcion || '';
+            document.getElementById('bond-detail-precio').textContent = fmtMoneda(it.precio);
+            document.getElementById('bond-detail-tir').textContent = it.tir != null ? it.tir.toFixed(2) + '%' : '-';
+            document.getElementById('bond-detail-vt').textContent = it.valor_tecnico != null ? fmtMoneda(it.valor_tecnico) : '-';
+            document.getElementById('bond-detail-dm').textContent = it.duration != null ? it.duration.toFixed(2) + ' años' : '-';
+
+            const rows = [];
+            rows.push(_detailRow('Precio', fmtMoneda(it.precio)));
+            rows.push(_detailRow('Variación diaria', it.pct_change != null ? (it.pct_change >= 0 ? '+' : '') + it.pct_change.toFixed(2) + '%' : '-'));
+            rows.push(_detailRow('Fecha de vencimiento', it.vencimiento || '-'));
+            rows.push(_detailRow('Valor Técnico', it.valor_tecnico != null ? fmtMoneda(it.valor_tecnico) : '<span class="text-slate-500 text-[11px]">No disponible (requiere separar cupón/amortización)</span>'));
+            rows.push(_detailRow('Paridad', it.paridad != null ? it.paridad.toFixed(2) + '%' : '<span class="text-slate-500 text-[11px]">No disponible</span>'));
+            rows.push(_detailRow('TIR', it.tir != null ? it.tir.toFixed(2) + '%' : '-'));
+            rows.push(_detailRow('Duration (Macaulay)', it.duration != null ? it.duration.toFixed(2) + ' años' : '-'));
+            document.getElementById('bond-detail-datatable').innerHTML = rows.join('');
+
+            renderSensibilidadTable(it.sensibilidad_tir);
+
+            const nota = document.getElementById('bond-detail-nota');
+            nota.textContent = 'TIR y Duration: rendimiento efectivo a vencimiento (Macaulay), calculado sobre el cronograma de flujos real del instrumento. Valor Técnico y Paridad: solo disponibles para bonos con cronograma completo (capital/interés separados); "TIR promedio/mínima/máxima últimos 365 días" y gráficos históricos de TIR/Paridad quedan para una fase posterior (requieren acumular una serie propia día a día).';
+
+            document.getElementById('bond-detail-overlay').classList.remove('hidden');
+            document.getElementById('bond-detail-overlay').classList.add('flex');
+
+            // Apertura/Mínimo/Máximo del último cierre disponible en el
+            // histórico, si el panel ya tiene esa serie cargada o se
+            // puede cargar sin bloquear la apertura del modal.
+            try {
+                const cfg = REAL_DATA_CONFIG[key];
+                const seriesId = (seriesKeyMap[key] && seriesKeyMap[key][symbol]) || symbol;
+                if (cfg && cfg.ohlc) {
+                    const data = await ensureHistoryLoaded(cfg.file);
+                    if (data) {
+                        const seriesRoot = cfg.path(data) || {};
+                        const serie = seriesRoot[seriesId];
+                        const daily = serie && serie.daily;
+                        const ultimo = daily && daily.length ? daily[daily.length - 1] : null;
+                        if (ultimo) {
+                            rows.splice(1, 0, _detailRow('Apertura', fmtMoneda(ultimo.o)));
+                            rows.splice(2, 0, _detailRow('Mínimo', fmtMoneda(ultimo.l)));
+                            rows.splice(3, 0, _detailRow('Máximo', fmtMoneda(ultimo.h)));
+                            rows.splice(4, 0, _detailRow('Cierre (última rueda)', fmtMoneda(ultimo.c)));
+                            document.getElementById('bond-detail-datatable').innerHTML = rows.join('');
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn('[detalle bono] no se pudo cargar OHLC', e);
+            }
+        }
+
+        function closeBondDetail() {
+            const overlay = document.getElementById('bond-detail-overlay');
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex');
         }
 
         // Regresion cuadratica (minimos cuadrados) y = a*x^2 + b*x + c,
@@ -4700,5 +4821,48 @@ Stack: ${error ? error.stack : 'N/A'}`;
             }
         }
     </script>
+<!-- Modal de detalle de bono (estilo bonistas.com): cabecera Precio/TIR/VT/DM,
+     tabla de datos y sensibilidad TIR-precio. Se completa con los mismos
+     datos ya calculados por el backend (sin llamadas de red adicionales,
+     salvo la ultima barra OHLC del historico ya cacheado). -->
+<div id="bond-detail-overlay" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4" onclick="if (event.target === this) closeBondDetail()">
+    <div class="bg-darkCard light:bg-white border border-darkBorder light:border-gray-200 rounded-xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-darkBorder light:border-gray-200 sticky top-0 bg-darkCard light:bg-white">
+            <div>
+                <h3 id="bond-detail-ticker" class="text-lg font-bold text-white light:text-slate-800">-</h3>
+                <p id="bond-detail-desc" class="text-xs text-slate-400 light:text-slate-500">-</p>
+            </div>
+            <button onclick="closeBondDetail()" class="text-slate-400 hover:text-white light:hover:text-slate-800 text-xl leading-none px-2">&times;</button>
+        </div>
+        <div class="px-5 py-4">
+            <div class="grid grid-cols-4 gap-3 mb-5">
+                <div class="bg-black/20 light:bg-slate-50 rounded-lg p-3 text-center">
+                    <p class="text-[10px] uppercase text-slate-400 light:text-slate-500">Precio</p>
+                    <p id="bond-detail-precio" class="text-base font-bold font-mono text-white light:text-slate-800">-</p>
+                </div>
+                <div class="bg-black/20 light:bg-slate-50 rounded-lg p-3 text-center">
+                    <p class="text-[10px] uppercase text-slate-400 light:text-slate-500">TIR</p>
+                    <p id="bond-detail-tir" class="text-base font-bold font-mono text-brandBlue">-</p>
+                </div>
+                <div class="bg-black/20 light:bg-slate-50 rounded-lg p-3 text-center">
+                    <p class="text-[10px] uppercase text-slate-400 light:text-slate-500">Valor Técnico</p>
+                    <p id="bond-detail-vt" class="text-base font-bold font-mono text-white light:text-slate-800">-</p>
+                </div>
+                <div class="bg-black/20 light:bg-slate-50 rounded-lg p-3 text-center">
+                    <p class="text-[10px] uppercase text-slate-400 light:text-slate-500">Duration</p>
+                    <p id="bond-detail-dm" class="text-base font-bold font-mono text-white light:text-slate-800">-</p>
+                </div>
+            </div>
+            <table class="w-full text-xs mb-5">
+                <tbody id="bond-detail-datatable" class="divide-y divide-darkBorder light:divide-gray-100"></tbody>
+            </table>
+            <div>
+                <h4 class="text-xs font-semibold text-slate-300 light:text-slate-600 mb-2">Sensibilidad TIR-Precio (variación % del precio ante shocks de TIR)</h4>
+                <div id="bond-detail-sensibilidad" class="overflow-x-auto"></div>
+            </div>
+            <p id="bond-detail-nota" class="text-[10px] text-slate-500 mt-4"></p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
