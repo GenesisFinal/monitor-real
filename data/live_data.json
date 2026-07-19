@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-19T14:16:36.743821+00:00",
+  "updated_at": "2026-07-19T19:13:32.374185+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -13,21 +13,21 @@
       "nombre": "Blue",
       "compra": 1510,
       "venta": 1530,
-      "fecha": "2026-07-19T12:00:00.000Z"
+      "fecha": "2026-07-19T18:00:00.000Z"
     },
     {
       "casa": "bolsa",
       "nombre": "Bolsa",
       "compra": 1518.3,
       "venta": 1521.9,
-      "fecha": "2026-07-19T12:00:00.000Z"
+      "fecha": "2026-07-19T18:00:00.000Z"
     },
     {
       "casa": "contadoconliqui",
       "nombre": "Contado con liquidación",
       "compra": 1572.1,
       "venta": 1575.9,
-      "fecha": "2026-07-19T12:00:00.000Z"
+      "fecha": "2026-07-19T18:00:00.000Z"
     },
     {
       "casa": "mayorista",
@@ -39,9 +39,9 @@
     {
       "casa": "cripto",
       "nombre": "Cripto",
-      "compra": 1567.99,
-      "venta": 1569.87,
-      "fecha": "2026-07-19T12:00:00.000Z"
+      "compra": 1564.99,
+      "venta": 1568.88,
+      "fecha": "2026-07-19T18:00:00.000Z"
     },
     {
       "casa": "tarjeta",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64492,
-      "change_24h": 0.6399957394456898
+      "usd": 64403,
+      "change_24h": -0.11855078898610424
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1872.28,
-      "change_24h": 1.6884974287176266
+      "usd": 1858.79,
+      "change_24h": 0.10429921596484777
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999173,
-      "change_24h": -0.013114584008472758
+      "usd": 0.999219,
+      "change_24h": -0.006042662290862898
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 568.01,
-      "change_24h": -0.28587312827434735
+      "usd": 566.83,
+      "change_24h": -0.6642355279929663
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 76.19,
-      "change_24h": 1.9866565323107443
+      "usd": 75.75,
+      "change_24h": 0.7253113972508667
     }
   ],
   "tasas_locales": [
@@ -1456,6 +1456,116 @@
       "pct_change": 0.0
     }
   ],
+  "bonos_pesos_tamar": [
+    {
+      "symbol": "TML27",
+      "descripcion": "Bono del Tesoro en pesos TAMAR, vto. jul. 2027",
+      "vencimiento": "2027-07-30",
+      "precio": 103.1,
+      "pct_change": null,
+      "tir": 29.486,
+      "duration": 0.793,
+      "fuente": "bonistas.com"
+    },
+    {
+      "symbol": "TMG27",
+      "descripcion": "Bono del Tesoro en pesos TAMAR, vto. ago. 2027",
+      "vencimiento": "2027-08-31",
+      "precio": 110.5,
+      "pct_change": null,
+      "tir": 30.761,
+      "duration": 0.853,
+      "fuente": "bonistas.com"
+    },
+    {
+      "symbol": "TMF28",
+      "descripcion": "Bono del Tesoro en pesos TAMAR, vto. feb. 2028",
+      "vencimiento": "2028-02-25",
+      "precio": 107.45,
+      "pct_change": null,
+      "tir": 33.101,
+      "duration": 1.204,
+      "fuente": "bonistas.com"
+    },
+    {
+      "symbol": "TMG28",
+      "descripcion": "Bono del Tesoro en pesos TAMAR, vto. ago. 2028",
+      "vencimiento": "2028-08-31",
+      "precio": 104.1,
+      "pct_change": null,
+      "tir": 34.806,
+      "duration": 1.57,
+      "fuente": "bonistas.com"
+    }
+  ],
+  "bonos_pesos_duales": [
+    {
+      "symbol": "D31M7",
+      "descripcion": "Bono del Tesoro Dolar Linked, vto. mar. 2027",
+      "vencimiento": "2027-03-31",
+      "tipo": "Dolar Linked",
+      "precio": 145540.0,
+      "pct_change": null,
+      "tir": 1.918,
+      "duration": 0.683,
+      "fuente": "bonistas.com"
+    },
+    {
+      "symbol": "TXMJ8",
+      "descripcion": "Bono del Tesoro Dual CER/TAMAR, vto. jun. 2028",
+      "vencimiento": "2028-06-30",
+      "tipo": "Dual CER/TAMAR",
+      "precio": 96.65,
+      "pct_change": null,
+      "tir": 33.683,
+      "duration": 1.456,
+      "fuente": "bonistas.com"
+    },
+    {
+      "symbol": "TXMD8",
+      "descripcion": "Bono del Tesoro Dual, vto. dic. 2028",
+      "vencimiento": "2028-12-15",
+      "tipo": "Dual",
+      "precio": 92.05,
+      "pct_change": null,
+      "tir": 34.283,
+      "duration": 1.791,
+      "fuente": "bonistas.com"
+    },
+    {
+      "symbol": "TZV28",
+      "descripcion": "Bono del Tesoro Dolar Linked, vto. jun. 2028",
+      "vencimiento": "2028-06-30",
+      "tipo": "Dolar Linked",
+      "precio": 126840.0,
+      "pct_change": null,
+      "tir": 8.052,
+      "duration": 1.802,
+      "fuente": "bonistas.com"
+    },
+    {
+      "symbol": "TXMJ9",
+      "descripcion": "Bono del Tesoro Dual, vto. jun. 2029",
+      "vencimiento": "2029-06-29",
+      "tipo": "Dual",
+      "precio": 91.1,
+      "pct_change": null,
+      "tir": 30.829,
+      "duration": 2.249,
+      "fuente": "bonistas.com"
+    },
+    {
+      "symbol": "TXMJ0",
+      "descripcion": "Bono del Tesoro Dual, vto. jun. 2030",
+      "vencimiento": "2030-06-28",
+      "tipo": "Dual",
+      "precio": 82.3,
+      "pct_change": null,
+      "tir": 35.767,
+      "duration": 2.902,
+      "fuente": "bonistas.com"
+    }
+  ],
   "ons_usd": [
     {
       "symbol": "RC2CD",
@@ -1702,26 +1812,26 @@
     {
       "symbol": "YPFD.BA",
       "nombre": "YPF S.A.",
-      "price": 77900.0,
-      "pct_change": 2.3989484061781137
+      "price": 78300.0,
+      "pct_change": 2.924745317121262
     },
     {
       "symbol": "GGAL.BA",
       "nombre": "Grupo Financiero Galicia",
-      "price": 7860.0,
-      "pct_change": -0.06357279084551812
+      "price": 7870.0,
+      "pct_change": 0.06357279084551812
     },
     {
       "symbol": "PAMP.BA",
       "nombre": "Pampa Energía",
-      "price": 5170.0,
-      "pct_change": 1.1741682974559686
+      "price": 5165.0,
+      "pct_change": 1.076320939334638
     },
     {
       "symbol": "BMA.BA",
       "nombre": "Banco Macro",
-      "price": 14190.0,
-      "pct_change": -0.07042253521126761
+      "price": 14200.0,
+      "pct_change": 0.0
     }
   ],
   "indices": [
@@ -1810,10 +1920,10 @@
       "symbol": "000001.SS",
       "nombre": "Shanghai Composite",
       "region": "Asia",
-      "close": 3764.1548,
+      "close": 3764.155,
       "currency": "CNY",
-      "percent_change": -3.0459995708814165,
-      "percent_change_1y": 7.032759726801576
+      "percent_change": -3.0459944194460595,
+      "percent_change_1y": 7.03276541374941
     },
     {
       "symbol": "^BVSP",
@@ -2164,7 +2274,7 @@
     }
   ],
   "acciones_mundiales": {
-    "updated_at": "2026-07-19T14:17:03.745504+00:00",
+    "updated_at": "2026-07-19T19:14:44.401533+00:00",
     "secciones": {
       "top_market_cap": [
         {
@@ -2173,7 +2283,7 @@
           "precio": 202.81,
           "pct_change": -2.213,
           "market_cap": 4912260841472,
-          "volumen": 138213660,
+          "volumen": 144281910,
           "wk52_high": 236.54,
           "wk52_low": 164.07
         },
@@ -2183,7 +2293,7 @@
           "precio": 333.74,
           "pct_change": 0.144,
           "market_cap": 4901757779968,
-          "volumen": 63325386,
+          "volumen": 63407059,
           "wk52_high": 334.99,
           "wk52_low": 201.5
         },
@@ -2191,9 +2301,9 @@
           "symbol": "GOOGL",
           "nombre": "Alphabet Inc.",
           "precio": 346.77,
-          "pct_change": -2.17,
+          "pct_change": -2.169,
           "market_cap": 4231485980672,
-          "volumen": 29853865,
+          "volumen": 29959283,
           "wk52_high": 408.61,
           "wk52_low": 186.15
         },
@@ -2203,7 +2313,7 @@
           "precio": 346.12,
           "pct_change": -2.173,
           "market_cap": 4223554551808,
-          "volumen": 21685314,
+          "volumen": 22023945,
           "wk52_high": 404.47,
           "wk52_low": 187.05
         },
@@ -2213,7 +2323,7 @@
           "precio": 393.82,
           "pct_change": -1.815,
           "market_cap": 2925466222592,
-          "volumen": 32987687,
+          "volumen": 33049842,
           "wk52_high": 555.45,
           "wk52_low": 349.2
         },
@@ -2223,7 +2333,7 @@
           "precio": 247.23,
           "pct_change": -1.064,
           "market_cap": 2659480240128,
-          "volumen": 40074717,
+          "volumen": 43572361,
           "wk52_high": 278.56,
           "wk52_low": 196.0
         },
@@ -2243,7 +2353,7 @@
           "precio": 370.825,
           "pct_change": -0.968,
           "market_cap": 1764229775360,
-          "volumen": 22814332,
+          "volumen": 23272208,
           "wk52_high": 495.0,
           "wk52_low": 273.0
         },
@@ -2253,7 +2363,7 @@
           "precio": 646.01,
           "pct_change": -2.788,
           "market_cap": 1639846903808,
-          "volumen": 20966389,
+          "volumen": 22267862,
           "wk52_high": 796.25,
           "wk52_low": 520.26
         },
@@ -2263,7 +2373,7 @@
           "precio": 123.99,
           "pct_change": -5.431,
           "market_cap": 1633467367424,
-          "volumen": 83231703,
+          "volumen": 83706220,
           "wk52_high": 225.64,
           "wk52_low": 122.12
         },
@@ -2273,7 +2383,7 @@
           "precio": 380.84,
           "pct_change": -2.613,
           "market_cap": 1430329884672,
-          "volumen": 29958144,
+          "volumen": 31394594,
           "wk52_high": 498.83,
           "wk52_low": 297.82
         },
@@ -2283,7 +2393,7 @@
           "precio": 154.03,
           "pct_change": 1.129,
           "market_cap": 1093389451264,
-          "volumen": 71991315,
+          "volumen": 73978314,
           "wk52_high": 194.8,
           "wk52_low": 145.57
         },
@@ -2321,7 +2431,7 @@
       "top_suba_diaria": [
         {
           "symbol": "MMNNF",
-          "nombre": "Munters Group AP",
+          "nombre": "MUNTERS GROUP AB",
           "precio": 20.4025,
           "pct_change": 34.227,
           "market_cap": 3724301824,
@@ -2405,13 +2515,13 @@
           "precio": 17.47,
           "pct_change": 16.778,
           "market_cap": 1295253760,
-          "volumen": 1680542,
+          "volumen": 1684195,
           "wk52_high": 18.69,
           "wk52_low": 6.92
         },
         {
           "symbol": "TMRAF",
-          "nombre": "Tomra Systems A/S/A",
+          "nombre": "TOMRA SYSTEMS ASA",
           "precio": 11.49,
           "pct_change": 16.768,
           "market_cap": 3397597440,
@@ -2465,7 +2575,7 @@
           "precio": 13.55,
           "pct_change": 14.057,
           "market_cap": 1223915520,
-          "volumen": 1100569,
+          "volumen": 1103041,
           "wk52_high": 14.11,
           "wk52_low": 2.87
         }
@@ -2577,7 +2687,7 @@
           "precio": 345.42,
           "pct_change": -14.145,
           "market_cap": 122334937088,
-          "volumen": 11547187,
+          "volumen": 11563751,
           "wk52_high": 603.88,
           "wk52_low": 344.55
         },
@@ -2593,7 +2703,7 @@
         },
         {
           "symbol": "SMTOF",
-          "nombre": "SUMITOMO ELECTRIC INDUSTRIES",
+          "nombre": "Sumitomo Electric Industries Lt",
           "precio": 13.706,
           "pct_change": -12.867,
           "market_cap": 42758328320,
@@ -2629,7 +2739,7 @@
           "precio": 6.525,
           "pct_change": -1.88,
           "market_cap": 3718196992,
-          "volumen": 213636481,
+          "volumen": 214489252,
           "wk52_high": 15.28,
           "wk52_low": 1.78
         },
@@ -2639,9 +2749,19 @@
           "precio": 14.98,
           "pct_change": -3.974,
           "market_cap": 9907549184,
-          "volumen": 176722073,
+          "volumen": 176807466,
           "wk52_high": 18.79,
           "wk52_low": 10.09
+        },
+        {
+          "symbol": "NVDA",
+          "nombre": "NVIDIA Corporation",
+          "precio": 202.81,
+          "pct_change": -2.213,
+          "market_cap": 4912260841472,
+          "volumen": 144281910,
+          "wk52_high": 236.54,
+          "wk52_low": 164.07
         },
         {
           "symbol": "NFLX",
@@ -2654,24 +2774,24 @@
           "wk52_low": 65.08
         },
         {
-          "symbol": "NVDA",
-          "nombre": "NVIDIA Corporation",
-          "precio": 202.81,
-          "pct_change": -2.213,
-          "market_cap": 4912260841472,
-          "volumen": 138213660,
-          "wk52_high": 236.54,
-          "wk52_low": 164.07
-        },
-        {
           "symbol": "INTC",
           "nombre": "Intel Corporation",
           "precio": 95.04,
           "pct_change": -2.0,
           "market_cap": 477671030784,
-          "volumen": 120108222,
+          "volumen": 126779308,
           "wk52_high": 142.35,
           "wk52_low": 18.97
+        },
+        {
+          "symbol": "NOK",
+          "nombre": "Nokia Corporation Sponsored",
+          "precio": 10.12,
+          "pct_change": -2.505,
+          "market_cap": 56495243264,
+          "volumen": 115510979,
+          "wk52_high": 17.45,
+          "wk52_low": 4.0
         },
         {
           "symbol": "NU",
@@ -2689,19 +2809,9 @@
           "precio": 4.5,
           "pct_change": -1.532,
           "market_cap": 4341315072,
-          "volumen": 106419159,
+          "volumen": 106529320,
           "wk52_high": 10.87,
           "wk52_low": 1.7
-        },
-        {
-          "symbol": "NOK",
-          "nombre": "Nokia Corporation Sponsored",
-          "precio": 10.12,
-          "pct_change": -2.505,
-          "market_cap": 56495243264,
-          "volumen": 115510979,
-          "wk52_high": 17.45,
-          "wk52_low": 4.0
         },
         {
           "symbol": "PATH",
@@ -2729,7 +2839,7 @@
           "precio": 17.28,
           "pct_change": -0.231,
           "market_cap": 22165770240,
-          "volumen": 89520407,
+          "volumen": 89973828,
           "wk52_high": 32.73,
           "wk52_low": 14.92
         },
@@ -2739,19 +2849,9 @@
           "precio": 123.99,
           "pct_change": -5.431,
           "market_cap": 1633467367424,
-          "volumen": 83231703,
+          "volumen": 83706220,
           "wk52_high": 225.64,
           "wk52_low": 122.12
-        },
-        {
-          "symbol": "SKHY",
-          "nombre": "SK hynix Inc.",
-          "precio": 154.03,
-          "pct_change": 1.129,
-          "market_cap": 1093389451264,
-          "volumen": 71991315,
-          "wk52_high": 194.8,
-          "wk52_low": 145.57
         },
         {
           "symbol": "T",
@@ -2762,6 +2862,16 @@
           "volumen": 70400888,
           "wk52_high": 29.79,
           "wk52_low": 19.89
+        },
+        {
+          "symbol": "SKHY",
+          "nombre": "SK hynix Inc.",
+          "precio": 154.03,
+          "pct_change": 1.129,
+          "market_cap": 1093389451264,
+          "volumen": 73978314,
+          "wk52_high": 194.8,
+          "wk52_low": 145.57
         },
         {
           "symbol": "HL",
@@ -2850,7 +2960,7 @@
           "nombre": "ING Groep N.V.",
           "precio": 33.89,
           "pct_change": 0.0,
-          "market_cap": 96879452160,
+          "market_cap": 96911646720,
           "volumen": 500,
           "wk52_high": 33.89,
           "wk52_low": 21.95
@@ -2939,7 +3049,7 @@
           "precio": 1354.82,
           "pct_change": -3.987,
           "market_cap": 200634957824,
-          "volumen": 19626369,
+          "volumen": 19810859,
           "wk52_high": 2354.39,
           "wk52_low": 40.1,
           "volatilidad_semanal": 7.357
@@ -3324,50 +3434,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14382",
-      "percent_change": "-0.0043711261",
+      "close": "1.14323",
+      "percent_change": "-0.055950414",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34533",
-      "percent_change": "0.019329849",
+      "close": "1.34497",
+      "percent_change": "-0.0074345573",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.39221",
-      "percent_change": "-0.020606347",
+      "close": "162.42228",
+      "percent_change": "-0.0020932651",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.1109",
-      "percent_change": "-0.10671649",
+      "close": "5.11866",
+      "percent_change": "0.044953834",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.53952",
-      "percent_change": "-0.049406805",
+      "close": "17.52717",
+      "percent_change": "-0.11978443",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.23415",
-      "percent_change": "0.12569792",
+      "close": "40.21428",
+      "percent_change": "0.076249937",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1478.37891",
-      "percent_change": "0.058572054",
+      "close": "1476.48986",
+      "percent_change": "-0.069281262",
       "currency": null
     }
   ]
