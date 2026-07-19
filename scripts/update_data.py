@@ -722,25 +722,64 @@ SOBERANOS_FLUJOS = {
 # ------------------------------------------------------------------
 
 CER_FLUJOS = {
-    # PENDIENTE (tarea 3.2, no completado aun): TZXS7, TZXM8, TZXS8, TZXM9,
-    # TZXO7, TZXD8 y CUAP.
-    #  - TZXS7 (vto. 2027-09-30): NO cargar como bullet. Evidencia
-    #    cuantitativa (corrida 19/07/2026, bonistas.com/bono-cotizacion-rendimiento-precio-hoy/TZXS7):
-    #    Precio=103.55, VT=110.76, TIR=5.78%, MD=1.13. Si fuese bullet
-    #    puro la duration de Macaulay deberia igualar el tiempo al
-    #    vencimiento (~1.20 anios), pero MD publicada es menor (1.13),
-    #    lo que solo se explica por un cupon/interes intermedio antes
-    #    del vencimiento (consistente con la ficha de Docta "Ajuste por
-    #    CER +2.16%", a diferencia de TZXA7/TZXY7 que son "+0.00%").
-    #    Falta: periodicidad y monto exacto del cupon (prospecto MAE/BCRA).
-    #  - TZXM8 (2028-03-31), TZXS8 (2028-09-29), TZXM9 (2029-03-28),
-    #    TZXO7 (2027-10-29), TZXD8 (2028-12-15): confirmados como bonos
-    #    cero cupon ajustados por CER (bullet) via busqueda web, pero
-    #    todavia falta su fecha de emision exacta (no una fecha de
-    #    licitacion/llamado, que no necesariamente coincide con la
-    #    liquidacion) para poder consultar el CER de esa fecha en la API
-    #    oficial datos.gob.ar/series/api/series/?ids=94.2_CD_D_0_0_10
-    #    (el mismo metodo usado con exito para TZXA7/TZXY7 arriba).
+    # TZXS7/TZXS8/TZXM8/TZXM9: Boncer cero cupon (bullet, sin interes
+    # periodico), confirmados via texto oficial de la resolucion conjunta
+    # de emision (Boletin Oficial, Secretaria de Finanzas y Secretaria de
+    # Hacienda, Ministerio de Economia): en los 4 casos la clausula dice
+    # textualmente "Intereses: cero cupon - a descuento". cer_emision
+    # verificado con la misma API oficial datos.gob.ar (serie
+    # 94.2_CD_D_0_0_10, fuente BCRA) usada para TZXA7/TZXY7 arriba, tomando
+    # el CER de la "Fecha de emision" exacta que fija cada resolucion (NO
+    # la fecha de licitacion/llamado, que es distinta):
+    #  - TZXS7 (vto. 30/09/2027): emitido por el Art.2 de la Resolucion
+    #    Conjunta 16/2026 (27/03/2026, Boletin Oficial 31/03/2026).
+    #    Fecha de emision: 31/03/2026. CER=735.3076309157017.
+    #  - TZXS8 (vto. 29/09/2028): emitido por el Art.3 de la misma
+    #    Resolucion Conjunta 16/2026. Fecha de emision: 31/03/2026 (igual
+    #    que TZXS7). CER=735.3076309157017.
+    #  - TZXM8 (vto. 31/03/2028): emitido por el Art.7 de la Resolucion
+    #    Conjunta 16/2026 ("BONCER MARZO 2028"). Fecha de emision:
+    #    01/04/2026. CER=735.9860267378622.
+    #  - TZXM9 (vto. 28/03/2029): emitido por el Art.8 de la misma
+    #    Resolucion Conjunta 16/2026 ("BONCER MARZO 2029"). Fecha de
+    #    emision: 01/04/2026 (igual que TZXM8). CER=735.9860267378622.
+    # Nota tecnica: la clausula "Ajuste de Capital" de estas resoluciones
+    # especifica que el CER aplicable en rigor es el vigente 10 dias
+    # habiles antes de cada fecha (emision y vencimiento del servicio),
+    # no el CER del dia exacto. Este script (igual que el resto de
+    # CER_FLUJOS ya cargado antes de esta sesion) usa el CER del dia
+    # exacto tanto para cer_emision como para cer_hoy en tiempo de
+    # ejecucion (_bcra_cer_hoy), sin aplicar ese rezago de 10 dias
+    # habiles en ninguno de los dos lados: es una simplificacion
+    # consistente con el resto del diccionario, con un sesgo marginal
+    # (unos pocos dias de inflacion) y no un error de fuente.
+    "TZXS7": {"vencimiento": "2027-09-30", "cer_emision": 735.3076309157017, "flujos": [
+        ("2027-09-30", 1.0, 0.0, 0.5),
+    ]},
+    "TZXS8": {"vencimiento": "2028-09-29", "cer_emision": 735.3076309157017, "flujos": [
+        ("2028-09-29", 1.0, 0.0, 0.5),
+    ]},
+    "TZXM8": {"vencimiento": "2028-03-31", "cer_emision": 735.9860267378622, "flujos": [
+        ("2028-03-31", 1.0, 0.0, 0.5),
+    ]},
+    "TZXM9": {"vencimiento": "2029-03-28", "cer_emision": 735.9860267378622, "flujos": [
+        ("2029-03-28", 1.0, 0.0, 0.5),
+    ]},
+    # PENDIENTE (tarea 3.2, no completado aun): TZXO7, TZXD8 y CUAP.
+    #  - TZXO7 (vto. 29/10/2027) y TZXD8 (vto. 15/12/2028): CONFIRMADOS
+    #    como cero cupon - a descuento (Resolucion Conjunta 36/2026,
+    #    26/06/2026, Boletin Oficial 01/07/2026, Art.2 y Art.3
+    #    respectivamente), ambos con Fecha de emision: 30/06/2026. Falta
+    #    unicamente el CER de esa fecha exacta: el mirror oficial
+    #    datos.gob.ar/series/api (serie 94.2_CD_D_0_0_10) tiene un
+    #    vacio de publicacion entre 2026-06-17 y 2026-06-30 (verificado
+    #    con requests con esas fechas exactas, count=0), asi que no se
+    #    pudo completar sin arriesgar un dato no verificado. Reintentar
+    #    en una proxima corrida cuando el mirror actualice esa ventana,
+    #    o conseguir el valor directamente del archivo oficial BCRA
+    #    (bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/diar_cer.xls,
+    #    formato Excel, no parseable con las herramientas de texto de
+    #    este entorno).
     #  - CUAP (vto. 2045-12-31): CONFIRMADO que no es bullet puro.
     #    Fuente: portfoliopersonal.com/files/bonos/CUAP.pdf y
     #    bonistas.com/bono-cotizacion-rendimiento-precio-hoy/CUAP
@@ -754,7 +793,7 @@ CER_FLUJOS = {
     #    (ver patron DICP_VNR_HOY/CER_VNR_CONOCIDO mas abajo). No forzar
     #    un VNR sin verificar: distorsionaria la TIR/duration de un bono
     #    con paridad ~62% y MD~10.
-        "TZXO6": {"vencimiento": "2026-10-30", "cer_emision": 480.1526, "flujos": [
+    "TZXO6": {"vencimiento": "2026-10-30", "cer_emision": 480.1526, "flujos": [
         ("2026-10-30", 1.0, 0.0, 0.5),
     ]},
     "TX26": {"vencimiento": "2026-11-09", "cer_emision": 22.544, "flujos": [
@@ -1114,6 +1153,10 @@ BOND_DESCRIPTIONS = {
     "PARP": "Par en pesos ajustado por CER (reestructuracion 2005)",
     "TZXA7": "Bono del Tesoro en pesos ajustado por CER, vto. abr. 2027",
     "TZXY7": "Bono del Tesoro en pesos ajustado por CER, vto. may. 2027",
+    "TZXS7": "Bono del Tesoro en pesos ajustado por CER, vto. sep. 2027",
+    "TZXS8": "Bono del Tesoro en pesos ajustado por CER, vto. sep. 2028",
+    "TZXM8": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2028",
+    "TZXM9": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2029",
     # TAMAR (tarea 3.3)
     "TMF27": "Bono del Tesoro en pesos TAMAR, vto. feb. 2027",
     "TML27": "Bono del Tesoro en pesos TAMAR, vto. jul. 2027",
