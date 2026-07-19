@@ -749,45 +749,55 @@ CER_FLUJOS = {
     "TZXY7": {"vencimiento": "2027-05-31", "cer_emision": 704.667, "flujos": [
         ("2027-05-31", 1.0, 0.0, 0.5),
     ]},
-    # PENDIENTE (tarea 3.2, no completado en esta corrida): TZXS7,
-    # TZXM8, TZXS8, TZXM9, TZXO7, TZXD8 y CUAP.
-    #  - TZXS7 (vto. 2027-09-30): la ficha de Docta la muestra como
-    #    "Ajuste por CER +2.16%" (a diferencia de TZXA7/TZXY7 que son
-    #    "+0.00%"), lo que sugiere que SI paga un spread/cupon real
-    #    sobre CER y por lo tanto NO es puramente bullet zero-cupon;
-    #    no se pudo confirmar la periodicidad/monto exacto del cupon
-    #    con las fuentes disponibles en este entorno (sandbox sin
-    #    acceso irrestricto a internet, requests bloqueados por
-    #    allowlist salvo via la herramienta de fetch puntual). No
-    #    cargar como bullet simple sin verificar esto primero.
+    # PENDIENTE (tarea 3.2, no completado aun): TZXS7, TZXM8, TZXS8,
+    # TZXM9, TZXO7, TZXD8 y CUAP. Corrida del 19/07/2026 (con acceso a
+    # WebSearch + fetch puntual) confirmo lo siguiente, pero sigue sin
+    # ser suficiente para cargar flujos verificados:
+    #  - TZXS7 (vto. 2027-09-30): CONFIRMADO cuantitativamente que NO es
+    #    bullet zero-cupon. Fuente: bonistas.com/bono-cotizacion-rendimiento-precio-hoy/TZXS7
+    #    (consultado 19/07/2026): Precio=103.55, VT=110.76, TIR=5.78%,
+    #    MD=1.13. Si fuese bullet puro, la duration de Macaulay deberia
+    #    ser igual al tiempo al vencimiento (~1.20 anios desde
+    #    19/07/2026), pero MD publicada es 1.13 (menor), lo que solo se
+    #    explica por un cupon/interes intermedio antes del vencimiento
+    #    (consistente con la ficha de Docta "Ajuste por CER +2.16%").
+    #    No cargar como bullet simple: distorsionaria la TIR/duration.
+    #    Falta: periodicidad y monto exacto del cupon (prospecto MAE/BCRA
+    #    o ficha Docta con flujo detallado).
     #  - TZXM8 (2028-03-31), TZXS8 (2028-09-29), TZXM9 (2029-03-28),
     #    TZXO7 (2027-10-29), TZXD8 (2028-12-15): confirmados como bonos
-    #    cero cupon ajustados por CER (bullet) via busqueda web, pero no
-    #    se pudo obtener su Valor Tecnico / precio actual (las paginas
-    #    ficha de Docta para estos tickers no resolvieron con datos
-    #    parseables en los intentos realizados) para derivar
-    #    "cer_emision" con el mismo metodo usado arriba. Proximo paso:
-    #    reintentar fetch de https://app.docta.com.ar/dashboard/market/CER/ticker/<TICKER>
-    #    (requiere que la URL exacta haya aparecido antes en un
-    #    resultado de busqueda web para poder hacer fetch, por una
-    #    restriccion de "provenance" de la herramienta de este entorno)
-    #    o buscar el CER de emision oficial en el prospecto/condiciones
-    #    de emision (MAE/BCRA).
-    #  - CUAP (vto. 2045-12-31): CONFIRMADO que no es bullet puro. Segun
-    #    portfoliopersonal.com/files/bonos/CUAP.pdf y bonistas.com: paga
-    #    interes real de 3.31% TNA (base 30/360) semestral el 30/6 y
-    #    31/12 desde el 30/06/2014 (antes de esa fecha el interes se
-    #    capitalizaba), y amortiza en 20 cuotas semestrales iguales
-    #    (30/6 y 31/12) desde el 30/06/2036 hasta el 31/12/2045. El
-    #    informe de Banco Provincia del 17/07/2026 confirma cupon
-    #    3.310% y muestra Precio=46.090,00 / TIR=8.23% / Duration=10.00
-    #    para CUAP (base 100.000 VN). Falta determinar con una fuente
-    #    verificable el VNR (capital ajustado) vigente hoy, que por la
-    #    capitalizacion de intereses 2003-2013 es mayor a 1.0 sobre el
-    #    nominal original (ver patron DICP_VNR_HOY/CER_VNR_CONOCIDO mas
-    #    abajo para replicar el mismo mecanismo una vez que se consiga
-    #    ese dato). No forzar un VNR sin verificar para no distorsionar
-    #    la TIR/duration de un bono con paridad ~62% y MD~10.
+    #    cero cupon ajustados por CER (bullet) via busqueda web (Portfolio
+    #    Personal / Max Capital / Cohen), pero bonistas.com no devolvio
+    #    ficha individual parseable para estos 5 tickers en los intentos
+    #    de esta corrida (la pagina existe segun el patron de URL, pero
+    #    no aparecio en resultados de busqueda, y fetch puntual requiere
+    #    que la URL exacta haya aparecido antes en un resultado de
+    #    busqueda o mensaje, por restriccion de "provenance" de la
+    #    herramienta). Sin el Valor Tecnico (VT) no se puede derivar
+    #    "cer_emision" con el mismo metodo usado en TZXA7/TZXY7. Proximo
+    #    paso: reintentar WebSearch con la URL exacta entre comillas
+    #    (ej. "bonistas.com/bono-cotizacion-rendimiento-precio-hoy/TZXM8")
+    #    hasta que aparezca en resultados, o probar
+    #    app.docta.com.ar/dashboard/market/CER/ticker/<TICKER> (paginas
+    #    de listado como /dashboard/bonos/general/soberanos/cer son
+    #    client-side rendered y no exponen la tabla en el HTML crudo).
+    #  - CUAP (vto. 2045-12-31): CONFIRMADO que no es bullet puro, y
+    #    esta corrida (19/07/2026) obtuvo un dato adicional directo de
+    #    bonistas.com/bono-cotizacion-rendimiento-precio-hoy/CUAP:
+    #    Precio=46980.00, VT=75940.33, Paridad=61.86%, TIR=7.90%,
+    #    MD=10.13, Fecha Emision=31/12/2003 (coincide con lo ya sabido
+    #    via portfoliopersonal.com/files/bonos/CUAP.pdf: interes real
+    #    3.31% TNA semestral desde 30/06/2014, capitalizado antes de esa
+    #    fecha, amortizacion en 20 cuotas semestrales 30/06/2036 a
+    #    31/12/2045). El VT confirma la paridad (61.86%) pero NO resuelve
+    #    el dato que falta: el VNR (capital ajustado, fraccion del
+    #    nominal original) vigente hoy, necesario porque la
+    #    capitalizacion 2003-2014 lo dejo por encima de 1.0. Sin ese VNR
+    #    verificado no se puede armar el flujo real (ver patron
+    #    DICP_VNR_HOY/CER_VNR_CONOCIDO mas abajo para replicar el mismo
+    #    mecanismo una vez que se consiga ese dato). No forzar un VNR sin
+    #    verificar para no distorsionar la TIR/duration de un bono con
+    #    paridad ~62% y MD~10.
     "TZXO6": {"vencimiento": "2026-10-30", "cer_emision": 480.1526, "flujos": [
         ("2026-10-30", 1.0, 0.0, 0.5),
     ]},
@@ -896,42 +906,58 @@ CER_VNR_CONOCIDO = {
 # error de flujos.
 # ------------------------------------------------------------------
 # PENDIENTE (tareas 3.3 "TAMAR" y 3.4 "Duales y Dolar Linked"): NO
-# implementado en esta corrida. Motivo: no se encontro, dentro de las
-# restricciones de red de este entorno (fetch puntual con restriccion
-# de "provenance" por URL, sin acceso irrestricto a internet), una
-# fuente que devolviera datos numericos parseables (precio, fair_value,
-# TIR, modified_duration) para bonistas.com/api/bond/{TICKER} de los
-# 5 TAMAR (TMF27, TML27, TMG27, TMF28, TMG28) ni de los 8 Duales/Dolar
-# Linked (TXMJ8, TXMD8, TXMJ9, TXMJ0, TTD26, D31M7, TZV27, TZV28): el
-# endpoint API de bonistas.com respondio vacio en los intentos de
-# fetch realizados (probablemente requiere JS/headers no soportados
-# por la herramienta de fetch disponible), y las paginas HTML de
-# docta.com.ar/app.doctacapital.com.ar que SI devolvieron datos reales
-# (usadas para TZXA7/TZXY7 en CER_FLUJOS mas arriba) son solo
-# accesibles bono por bono via busqueda web previa (no hay pagina de
-# listado publica sin login), lo que para 13 tickers adicionales
-# excedia el presupuesto de esta corrida.
+# implementado todavia. Corrida del 19/07/2026 (con WebSearch + fetch
+# puntual) confirmo que bonistas.com SI tiene ficha individual para
+# estos tickers, en la misma URL que ya se usa para CER:
+# https://bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{TICKER}
+# (paginas server-side renderizadas, no requieren JS; el bloqueo previo
+# era que la URL exacta debia aparecer primero en un resultado de
+# busqueda para poder hacer fetch puntual, no un problema del sitio).
+# Ejemplos confirmados hoy (fecha de consulta 19/07/2026):
+#  - TMF27 (TAMAR, vto. 26/02/2027, emision 13/02/2026): Precio=114.50,
+#    VT=110.35, Paridad=103.76%, TIR=26.72%.
+#  - TXMJ8 (Dual CER/TAMAR, vto. 30/06/2028): Precio=95.60 (fuente
+#    max.capital, no bonistas.com; bonistas.com no aparecio en esta
+#    busqueda puntual para TXMJ8, seguir intentando con la URL exacta
+#    entre comillas).
+# Restriccion nueva detectada esta corrida: bonistas.com NO es
+# alcanzable via curl/requests desde el shell de este sandbox (bloqueado
+# por el allowlist de red del entorno de ejecucion de Claude), asi que
+# no se pudo inspeccionar el HTML crudo para escribir un parser regex
+# confiable. Esto NO deberia ser un problema para GitHub Actions (que
+# corre este script con acceso a internet sin ese allowlist), pero
+# significa que el parser tiene que escribirse "a ciegas" a partir del
+# texto renderizado (sin ver las etiquetas HTML reales) o bien
+# verificarse en una corrida de prueba en GitHub Actions antes de
+# confiar en el.
+#
+# Camino mas simple sugerido por la tarea original (evitar reimplementar
+# el ajuste TAMAR/dual): en vez de modelar el coeficiente TAMAR
+# acumulado (que requeriria una serie historica de tasa TAMAR que este
+# script no tiene), tomar directamente TIR y Duration (MD) que ya
+# publica bonistas.com para cada ticker, documentando la fuente en el
+# resultado (ver campo sugerido "fuente": "bonistas.com" en el dict de
+# salida). Esto evita fabricar un modelo de flujos no verificado, al
+# costo de depender de un tercero para el calculo (aceptable como primer
+# paso segun el enunciado de la tarea).
 #
 # Para continuar en una proxima sesion:
-#  1. Para cada ticker, buscar "CER - <TICKER> Docta Capital cotizacion"
-#     o "<TICKER> bonistas.com" via WebSearch para que la URL entre en
-#     el "provenance set" de la herramienta de fetch, y despues hacer
-#     fetch de https://app.docta.com.ar/dashboard/market/CER/ticker/<TICKER>
-#     (para TAMAR/Duales puede ser otra categoria en la URL, ej.
-#     /market/TAMAR/ticker/... o /market/DUAL/ticker/...; probar
-#     variantes) para obtener Precio, TIR, Valor Tecnico, Paridad y
-#     fecha de emision.
+#  1. Escribir un fetch_html(url) auxiliar (urllib, ya usado en el resto
+#     del script) + un parser regex sobre
+#     https://bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{TICKER}
+#     para extraer Precio, TIR, VT, Paridad y MD. Verificar el regex
+#     contra al menos un ticker corriendo el script real (no solo el
+#     texto renderizado por una herramienta de fetch) antes de confiar
+#     en el para los 13 tickers.
 #  2. Documentar la fuente y fecha de consulta en un comentario, igual
 #     que se hizo para TZXA7/TZXY7 en CER_FLUJOS mas arriba.
 #  3. No existe todavia en este codigo un helper generico de
 #     "VR-adjustment" reusable para TAMAR (se busco cerca de
-#     get_bonos_cer() y no hay ninguno), asi que hay que crearlo nuevo,
-#     tomando get_bonos_cer() como plantilla de estructura (misma
-#     logica de VNR/flujos futuros/duration, pero reemplazando el
-#     ajuste por "cer_hoy/cer_emision" por el coeficiente TAMAR o TC
-#     acumulado segun corresponda a cada subseccion). Todos estos
-#     bonos son bullet (pago unico al vencimiento) segun el enunciado
-#     de la tarea, lo que simplifica el modelo de flujos.
+#     get_bonos_cer() y no hay ninguno). Si se opta por el camino
+#     simple (usar TIR/MD de bonistas.com tal cual), no hace falta
+#     crear ese helper: alcanza con un get_bonos_tamar()/
+#     get_bonos_duales() que arme la salida a partir del fetch_html
+#     de arriba, sin recalcular TIR/duration propios.
 #  4. Frontend: agregar las tablas nuevas en index.html (etiqueta
 #     "TAMAR" en Bonos en Pesos para 3.3, y una subseccion separada
 #     "Duales y Dolar Linked" para 3.4, sin mezclar con CER), y
