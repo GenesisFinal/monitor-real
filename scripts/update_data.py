@@ -765,34 +765,61 @@ CER_FLUJOS = {
     "TZXM9": {"vencimiento": "2029-03-28", "cer_emision": 735.9860267378622, "flujos": [
         ("2029-03-28", 1.0, 0.0, 0.5),
     ]},
-    # PENDIENTE (tarea 3.2, no completado aun): TZXO7, TZXD8 y CUAP.
-    #  - TZXO7 (vto. 29/10/2027) y TZXD8 (vto. 15/12/2028): CONFIRMADOS
-    #    como cero cupon - a descuento (Resolucion Conjunta 36/2026,
-    #    26/06/2026, Boletin Oficial 01/07/2026, Art.2 y Art.3
-    #    respectivamente), ambos con Fecha de emision: 30/06/2026. Falta
-    #    unicamente el CER de esa fecha exacta: el mirror oficial
-    #    datos.gob.ar/series/api (serie 94.2_CD_D_0_0_10) tiene un
-    #    vacio de publicacion entre 2026-06-17 y 2026-06-30 (verificado
-    #    con requests con esas fechas exactas, count=0), asi que no se
-    #    pudo completar sin arriesgar un dato no verificado. Reintentar
-    #    en una proxima corrida cuando el mirror actualice esa ventana,
-    #    o conseguir el valor directamente del archivo oficial BCRA
-    #    (bcra.gob.ar/archivos/Pdfs/PublicacionesEstadisticas/diar_cer.xls,
-    #    formato Excel, no parseable con las herramientas de texto de
-    #    este entorno).
-    #  - CUAP (vto. 2045-12-31): CONFIRMADO que no es bullet puro.
-    #    Fuente: portfoliopersonal.com/files/bonos/CUAP.pdf y
-    #    bonistas.com/bono-cotizacion-rendimiento-precio-hoy/CUAP
-    #    (Precio=46980.00, VT=75940.33, Paridad=61.86%, TIR=7.90%,
-    #    MD=10.13): paga interes real de 3.31% TNA (base 30/360)
-    #    semestral el 30/6 y 31/12 desde el 30/06/2014 (antes de esa
-    #    fecha el interes se capitalizaba), y amortiza en 20 cuotas
-    #    semestrales iguales (30/6 y 31/12) desde el 30/06/2036 hasta el
-    #    31/12/2045. Falta el VNR (capital ajustado) vigente hoy, mayor a
-    #    1.0 sobre el nominal original por la capitalizacion 2003-2014
-    #    (ver patron DICP_VNR_HOY/CER_VNR_CONOCIDO mas abajo). No forzar
-    #    un VNR sin verificar: distorsionaria la TIR/duration de un bono
-    #    con paridad ~62% y MD~10.
+    # TZXO7/TZXD8: Boncer cero cupon (bullet), confirmados via texto
+    # oficial (Resolucion Conjunta 36/2026, 26/06/2026, Boletin Oficial
+    # 01/07/2026, Art.2 y Art.3: "Intereses: cero cupon - a descuento"),
+    # Fecha de emision: 30/06/2026 para ambos. cer_emision = CER del
+    # 30/06/2026 = 799.20332676852, provisto directamente por el usuario
+    # (tabla oficial BCRA) y verificado contra la misma API oficial
+    # datos.gob.ar usada para el resto del diccionario (15/06/2026
+    # coincide exactamente: 790.9415888555 vs 790.94158885550).
+    "TZXO7": {"vencimiento": "2027-10-29", "cer_emision": 799.20332676852, "flujos": [
+        ("2027-10-29", 1.0, 0.0, 0.5),
+    ]},
+    "TZXD8": {"vencimiento": "2028-12-15", "cer_emision": 799.20332676852, "flujos": [
+        ("2028-12-15", 1.0, 0.0, 0.5),
+    ]},
+    # CUAP (Cuasipar en pesos, reestructuracion 2005, vto. 31/12/2045):
+    # NO es bullet. Confirmado por el usuario (actuario, en base a IAMC):
+    # el valor residual (VNR) esta al 100% del nominal (todavia no
+    # empezo a amortizar capital; la primera cuota es recien en 2036),
+    # por lo que NO hace falta una entrada en CER_VNR_CONOCIDO: al no
+    # haber flujos con amortizacion en el pasado, get_bonos_cer() ya
+    # calcula vnr_hoy=1.0 por default. Terminos (portfoliopersonal.com/
+    # files/bonos/CUAP.pdf, confirmados por informe IAMC del 17/07/2026
+    # -VT=75125.7-, consistente con un VNR=100% y CER actual/CER emision
+    # ~549x mas la renta corrida): interes real 3.31% TNA (base 30/360)
+    # semestral el 30/6 y 31/12 desde el 30/06/2014 (antes de esa fecha
+    # el interes se capitalizaba, sin efecto sobre el VNR remanente), y
+    # amortizacion en 20 cuotas semestrales iguales (1/20 c/u, 30/6 y
+    # 31/12) desde el 30/06/2036 hasta el 31/12/2045. cer_emision = CER
+    # del 31/12/2003 (fecha de emision), verificado con la API oficial
+    # datos.gob.ar (serie 94.2_CD_D_0_0_10) = 1.4568. Se listan solo los
+    # flujos futuros (proximo pago 2026-12-31 en adelante): igual
+    # criterio que DICP/PARP ("Flujos pasados omitidos"), valido porque
+    # no hay amortizacion pendiente de contar antes de hoy.
+    "CUAP": {"vencimiento": "2045-12-31", "cer_emision": 1.4568, "flujos": [
+        ("2026-12-31", 0.0, 0.0331, 0.5), ("2027-06-30", 0.0, 0.0331, 0.5),
+        ("2027-12-31", 0.0, 0.0331, 0.5), ("2028-06-30", 0.0, 0.0331, 0.5),
+        ("2028-12-31", 0.0, 0.0331, 0.5), ("2029-06-30", 0.0, 0.0331, 0.5),
+        ("2029-12-31", 0.0, 0.0331, 0.5), ("2030-06-30", 0.0, 0.0331, 0.5),
+        ("2030-12-31", 0.0, 0.0331, 0.5), ("2031-06-30", 0.0, 0.0331, 0.5),
+        ("2031-12-31", 0.0, 0.0331, 0.5), ("2032-06-30", 0.0, 0.0331, 0.5),
+        ("2032-12-31", 0.0, 0.0331, 0.5), ("2033-06-30", 0.0, 0.0331, 0.5),
+        ("2033-12-31", 0.0, 0.0331, 0.5), ("2034-06-30", 0.0, 0.0331, 0.5),
+        ("2034-12-31", 0.0, 0.0331, 0.5), ("2035-06-30", 0.0, 0.0331, 0.5),
+        ("2035-12-31", 0.0, 0.0331, 0.5), ("2036-06-30", 0.05, 0.0331, 0.5),
+        ("2036-12-31", 0.05, 0.0331, 0.5), ("2037-06-30", 0.05, 0.0331, 0.5),
+        ("2037-12-31", 0.05, 0.0331, 0.5), ("2038-06-30", 0.05, 0.0331, 0.5),
+        ("2038-12-31", 0.05, 0.0331, 0.5), ("2039-06-30", 0.05, 0.0331, 0.5),
+        ("2039-12-31", 0.05, 0.0331, 0.5), ("2040-06-30", 0.05, 0.0331, 0.5),
+        ("2040-12-31", 0.05, 0.0331, 0.5), ("2041-06-30", 0.05, 0.0331, 0.5),
+        ("2041-12-31", 0.05, 0.0331, 0.5), ("2042-06-30", 0.05, 0.0331, 0.5),
+        ("2042-12-31", 0.05, 0.0331, 0.5), ("2043-06-30", 0.05, 0.0331, 0.5),
+        ("2043-12-31", 0.05, 0.0331, 0.5), ("2044-06-30", 0.05, 0.0331, 0.5),
+        ("2044-12-31", 0.05, 0.0331, 0.5), ("2045-06-30", 0.05, 0.0331, 0.5),
+        ("2045-12-31", 0.05, 0.0331, 0.5),
+    ]},
     "TZXO6": {"vencimiento": "2026-10-30", "cer_emision": 480.1526, "flujos": [
         ("2026-10-30", 1.0, 0.0, 0.5),
     ]},
@@ -1157,6 +1184,9 @@ BOND_DESCRIPTIONS = {
     "TZXS8": "Bono del Tesoro en pesos ajustado por CER, vto. sep. 2028",
     "TZXM8": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2028",
     "TZXM9": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2029",
+    "TZXO7": "Bono del Tesoro en pesos ajustado por CER, vto. oct. 2027",
+    "TZXD8": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2028",
+    "CUAP": "Cuasipar en pesos ajustado por CER (reestructuracion 2005)",
     # TAMAR (tarea 3.3)
     "TMF27": "Bono del Tesoro en pesos TAMAR, vto. feb. 2027",
     "TML27": "Bono del Tesoro en pesos TAMAR, vto. jul. 2027",
