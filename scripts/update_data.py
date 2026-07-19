@@ -1432,7 +1432,15 @@ TWELVEDATA_SYMBOLS = {
     # minimos, volumen, volatilidad semanal, RSI) sobre todo el universo
     # NYSE/Nasdaq con capitalizacion >= USD 1.000M, via el screener de
     # Yahoo Finance.
-    "etfs": {"SPY": "SPY (S&P 500)", "QQQ": "QQQ (Nasdaq 100)", "EEM": "EEM (Emergentes)"},
+    "etfs": {
+        "SPY": "SPY (S&P 500)", "QQQ": "QQQ (Nasdaq 100)", "DIA": "DIA (Dow Jones)",
+        "EEM": "EEM (Emergentes)", "EWZ": "EWZ (Brasil)", "IWM": "IWM (Small Caps EEUU)",
+        "ARKK": "ARKK (Innovacion)", "XLE": "XLE (Energia)", "XLF": "XLF (Financiero)",
+        "XLV": "XLV (Salud)", "SMH": "SMH (Semiconductores)", "IBIT": "IBIT (Bitcoin)",
+        "GLD": "GLD (Oro)", "XLK": "XLK (Tecnologia)", "TLT": "TLT (Bonos largo plazo EEUU)",
+        "FXI": "FXI (China)", "SLV": "SLV (Plata)", "USO": "USO (Petroleo)",
+        "XLP": "XLP (Consumo basico)", "XLY": "XLY (Consumo discrecional)",
+    },
     "forex": {
         "EUR/USD": "Euro",
         "GBP/USD": "Libra",
@@ -3371,18 +3379,56 @@ def main():
 
     td = get_twelvedata()
     if td:
+        # Retornos 1M/YTD/12M de ETFs: se calculan sobre el historico diario
+        # ya acumulado en data/history/mercados_globales.json (misma fuente
+        # Twelve Data, generado por build_history_twelvedata), comparando el
+        # precio actual contra el cierre de ~21 dias habiles atras (1M), el
+        # primer dia habil del anio en curso (YTD) y ~252 dias habiles atras
+        # (12M). Mismo criterio de "close mas cercano disponible hacia atras"
+        # que usa get_indices_globales() para percent_change_1y.
+        etfs_hist = (load_json(os.path.join(HISTORY_DIR, "mercados_globales.json")) or {}) \
+            .get("categorias", {}).get("etfs", {})
+
+        def _retornos_etf(sym, close_actual):
+            serie = (etfs_hist.get(sym) or {}).get("daily") or []
+            closes = [(p.get("t"), p.get("c")) for p in serie if p.get("c") is not None]
+            closes.sort(key=lambda x: x[0])
+            if not closes or close_actual is None:
+                return None, None, None
+            anio_actual = date.today().year
+
+            def pct_desde(idx_atras=None, desde_anio=False):
+                if desde_anio:
+                    ref = next((c for t, c in closes if t[:4] == str(anio_actual)), None)
+                else:
+                    ref = closes[-idx_atras][1] if len(closes) >= idx_atras else None
+                if not ref:
+                    return None
+                return (close_actual - ref) / ref * 100
+
+            r_1m = pct_desde(idx_atras=21)
+            r_ytd = pct_desde(desde_anio=True)
+            r_12m = pct_desde(idx_atras=252)
+            return r_1m, r_ytd, r_12m
+
         for cat, symmap in TWELVEDATA_SYMBOLS.items():
             cat_out = []
             for sym, nombre in symmap.items():
                 q = td.get(sym)
                 if q and isinstance(q, dict) and q.get("close"):
-                    cat_out.append({
+                    item = {
                         "symbol": sym,
                         "nombre": nombre,
                         "close": q.get("close"),
                         "percent_change": q.get("percent_change"),
                         "currency": q.get("currency"),
-                    })
+                    }
+                    if cat == "etfs":
+                        r_1m, r_ytd, r_12m = _retornos_etf(sym, q.get("close"))
+                        item["percent_change_1m"] = round(r_1m, 3) if r_1m is not None else None
+                        item["percent_change_ytd"] = round(r_ytd, 3) if r_ytd is not None else None
+                        item["percent_change_12m"] = round(r_12m, 3) if r_12m is not None else None
+                    cat_out.append(item)
             if cat_out:
                 live_data[cat] = cat_out
 

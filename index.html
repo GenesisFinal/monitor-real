@@ -1871,14 +1871,25 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 <i class="fas fa-building text-brandBlue"></i> Acciones de Mercados Globales
             </h2>
             <p class="text-xs text-slate-400 light:text-slate-500 mb-6">Universo: NYSE / Nasdaq (EE.UU.), capitalización de mercado mínima USD 1.000 millones. Fuente: screener público de Yahoo Finance. Volatilidad semanal y RSI (14) calculados sobre las 200 empresas de mayor capitalización del universo filtrado. Marcá "Comp." en la tabla para graficar un ticker (línea, velas u OHLC, rango 1M-5A); con 2 o más marcados, el gráfico pasa a comparación base 100.</p>
-            <div class="space-y-8">
-                <div class="space-y-2" data-am-section="top_market_cap">
-                    <button type="button" onclick="toggleAccionesSeccion('top_market_cap')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+            <div id="am-pills" class="flex flex-wrap gap-1.5 mb-4">
+                <button type="button" id="am-pill-top_market_cap" onclick="switchStockSubTab('top_market_cap')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Cap. de Mercado (<span id="am-pill-count-top_market_cap">0</span>)</button>
+                <button type="button" id="am-pill-top_suba_diaria" onclick="switchStockSubTab('top_suba_diaria')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Suba Diaria (<span id="am-pill-count-top_suba_diaria">0</span>)</button>
+                <button type="button" id="am-pill-top_baja_diaria" onclick="switchStockSubTab('top_baja_diaria')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Baja Diaria (<span id="am-pill-count-top_baja_diaria">0</span>)</button>
+                <button type="button" id="am-pill-top_nuevo_maximo" onclick="switchStockSubTab('top_nuevo_maximo')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Nuevo Máximo (<span id="am-pill-count-top_nuevo_maximo">0</span>)</button>
+                <button type="button" id="am-pill-top_nuevo_minimo" onclick="switchStockSubTab('top_nuevo_minimo')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Nuevo Mínimo (<span id="am-pill-count-top_nuevo_minimo">0</span>)</button>
+                <button type="button" id="am-pill-top_volumen" onclick="switchStockSubTab('top_volumen')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Volumen (<span id="am-pill-count-top_volumen">0</span>)</button>
+                <button type="button" id="am-pill-top_volatilidad_alta" onclick="switchStockSubTab('top_volatilidad_alta')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Volatilidad Alta (<span id="am-pill-count-top_volatilidad_alta">0</span>)</button>
+                <button type="button" id="am-pill-top_volatilidad_baja" onclick="switchStockSubTab('top_volatilidad_baja')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Volatilidad Baja (<span id="am-pill-count-top_volatilidad_baja">0</span>)</button>
+                <button type="button" id="am-pill-top_sobrecomprada" onclick="switchStockSubTab('top_sobrecomprada')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Sobrecomprada (RSI) (<span id="am-pill-count-top_sobrecomprada">0</span>)</button>
+                <button type="button" id="am-pill-top_sobrevendida" onclick="switchStockSubTab('top_sobrevendida')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Top Sobrevendida (RSI) (<span id="am-pill-count-top_sobrevendida">0</span>)</button>
+                </div>
+                <div class="space-y-8">
+                <div class="space-y-2" data-am-section="top_market_cap" id="am-section-top_market_cap">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-building" style="color:#10b981"></i> 1. Top Capitalización de Mercado
                     </h3>
-                        <i id="am-chevron-top_market_cap" class="fas fa-chevron-up text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
+                    </div>
                     <div id="am-body-top_market_cap" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
@@ -1903,14 +1914,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     </div>
                     </div>
                 </div>
-                <div class="space-y-2" data-am-section="top_suba_diaria">
-                    <button type="button" onclick="toggleAccionesSeccion('top_suba_diaria')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+                <div class="space-y-2" data-am-section="top_suba_diaria" id="am-section-top_suba_diaria" style="display:none">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-arrow-trend-up" style="color:#22c55e"></i> 2. Top Suba Diaria de Precio
                     </h3>
-                        <i id="am-chevron-top_suba_diaria" class="fas fa-chevron-down text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
-                    <div id="am-body-top_suba_diaria" class="space-y-2 hidden">
+                    </div>
+                    <div id="am-body-top_suba_diaria" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
@@ -1934,14 +1944,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     </div>
                     </div>
                 </div>
-                <div class="space-y-2" data-am-section="top_baja_diaria">
-                    <button type="button" onclick="toggleAccionesSeccion('top_baja_diaria')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+                <div class="space-y-2" data-am-section="top_baja_diaria" id="am-section-top_baja_diaria" style="display:none">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-arrow-trend-down" style="color:#ef4444"></i> 3. Top Baja Diaria de Precio
                     </h3>
-                        <i id="am-chevron-top_baja_diaria" class="fas fa-chevron-down text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
-                    <div id="am-body-top_baja_diaria" class="space-y-2 hidden">
+                    </div>
+                    <div id="am-body-top_baja_diaria" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
@@ -1965,14 +1974,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     </div>
                     </div>
                 </div>
-                <div class="space-y-2" data-am-section="top_nuevo_maximo">
-                    <button type="button" onclick="toggleAccionesSeccion('top_nuevo_maximo')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+                <div class="space-y-2" data-am-section="top_nuevo_maximo" id="am-section-top_nuevo_maximo" style="display:none">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-mountain" style="color:#3b82f6"></i> 4. Top Nuevo Máximo de Precio (52 sem.)
                     </h3>
-                        <i id="am-chevron-top_nuevo_maximo" class="fas fa-chevron-down text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
-                    <div id="am-body-top_nuevo_maximo" class="space-y-2 hidden">
+                    </div>
+                    <div id="am-body-top_nuevo_maximo" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
@@ -1996,14 +2004,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     </div>
                     </div>
                 </div>
-                <div class="space-y-2" data-am-section="top_nuevo_minimo">
-                    <button type="button" onclick="toggleAccionesSeccion('top_nuevo_minimo')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+                <div class="space-y-2" data-am-section="top_nuevo_minimo" id="am-section-top_nuevo_minimo" style="display:none">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-water" style="color:#f97316"></i> 5. Top Nuevo Mínimo de Precio (52 sem.)
                     </h3>
-                        <i id="am-chevron-top_nuevo_minimo" class="fas fa-chevron-down text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
-                    <div id="am-body-top_nuevo_minimo" class="space-y-2 hidden">
+                    </div>
+                    <div id="am-body-top_nuevo_minimo" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
@@ -2027,14 +2034,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     </div>
                     </div>
                 </div>
-                <div class="space-y-2" data-am-section="top_volumen">
-                    <button type="button" onclick="toggleAccionesSeccion('top_volumen')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+                <div class="space-y-2" data-am-section="top_volumen" id="am-section-top_volumen" style="display:none">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-layer-group" style="color:#8b5cf6"></i> 6. Top Mayor Volumen de Transacciones
                     </h3>
-                        <i id="am-chevron-top_volumen" class="fas fa-chevron-down text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
-                    <div id="am-body-top_volumen" class="space-y-2 hidden">
+                    </div>
+                    <div id="am-body-top_volumen" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
@@ -2058,14 +2064,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     </div>
                     </div>
                 </div>
-                <div class="space-y-2" data-am-section="top_volatilidad_alta">
-                    <button type="button" onclick="toggleAccionesSeccion('top_volatilidad_alta')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+                <div class="space-y-2" data-am-section="top_volatilidad_alta" id="am-section-top_volatilidad_alta" style="display:none">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-bolt" style="color:#eab308"></i> 7. Top Más Volátil de la Semana
                     </h3>
-                        <i id="am-chevron-top_volatilidad_alta" class="fas fa-chevron-down text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
-                    <div id="am-body-top_volatilidad_alta" class="space-y-2 hidden">
+                    </div>
+                    <div id="am-body-top_volatilidad_alta" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
@@ -2089,14 +2094,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     </div>
                     </div>
                 </div>
-                <div class="space-y-2" data-am-section="top_volatilidad_baja">
-                    <button type="button" onclick="toggleAccionesSeccion('top_volatilidad_baja')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+                <div class="space-y-2" data-am-section="top_volatilidad_baja" id="am-section-top_volatilidad_baja" style="display:none">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-feather" style="color:#06b6d4"></i> 8. Top Menos Volátil de la Semana
                     </h3>
-                        <i id="am-chevron-top_volatilidad_baja" class="fas fa-chevron-down text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
-                    <div id="am-body-top_volatilidad_baja" class="space-y-2 hidden">
+                    </div>
+                    <div id="am-body-top_volatilidad_baja" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
@@ -2120,14 +2124,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     </div>
                     </div>
                 </div>
-                <div class="space-y-2" data-am-section="top_sobrecomprada">
-                    <button type="button" onclick="toggleAccionesSeccion('top_sobrecomprada')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+                <div class="space-y-2" data-am-section="top_sobrecomprada" id="am-section-top_sobrecomprada" style="display:none">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-fire" style="color:#dc2626"></i> 9. Top Sobrecomprada (RSI)
                     </h3>
-                        <i id="am-chevron-top_sobrecomprada" class="fas fa-chevron-down text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
-                    <div id="am-body-top_sobrecomprada" class="space-y-2 hidden">
+                    </div>
+                    <div id="am-body-top_sobrecomprada" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
@@ -2151,14 +2154,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     </div>
                     </div>
                 </div>
-                <div class="space-y-2" data-am-section="top_sobrevendida">
-                    <button type="button" onclick="toggleAccionesSeccion('top_sobrevendida')" class="w-full flex items-center justify-between gap-2 text-left group py-1">
+                <div class="space-y-2" data-am-section="top_sobrevendida" id="am-section-top_sobrevendida" style="display:none">
+                    <div class="w-full flex items-center justify-between gap-2 py-1">
                         <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-snowflake" style="color:#0ea5e9"></i> 10. Top Sobrevendida (RSI)
                     </h3>
-                        <i id="am-chevron-top_sobrevendida" class="fas fa-chevron-down text-slate-400 group-hover:text-white light:text-slate-500 light:group-hover:text-slate-900 transition-transform duration-200 text-sm"></i>
-                    </button>
-                    <div id="am-body-top_sobrevendida" class="space-y-2 hidden">
+                    </div>
+                    <div id="am-body-top_sobrevendida" class="space-y-2">
                         <div class="glass-card rounded-2xl overflow-hidden">
                         <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
                             <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
@@ -2200,27 +2202,12 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                     <th class="px-4 py-3">ETF</th>
                                     <th class="px-4 py-3 text-right">Último (USD)</th>
 <th class="px-4 py-3 text-right">Var. Día %</th>
+<th class="px-4 py-3 text-right">Var. 1M %</th>
+<th class="px-4 py-3 text-right">Var. YTD %</th>
+<th class="px-4 py-3 text-right">Var. 12M %</th>
                                 </tr>
                             </thead>
                             <tbody id="tbl-etfs" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="SPY (S&P 500)" onclick="rowClick(event, 'etfs', 'SPY (S&P 500)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'etfs', 'SPY (S&P 500)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">SPY (S&P 500)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">596.20</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandGreen">+0.4%</td>
-                                </tr>
-<tr data-ticker="QQQ (Nasdaq 100)" onclick="rowClick(event, 'etfs', 'QQQ (Nasdaq 100)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'etfs', 'QQQ (Nasdaq 100)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">QQQ (Nasdaq 100)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">512.80</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandGreen">+0.6%</td>
-                                </tr>
-<tr data-ticker="EEM (Mercados Emergentes)" onclick="rowClick(event, 'etfs', 'EEM (Mercados Emergentes)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'etfs', 'EEM (Mercados Emergentes)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">EEM (Mercados Emergentes)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">44.30</td>
-<td class="px-4 py-2.5 text-right font-mono text-brandRed">-0.3%</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -3422,15 +3409,12 @@ Stack: ${error ? error.stack : 'N/A'}`;
         // Al entrar al tab hay que renderizar el grafico de cada una.
         function renderChartsForTab(key) {
             if (key === 'stocks') {
-                // Acciones Mundiales es un acordeon: solo se renderizan los
-                // graficos de las subsecciones actualmente desplegadas, no
-                // las 10 de una, para no dibujar en canvases ocultos.
-                ACCIONES_MUNDIALES_KEYS.forEach(seccionKey => {
-                    if (isAccionesSeccionOpen(seccionKey)) {
-                        accionesMundialesChartRendered[seccionKey] = true;
-                        renderChartFor('stocks_' + seccionKey);
-                    }
-                });
+                // Acciones Mundiales usa un selector de pastillas: solo se
+                // renderiza el grafico de la subseccion actualmente activa,
+                // no las 10 de una, para no dibujar en canvases ocultos.
+                const activeKey = activeAccionesSeccion();
+                accionesMundialesChartRendered[activeKey] = true;
+                renderChartFor('stocks_' + activeKey);
                 return;
             }
             if (REAL_DATA_CONFIG[key]) {
@@ -4072,29 +4056,32 @@ Stack: ${error ? error.stack : 'N/A'}`;
         const accionesMundialesChartRendered = {};
         let accionesMundialesAccordionInit = false;
 
-        function isAccionesSeccionOpen(seccionKey) {
-            const stored = localStorage.getItem('am_seccion_' + seccionKey);
-            if (stored === 'open') return true;
-            if (stored === 'closed') return false;
-            return seccionKey === ACCIONES_MUNDIALES_KEYS[0];
-        }
-
-        function applyAccionesSeccionState(seccionKey, open) {
-            const body = document.getElementById('am-body-' + seccionKey);
-            const chevron = document.getElementById('am-chevron-' + seccionKey);
-            if (!body || !chevron) return;
-            body.classList.toggle('hidden', !open);
-            chevron.classList.toggle('fa-chevron-up', open);
-            chevron.classList.toggle('fa-chevron-down', !open);
-        }
-
-        function toggleAccionesSeccion(seccionKey) {
-            const body = document.getElementById('am-body-' + seccionKey);
-            if (!body) return;
-            const willOpen = body.classList.contains('hidden');
-            applyAccionesSeccionState(seccionKey, willOpen);
-            localStorage.setItem('am_seccion_' + seccionKey, willOpen ? 'open' : 'closed');
-            if (willOpen) {
+        // Selector de pastillas: solo la subseccion activa queda visible
+        // (tabla + grafico); el resto se oculta por completo. El grafico de
+        // una subseccion recien se renderiza la primera vez que se activa
+        // (Chart.js no puede dibujar bien en un canvas que estuvo oculto).
+        function switchStockSubTab(seccionKey) {
+            if (!ACCIONES_MUNDIALES_KEYS.includes(seccionKey)) return;
+            ACCIONES_MUNDIALES_KEYS.forEach(k => {
+                const section = document.getElementById('am-section-' + k);
+                const pill = document.getElementById('am-pill-' + k);
+                const active = k === seccionKey;
+                if (section) {
+                    section.style.display = active ? '' : 'none';
+                    section.classList.toggle('hidden', !active);
+                }
+                if (pill) {
+                    pill.classList.toggle('bg-brandBlue', active);
+                    pill.classList.toggle('text-white', active);
+                    pill.classList.toggle('bg-slate-800/60', !active);
+                    pill.classList.toggle('text-slate-300', !active);
+                    pill.classList.toggle('light:bg-blue-600', active);
+                    pill.classList.toggle('light:bg-slate-200', !active);
+                    pill.classList.toggle('light:text-slate-600', !active);
+                }
+            });
+            localStorage.setItem('am_active_seccion', seccionKey);
+            if (!accionesMundialesChartRendered[seccionKey]) {
                 accionesMundialesChartRendered[seccionKey] = true;
                 // El canvas recien tiene dimensiones reales despues de
                 // dejar de estar oculto: se difiere el render.
@@ -4102,10 +4089,13 @@ Stack: ${error ? error.stack : 'N/A'}`;
             }
         }
 
+        function activeAccionesSeccion() {
+            const stored = localStorage.getItem('am_active_seccion');
+            return ACCIONES_MUNDIALES_KEYS.includes(stored) ? stored : ACCIONES_MUNDIALES_KEYS[0];
+        }
+
         function initAccionesMundialesAccordion() {
-            ACCIONES_MUNDIALES_KEYS.forEach(seccionKey => {
-                applyAccionesSeccionState(seccionKey, isAccionesSeccionOpen(seccionKey));
-            });
+            switchStockSubTab(activeAccionesSeccion());
         }
 
         function renderAccionesMundialesSeccion(seccionKey, items) {
@@ -4132,23 +4122,24 @@ Stack: ${error ? error.stack : 'N/A'}`;
         }
         function renderAccionesMundiales(data) {
             if (!data || !data.secciones) return;
-            Object.keys(data.secciones).forEach(seccionKey => renderAccionesMundialesSeccion(seccionKey, data.secciones[seccionKey]));
+            Object.keys(data.secciones).forEach(seccionKey => {
+                renderAccionesMundialesSeccion(seccionKey, data.secciones[seccionKey]);
+                const countEl = document.getElementById('am-pill-count-' + seccionKey);
+                if (countEl) countEl.textContent = (data.secciones[seccionKey] || []).length;
+            });
             if (!accionesMundialesAccordionInit) {
                 initAccionesMundialesAccordion();
                 accionesMundialesAccordionInit = true;
             }
             // Igual que con Bonos/ONs: si el usuario ya esta parado en el
-            // tab "Acciones Mundiales", hay que refrescar el grafico de
-            // cada subseccion que este actualmente desplegada (no las 10,
-            // porque el resto esta colapsada y su canvas esta oculto).
+            // tab "Acciones Mundiales", hay que refrescar el grafico de la
+            // subseccion actualmente activa (el resto esta oculto y su
+            // canvas no puede dibujarse).
             const panel = document.getElementById('panel-stocks');
             if (panel && !panel.classList.contains('hidden')) {
-                ACCIONES_MUNDIALES_KEYS.forEach(seccionKey => {
-                    if (isAccionesSeccionOpen(seccionKey)) {
-                        accionesMundialesChartRendered[seccionKey] = true;
-                        renderChartFor('stocks_' + seccionKey);
-                    }
-                });
+                const activeKey = activeAccionesSeccion();
+                accionesMundialesChartRendered[activeKey] = true;
+                renderChartFor('stocks_' + activeKey);
             }
         }
 
@@ -4162,6 +4153,21 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 ]);
             });
             renderRows(key, rows);
+        }
+
+        function renderEtfs(items) {
+            if (!items || !items.length) return;
+            const rows = items.map(it => {
+                setSeriesKey('etfs', it.nombre, it.symbol);
+                return buildRow('etfs', it.nombre, [
+                    { value: fmtMoneda(it.close, it.currency) },
+                    { value: fmtPct(it.percent_change), cls: pctClass(it.percent_change) },
+                    { value: fmtPct(it.percent_change_1m), cls: pctClass(it.percent_change_1m) },
+                    { value: fmtPct(it.percent_change_ytd), cls: pctClass(it.percent_change_ytd) },
+                    { value: fmtPct(it.percent_change_12m), cls: pctClass(it.percent_change_12m) }
+                ]);
+            });
+            renderRows('etfs', rows);
         }
 
         const REGION_ORDER = ['USA', 'Europa', 'Asia', 'LATAM', 'Otros'];
@@ -4544,7 +4550,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 if (data.rates_intl) renderTasasInternacionales(data.rates_intl);
                 if (data.plazos_fijos) renderPlazosFijos(data.plazos_fijos);
                 if (data.acciones_mundiales) renderAccionesMundiales(data.acciones_mundiales);
-                if (data.etfs) renderTwelveData('etfs', data.etfs);
+                if (data.etfs) renderEtfs(data.etfs);
                 renderTasasLocales(data.tasas_locales);
                 renderFciSecciones(data.fci_secciones);
                 if (data.bonos_cer) renderBonosSoberanos('bonds_cer', data.bonos_cer, '#f59e0b');
