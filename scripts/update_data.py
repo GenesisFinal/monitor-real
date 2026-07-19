@@ -683,6 +683,30 @@ SOBERANOS_FLUJOS = {
         ("2026-04-30", 2.5), ("2026-11-02", 2.5), ("2027-04-30", 52.5),
         ("2027-11-01", 51.25),
     ]},
+    # GD46: cronograma verificado contra SEC EDGAR (Amendment No.2 Prospectus
+    # Supplement 424B5, 17-ago-2020, CIK 0000914021, acc-no 0001193125-20-221606):
+    # cupon step-up semestral 9-ene/9-jul, 44 amortizaciones iguales (1/44) desde
+    # 2025-01-09 hasta el vencimiento. Flujos listados solo desde la primera fecha
+    # futura (las 4 cuotas 2025-01-09 a 2026-07-09 ya se pagaron). Duration/TIR
+    # resultantes a validar contra bonistas.com/GD46 (MD publicado ~6.61) una vez
+    # que el script corra con el precio de mercado real de rendimientos.co; el
+    # cronograma de tasas y amortizacion en si esta confirmado contra la fuente SEC.
+    "GD46": {"ley": "NY", "vencimiento": "2046-07-09", "flujos": [
+        ("2027-01-09", 4.1477), ("2027-07-09", 4.1009), ("2028-01-09", 4.1619),
+        ("2028-07-09", 4.1122), ("2029-01-09", 4.3182), ("2029-07-09", 4.2614),
+        ("2030-01-09", 4.2045), ("2030-07-09", 4.1477), ("2031-01-09", 4.0909),
+        ("2031-07-09", 4.0341), ("2032-01-09", 3.9773), ("2032-07-09", 3.9205),
+        ("2033-01-09", 3.8636), ("2033-07-09", 3.8068), ("2034-01-09", 3.75),
+        ("2034-07-09", 3.6932), ("2035-01-09", 3.6364), ("2035-07-09", 3.5795),
+        ("2036-01-09", 3.5227), ("2036-07-09", 3.4659), ("2037-01-09", 3.4091),
+        ("2037-07-09", 3.3523), ("2038-01-09", 3.2955), ("2038-07-09", 3.2386),
+        ("2039-01-09", 3.1818), ("2039-07-09", 3.125), ("2040-01-09", 3.0682),
+        ("2040-07-09", 3.0114), ("2041-01-09", 2.9545), ("2041-07-09", 2.8977),
+        ("2042-01-09", 2.8409), ("2042-07-09", 2.7841), ("2043-01-09", 2.7273),
+        ("2043-07-09", 2.6705), ("2044-01-09", 2.6136), ("2044-07-09", 2.5568),
+        ("2045-01-09", 2.5), ("2045-07-09", 2.4432), ("2046-01-09", 2.3864),
+        ("2046-07-09", 2.3295),
+    ]},
 }
 
 
@@ -789,6 +813,30 @@ CER_VNR_CONOCIDO = {
     "PARP": (1.0, "2026-07-18"),
 }
 
+# TY30P: BONCAP ley Argentina, tasa fija 29.50% TNA (14.75% semestral),
+# 8 pagos remanentes de cupon fijo, capital 100% en el ultimo pago
+# (2030-05-30). A diferencia de las LECAPs/BONCAPs de LECAP_TERMS (pago
+# unico al vencimiento), TY30P paga cupon periodico, por lo que NO se
+# puede representar con el campo "pago_final" (subestimaria la duration
+# al ignorar los cupones intermedios). Se usa el mismo formato de
+# ON_FLUJOS/SOBERANOS_FLUJOS (fraccion del nominal, 1.0 = 100% capital)
+# y se resuelve TIR/duration via _solve_ytm/_macaulay_duration, igual
+# que get_ons_usd(). Fuente: bonistas.com/api/bond/TY30P (campo flow).
+# NOTA: existe una variante TY30P_PUT con opcion de venta incorporada que
+# cambia la TIR efectiva (bonistas.com muestra TIR 27.2% sin PUT vs 18.2%
+# con PUT). Esta carga es SOLO TY30P sin la opcionalidad del put; si la
+# TIR calculada por este script difiere fuertemente de la publicada con
+# PUT, es la discrepancia esperada por no modelar esa opcionalidad, no un
+# error de flujos.
+BONOS_PESOS_CUPON_FLUJOS = {
+    "TY30P": {"vencimiento": "2030-05-30", "flujos": [
+        ("2026-11-30", 0.1475), ("2027-05-31", 0.1475), ("2027-11-30", 0.1475),
+        ("2028-05-30", 0.1475), ("2028-11-30", 0.1475), ("2029-05-30", 0.1475),
+        ("2029-11-30", 0.1475), ("2030-05-30", 1.1475),
+    ]},
+}
+
+
 LECAP_TERMS = {
     "S31L6": {"nombre": "LECAP Julio 31", "pago_final": 117.677, "fecha_vencimiento": "2026-07-31"},
     "S14G6": {"nombre": "LECAP Agosto 14", "pago_final": 108.03, "fecha_vencimiento": "2026-08-14"},
@@ -801,6 +849,9 @@ LECAP_TERMS = {
     "T30A7": {"nombre": "BONCAP Abr 30/27", "pago_final": 157.341, "fecha_vencimiento": "2027-04-30"},
     "T31Y7": {"nombre": "BONCAP May 31/27", "pago_final": 151.563, "fecha_vencimiento": "2027-05-31"},
     "T30J7": {"nombre": "BONCAP Jun 30/27", "pago_final": 156.037, "fecha_vencimiento": "2027-06-30"},
+    # TO26: bono ley Argentina, tasa fija, un unico pago remanente
+    # (7.75% cupon + 100% capital) el 2026-10-19. Fuente: bonistas.com/TO26 (campo flow).
+    "TO26": {"nombre": "Bonte 2026", "pago_final": 107.75, "fecha_vencimiento": "2026-10-19"},
 }
 
 
@@ -928,6 +979,8 @@ BOND_DESCRIPTIONS = {
     "AL35": "Bonar 2035 (ley Argentina)", "GD35": "Global 2035 (ley Nueva York)",
     "AE38": "Bonar 2038 (ley Argentina)", "GD38": "Global 2038 (ley Nueva York)",
     "AL41": "Bonar 2041 (ley Argentina)", "GD41": "Global 2041 (ley Nueva York)",
+    "GD46": "Bono Global de la Republica Argentina en USD, ley Nueva York, vto. 2046",
+    "TY30P": "BONCAP tasa fija 29.50% TNA, ley Argentina, vto. 2030",
     "AO27": "Bono del Tesoro en USD, ley Argentina, vto. 2027",
     "AO28": "Bono del Tesoro en USD, ley Argentina, vto. 2028",
     "AO29": "Bono del Tesoro en USD, ley Argentina, vto. 2029",
@@ -1226,6 +1279,36 @@ def get_bonos_pesos():
         del c["dias"]
 
     candidatos.sort(key=lambda x: x["duration"])
+
+    # TY30P: cupon fijo periodico, no encaja en el modelo de pago unico
+    # de LECAP_TERMS (ver comentario en BONOS_PESOS_CUPON_FLUJOS). Se
+    # matchea aparte contra el mismo feed de precios y se calcula
+    # TIR/duration por flujo de fondos real, igual que get_ons_usd().
+    for item in data["data"]:
+        sym = item.get("symbol")
+        precio = item.get("price")
+        info = BONOS_PESOS_CUPON_FLUJOS.get(sym)
+        if not info or precio is None:
+            continue
+        flujos = [(_parse_date(f), m * 100) for f, m in info["flujos"]]
+        flujos_fut = [(f, m) for f, m in flujos if f and f > hoy]
+        ytm = _solve_ytm(flujos_fut, hoy, precio)
+        dur = _macaulay_duration(flujos_fut, hoy, ytm) if ytm is not None else None
+        vto_c = _parse_date(info["vencimiento"])
+        dtm_c = (vto_c - hoy).days if vto_c else None
+        if (dur is not None and dur < 0.20) or (dtm_c is not None and dtm_c < 45):
+            continue
+        candidatos.append({
+            "symbol": sym,
+            "descripcion": _bond_description(sym, "lecap"),
+            "vencimiento": info["vencimiento"],
+            "precio": precio,
+            "pct_change": None,
+            "tir": round(ytm * 100, 3) if ytm is not None else None,
+            "duration": round(dur, 3) if dur is not None else None,
+        })
+
+    candidatos.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
     return candidatos or None
 
 
