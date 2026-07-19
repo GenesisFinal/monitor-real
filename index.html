@@ -4584,7 +4584,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
         function switchBonosPesosSubTab(subKey) {
             if (!BONOS_PESOS_SUBTABS[subKey]) return;
             Object.keys(BONOS_PESOS_SUBTABS).forEach(k => {
-                const body = document.getElementById('bp-body-' + k);
+                const body = document.getElementById('bp-body-' + BONOS_PESOS_SUBTABS[k]);
                 const pill = document.getElementById('bp-pill-' + k);
                 const active = k === subKey;
                 if (body) body.classList.toggle('hidden', !active);
