@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-19T19:13:32.374185+00:00",
+  "updated_at": "2026-07-19T21:05:52.774613+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -13,21 +13,21 @@
       "nombre": "Blue",
       "compra": 1510,
       "venta": 1530,
-      "fecha": "2026-07-19T18:00:00.000Z"
+      "fecha": "2026-07-19T21:00:00.000Z"
     },
     {
       "casa": "bolsa",
       "nombre": "Bolsa",
       "compra": 1518.3,
       "venta": 1521.9,
-      "fecha": "2026-07-19T18:00:00.000Z"
+      "fecha": "2026-07-19T21:00:00.000Z"
     },
     {
       "casa": "contadoconliqui",
       "nombre": "Contado con liquidación",
       "compra": 1572.1,
       "venta": 1575.9,
-      "fecha": "2026-07-19T18:00:00.000Z"
+      "fecha": "2026-07-19T21:00:00.000Z"
     },
     {
       "casa": "mayorista",
@@ -39,9 +39,9 @@
     {
       "casa": "cripto",
       "nombre": "Cripto",
-      "compra": 1564.99,
-      "venta": 1568.88,
-      "fecha": "2026-07-19T18:00:00.000Z"
+      "compra": 1565.4,
+      "venta": 1568.04,
+      "fecha": "2026-07-19T21:00:00.000Z"
     },
     {
       "casa": "tarjeta",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64403,
-      "change_24h": -0.11855078898610424
+      "usd": 64482,
+      "change_24h": -0.20793680715648824
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1858.79,
-      "change_24h": 0.10429921596484777
+      "usd": 1865.89,
+      "change_24h": 0.5601610917428259
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999219,
-      "change_24h": -0.006042662290862898
+      "usd": 0.999191,
+      "change_24h": -0.011149481856278752
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 566.83,
-      "change_24h": -0.6642355279929663
+      "usd": 569.32,
+      "change_24h": -0.2786295303971574
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.75,
-      "change_24h": 0.7253113972508667
+      "usd": 76.09,
+      "change_24h": 0.8569298937845551
     }
   ],
   "tasas_locales": [
@@ -2153,8 +2153,8 @@
     {
       "symbol": "GB10Y-GB",
       "nombre": "GB10Y-GB",
-      "close": 4.9847,
-      "percent_change": 0.6461
+      "close": 4.9549,
+      "percent_change": 0.0444
     },
     {
       "symbol": "DE10Y-DE",
@@ -2274,7 +2274,7 @@
     }
   ],
   "acciones_mundiales": {
-    "updated_at": "2026-07-19T19:14:44.401533+00:00",
+    "updated_at": "2026-07-19T21:06:21.252447+00:00",
     "secciones": {
       "top_market_cap": [
         {
@@ -2431,7 +2431,7 @@
       "top_suba_diaria": [
         {
           "symbol": "MMNNF",
-          "nombre": "MUNTERS GROUP AB",
+          "nombre": "Munters Group AP",
           "precio": 20.4025,
           "pct_change": 34.227,
           "market_cap": 3724301824,
@@ -2521,7 +2521,7 @@
         },
         {
           "symbol": "TMRAF",
-          "nombre": "TOMRA SYSTEMS ASA",
+          "nombre": "Tomra Systems A/S/A",
           "precio": 11.49,
           "pct_change": 16.768,
           "market_cap": 3397597440,
@@ -2703,7 +2703,7 @@
         },
         {
           "symbol": "SMTOF",
-          "nombre": "Sumitomo Electric Industries Lt",
+          "nombre": "SUMITOMO ELECTRIC INDUSTRIES",
           "precio": 13.706,
           "pct_change": -12.867,
           "market_cap": 42758328320,
@@ -2960,7 +2960,7 @@
           "nombre": "ING Groep N.V.",
           "precio": 33.89,
           "pct_change": 0.0,
-          "market_cap": 96911646720,
+          "market_cap": 96879452160,
           "volumen": 500,
           "wk52_high": 33.89,
           "wk52_low": 21.95
@@ -3434,50 +3434,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14323",
-      "percent_change": "-0.055950414",
+      "close": "1.14362",
+      "percent_change": "0.040239337",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34497",
-      "percent_change": "-0.0074345573",
+      "close": "1.34518",
+      "percent_change": "0.0029736682",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.42228",
-      "percent_change": "-0.0020932651",
+      "close": "162.46046",
+      "percent_change": "0.010926929",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11866",
-      "percent_change": "0.044953834",
+      "close": "5.11401",
+      "percent_change": "-0.073078990",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.52717",
-      "percent_change": "-0.11978443",
+      "close": "17.53235",
+      "percent_change": "-0.020586270",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.21428",
-      "percent_change": "0.076249937",
+      "close": "40.1552",
+      "percent_change": "-0.085644005",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1476.48986",
-      "percent_change": "-0.069281262",
+      "close": "1477.38863",
+      "percent_change": "-0.026154182",
       "currency": null
     }
   ]
