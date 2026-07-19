@@ -3431,6 +3431,41 @@ Stack: ${error ? error.stack : 'N/A'}`;
         // Datos de muestra ilustrativos. No reflejan valores de mercado reales.
         // ============================================================
 
+        // Plugin generico de crosshair: al pasar el mouse sobre un punto de
+        // cualquier grafico Chart.js de la pagina (activos financieros,
+        // tarjetas economicas, curva TIR/Duration, detalle de bono), traza
+        // una linea horizontal y otra vertical, finas y punteadas, que se
+        // cruzan en ese punto para ubicarlo contra ambos ejes. Se registra
+        // UNA sola vez de forma global (Chart.register), asi que aplica a
+        // todos los graficos sin tener que tocar cada uno individualmente.
+        // El modo de interaccion 'nearest'/intersect:false tambien se fija
+        // como default global para que sea facil "agarrar" el punto mas
+        // cercano al cursor sin tener que apuntar exactamente encima.
+        if (typeof Chart !== 'undefined') {
+            Chart.register({
+                id: 'crosshairPlugin',
+                afterDraw(chart) {
+                    const active = chart.getActiveElements ? chart.getActiveElements() : [];
+                    if (!active || !active.length || !chart.chartArea) return;
+                    const { x, y } = active[0].element;
+                    const { top, bottom, left, right } = chart.chartArea;
+                    const ctx = chart.ctx;
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.lineWidth = 0.5;
+                    ctx.strokeStyle = 'rgba(148, 163, 184, 0.55)';
+                    ctx.setLineDash([3, 3]);
+                    ctx.moveTo(x, top);
+                    ctx.lineTo(x, bottom);
+                    ctx.moveTo(left, y);
+                    ctx.lineTo(right, y);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            });
+            Chart.defaults.interaction = { mode: 'nearest', intersect: false };
+        }
+
         const TAB_GROUPS = {
             'valores-financieros': ['exchange', 'indices', 'forex', 'commodities', 'rates', 'local_rates', 'fci', 'bonds', 'corporate', 'stocks', 'etfs', 'acciones_arg', 'cryptos'],
             'indicadores-economicos': ['precios', 'monetarios', 'fiscal', 'comercio', 'reservas_deuda', 'empleo', 'jubilaciones', 'actividad', 'industria', 'campo', 'construccion'],
@@ -3685,7 +3720,14 @@ Stack: ${error ? error.stack : 'N/A'}`;
             '6m':  { label: '6M',  granularity: 'daily',  days: 186 },
             '12m': { label: '12M', granularity: 'daily',  days: 366 },
             '2a':  { label: '2A',  granularity: 'weekly', days: 731 },
-            '5a':  { label: '5A',  granularity: 'weekly', days: 1826 }
+            '5a':  { label: '5A',  granularity: 'weekly', days: 1826 },
+            // Todo el historico disponible, en semanal (o diario si la
+            // serie semanal no alcanza a cubrir 100 puntos: para
+            // instrumentos con poco historico, semanal solo tendria un
+            // punado de puntos, y diario grafica mas densidad sin
+            // inventar una agregacion mensual que no existe en los datos
+            // acumulados hoy).
+            'max': { label: 'MAX', granularity: 'weekly', days: null }
         };
 
         const chartRangeState = {};
@@ -3717,6 +3759,16 @@ Stack: ${error ? error.stack : 'N/A'}`;
         function sliceByRange(seriesObj, rangeKey) {
             if (!seriesObj) return [];
             const range = RANGES[rangeKey];
+            if (rangeKey === 'max') {
+                const weekly = seriesObj.weekly || [];
+                const daily = seriesObj.daily || [];
+                // Semanal siempre que alcance al menos 100 puntos; si el
+                // instrumento tiene poco historico y ni siquiera el
+                // diario completo llega a 100, se usa igual el diario
+                // completo (es la mayor densidad disponible sin inventar
+                // datos).
+                return (weekly.length >= 100 || daily.length <= weekly.length) ? weekly : daily;
+            }
             const points = range.granularity === 'weekly' ? (seriesObj.weekly || []) : (seriesObj.daily || []);
             const cutoff = Date.now() - range.days * 86400000;
             return points.filter(p => new Date(p.t).getTime() >= cutoff);
