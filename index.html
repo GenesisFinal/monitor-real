@@ -4527,6 +4527,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
             document.getElementById('bond-detail-overlay').classList.remove('hidden');
             document.getElementById('bond-detail-overlay').classList.add('flex');
 
+            _loadBondDetailHistory(symbol);
+
             // Apertura/Mínimo/Máximo del último cierre disponible en el
             // histórico, si el panel ya tiene esa serie cargada o se
             // puede cargar sin bloquear la apertura del modal.
@@ -4552,6 +4554,105 @@ Stack: ${error ? error.stack : 'N/A'}`;
             } catch (e) {
                 console.warn('[detalle bono] no se pudo cargar OHLC', e);
             }
+        }
+
+        // ------------------------------------------------------------
+        // Fase 2: graficos historicos dentro del modal de detalle. La
+        // fuente es data/history/bonos_metricas_historia.json, un punto
+        // por dia de corrida (arranca vacio y se completa dia a dia,
+        // ver _accumulate_bond_metrics() en update_data.py). No hay
+        // historia retroactiva: si el ticker recien empezo a
+        // acumularse hoy, el grafico va a tener 1 solo punto.
+        // ------------------------------------------------------------
+
+        const BOND_DETAIL_SERIES = [
+            { key: 'tir', label: 'TIR', unit: '%' },
+            { key: 'paridad', label: 'Paridad', unit: '%' },
+            { key: 'precio_dirty', label: 'Precio Dirty', unit: '$' },
+            { key: 'precio_clean', label: 'Precio Clean', unit: '$' },
+            { key: 'interes_corrido', label: 'Int. Corridos', unit: '$' },
+            { key: 'valor_tecnico', label: 'Valor Técnico', unit: '$' },
+        ];
+        let bondDetailChartInstance = null;
+        let bondDetailHistoryCache = [];
+        let bondDetailChartSeries = 'tir';
+
+        function _renderBondDetailPills() {
+            const cont = document.getElementById('bond-detail-chart-pills');
+            if (!cont) return;
+            cont.innerHTML = BOND_DETAIL_SERIES.map(s => {
+                const hasData = bondDetailHistoryCache.some(p => p[s.key] != null);
+                const active = s.key === bondDetailChartSeries;
+                const activeCls = active ? 'bg-brandBlue text-white' : 'bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600';
+                const disabledCls = hasData ? '' : ' opacity-30 cursor-not-allowed';
+                return `<button onclick="_selectBondDetailSeries('${s.key}')" ${hasData ? '' : 'disabled'} class="text-[10px] px-2 py-1 rounded ${activeCls}${disabledCls}">${s.label}</button>`;
+            }).join('');
+        }
+
+        function _selectBondDetailSeries(key) {
+            bondDetailChartSeries = key;
+            _renderBondDetailPills();
+            _drawBondDetailChart();
+        }
+
+        function _drawBondDetailChart() {
+            const canvas = document.getElementById('bond-detail-chart');
+            if (!canvas || typeof Chart === 'undefined') return;
+            if (bondDetailChartInstance) { bondDetailChartInstance.destroy(); bondDetailChartInstance = null; }
+            const cfg = BOND_DETAIL_SERIES.find(s => s.key === bondDetailChartSeries);
+            const points = bondDetailHistoryCache
+                .filter(p => p[bondDetailChartSeries] != null)
+                .map(p => ({ x: p.date, y: p[bondDetailChartSeries] }));
+            const nota = document.getElementById('bond-detail-chart-nota');
+            if (nota) {
+                nota.textContent = points.length < 2
+                    ? 'La serie recién se empezó a acumular: todavía no hay suficientes puntos para ver una evolución. Se completa un punto por día hábil.'
+                    : `${points.length} puntos acumulados.`;
+            }
+            if (!points.length) return;
+            bondDetailChartInstance = new Chart(canvas.getContext('2d'), {
+                type: 'line',
+                data: { datasets: [{ label: cfg ? cfg.label : bondDetailChartSeries, data: points, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.12)', pointRadius: points.length < 15 ? 3 : 0, tension: 0.15, fill: true }] },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { type: 'timeseries', ticks: { color: '#94a3b8', font: { size: 10 }, maxTicksLimit: 6 }, grid: { color: 'rgba(148,163,184,0.08)' } },
+                        y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(148,163,184,0.08)' } }
+                    }
+                }
+            });
+        }
+
+        function _tirStats365(history) {
+            const corte = new Date();
+            corte.setDate(corte.getDate() - 365);
+            const valores = history
+                .filter(p => p.tir != null && new Date(p.date) >= corte)
+                .map(p => p.tir);
+            if (!valores.length) return { prom: null, min: null, max: null };
+            const prom = valores.reduce((a, b) => a + b, 0) / valores.length;
+            return { prom, min: Math.min(...valores), max: Math.max(...valores) };
+        }
+
+        async function _loadBondDetailHistory(symbol) {
+            bondDetailHistoryCache = [];
+            bondDetailChartSeries = 'tir';
+            try {
+                const data = await ensureHistoryLoaded('bonos_metricas_historia.json');
+                const entry = data && data[symbol];
+                bondDetailHistoryCache = (entry && entry.history) || [];
+            } catch (e) {
+                console.warn('[detalle bono] no se pudo cargar historico de metricas', e);
+            }
+            const stats = _tirStats365(bondDetailHistoryCache);
+            const fmtTir = v => v != null ? v.toFixed(2) + '%' : '-';
+            document.getElementById('bond-detail-tir-prom').textContent = fmtTir(stats.prom);
+            document.getElementById('bond-detail-tir-min').textContent = fmtTir(stats.min);
+            document.getElementById('bond-detail-tir-max').textContent = fmtTir(stats.max);
+            _renderBondDetailPills();
+            _drawBondDetailChart();
         }
 
         function closeBondDetail() {
@@ -4853,9 +4954,33 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     <p id="bond-detail-dm" class="text-base font-bold font-mono text-white light:text-slate-800">-</p>
                 </div>
             </div>
-            <table class="w-full text-xs mb-5">
+            <table class="w-full text-xs mb-3">
                 <tbody id="bond-detail-datatable" class="divide-y divide-darkBorder light:divide-gray-100"></tbody>
             </table>
+            <div class="grid grid-cols-3 gap-3 mb-5">
+                <div class="bg-black/20 light:bg-slate-50 rounded-lg p-2 text-center">
+                    <p class="text-[10px] uppercase text-slate-400 light:text-slate-500">TIR prom. (hist. disp.)</p>
+                    <p id="bond-detail-tir-prom" class="text-sm font-bold font-mono text-white light:text-slate-800">-</p>
+                </div>
+                <div class="bg-black/20 light:bg-slate-50 rounded-lg p-2 text-center">
+                    <p class="text-[10px] uppercase text-slate-400 light:text-slate-500">TIR mín. (hist. disp.)</p>
+                    <p id="bond-detail-tir-min" class="text-sm font-bold font-mono text-white light:text-slate-800">-</p>
+                </div>
+                <div class="bg-black/20 light:bg-slate-50 rounded-lg p-2 text-center">
+                    <p class="text-[10px] uppercase text-slate-400 light:text-slate-500">TIR máx. (hist. disp.)</p>
+                    <p id="bond-detail-tir-max" class="text-sm font-bold font-mono text-white light:text-slate-800">-</p>
+                </div>
+            </div>
+            <div class="mb-5">
+                <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                    <h4 class="text-xs font-semibold text-slate-300 light:text-slate-600">Histórico</h4>
+                    <div id="bond-detail-chart-pills" class="flex gap-1 flex-wrap"></div>
+                </div>
+                <div id="bond-detail-chart-wrap" class="relative" style="height:180px;">
+                    <canvas id="bond-detail-chart"></canvas>
+                </div>
+                <p id="bond-detail-chart-nota" class="text-[10px] text-slate-500 mt-1"></p>
+            </div>
             <div>
                 <h4 class="text-xs font-semibold text-slate-300 light:text-slate-600 mb-2">Sensibilidad TIR-Precio (variación % del precio ante shocks de TIR)</h4>
                 <div id="bond-detail-sensibilidad" class="overflow-x-auto"></div>

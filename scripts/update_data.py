@@ -1454,6 +1454,7 @@ def get_bonos_cer():
                         fraccion = max(0.0, min(1.0, dias_transcurridos / dias_periodo))
                         interes_corrido = vnr_hoy * 100 * tasa_prox * fraccion * coeficiente
             valor_tecnico = round(capital_hoy + interes_corrido, 2)
+            interes_corrido = round(interes_corrido, 2)
             if valor_tecnico > 0:
                 paridad = round(precio / valor_tecnico * 100, 2)
             sensibilidad = _tir_price_sensitivity(flujos_reales, hoy, tir, precio_real)
@@ -1476,10 +1477,72 @@ def get_bonos_cer():
             "duration": round(dur, 3) if dur is not None else None,
             "valor_tecnico": valor_tecnico,
             "paridad": paridad,
+            "interes_corrido": interes_corrido if cer_hoy is not None and flujos_reales else None,
             "sensibilidad_tir": sensibilidad,
         })
     out.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
     return out or None
+
+
+# ------------------------------------------------------------------
+# Fase 2 del "detalle de bono" (bonistas.com-style): acumulacion diaria
+# de TIR/paridad/valor tecnico/precio limpio-sucio/interes corrido, base
+# de los graficos historicos del modal de detalle. No existe ninguna
+# fuente externa gratuita con esta serie ya armada (se calcula en este
+# mismo script, ver get_bonos_cer/get_bonos_soberanos_usd/get_ons_usd/
+# get_bonos_pesos), asi que se acumula un punto por dia de corrida,
+# igual criterio que _guardar_lecap_precios() para el precio de LECAPs:
+# arranca vacio y se va completando dia a dia desde que se activa esta
+# funcion, sin historia retroactiva inventada.
+# ------------------------------------------------------------------
+
+BOND_METRICS_HISTORY_FILE = "bonos_metricas_historia.json"
+
+
+def _accumulate_bond_metrics(categoria, items):
+    if not items:
+        return
+    path = os.path.join(HISTORY_DIR, BOND_METRICS_HISTORY_FILE)
+    existing = load_json(path) or {}
+    hoy = date.today().isoformat()
+    for it in items:
+        # Solo se acumulan instrumentos con TIR calculada por flujo de
+        # fondos propio (con "sensibilidad_tir" presente en el dict de
+        # salida, aunque su valor pueda ser None): descarta LECAPs/
+        # BONCAPs dentro de bonos_pesos (TEA de pago unico, sin
+        # cronograma de flujos ni sensibilidad TIR-precio calculada) y
+        # cualquier item sin TIR resuelta ese dia.
+        if "sensibilidad_tir" not in it or it.get("tir") is None:
+            continue
+        sym = it["symbol"]
+        precio_dirty = it.get("precio")
+        interes_corrido = it.get("interes_corrido")
+        precio_clean = None
+        if precio_dirty is not None and interes_corrido is not None:
+            precio_clean = round(precio_dirty - interes_corrido, 2)
+        punto = {
+            "date": hoy,
+            "tir": it.get("tir"),
+            "duration": it.get("duration"),
+            "paridad": it.get("paridad"),
+            "valor_tecnico": it.get("valor_tecnico"),
+            "interes_corrido": interes_corrido,
+            "precio_dirty": precio_dirty,
+            "precio_clean": precio_clean,
+        }
+        entry = existing.setdefault(sym, {"categoria": categoria, "history": []})
+        entry["categoria"] = categoria
+        hist = entry["history"]
+        if hist and hist[-1].get("date") == hoy:
+            hist[-1] = punto
+        else:
+            hist.append(punto)
+        # Limite de seguridad (no deberia alcanzarse en la practica: a
+        # un punto por dia habil, ~2000 puntos son casi 8 años).
+        if len(hist) > 2000:
+            del hist[: len(hist) - 2000]
+    existing["_updated_at"] = datetime.now(timezone.utc).isoformat()
+    save_json(path, existing)
 
 
 def _lecap_precios_previos():
@@ -3869,6 +3932,17 @@ def main():
 
     save_json(OUT_PATH, live_data)
     print(f"OK: {OUT_PATH} actualizado.")
+
+    # ---- Acumulacion diaria de metricas de bonos (fase 2 detalle de
+    # bono): TIR/paridad/VT/precio limpio-sucio/interes corrido. ----
+    for categoria, items_key in (
+        ("bonos_cer", "bonos_cer"),
+        ("bonos_soberanos_usd", "bonos_soberanos_usd"),
+        ("ons_usd", "ons_usd"),
+        ("bonos_pesos_cupon_fijo", "bonos_pesos"),
+    ):
+        _accumulate_bond_metrics(categoria, live_data.get(items_key))
+    print(f"OK: data/history/{BOND_METRICS_HISTORY_FILE} actualizado.")
 
     # ---- Series históricas ----
     historicos = {
