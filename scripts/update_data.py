@@ -815,6 +815,24 @@ CER_FLUJOS = {
     "TZXM7": {"vencimiento": "2027-03-31", "cer_emision": 361.3176, "flujos": [
         ("2027-03-31", 1.0, 0.0, 0.5),
     ]},
+    # TZXA7/TZXY7/TZXS7: Boncer cero cupon (bullet, sin interes periodico)
+    # emitidos en 2025/2026. cer_emision verificado contra la API oficial
+    # del dataset "CER, UVA y UVI" de datos.gob.ar (fuente primaria: BCRA),
+    # serie 94.2_CD_D_0_0_10, tomando el valor de CER publicado en la
+    # fecha de emision de cada bono (fecha "Fecha Emision" confirmada via
+    # bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{TICKER}):
+    # TZXA7 emitido 28/11/2025 (CER=659.6788956665248), TZXY7 emitido
+    # 15/12/2025 (CER=668.2343291710602), TZXS7 emitido 31/3/2026
+    # (CER=735.3076309157017).
+    "TZXA7": {"vencimiento": "2027-04-30", "cer_emision": 659.6788956665248, "flujos": [
+        ("2027-04-30", 1.0, 0.0, 0.5),
+    ]},
+    "TZXY7": {"vencimiento": "2027-05-31", "cer_emision": 668.2343291710602, "flujos": [
+        ("2027-05-31", 1.0, 0.0, 0.5),
+    ]},
+    "TZXS7": {"vencimiento": "2027-09-30", "cer_emision": 735.3076309157017, "flujos": [
+        ("2027-09-30", 1.0, 0.0, 0.5),
+    ]},
     "TZX27": {"vencimiento": "2027-06-30", "cer_emision": 200.388, "flujos": [
         ("2027-06-30", 1.0, 0.0, 0.5),
     ]},
@@ -1141,6 +1159,9 @@ BOND_DESCRIPTIONS = {
     "X31L6": "Letra del Tesoro (LECER) ajustada por CER, vto. jul. 2026",
     "DICP": "Discount en pesos ajustado por CER (reestructuracion 2005)",
     "PARP": "Par en pesos ajustado por CER (reestructuracion 2005)",
+    "TZXA7": "Bono del Tesoro en pesos ajustado por CER, vto. abr. 2027",
+    "TZXY7": "Bono del Tesoro en pesos ajustado por CER, vto. may. 2027",
+    "TZXS7": "Bono del Tesoro en pesos ajustado por CER, vto. sep. 2027",
 }
 
 
