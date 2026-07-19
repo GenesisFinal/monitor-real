@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-18T17:27:35.212144+00:00",
+  "updated_at": "2026-07-19T05:33:37.211378+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -13,21 +13,21 @@
       "nombre": "Blue",
       "compra": 1510,
       "venta": 1530,
-      "fecha": "2026-07-18T14:59:00.000Z"
+      "fecha": "2026-07-18T20:59:00.000Z"
     },
     {
       "casa": "bolsa",
       "nombre": "Bolsa",
       "compra": 1518.3,
       "venta": 1521.9,
-      "fecha": "2026-07-18T14:59:00.000Z"
+      "fecha": "2026-07-18T20:59:00.000Z"
     },
     {
       "casa": "contadoconliqui",
       "nombre": "Contado con liquidación",
       "compra": 1572.1,
       "venta": 1575.9,
-      "fecha": "2026-07-18T14:59:00.000Z"
+      "fecha": "2026-07-18T20:59:00.000Z"
     },
     {
       "casa": "mayorista",
@@ -39,9 +39,9 @@
     {
       "casa": "cripto",
       "nombre": "Cripto",
-      "compra": 1566.95,
-      "venta": 1569.2,
-      "fecha": "2026-07-18T14:59:00.000Z"
+      "compra": 1568.54,
+      "venta": 1570.68,
+      "fecha": "2026-07-18T20:59:00.000Z"
     },
     {
       "casa": "tarjeta",
@@ -57,8 +57,8 @@
     "fecha": "2026-07-17"
   },
   "riesgo_pais": {
-    "valor": 410,
-    "fecha": "2026-07-16"
+    "valor": 419,
+    "fecha": "2026-07-17"
   },
   "inflacion": {
     "valor": 1.9,
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64249,
-      "change_24h": 0.36831067707242743
+      "usd": 64667,
+      "change_24h": 1.145212686616229
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1842.8,
-      "change_24h": -0.1882808464086593
+      "usd": 1866.31,
+      "change_24h": 1.1522209658182558
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999273,
-      "change_24h": 0.002271337845255529
+      "usd": 0.999244,
+      "change_24h": -0.004179521870230941
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 570.54,
-      "change_24h": 0.828441815968087
+      "usd": 568.81,
+      "change_24h": 0.3287254970648112
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.1,
-      "change_24h": -0.1850481152259162
+      "usd": 75.93,
+      "change_24h": 1.2828075589448258
     }
   ],
   "tasas_locales": [
@@ -1119,8 +1119,8 @@
       "vencimiento": "2027-11-01",
       "precio": 102.6,
       "pct_change": 0.29,
-      "tir": 3.503,
-      "duration": 1.014
+      "tir": 3.513,
+      "duration": 1.011
     },
     {
       "symbol": "AO27",
@@ -1129,8 +1129,8 @@
       "vencimiento": "2027-10-30",
       "precio": 102.7,
       "pct_change": 0,
-      "tir": 4.149,
-      "duration": 1.237
+      "tir": 4.158,
+      "duration": 1.234
     },
     {
       "symbol": "AL29",
@@ -1139,8 +1139,8 @@
       "vencimiento": "2029-07-09",
       "precio": 55.37,
       "pct_change": 0.19,
-      "tir": 5.91,
-      "duration": 1.68
+      "tir": 5.92,
+      "duration": 1.677
     },
     {
       "symbol": "GD29",
@@ -1149,8 +1149,8 @@
       "vencimiento": "2029-07-09",
       "precio": 55.95,
       "pct_change": 0.37,
-      "tir": 5.256,
-      "duration": 1.684
+      "tir": 5.265,
+      "duration": 1.681
     },
     {
       "symbol": "AL30",
@@ -1159,8 +1159,8 @@
       "vencimiento": "2030-07-09",
       "precio": 56.47,
       "pct_change": 0.07,
-      "tir": 7.376,
-      "duration": 2.128
+      "tir": 7.386,
+      "duration": 2.125
     },
     {
       "symbol": "AO28",
@@ -1169,8 +1169,8 @@
       "vencimiento": "2028-10-31",
       "precio": 97.89,
       "pct_change": -0.11,
-      "tir": 7.371,
-      "duration": 2.137
+      "tir": 7.381,
+      "duration": 2.134
     },
     {
       "symbol": "GD30",
@@ -1179,8 +1179,8 @@
       "vencimiento": "2030-07-09",
       "precio": 57.99,
       "pct_change": 0.15,
-      "tir": 6.049,
-      "duration": 2.144
+      "tir": 6.057,
+      "duration": 2.141
     },
     {
       "symbol": "AO29",
@@ -1189,8 +1189,8 @@
       "vencimiento": "2029-10-31",
       "precio": 94.64,
       "pct_change": 0,
-      "tir": 8.168,
-      "duration": 2.983
+      "tir": 8.176,
+      "duration": 2.98
     },
     {
       "symbol": "AN29",
@@ -1199,8 +1199,8 @@
       "vencimiento": "2029-11-30",
       "precio": 97.15,
       "pct_change": 0.15,
-      "tir": 7.908,
-      "duration": 3.051
+      "tir": 7.916,
+      "duration": 3.048
     },
     {
       "symbol": "AE38",
@@ -1209,8 +1209,8 @@
       "vencimiento": "2038-01-09",
       "precio": 83.64,
       "pct_change": 0.08,
-      "tir": 8.853,
-      "duration": 4.896
+      "tir": 8.858,
+      "duration": 4.893
     },
     {
       "symbol": "GD38",
@@ -1219,8 +1219,8 @@
       "vencimiento": "2038-01-09",
       "precio": 86.89,
       "pct_change": -0.35,
-      "tir": 8.015,
-      "duration": 4.97
+      "tir": 8.02,
+      "duration": 4.966
     },
     {
       "symbol": "AL35",
@@ -1229,8 +1229,8 @@
       "vencimiento": "2035-07-09",
       "precio": 80.82,
       "pct_change": 0.24,
-      "tir": 8.855,
-      "duration": 5.644
+      "tir": 8.86,
+      "duration": 5.641
     },
     {
       "symbol": "GD35",
@@ -1239,8 +1239,8 @@
       "vencimiento": "2035-07-09",
       "precio": 83.57,
       "pct_change": -0.08,
-      "tir": 8.213,
-      "duration": 5.672
+      "tir": 8.217,
+      "duration": 5.669
     },
     {
       "symbol": "AL41",
@@ -1249,8 +1249,8 @@
       "vencimiento": "2041-07-09",
       "precio": 76.91,
       "pct_change": -0.15,
-      "tir": 7.791,
-      "duration": 6.392
+      "tir": 7.794,
+      "duration": 6.389
     },
     {
       "symbol": "GD41",
@@ -1259,8 +1259,8 @@
       "vencimiento": "2041-07-09",
       "precio": 77.98,
       "pct_change": -0.49,
-      "tir": 7.558,
-      "duration": 6.425
+      "tir": 7.562,
+      "duration": 6.422
     }
   ],
   "bonos_cer": [
@@ -1270,8 +1270,8 @@
       "vencimiento": "2026-09-30",
       "precio": 112.19,
       "pct_change": 0.12,
-      "tir": 4.304,
-      "duration": 0.203
+      "tir": 4.681,
+      "duration": 0.2
     },
     {
       "symbol": "TZXO6",
@@ -1279,8 +1279,8 @@
       "vencimiento": "2026-10-30",
       "precio": 166.3,
       "pct_change": 0.18,
-      "tir": 4.705,
-      "duration": 0.285
+      "tir": 4.978,
+      "duration": 0.282
     },
     {
       "symbol": "TX26",
@@ -1288,8 +1288,8 @@
       "vencimiento": "2026-11-09",
       "precio": 713.3,
       "pct_change": 0.23,
-      "tir": 5.303,
-      "duration": 0.312
+      "tir": 5.558,
+      "duration": 0.31
     },
     {
       "symbol": "X30N6",
@@ -1297,8 +1297,8 @@
       "vencimiento": "2026-11-30",
       "precio": 120.36,
       "pct_change": 0.18,
-      "tir": 5.202,
-      "duration": 0.37
+      "tir": 5.416,
+      "duration": 0.367
     },
     {
       "symbol": "TZXD6",
@@ -1306,8 +1306,8 @@
       "vencimiento": "2026-12-15",
       "precio": 292.5,
       "pct_change": 0.17,
-      "tir": 5.048,
-      "duration": 0.411
+      "tir": 5.239,
+      "duration": 0.408
     },
     {
       "symbol": "TZXM7",
@@ -1315,8 +1315,8 @@
       "vencimiento": "2027-03-31",
       "precio": 215.7,
       "pct_change": 0.16,
-      "tir": 5.47,
-      "duration": 0.701
+      "tir": 5.584,
+      "duration": 0.699
     },
     {
       "symbol": "TZX27",
@@ -1324,8 +1324,8 @@
       "vencimiento": "2027-06-30",
       "precio": 384.5,
       "pct_change": 0,
-      "tir": 5.267,
-      "duration": 0.951
+      "tir": 5.35,
+      "duration": 0.948
     },
     {
       "symbol": "TX28",
@@ -1333,8 +1333,8 @@
       "vencimiento": "2028-11-09",
       "precio": 1699,
       "pct_change": 0,
-      "tir": 7.074,
-      "duration": 1.267
+      "tir": 7.141,
+      "duration": 1.264
     },
     {
       "symbol": "TZXD7",
@@ -1342,8 +1342,8 @@
       "vencimiento": "2027-12-15",
       "precio": 268.7,
       "pct_change": 0.09,
-      "tir": 7.734,
-      "duration": 1.411
+      "tir": 7.796,
+      "duration": 1.408
     },
     {
       "symbol": "TZX28",
@@ -1351,8 +1351,8 @@
       "vencimiento": "2028-06-30",
       "precio": 344.05,
       "pct_change": 0.27,
-      "tir": 8.533,
-      "duration": 1.953
+      "tir": 8.579,
+      "duration": 1.951
     },
     {
       "symbol": "TX31",
@@ -1360,8 +1360,8 @@
       "vencimiento": "2031-12-01",
       "precio": 1454,
       "pct_change": -0.2,
-      "tir": 8.791,
-      "duration": 2.863
+      "tir": 8.823,
+      "duration": 2.86
     },
     {
       "symbol": "DICP",
@@ -1369,8 +1369,8 @@
       "vencimiento": "2034-01-02",
       "precio": 48600,
       "pct_change": 0.15,
-      "tir": 1.538,
-      "duration": 3.666
+      "tir": 1.556,
+      "duration": 3.662
     },
     {
       "symbol": "PARP",
@@ -1378,8 +1378,8 @@
       "vencimiento": "2038-12-31",
       "precio": 37120,
       "pct_change": 0.8,
-      "tir": 8.4,
-      "duration": 6.711
+      "tir": 8.413,
+      "duration": 6.707
     }
   ],
   "bonos_pesos": [
@@ -1388,72 +1388,72 @@
       "descripcion": "LECAP Sept 30",
       "vencimiento": "2026-09-30",
       "precio": 112.599,
-      "tir": 23.573,
-      "duration": 0.203,
-      "pct_change": null
+      "tir": 23.932,
+      "duration": 0.2,
+      "pct_change": 0.0
     },
     {
       "symbol": "S30O6",
       "descripcion": "LECAP Oct 30",
       "vencimiento": "2026-10-30",
       "precio": 127.25,
-      "tir": 23.951,
-      "duration": 0.285,
-      "pct_change": null
+      "tir": 24.209,
+      "duration": 0.282,
+      "pct_change": 0.0
     },
     {
       "symbol": "S13N6",
       "descripcion": "LECAP Nov 13",
       "vencimiento": "2026-11-13",
       "precio": 102.06,
-      "tir": 24.843,
-      "duration": 0.323,
-      "pct_change": null
+      "tir": 25.08,
+      "duration": 0.321,
+      "pct_change": 0.0
     },
     {
       "symbol": "S30N6",
       "descripcion": "LECAP Nov 30",
       "vencimiento": "2026-11-30",
       "precio": 119.64,
-      "tir": 24.883,
-      "duration": 0.37,
-      "pct_change": null
+      "tir": 25.09,
+      "duration": 0.367,
+      "pct_change": 0.0
     },
     {
       "symbol": "T15E7",
       "descripcion": "BONCAP Ene 15/27",
       "vencimiento": "2027-01-15",
       "precio": 144.34,
-      "tir": 24.804,
-      "duration": 0.496,
-      "pct_change": null
+      "tir": 24.958,
+      "duration": 0.493,
+      "pct_change": 0.0
     },
     {
       "symbol": "T30A7",
       "descripcion": "BONCAP Abr 30/27",
       "vencimiento": "2027-04-30",
       "precio": 131.72,
-      "tir": 25.462,
-      "duration": 0.784,
-      "pct_change": null
+      "tir": 25.562,
+      "duration": 0.781,
+      "pct_change": 0.0
     },
     {
       "symbol": "T31Y7",
       "descripcion": "BONCAP May 31/27",
       "vencimiento": "2027-05-31",
       "precio": 124.45,
-      "tir": 25.476,
-      "duration": 0.868,
-      "pct_change": null
+      "tir": 25.566,
+      "duration": 0.866,
+      "pct_change": 0.0
     },
     {
       "symbol": "T30J7",
       "descripcion": "BONCAP Jun 30/27",
       "vencimiento": "2027-06-30",
       "precio": 126.19,
-      "tir": 25.022,
-      "duration": 0.951,
-      "pct_change": null
+      "tir": 25.102,
+      "duration": 0.948,
+      "pct_change": 0.0
     }
   ],
   "ons_usd": [
@@ -1465,8 +1465,8 @@
       "vencimiento": "2026-10-06",
       "precio": 102.7,
       "pct_change": 0,
-      "tir": 1.152,
-      "duration": 0.219,
+      "tir": 1.166,
+      "duration": 0.216,
       "volumen": 416021
     },
     {
@@ -1477,8 +1477,8 @@
       "vencimiento": "2026-11-09",
       "precio": 102.35,
       "pct_change": 0.14,
-      "tir": 3.034,
-      "duration": 0.312,
+      "tir": 3.061,
+      "duration": 0.31,
       "volumen": 41600
     },
     {
@@ -1489,8 +1489,8 @@
       "vencimiento": "2027-03-08",
       "precio": 106.95,
       "pct_change": -0.32,
-      "tir": -0.621,
-      "duration": 0.623,
+      "tir": -0.624,
+      "duration": 0.62,
       "volumen": 326493
     },
     {
@@ -1501,8 +1501,8 @@
       "vencimiento": "2027-04-15",
       "precio": 100.6,
       "pct_change": -0.09,
-      "tir": 5.342,
-      "duration": 0.731,
+      "tir": 5.363,
+      "duration": 0.729,
       "volumen": 609551
     },
     {
@@ -1513,8 +1513,8 @@
       "vencimiento": "2027-05-07",
       "precio": 104.7,
       "pct_change": 0.28,
-      "tir": 2.832,
-      "duration": 0.778,
+      "tir": 2.842,
+      "duration": 0.775,
       "volumen": 299144
     },
     {
@@ -1525,8 +1525,8 @@
       "vencimiento": "2027-07-22",
       "precio": 105.55,
       "pct_change": -0.14,
-      "tir": 3.743,
-      "duration": 0.967,
+      "tir": 3.753,
+      "duration": 0.964,
       "volumen": 41654
     },
     {
@@ -1537,8 +1537,8 @@
       "vencimiento": "2027-07-26",
       "precio": 107.85,
       "pct_change": 0.32,
-      "tir": 3.99,
-      "duration": 0.967,
+      "tir": 4.002,
+      "duration": 0.964,
       "volumen": 41650
     },
     {
@@ -1549,8 +1549,8 @@
       "vencimiento": "2029-05-03",
       "precio": 108.65,
       "pct_change": -0.22,
-      "tir": 4.425,
-      "duration": 1.904,
+      "tir": 4.431,
+      "duration": 1.901,
       "volumen": 52066
     },
     {
@@ -1561,8 +1561,8 @@
       "vencimiento": "2029-06-25",
       "precio": 107.15,
       "pct_change": -0.13,
-      "tir": 5.588,
-      "duration": 2.675,
+      "tir": 5.594,
+      "duration": 2.672,
       "volumen": 38000
     },
     {
@@ -1573,8 +1573,8 @@
       "vencimiento": "2029-09-27",
       "precio": 107.45,
       "pct_change": -0.13,
-      "tir": 5.249,
-      "duration": 2.872,
+      "tir": 5.254,
+      "duration": 2.869,
       "volumen": 129914
     },
     {
@@ -1585,8 +1585,8 @@
       "vencimiento": "2029-10-23",
       "precio": 108.4,
       "pct_change": 0.27,
-      "tir": 5.67,
-      "duration": 2.879,
+      "tir": 5.676,
+      "duration": 2.877,
       "volumen": 41171
     },
     {
@@ -1597,8 +1597,8 @@
       "vencimiento": "2030-11-04",
       "precio": 109.25,
       "pct_change": 0.64,
-      "tir": 5.654,
-      "duration": 3.72,
+      "tir": 5.658,
+      "duration": 3.717,
       "volumen": 48000
     },
     {
@@ -1609,8 +1609,8 @@
       "vencimiento": "2031-09-11",
       "precio": 114,
       "pct_change": 0.35,
-      "tir": 6.04,
-      "duration": 3.785,
+      "tir": 6.045,
+      "duration": 3.782,
       "volumen": 466830
     },
     {
@@ -1621,8 +1621,8 @@
       "vencimiento": "2031-01-28",
       "precio": 111.6,
       "pct_change": 0.45,
-      "tir": 6.081,
-      "duration": 3.788,
+      "tir": 6.086,
+      "duration": 3.785,
       "volumen": 45000
     },
     {
@@ -1633,8 +1633,8 @@
       "vencimiento": "2031-11-13",
       "precio": 109.45,
       "pct_change": 0.41,
-      "tir": 5.539,
-      "duration": 4.497,
+      "tir": 5.542,
+      "duration": 4.494,
       "volumen": 74638
     },
     {
@@ -1645,8 +1645,8 @@
       "vencimiento": "2034-01-17",
       "precio": 109.2,
       "pct_change": 0,
-      "tir": 6.607,
-      "duration": 5.283,
+      "tir": 6.61,
+      "duration": 5.28,
       "volumen": 893350
     },
     {
@@ -1657,8 +1657,8 @@
       "vencimiento": "2034-12-18",
       "precio": 108.95,
       "pct_change": 0.42,
-      "tir": 6.678,
-      "duration": 6.37,
+      "tir": 6.681,
+      "duration": 6.367,
       "volumen": 282000
     },
     {
@@ -1669,8 +1669,8 @@
       "vencimiento": "2035-12-10",
       "precio": 108.55,
       "pct_change": 0,
-      "tir": 6.508,
-      "duration": 6.396,
+      "tir": 6.511,
+      "duration": 6.393,
       "volumen": 114000
     },
     {
@@ -1681,8 +1681,8 @@
       "vencimiento": "2035-11-20",
       "precio": 108.8,
       "pct_change": 0.36,
-      "tir": 6.752,
-      "duration": 6.849,
+      "tir": 6.755,
+      "duration": 6.846,
       "volumen": 143000
     },
     {
@@ -1693,8 +1693,8 @@
       "vencimiento": "2037-11-16",
       "precio": 107.3,
       "pct_change": 0.51,
-      "tir": 7.094,
-      "duration": 7.763,
+      "tir": 7.096,
+      "duration": 7.76,
       "volumen": 723000
     }
   ],
@@ -1810,10 +1810,10 @@
       "symbol": "000001.SS",
       "nombre": "Shanghai Composite",
       "region": "Asia",
-      "close": 3764.155,
+      "close": 3764.1548,
       "currency": "CNY",
-      "percent_change": -3.0459944194460595,
-      "percent_change_1y": 7.03276541374941
+      "percent_change": -3.0459995708814165,
+      "percent_change_1y": 7.032759726801576
     },
     {
       "symbol": "^BVSP",
@@ -2043,8 +2043,8 @@
     {
       "symbol": "GB10Y-GB",
       "nombre": "GB10Y-GB",
-      "close": 4.9722,
-      "percent_change": 0.3937
+      "close": 4.9847,
+      "percent_change": 0.6461
     },
     {
       "symbol": "DE10Y-DE",
@@ -2164,7 +2164,7 @@
     }
   ],
   "acciones_mundiales": {
-    "updated_at": "2026-07-18T17:28:12.712899+00:00",
+    "updated_at": "2026-07-19T05:34:03.221844+00:00",
     "secciones": {
       "top_market_cap": [
         {
@@ -2278,16 +2278,6 @@
           "wk52_low": 297.82
         },
         {
-          "symbol": "SKHYV",
-          "nombre": "SK hynix Inc. - American Deposi",
-          "precio": 168.01,
-          "pct_change": 0.0,
-          "market_cap": 1192627142656,
-          "volumen": 107674661,
-          "wk52_high": 194.8,
-          "wk52_low": 151.3
-        },
-        {
           "symbol": "SKHY",
           "nombre": "SK hynix Inc.",
           "precio": 154.03,
@@ -2316,6 +2306,16 @@
           "volumen": 207,
           "wk52_high": 775000.0,
           "wk52_low": 685150.0
+        },
+        {
+          "symbol": "LLY",
+          "nombre": "Eli Lilly and Company",
+          "precio": 1179.11,
+          "pct_change": 0.85,
+          "market_cap": 1051461156864,
+          "volumen": 2163075,
+          "wk52_high": 1249.45,
+          "wk52_low": 623.78
         }
       ],
       "top_suba_diaria": [
@@ -2583,7 +2583,7 @@
         },
         {
           "symbol": "SMTOF",
-          "nombre": "Sumitomo Electric Industries Lt",
+          "nombre": "SUMITOMO ELECTRIC INDUSTRIES",
           "precio": 13.706,
           "pct_change": -12.867,
           "market_cap": 42758328320,
@@ -2684,16 +2684,6 @@
           "wk52_low": 11.2
         },
         {
-          "symbol": "SKHYV",
-          "nombre": "SK hynix Inc. - American Deposi",
-          "precio": 168.01,
-          "pct_change": 0.0,
-          "market_cap": 1192627142656,
-          "volumen": 107674661,
-          "wk52_high": 194.8,
-          "wk52_low": 151.3
-        },
-        {
           "symbol": "OPEN",
           "nombre": "Opendoor Technologies Inc",
           "precio": 4.5,
@@ -2772,6 +2762,16 @@
           "volumen": 70400888,
           "wk52_high": 29.79,
           "wk52_low": 19.89
+        },
+        {
+          "symbol": "HL",
+          "nombre": "Hecla Mining Company",
+          "precio": 14.33,
+          "pct_change": -1.309,
+          "market_cap": 9611308032,
+          "volumen": 66976189,
+          "wk52_high": 34.17,
+          "wk52_low": 5.62
         }
       ],
       "top_nuevo_maximo": [
@@ -3117,5 +3117,79 @@
         }
       ]
     }
-  }
+  },
+  "etfs": [
+    {
+      "symbol": "SPY",
+      "nombre": "SPY (S&P 500)",
+      "close": "743.28998",
+      "percent_change": "-0.98971560",
+      "currency": "USD"
+    },
+    {
+      "symbol": "QQQ",
+      "nombre": "QQQ (Nasdaq 100)",
+      "close": "695.33002",
+      "percent_change": "-1.50296",
+      "currency": "USD"
+    },
+    {
+      "symbol": "EEM",
+      "nombre": "EEM (Emergentes)",
+      "close": "63.29000",
+      "percent_change": "-1.40209",
+      "currency": "USD"
+    }
+  ],
+  "forex": [
+    {
+      "symbol": "EUR/USD",
+      "nombre": "Euro",
+      "close": "1.14396",
+      "percent_change": "0.0078680270",
+      "currency": null
+    },
+    {
+      "symbol": "GBP/USD",
+      "nombre": "Libra",
+      "close": "1.34519",
+      "percent_change": "0.0089214688",
+      "currency": null
+    },
+    {
+      "symbol": "USD/JPY",
+      "nombre": "Yen",
+      "close": "162.41036",
+      "percent_change": "-0.0094320061",
+      "currency": null
+    },
+    {
+      "symbol": "USD/BRL",
+      "nombre": "Real",
+      "close": "5.1116",
+      "percent_change": "-0.093034892",
+      "currency": null
+    },
+    {
+      "symbol": "USD/MXN",
+      "nombre": "Peso Mexicano",
+      "close": "17.5294",
+      "percent_change": "-0.10707657",
+      "currency": null
+    },
+    {
+      "symbol": "USD/UYU",
+      "nombre": "Peso Uruguayo",
+      "close": "40.17631",
+      "percent_change": "-0.018241254",
+      "currency": null
+    },
+    {
+      "symbol": "USD/ARS",
+      "nombre": "Peso Argentino",
+      "close": "1478.10833",
+      "percent_change": "0.040258854",
+      "currency": null
+    }
+  ]
 }

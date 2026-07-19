@@ -1,13 +1,9 @@
 {
-  "updated_at": "2026-07-18T17:30:14.095780+00:00",
+  "updated_at": "2026-07-19T05:36:05.584096+00:00",
   "series": {
     "super-ahorro-plus-clase-h": {
       "nombre": "Super Ahorro Plus - Clase H",
       "daily": [
-        {
-          "c": 12634.206,
-          "t": "2025-06-13"
-        },
         {
           "c": 12674.051,
           "t": "2025-06-17"
@@ -1464,10 +1460,6 @@
       "nombre": "Pellegrini Renta Pesos - Clase B",
       "daily": [
         {
-          "c": 19054.787,
-          "t": "2025-06-13"
-        },
-        {
           "c": 19112.225,
           "t": "2025-06-17"
         },
@@ -2915,10 +2907,6 @@
       "nombre": "Chaco FCI Money Market - Clase B",
       "daily": [
         {
-          "c": 1827.567,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1833.144,
           "t": "2025-06-17"
         },
@@ -4345,10 +4333,6 @@
     "lombard-renta-en-pesos": {
       "nombre": "Lombard Renta en Pesos",
       "daily": [
-        {
-          "c": 178078.473,
-          "t": "2025-06-13"
-        },
         {
           "c": 178622.295,
           "t": "2025-06-17"
@@ -5797,10 +5781,6 @@
       "nombre": "IAM Ahorro Pesos - Clase B",
       "daily": [
         {
-          "c": 38174.218,
-          "t": "2025-06-13"
-        },
-        {
           "c": 38294.633,
           "t": "2025-06-17"
         },
@@ -7248,10 +7228,6 @@
       "nombre": "Allaria Ahorro - Clase C",
       "daily": [
         {
-          "c": 23966.956,
-          "t": "2025-06-13"
-        },
-        {
           "c": 24038.875,
           "t": "2025-06-17"
         },
@@ -8694,10 +8670,6 @@
     "toronto-trust-ahorro-clase-b": {
       "nombre": "Toronto Trust Ahorro - Clase B",
       "daily": [
-        {
-          "c": 43089.665,
-          "t": "2025-06-13"
-        },
         {
           "c": 43220.075,
           "t": "2025-06-17"
@@ -10257,10 +10229,6 @@
       "nombre": "Cocos Ahorro - Clase C",
       "daily": [
         {
-          "c": 1473.532,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1477.74,
           "t": "2025-06-17"
         },
@@ -11699,10 +11667,6 @@
     "pionero-pesos-plus-clase-b": {
       "nombre": "Pionero Pesos Plus - Clase B",
       "daily": [
-        {
-          "c": 46123.753,
-          "t": "2025-06-13"
-        },
         {
           "c": 46256.563,
           "t": "2025-06-17"
@@ -13150,10 +13114,6 @@
     "fima-premium-clase-b": {
       "nombre": "Fima Premium - Clase B",
       "daily": [
-        {
-          "c": 75043.595,
-          "t": "2025-06-13"
-        },
         {
           "c": 75258.132,
           "t": "2025-06-17"
@@ -14614,10 +14574,6 @@
       "nombre": "Schroder Liquidez - Clase B",
       "daily": [
         {
-          "c": 5361.751,
-          "t": "2025-06-13"
-        },
-        {
           "c": 5378.584,
           "t": "2025-06-17"
         },
@@ -16060,10 +16016,6 @@
     "mercado-fondo-clase-a": {
       "nombre": "Mercado Fondo - Clase A",
       "daily": [
-        {
-          "c": 18857.632,
-          "t": "2025-06-13"
-        },
         {
           "c": 18912.993,
           "t": "2025-06-17"
@@ -17511,10 +17463,6 @@
     "st-zero-clase-d": {
       "nombre": "ST Zero - Clase D",
       "daily": [
-        {
-          "c": 3618.08,
-          "t": "2025-06-13"
-        },
         {
           "c": 3628.217,
           "t": "2025-06-17"
@@ -19074,10 +19022,6 @@
       "nombre": "FBA Gestion I - Clase B",
       "daily": [
         {
-          "c": 8114.065,
-          "t": "2025-06-13"
-        },
-        {
           "c": 8121.597,
           "t": "2025-06-17"
         },
@@ -20460,10 +20404,6 @@
     "consultatio-deuda-argentina-clase-c": {
       "nombre": "Consultatio Deuda Argentina - Clase C",
       "daily": [
-        {
-          "c": 2259883.712,
-          "t": "2025-06-13"
-        },
         {
           "c": 2251873.396,
           "t": "2025-06-17"
@@ -22087,10 +22027,6 @@
       "nombre": "Schroder Renta Performance - Clase B",
       "daily": [
         {
-          "c": 2273016.386,
-          "t": "2025-06-13"
-        },
-        {
           "c": 2265544.829,
           "t": "2025-06-17"
         },
@@ -23470,10 +23406,6 @@
       "nombre": "Superfondo Renta Fija - Clase A",
       "daily": [
         {
-          "c": 110951.557,
-          "t": "2025-06-13"
-        },
-        {
           "c": 110698.135,
           "t": "2025-06-17"
         },
@@ -24852,10 +24784,6 @@
     "consultatio-renta-mixta-clase-c": {
       "nombre": "Consultatio Renta Mixta - Clase C",
       "daily": [
-        {
-          "c": 207405.431,
-          "t": "2025-06-13"
-        },
         {
           "c": 205990.453,
           "t": "2025-06-17"
@@ -26268,10 +26196,6 @@
       "nombre": "Schroder Renta Plus - Clase B",
       "daily": [
         {
-          "c": 93417.653,
-          "t": "2025-06-13"
-        },
-        {
           "c": 93176.353,
           "t": "2025-06-17"
         },
@@ -27651,10 +27575,6 @@
       "nombre": "Balanz Capital Ahorro - Clase A",
       "daily": [
         {
-          "c": 162469.844,
-          "t": "2025-06-13"
-        },
-        {
           "c": 162503.794,
           "t": "2025-06-17"
         },
@@ -29029,10 +28949,6 @@
     "compass-renta-fija-ii-clase-b": {
       "nombre": "Compass Renta Fija II - Clase B",
       "daily": [
-        {
-          "c": 947707.645,
-          "t": "2025-06-13"
-        },
         {
           "c": 942718.641,
           "t": "2025-06-17"
@@ -30413,10 +30329,6 @@
       "nombre": "Toronto Trust Renta Fija Plus - Clase D",
       "daily": [
         {
-          "c": 12313.603,
-          "t": "2025-06-13"
-        },
-        {
           "c": 12370.637,
           "t": "2025-06-17"
         },
@@ -31795,10 +31707,6 @@
     "supergestion-mix-vi-clase-a": {
       "nombre": "Supergestion Mix VI - Clase A",
       "daily": [
-        {
-          "c": 111719.13,
-          "t": "2025-06-13"
-        },
         {
           "c": 111623.529,
           "t": "2025-06-17"
@@ -33179,10 +33087,6 @@
       "nombre": "Fima Ahorro Plus - Clase C",
       "daily": [
         {
-          "c": 122768.526,
-          "t": "2025-06-13"
-        },
-        {
           "c": 122792.292,
           "t": "2025-06-17"
         },
@@ -34562,10 +34466,6 @@
       "nombre": "IAM Renta Crecimiento - Clase B",
       "daily": [
         {
-          "c": 107964.991,
-          "t": "2025-06-13"
-        },
-        {
           "c": 108358.825,
           "t": "2025-06-17"
         },
@@ -35941,10 +35841,6 @@
       "nombre": "Allaria Ahorro Plus - Clase B",
       "daily": [
         {
-          "c": 175297.604,
-          "t": "2025-06-13"
-        },
-        {
           "c": 174967.13,
           "t": "2025-06-17"
         },
@@ -37319,10 +37215,6 @@
     "pellegrini-renta-fija-clase-b": {
       "nombre": "Pellegrini Renta Fija - Clase B",
       "daily": [
-        {
-          "c": 28895.176,
-          "t": "2025-06-13"
-        },
         {
           "c": 28963.58,
           "t": "2025-06-17"
@@ -38703,10 +38595,6 @@
       "nombre": "Lombard Capital",
       "daily": [
         {
-          "c": 186152.275,
-          "t": "2025-06-13"
-        },
-        {
           "c": 186374.203,
           "t": "2025-06-17"
         },
@@ -40085,10 +39973,6 @@
     "consultatio-acciones-argentina-clase-c": {
       "nombre": "Consultatio Acciones Argentina - Clase C",
       "daily": [
-        {
-          "c": 12857373.313,
-          "t": "2025-06-13"
-        },
         {
           "c": 12528653.439,
           "t": "2025-06-17"
@@ -41537,10 +41421,6 @@
       "nombre": "Galileo Acciones - Clase B",
       "daily": [
         {
-          "c": 282509.68,
-          "t": "2025-06-13"
-        },
-        {
           "c": 275445.795,
           "t": "2025-06-17"
         },
@@ -42987,10 +42867,6 @@
     "fima-pb-acciones-clase-a": {
       "nombre": "Fima PB Acciones - Clase A",
       "daily": [
-        {
-          "c": 2109464.907,
-          "t": "2025-06-13"
-        },
         {
           "c": 2057280.992,
           "t": "2025-06-17"
@@ -44439,10 +44315,6 @@
       "nombre": "Compass Crecimiento - Clase C",
       "daily": [
         {
-          "c": 11220622.307,
-          "t": "2025-06-13"
-        },
-        {
           "c": 10944769.977,
           "t": "2025-06-17"
         },
@@ -45889,10 +45761,6 @@
     "delta-select-clase-b": {
       "nombre": "Delta Select - Clase B",
       "daily": [
-        {
-          "c": 71943.255,
-          "t": "2025-06-13"
-        },
         {
           "c": 70067.595,
           "t": "2025-06-17"
@@ -47341,10 +47209,6 @@
       "nombre": "Schroder Renta Variable - Clase B",
       "daily": [
         {
-          "c": 753113.487,
-          "t": "2025-06-13"
-        },
-        {
           "c": 735060.019,
           "t": "2025-06-17"
         },
@@ -48791,10 +48655,6 @@
     "superfondo-acciones-clase-a": {
       "nombre": "Superfondo Acciones - Clase A",
       "daily": [
-        {
-          "c": 366200.257,
-          "t": "2025-06-13"
-        },
         {
           "c": 356624.328,
           "t": "2025-06-17"
@@ -50247,10 +50107,6 @@
       "nombre": "Superfondo Renta Variable - Clase A",
       "daily": [
         {
-          "c": 3746853.954,
-          "t": "2025-06-13"
-        },
-        {
           "c": 3648504.408,
           "t": "2025-06-17"
         },
@@ -51702,10 +51558,6 @@
       "nombre": "Fima Acciones - Clase A",
       "daily": [
         {
-          "c": 196499.981,
-          "t": "2025-06-13"
-        },
-        {
           "c": 191551.67,
           "t": "2025-06-17"
         },
@@ -53153,10 +53005,6 @@
       "nombre": "Schroder Retorno Absoluto - Clase B",
       "daily": [
         {
-          "c": 1957158.637,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1950802.983,
           "t": "2025-06-17"
         },
@@ -54568,10 +54416,6 @@
       "nombre": "Allaria Gestion II - Clase C",
       "daily": [
         {
-          "c": 1585.438,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1578.503,
           "t": "2025-06-17"
         },
@@ -55979,10 +55823,6 @@
       "nombre": "Gainvest Capital III - Clase B",
       "daily": [
         {
-          "c": 20823.411,
-          "t": "2025-06-13"
-        },
-        {
           "c": 20685.97,
           "t": "2025-06-17"
         },
@@ -57362,10 +57202,6 @@
       "nombre": "Allaria Patrimonio V - Clase B",
       "daily": [
         {
-          "c": 11869.777,
-          "t": "2025-06-13"
-        },
-        {
           "c": 11871.655,
           "t": "2025-06-17"
         },
@@ -58740,10 +58576,6 @@
     "delta-gestion-i-clase-b": {
       "nombre": "Delta Gestion I - Clase B",
       "daily": [
-        {
-          "c": 358475.903,
-          "t": "2025-06-13"
-        },
         {
           "c": 355946.981,
           "t": "2025-06-17"
@@ -60923,10 +60755,6 @@
       "nombre": "Schroder Renta Global - Clase B",
       "daily": [
         {
-          "c": 36943.437,
-          "t": "2025-06-13"
-        },
-        {
           "c": 36670.975,
           "t": "2025-06-17"
         },
@@ -62089,10 +61917,6 @@
     "pionero-patrimonio-i-clase-b": {
       "nombre": "Pionero Patrimonio I - Clase B",
       "daily": [
-        {
-          "c": 1482.996,
-          "t": "2025-06-13"
-        },
         {
           "c": 1484.212,
           "t": "2025-06-17"
@@ -64184,10 +64008,6 @@
       "nombre": "Superfondo Renta Mixta - Clase B",
       "daily": [
         {
-          "c": 3603.682,
-          "t": "2025-06-13"
-        },
-        {
           "c": 3584.841,
           "t": "2025-06-17"
         },
@@ -65602,10 +65422,6 @@
     "toronto-trust-balanceado-clase-b": {
       "nombre": "Toronto Trust Balanceado - Clase B",
       "daily": [
-        {
-          "c": 3212.044,
-          "t": "2025-06-13"
-        },
         {
           "c": 3187.738,
           "t": "2025-06-17"
@@ -67708,10 +67524,6 @@
     "fundcorp-performance-multiestrategia-clase-c": {
       "nombre": "Fundcorp Performance Multiestrategia - Clase C",
       "daily": [
-        {
-          "c": 1703.603,
-          "t": "2025-06-13"
-        },
         {
           "c": 1699.539,
           "t": "2025-06-17"
@@ -71234,10 +71046,6 @@
       "nombre": "IAM Retorno Dólares - Clase A",
       "daily": [
         {
-          "c": 1008.832,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1009.124,
           "t": "2025-06-17"
         },
@@ -72492,10 +72300,6 @@
     "iam-liquidez-en-dolares-clase-b": {
       "nombre": "IAM Liquidez en Dólares - Clase B",
       "daily": [
-        {
-          "c": 1003.118,
-          "t": "2025-06-13"
-        },
         {
           "c": 1003.452,
           "t": "2025-06-17"
@@ -73832,10 +73636,6 @@
       "nombre": "Adcap Ahorro Dólares - Clase C",
       "daily": [
         {
-          "c": 1015.112,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1015.433,
           "t": "2025-06-17"
         },
@@ -75134,10 +74934,6 @@
     "megaqm-liquidez-dolar-clase-b": {
       "nombre": "MEGAQM Liquidez Dólar - Clase B",
       "daily": [
-        {
-          "c": 1000.102,
-          "t": "2025-06-13"
-        },
         {
           "c": 1000.345,
           "t": "2025-06-17"
@@ -76486,10 +76282,6 @@
       "nombre": "Allaria Dólar Ahorro - Clase B",
       "daily": [
         {
-          "c": 1009.415,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1009.62,
           "t": "2025-06-17"
         },
@@ -77801,10 +77593,6 @@
       "nombre": "Pionero Money Market Dólar - Clase B",
       "daily": [
         {
-          "c": 1006.403,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1006.583,
           "t": "2025-06-17"
         },
@@ -79103,10 +78891,6 @@
     "toronto-trust-money-market-dolar-clase-b": {
       "nombre": "Toronto Trust Money Market Dólar - Clase B",
       "daily": [
-        {
-          "c": 1007.11,
-          "t": "2025-06-13"
-        },
         {
           "c": 1007.289,
           "t": "2025-06-17"
@@ -80502,10 +80286,6 @@
       "nombre": "Pellegrini Money Market USD - Clase B",
       "daily": [
         {
-          "c": 1005.251,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1005.382,
           "t": "2025-06-17"
         },
@@ -81741,10 +81521,6 @@
       "nombre": "Superfondo Ahorro en Dólares - Clase A",
       "daily": [
         {
-          "c": 1005.459,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1005.627,
           "t": "2025-06-17"
         },
@@ -82959,10 +82735,6 @@
     "fima-premium-dolares-clase-a": {
       "nombre": "Fima Premium Dólares - Clase A",
       "daily": [
-        {
-          "c": 1003.7,
-          "t": "2025-06-13"
-        },
         {
           "c": 1003.841,
           "t": "2025-06-17"
@@ -85236,10 +85008,6 @@
       "nombre": "Toronto Trust Crecimiento - Clase B",
       "daily": [
         {
-          "c": 166.321,
-          "t": "2025-06-13"
-        },
-        {
           "c": 165.547,
           "t": "2025-06-17"
         },
@@ -86619,10 +86387,6 @@
       "nombre": "Balanz Capital Renta Fija en Dólares - Clase A",
       "daily": [
         {
-          "c": 1176.51,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1170.799,
           "t": "2025-06-17"
         },
@@ -87993,10 +87757,6 @@
     "pionero-renta-fija-dolares-clase-a": {
       "nombre": "Pionero Renta Fija Dólares - Clase A",
       "daily": [
-        {
-          "c": 1787.158,
-          "t": "2025-06-13"
-        },
         {
           "c": 1775.562,
           "t": "2025-06-17"
@@ -89373,10 +89133,6 @@
       "nombre": "MEGAQM Latam Corporativo - Clase BP",
       "daily": [
         {
-          "c": 1319542.058,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1308751.34,
           "t": "2025-06-17"
         },
@@ -90575,10 +90331,6 @@
     "compass-renta-fija-clase-f": {
       "nombre": "Compass Renta Fija - Clase F",
       "daily": [
-        {
-          "c": 3789822.418,
-          "t": "2025-06-13"
-        },
         {
           "c": 3758361.595,
           "t": "2025-06-17"
@@ -91959,10 +91711,6 @@
       "nombre": "Consultatio Multimercado III - Clase B",
       "daily": [
         {
-          "c": 1376.732,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1377.367,
           "t": "2025-06-17"
         },
@@ -93338,10 +93086,6 @@
       "nombre": "IAM Renta Dólares - Clase B",
       "daily": [
         {
-          "c": 1636.574,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1637.451,
           "t": "2025-06-17"
         },
@@ -94716,10 +94460,6 @@
     "superfondo-estrategico-clase-a": {
       "nombre": "Superfondo Estrategico - Clase A",
       "daily": [
-        {
-          "c": 437.917,
-          "t": "2025-06-13"
-        },
         {
           "c": 437.042,
           "t": "2025-06-17"
@@ -96100,10 +95840,6 @@
       "nombre": "Fima Renta Fija Dólares - Clase A",
       "daily": [
         {
-          "c": 1026.759,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1025.429,
           "t": "2025-06-17"
         },
@@ -97467,10 +97203,6 @@
       "nombre": "Cocos Dólares Plus - Clase A",
       "daily": [
         {
-          "c": 1007.115,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1007.217,
           "t": "2025-06-17"
         },
@@ -98605,10 +98337,6 @@
     "allaria-dolar-ahorro-plus-clase-a": {
       "nombre": "Allaria Dólar Ahorro Plus - Clase A",
       "daily": [
-        {
-          "c": 1020.883,
-          "t": "2025-06-13"
-        },
         {
           "c": 1021.873,
           "t": "2025-06-17"
@@ -99824,10 +99552,6 @@
     "lombard-renta-fija-en-dolares-clase-a": {
       "nombre": "Lombard Renta Fija en Dolares - Clase A",
       "daily": [
-        {
-          "c": 1199.953,
-          "t": "2025-06-13"
-        },
         {
           "c": 1200.142,
           "t": "2025-06-17"
@@ -101208,10 +100932,6 @@
       "nombre": "Schroder Income - Clase B",
       "daily": [
         {
-          "c": 1160.62,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1160.887,
           "t": "2025-06-17"
         },
@@ -102590,10 +102310,6 @@
     "superfondo-latinoamerica-clase-d": {
       "nombre": "Superfondo Latinoamerica - Clase D",
       "daily": [
-        {
-          "c": 7196224.879,
-          "t": "2025-06-13"
-        },
         {
           "c": 7227144.133,
           "t": "2025-06-17"
@@ -104046,10 +103762,6 @@
       "nombre": "Superfondo Acciones Brasil - Clase C",
       "daily": [
         {
-          "c": 1523291.384,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1546130.486,
           "t": "2025-06-17"
         },
@@ -105501,10 +105213,6 @@
       "nombre": "Fima Mix Dólares - Clase A",
       "daily": [
         {
-          "c": 1296.623,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1289.886,
           "t": "2025-06-17"
         },
@@ -106879,10 +106587,6 @@
     "gainvest-global-iv-clase-b": {
       "nombre": "Gainvest Global IV - Clase B",
       "daily": [
-        {
-          "c": 66.489,
-          "t": "2025-06-13"
-        },
         {
           "c": 66.582,
           "t": "2025-06-17"
@@ -108295,10 +107999,6 @@
       "nombre": "Schroder Retorno Total - Clase B",
       "daily": [
         {
-          "c": 1633.257,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1634.327,
           "t": "2025-06-17"
         },
@@ -109710,10 +109410,6 @@
       "nombre": "Pionero Dólar Dinámico - Clase B",
       "daily": [
         {
-          "c": 999.945,
-          "t": "2025-06-13"
-        },
-        {
           "c": 1000.008,
           "t": "2025-06-17"
         },
@@ -110864,10 +110560,6 @@
     "galileo-multi-strategy-clase-a": {
       "nombre": "Galileo Multi Strategy - Clase A",
       "daily": [
-        {
-          "c": 1316.006,
-          "t": "2025-06-13"
-        },
         {
           "c": 1315.047,
           "t": "2025-06-17"
@@ -112279,10 +111971,6 @@
     "schroder-retorno-total-cuatro-clase-b": {
       "nombre": "Schroder Retorno Total Cuatro - Clase B",
       "daily": [
-        {
-          "c": 1007.376,
-          "t": "2025-06-13"
-        },
         {
           "c": 1007.451,
           "t": "2025-06-17"
@@ -116050,10 +115738,6 @@
     "schroder-retorno-total-dos-clase-b": {
       "nombre": "Schroder Retorno Total Dos - Clase B",
       "daily": [
-        {
-          "c": 340.239,
-          "t": "2025-06-13"
-        },
         {
           "c": 340.414,
           "t": "2025-06-17"
