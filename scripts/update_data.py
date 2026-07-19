@@ -3395,6 +3395,10 @@ def main():
             closes.sort(key=lambda x: x[0])
             if not closes or close_actual is None:
                 return None, None, None
+            try:
+                close_actual = float(close_actual)
+            except (TypeError, ValueError):
+                return None, None, None
             anio_actual = date.today().year
 
             def pct_desde(idx_atras=None, desde_anio=False):
@@ -3403,6 +3407,10 @@ def main():
                 else:
                     ref = closes[-idx_atras][1] if len(closes) >= idx_atras else None
                 if not ref:
+                    return None
+                try:
+                    ref = float(ref)
+                except (TypeError, ValueError):
                     return None
                 return (close_actual - ref) / ref * 100
 
