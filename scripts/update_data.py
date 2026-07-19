@@ -722,6 +722,72 @@ SOBERANOS_FLUJOS = {
 # ------------------------------------------------------------------
 
 CER_FLUJOS = {
+    # TZXA7 y TZXY7 (tarea 3.2): bullet, 100% amortizacion al vencimiento,
+    # ajuste CER +0.00% (sin spread de cupon; confirmado en la ficha de
+    # cada bono, ver abajo), mismo patron que TZXO6/TZXD6/etc.
+    # "cer_emision" no esta publicado directamente en ninguna fuente
+    # gratuita accesible desde este entorno (BCRA/MAE no respondieron
+    # con datos parseables), asi que se derivo indirectamente a partir
+    # de: cer_emision = cer_hoy * 100 / VT, usando el Valor Tecnico (VT)
+    # y que son bullet con VNR=1 (sin amortizaciones previas). Fuentes
+    # (todas consultadas 19/07/2026):
+    #  - VT TZXA7 = 122.85 (app.docta.com.ar/dashboard/market/CER/ticker/TZXA7,
+    #    bono "Tesoro De La Nacion Argentina 30.04.2027 Ajuste por CER +0.00%")
+    #  - VT TZXY7 = 114.67 (app.docta.com.ar/dashboard/market/CER/ticker/TZXY7,
+    #    bono "Tesoro De La Nacion Argentina 31.05.2027 Ajuste por CER +0.00%")
+    #  - CER del 16/07/2026 = 808.0418 (ikiwi.net.ar/coeficiente-de-estabilizacion-de-referencia-cer/,
+    #    que cita como fuente al BCRA). Hay un desfasaje de ~1 a 3 dias
+    #    habiles entre esta fecha del CER y la fecha de las cotizaciones
+    #    de Docta (17-19/07/2026); dado que el CER varia muy poco dia a
+    #    dia, el error introducido en cer_emision es marginal (<0.3%),
+    #    pero queda documentado por transparencia. Si se dispone de una
+    #    fuente mejor (ISIN/prospecto BCRA con el CER de emision exacto),
+    #    reemplazar estos valores.
+    "TZXA7": {"vencimiento": "2027-04-30", "cer_emision": 657.747, "flujos": [
+        ("2027-04-30", 1.0, 0.0, 0.5),
+    ]},
+    "TZXY7": {"vencimiento": "2027-05-31", "cer_emision": 704.667, "flujos": [
+        ("2027-05-31", 1.0, 0.0, 0.5),
+    ]},
+    # PENDIENTE (tarea 3.2, no completado en esta corrida): TZXS7,
+    # TZXM8, TZXS8, TZXM9, TZXO7, TZXD8 y CUAP.
+    #  - TZXS7 (vto. 2027-09-30): la ficha de Docta la muestra como
+    #    "Ajuste por CER +2.16%" (a diferencia de TZXA7/TZXY7 que son
+    #    "+0.00%"), lo que sugiere que SI paga un spread/cupon real
+    #    sobre CER y por lo tanto NO es puramente bullet zero-cupon;
+    #    no se pudo confirmar la periodicidad/monto exacto del cupon
+    #    con las fuentes disponibles en este entorno (sandbox sin
+    #    acceso irrestricto a internet, requests bloqueados por
+    #    allowlist salvo via la herramienta de fetch puntual). No
+    #    cargar como bullet simple sin verificar esto primero.
+    #  - TZXM8 (2028-03-31), TZXS8 (2028-09-29), TZXM9 (2029-03-28),
+    #    TZXO7 (2027-10-29), TZXD8 (2028-12-15): confirmados como bonos
+    #    cero cupon ajustados por CER (bullet) via busqueda web, pero no
+    #    se pudo obtener su Valor Tecnico / precio actual (las paginas
+    #    ficha de Docta para estos tickers no resolvieron con datos
+    #    parseables en los intentos realizados) para derivar
+    #    "cer_emision" con el mismo metodo usado arriba. Proximo paso:
+    #    reintentar fetch de https://app.docta.com.ar/dashboard/market/CER/ticker/<TICKER>
+    #    (requiere que la URL exacta haya aparecido antes en un
+    #    resultado de busqueda web para poder hacer fetch, por una
+    #    restriccion de "provenance" de la herramienta de este entorno)
+    #    o buscar el CER de emision oficial en el prospecto/condiciones
+    #    de emision (MAE/BCRA).
+    #  - CUAP (vto. 2045-12-31): CONFIRMADO que no es bullet puro. Segun
+    #    portfoliopersonal.com/files/bonos/CUAP.pdf y bonistas.com: paga
+    #    interes real de 3.31% TNA (base 30/360) semestral el 30/6 y
+    #    31/12 desde el 30/06/2014 (antes de esa fecha el interes se
+    #    capitalizaba), y amortiza en 20 cuotas semestrales iguales
+    #    (30/6 y 31/12) desde el 30/06/2036 hasta el 31/12/2045. El
+    #    informe de Banco Provincia del 17/07/2026 confirma cupon
+    #    3.310% y muestra Precio=46.090,00 / TIR=8.23% / Duration=10.00
+    #    para CUAP (base 100.000 VN). Falta determinar con una fuente
+    #    verificable el VNR (capital ajustado) vigente hoy, que por la
+    #    capitalizacion de intereses 2003-2013 es mayor a 1.0 sobre el
+    #    nominal original (ver patron DICP_VNR_HOY/CER_VNR_CONOCIDO mas
+    #    abajo para replicar el mismo mecanismo una vez que se consiga
+    #    ese dato). No forzar un VNR sin verificar para no distorsionar
+    #    la TIR/duration de un bono con paridad ~62% y MD~10.
     "TZXO6": {"vencimiento": "2026-10-30", "cer_emision": 480.1526, "flujos": [
         ("2026-10-30", 1.0, 0.0, 0.5),
     ]},
@@ -828,6 +894,52 @@ CER_VNR_CONOCIDO = {
 # TIR calculada por este script difiere fuertemente de la publicada con
 # PUT, es la discrepancia esperada por no modelar esa opcionalidad, no un
 # error de flujos.
+# ------------------------------------------------------------------
+# PENDIENTE (tareas 3.3 "TAMAR" y 3.4 "Duales y Dolar Linked"): NO
+# implementado en esta corrida. Motivo: no se encontro, dentro de las
+# restricciones de red de este entorno (fetch puntual con restriccion
+# de "provenance" por URL, sin acceso irrestricto a internet), una
+# fuente que devolviera datos numericos parseables (precio, fair_value,
+# TIR, modified_duration) para bonistas.com/api/bond/{TICKER} de los
+# 5 TAMAR (TMF27, TML27, TMG27, TMF28, TMG28) ni de los 8 Duales/Dolar
+# Linked (TXMJ8, TXMD8, TXMJ9, TXMJ0, TTD26, D31M7, TZV27, TZV28): el
+# endpoint API de bonistas.com respondio vacio en los intentos de
+# fetch realizados (probablemente requiere JS/headers no soportados
+# por la herramienta de fetch disponible), y las paginas HTML de
+# docta.com.ar/app.doctacapital.com.ar que SI devolvieron datos reales
+# (usadas para TZXA7/TZXY7 en CER_FLUJOS mas arriba) son solo
+# accesibles bono por bono via busqueda web previa (no hay pagina de
+# listado publica sin login), lo que para 13 tickers adicionales
+# excedia el presupuesto de esta corrida.
+#
+# Para continuar en una proxima sesion:
+#  1. Para cada ticker, buscar "CER - <TICKER> Docta Capital cotizacion"
+#     o "<TICKER> bonistas.com" via WebSearch para que la URL entre en
+#     el "provenance set" de la herramienta de fetch, y despues hacer
+#     fetch de https://app.docta.com.ar/dashboard/market/CER/ticker/<TICKER>
+#     (para TAMAR/Duales puede ser otra categoria en la URL, ej.
+#     /market/TAMAR/ticker/... o /market/DUAL/ticker/...; probar
+#     variantes) para obtener Precio, TIR, Valor Tecnico, Paridad y
+#     fecha de emision.
+#  2. Documentar la fuente y fecha de consulta en un comentario, igual
+#     que se hizo para TZXA7/TZXY7 en CER_FLUJOS mas arriba.
+#  3. No existe todavia en este codigo un helper generico de
+#     "VR-adjustment" reusable para TAMAR (se busco cerca de
+#     get_bonos_cer() y no hay ninguno), asi que hay que crearlo nuevo,
+#     tomando get_bonos_cer() como plantilla de estructura (misma
+#     logica de VNR/flujos futuros/duration, pero reemplazando el
+#     ajuste por "cer_hoy/cer_emision" por el coeficiente TAMAR o TC
+#     acumulado segun corresponda a cada subseccion). Todos estos
+#     bonos son bullet (pago unico al vencimiento) segun el enunciado
+#     de la tarea, lo que simplifica el modelo de flujos.
+#  4. Frontend: agregar las tablas nuevas en index.html (etiqueta
+#     "TAMAR" en Bonos en Pesos para 3.3, y una subseccion separada
+#     "Duales y Dolar Linked" para 3.4, sin mezclar con CER), y
+#     extender el selector de pastillas de 3.6 (ver switchStockSubTab
+#     en index.html como referencia de patron) a 3 pastillas: Tasa
+#     Fija / TAMAR / Duales y Dolar Linked.
+# ------------------------------------------------------------------
+
 BONOS_PESOS_CUPON_FLUJOS = {
     "TY30P": {"vencimiento": "2030-05-30", "flujos": [
         ("2026-11-30", 0.1475), ("2027-05-31", 0.1475), ("2027-11-30", 0.1475),
@@ -996,6 +1108,8 @@ BOND_DESCRIPTIONS = {
     "TZXD7": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2027",
     "TZXM7": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2027",
     "TZXO6": "Bono del Tesoro en pesos ajustado por CER, vto. oct. 2026",
+    "TZXA7": "Bono del Tesoro en pesos ajustado por CER, vto. abr. 2027",
+    "TZXY7": "Bono del Tesoro en pesos ajustado por CER, vto. may. 2027",
     "X30N6": "Letra del Tesoro (LECER) ajustada por CER, vto. nov. 2026",
     "X30S6": "Letra del Tesoro (LECER) ajustada por CER, vto. sep. 2026",
     "X31L6": "Letra del Tesoro (LECER) ajustada por CER, vto. jul. 2026",
