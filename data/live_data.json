@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-19T06:20:29.138308+00:00",
+  "updated_at": "2026-07-19T07:38:51.250210+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64677,
-      "change_24h": 1.1309192566867474
+      "usd": 64668,
+      "change_24h": 1.0971356905766878
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1867.93,
-      "change_24h": 1.2264491428740305
+      "usd": 1868.17,
+      "change_24h": 1.3172192275998396
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999262,
-      "change_24h": -0.00012062441947070176
+      "usd": 0.999297,
+      "change_24h": 0.0012894772464751222
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 568.37,
-      "change_24h": 0.08560601027275941
+      "usd": 568.86,
+      "change_24h": 0.2700336280269811
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 75.96,
-      "change_24h": 1.3672856817748582
+      "usd": 76.14,
+      "change_24h": 1.6548510603042923
     }
   ],
   "tasas_locales": [
@@ -2164,7 +2164,7 @@
     }
   ],
   "acciones_mundiales": {
-    "updated_at": "2026-07-19T06:21:37.214609+00:00",
+    "updated_at": "2026-07-19T07:39:58.107013+00:00",
     "secciones": {
       "top_market_cap": [
         {
@@ -2472,6 +2472,16 @@
       ],
       "top_baja_diaria": [
         {
+          "symbol": "DLKGF",
+          "nombre": "Delek Group Ltd.",
+          "precio": 28.7625,
+          "pct_change": -90.0,
+          "market_cap": 5260127232,
+          "volumen": 13,
+          "wk52_high": 381.31,
+          "wk52_low": 209.58
+        },
+        {
           "symbol": "SIELY",
           "nombre": "Shanghai Electric Group Co., Lt",
           "precio": 7.95,
@@ -2610,16 +2620,6 @@
           "volumen": 254,
           "wk52_high": 12.29,
           "wk52_low": 4.55
-        },
-        {
-          "symbol": "NCTKY",
-          "nombre": "Nabtesco Corp.",
-          "precio": 14.55,
-          "pct_change": -12.244,
-          "market_cap": 3614167552,
-          "volumen": 300,
-          "wk52_high": 19.46,
-          "wk52_low": 7.83
         }
       ],
       "top_volumen": [
@@ -2664,16 +2664,6 @@
           "wk52_low": 164.07
         },
         {
-          "symbol": "NU",
-          "nombre": "Nu Holdings Ltd.",
-          "precio": 13.59,
-          "pct_change": -1.45,
-          "market_cap": 65646284800,
-          "volumen": 112287916,
-          "wk52_high": 18.98,
-          "wk52_low": 11.2
-        },
-        {
           "symbol": "INTC",
           "nombre": "Intel Corporation",
           "precio": 95.04,
@@ -2682,6 +2672,16 @@
           "volumen": 120108222,
           "wk52_high": 142.35,
           "wk52_low": 18.97
+        },
+        {
+          "symbol": "NU",
+          "nombre": "Nu Holdings Ltd.",
+          "precio": 13.59,
+          "pct_change": -1.45,
+          "market_cap": 65646284800,
+          "volumen": 112287916,
+          "wk52_high": 18.98,
+          "wk52_low": 11.2
         },
         {
           "symbol": "OPEN",
@@ -3145,9 +3145,9 @@
       "close": "520.81000",
       "percent_change": "-0.76596601",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": 0.874,
+      "percent_change_ytd": 7.688,
+      "percent_change_12m": 16.978
     },
     {
       "symbol": "EEM",
@@ -3165,9 +3165,9 @@
       "close": "35.23000",
       "percent_change": "-0.28305203",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": 3.283,
+      "percent_change_ytd": 9.41,
+      "percent_change_12m": 27.23
     },
     {
       "symbol": "IWM",
@@ -3175,9 +3175,9 @@
       "close": "294.040009",
       "percent_change": "-0.52437086",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": 1.435,
+      "percent_change_ytd": 18.193,
+      "percent_change_12m": 31.315
     },
     {
       "symbol": "ARKK",
@@ -3185,9 +3185,9 @@
       "close": "75.20000",
       "percent_change": "-1.91731",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": -4.192,
+      "percent_change_ytd": -3.971,
+      "percent_change_12m": -1.364
     },
     {
       "symbol": "XLE",
@@ -3195,9 +3195,9 @@
       "close": "57.68000",
       "percent_change": "1.15749",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": 5.506,
+      "percent_change_ytd": 26.353,
+      "percent_change_12m": 33.118
     },
     {
       "symbol": "XLF",
@@ -3205,9 +3205,9 @@
       "close": "56.26000",
       "percent_change": "-0.86343908",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": 4.089,
+      "percent_change_ytd": 2.421,
+      "percent_change_12m": 7.141
     },
     {
       "symbol": "XLV",
@@ -3215,9 +3215,9 @@
       "close": "161.089996",
       "percent_change": "-0.43881749",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": 6.887,
+      "percent_change_ytd": 3.588,
+      "percent_change_12m": 21.376
     },
     {
       "symbol": "SMH",
@@ -3225,9 +3225,9 @@
       "close": "556.53003",
       "percent_change": "-2.17780",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": -10.808,
+      "percent_change_ytd": 49.084,
+      "percent_change_12m": 90.782
     },
     {
       "symbol": "IBIT",
@@ -3235,9 +3235,9 @@
       "close": "36.35000",
       "percent_change": "-0.10992283",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": -0.028,
+      "percent_change_ytd": -28.642,
+      "percent_change_12m": -46.268
     },
     {
       "symbol": "GLD",
@@ -3245,9 +3245,9 @@
       "close": "368.41000",
       "percent_change": "0.94531244",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": -5.196,
+      "percent_change_ytd": -7.5,
+      "percent_change_12m": 19.773
     },
     {
       "symbol": "XLK",
@@ -3255,9 +3255,9 @@
       "close": "175.59000",
       "percent_change": "-1.087206",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": -5.495,
+      "percent_change_ytd": 21.684,
+      "percent_change_12m": 34.521
     },
     {
       "symbol": "TLT",
@@ -3265,9 +3265,9 @@
       "close": "84.52000",
       "percent_change": "0.36812441",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": -2.097,
+      "percent_change_ytd": -2.884,
+      "percent_change_12m": -0.693
     },
     {
       "symbol": "FXI",
@@ -3275,9 +3275,9 @@
       "close": "34.13000",
       "percent_change": "-1.15841",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": 1.426,
+      "percent_change_ytd": -14.289,
+      "percent_change_12m": -9.205
     },
     {
       "symbol": "SLV",
@@ -3285,9 +3285,9 @@
       "close": "50.78000",
       "percent_change": "0.77396189",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": -16.218,
+      "percent_change_ytd": -22.768,
+      "percent_change_12m": 46.551
     },
     {
       "symbol": "USO",
@@ -3295,9 +3295,9 @@
       "close": "123.96000",
       "percent_change": "3.90612",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": 8.518,
+      "percent_change_ytd": 79.756,
+      "percent_change_12m": 62.763
     },
     {
       "symbol": "XLP",
@@ -3305,9 +3305,9 @@
       "close": "85.19000",
       "percent_change": "-0.72252084",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": 1.804,
+      "percent_change_ytd": 9.654,
+      "percent_change_12m": 5.03
     },
     {
       "symbol": "XLY",
@@ -3315,59 +3315,59 @@
       "close": "115.44000",
       "percent_change": "-1.61922",
       "currency": "USD",
-      "percent_change_1m": null,
-      "percent_change_ytd": null,
-      "percent_change_12m": null
+      "percent_change_1m": -0.043,
+      "percent_change_ytd": -2.459,
+      "percent_change_12m": 4.841
     }
   ],
   "forex": [
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14395",
-      "percent_change": "0.0069938017",
+      "close": "1.144",
+      "percent_change": "0.011364928",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34519",
-      "percent_change": "0.0089214688",
+      "close": "1.34523",
+      "percent_change": "0.011895292",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.41253",
-      "percent_change": "-0.0080960104",
+      "close": "162.40791",
+      "percent_change": "-0.010940388",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11137",
-      "percent_change": "-0.097530275",
+      "close": "5.11121",
+      "percent_change": "-0.10065750",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.53772",
-      "percent_change": "-0.059664273",
+      "close": "17.54008",
+      "percent_change": "-0.046215593",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.1772",
-      "percent_change": "-0.016026423",
+      "close": "40.17626",
+      "percent_change": "-0.018365683",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1478.33314",
-      "percent_change": "0.055474282",
+      "close": "1478.28846",
+      "percent_change": "0.052450282",
       "currency": null
     }
   ]
