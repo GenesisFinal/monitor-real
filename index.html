@@ -1722,7 +1722,12 @@ Stack: ${error ? error.stack : 'N/A'}`;
                     <h3 class="text-base font-bold text-white light:text-slate-950 flex items-center gap-2">
                         <i class="fas fa-money-bill-wave" style="color:#6366f1"></i> Bonos en Pesos
                     </h3>
-                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch">
+                    <div class="flex flex-wrap gap-1.5">
+                        <button type="button" id="bp-pill-fija" onclick="switchBonosPesosSubTab('fija')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-brandBlue text-white">Tasa Fija (<span id="bp-pill-count-fija">0</span>)</button>
+                        <button type="button" id="bp-pill-tamar" onclick="switchBonosPesosSubTab('tamar')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">TAMAR (<span id="bp-pill-count-tamar">0</span>)</button>
+                        <button type="button" id="bp-pill-duales" onclick="switchBonosPesosSubTab('duales')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors bg-slate-800/60 text-slate-300 light:bg-slate-200 light:text-slate-600 hover:bg-slate-700/60">Duales y Dólar Linked (<span id="bp-pill-count-duales">0</span>)</button>
+                    </div>
+                    <div id="bp-body-bonds_pesos" class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch">
                         <div class="lg:col-span-2 glass-card rounded-2xl overflow-hidden">
                             <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-xs text-left">
                                 <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase">
@@ -1747,8 +1752,8 @@ Stack: ${error ? error.stack : 'N/A'}`;
                                         <button onclick="toggleBondView('bonds_pesos', 'curve')" id="btn-view-curve-bonds_pesos" class="text-[10px] px-2 py-0.5 rounded bg-brandBlue text-white font-bold">Curva TIR</button>
                                         <button onclick="toggleBondView('bonds_pesos', 'history')" id="btn-view-history-bonds_pesos" class="text-[10px] px-2 py-0.5 rounded text-slate-400 hover:text-white light:text-slate-600 light:hover:text-slate-900">Evolución</button>
                                     </div>
-                                    <button class="chart-export-btn static-export" id="btn-export-curve-bonds_pesos" onclick="exportChart('chart-bonds_pesos-curva', 'Bonos en Pesos')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                                    <button class="chart-export-btn static-export hidden" id="btn-export-history-bonds_pesos" onclick="exportChart('chart-bonds_pesos', 'Bonos en Pesos')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                                    <button class="chart-export-btn static-export" id="btn-export-curve-bonds_pesos" onclick="exportChart('chart-bonds_pesos-curva', 'Bonos en Pesos (Tasa Fija)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                                    <button class="chart-export-btn static-export hidden" id="btn-export-history-bonds_pesos" onclick="exportChart('chart-bonds_pesos', 'Bonos en Pesos (Tasa Fija)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
                                 </div>
                             </div>
                             <div id="container-curve-bonds_pesos">
@@ -1757,6 +1762,82 @@ Stack: ${error ? error.stack : 'N/A'}`;
                             <div id="container-history-bonds_pesos" class="hidden">
                                 <h3 class="text-xs font-semibold text-slate-400 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
                                 <canvas id="chart-bonds_pesos" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bp-body-bonds_pesos_tamar" class="hidden grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch">
+                        <div class="lg:col-span-2 glass-card rounded-2xl overflow-hidden">
+                            <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-xs text-left">
+                                <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase">
+                                    <tr>
+                                        <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                        <th class="px-3 py-2.5">Ticker</th>
+                                        <th class="px-3 py-2.5 text-right">Precio</th>
+                                        <th class="px-3 py-2.5 text-right">Var. Día</th>
+                                        <th class="px-3 py-2.5 text-right">TIR</th>
+                                        <th class="px-3 py-2.5 text-right">Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbl-bonds_pesos_tamar" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="lg:col-span-3 glass-card rounded-2xl p-4 relative">
+                            <div class="flex items-center justify-between mb-2 gap-2 flex-wrap">
+                                <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600">Curva de rendimientos: TIR × Duration</h4>
+                                <div class="flex items-center gap-2">
+                                    <div class="flex bg-darkBg/60 light:bg-slate-200 p-0.5 rounded-lg border border-darkBorder/40 light:border-slate-300">
+                                        <button onclick="toggleBondView('bonds_pesos_tamar', 'curve')" id="btn-view-curve-bonds_pesos_tamar" class="text-[10px] px-2 py-0.5 rounded bg-brandBlue text-white font-bold">Curva TIR</button>
+                                        <button onclick="toggleBondView('bonds_pesos_tamar', 'history')" id="btn-view-history-bonds_pesos_tamar" class="text-[10px] px-2 py-0.5 rounded text-slate-400 hover:text-white light:text-slate-600 light:hover:text-slate-900">Evolución</button>
+                                    </div>
+                                    <button class="chart-export-btn static-export" id="btn-export-curve-bonds_pesos_tamar" onclick="exportChart('chart-bonds_pesos_tamar-curva', 'Bonos en Pesos (TAMAR)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                                    <button class="chart-export-btn static-export hidden" id="btn-export-history-bonds_pesos_tamar" onclick="exportChart('chart-bonds_pesos_tamar', 'Bonos en Pesos (TAMAR)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                                </div>
+                            </div>
+                            <div id="container-curve-bonds_pesos_tamar">
+                                <canvas id="chart-bonds_pesos_tamar-curva" height="200"></canvas>
+                            </div>
+                            <div id="container-history-bonds_pesos_tamar" class="hidden">
+                                <h3 class="text-xs font-semibold text-slate-400 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                                <canvas id="chart-bonds_pesos_tamar" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bp-body-bonds_pesos_duales" class="hidden grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch">
+                        <div class="lg:col-span-2 glass-card rounded-2xl overflow-hidden">
+                            <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-xs text-left">
+                                <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase">
+                                    <tr>
+                                        <th class="w-10 px-2 py-2.5 text-center">Comp.</th>
+                                        <th class="px-3 py-2.5">Ticker</th>
+                                        <th class="px-3 py-2.5 text-right">Precio</th>
+                                        <th class="px-3 py-2.5 text-right">Var. Día</th>
+                                        <th class="px-3 py-2.5 text-right">TIR</th>
+                                        <th class="px-3 py-2.5 text-right">Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbl-bonds_pesos_duales" class="divide-y divide-darkBorder/40 light:divide-gray-200">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="lg:col-span-3 glass-card rounded-2xl p-4 relative">
+                            <div class="flex items-center justify-between mb-2 gap-2 flex-wrap">
+                                <h4 class="text-sm font-semibold text-slate-300 light:text-slate-600">Curva de rendimientos: TIR × Duration</h4>
+                                <div class="flex items-center gap-2">
+                                    <div class="flex bg-darkBg/60 light:bg-slate-200 p-0.5 rounded-lg border border-darkBorder/40 light:border-slate-300">
+                                        <button onclick="toggleBondView('bonds_pesos_duales', 'curve')" id="btn-view-curve-bonds_pesos_duales" class="text-[10px] px-2 py-0.5 rounded bg-brandBlue text-white font-bold">Curva TIR</button>
+                                        <button onclick="toggleBondView('bonds_pesos_duales', 'history')" id="btn-view-history-bonds_pesos_duales" class="text-[10px] px-2 py-0.5 rounded text-slate-400 hover:text-white light:text-slate-600 light:hover:text-slate-900">Evolución</button>
+                                    </div>
+                                    <button class="chart-export-btn static-export" id="btn-export-curve-bonds_pesos_duales" onclick="exportChart('chart-bonds_pesos_duales-curva', 'Bonos en Pesos (Duales y Dólar Linked)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                                    <button class="chart-export-btn static-export hidden" id="btn-export-history-bonds_pesos_duales" onclick="exportChart('chart-bonds_pesos_duales', 'Bonos en Pesos (Duales y Dólar Linked)')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
+                                </div>
+                            </div>
+                            <div id="container-curve-bonds_pesos_duales">
+                                <canvas id="chart-bonds_pesos_duales-curva" height="200"></canvas>
+                            </div>
+                            <div id="container-history-bonds_pesos_duales" class="hidden">
+                                <h3 class="text-xs font-semibold text-slate-400 light:text-slate-600 mb-2">Evolución (marcá "Comp." en la tabla)</h3>
+                                <canvas id="chart-bonds_pesos_duales" height="200"></canvas>
                             </div>
                         </div>
                     </div>
@@ -4489,7 +4570,38 @@ Stack: ${error ? error.stack : 'N/A'}`;
             }
         }
 
+        // Selector de pastillas para "Bonos en Pesos" (tarea 3.6): mismo
+        // patron que switchStockSubTab() para Acciones Mundiales, pero mas
+        // simple (solo 3 subsecciones fijas, sin re-render diferido de
+        // grafico "top N" porque cada subseccion ya tiene su propio grafico
+        // Curva TIR / Evolucion manejado por toggleBondView()).
+        const BONOS_PESOS_SUBTABS = {
+            fija: 'bonds_pesos',
+            tamar: 'bonds_pesos_tamar',
+            duales: 'bonds_pesos_duales',
+        };
+
+        function switchBonosPesosSubTab(subKey) {
+            if (!BONOS_PESOS_SUBTABS[subKey]) return;
+            Object.keys(BONOS_PESOS_SUBTABS).forEach(k => {
+                const body = document.getElementById('bp-body-' + k);
+                const pill = document.getElementById('bp-pill-' + k);
+                const active = k === subKey;
+                if (body) body.classList.toggle('hidden', !active);
+                if (pill) {
+                    pill.classList.toggle('bg-brandBlue', active);
+                    pill.classList.toggle('text-white', active);
+                    pill.classList.toggle('bg-slate-800/60', !active);
+                    pill.classList.toggle('text-slate-300', !active);
+                    pill.classList.toggle('light:bg-blue-600', active);
+                    pill.classList.toggle('light:bg-slate-200', !active);
+                    pill.classList.toggle('light:text-slate-600', !active);
+                }
+            });
+        }
+
         function renderBonosSoberanos(key, items, color) {
+
             renderBonosTabla(key, 'tbl-' + key, items);
             renderBonosCurva('chart-' + key + '-curva', items, color);
             // El grafico de evolucion (linea/velas/OHLC) solo se redibuja
@@ -4555,6 +4667,14 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 renderFciSecciones(data.fci_secciones);
                 if (data.bonos_cer) renderBonosSoberanos('bonds_cer', data.bonos_cer, '#f59e0b');
                 if (data.bonos_pesos) renderBonosSoberanos('bonds_pesos', data.bonos_pesos, '#6366f1');
+                if (data.bonos_pesos_tamar) renderBonosSoberanos('bonds_pesos_tamar', data.bonos_pesos_tamar, '#a855f7');
+                if (data.bonos_pesos_duales) renderBonosSoberanos('bonds_pesos_duales', data.bonos_pesos_duales, '#f97316');
+                const bpCounts = { fija: data.bonos_pesos, tamar: data.bonos_pesos_tamar, duales: data.bonos_pesos_duales };
+                Object.keys(bpCounts).forEach(subKey => {
+                    const el = document.getElementById('bp-pill-count-' + subKey);
+                    if (el) el.textContent = (bpCounts[subKey] || []).length;
+                });
+                switchBonosPesosSubTab('fija');
                 if (data.bonos_soberanos_usd) renderBonosSoberanos('bonds_usd', data.bonos_soberanos_usd, '#10b981');
                 if (data.ons_usd) renderOnsUsd(data.ons_usd);
                 renderAccionesArg(data.acciones_arg);

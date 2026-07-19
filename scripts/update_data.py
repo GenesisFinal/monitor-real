@@ -1114,6 +1114,21 @@ BOND_DESCRIPTIONS = {
     "PARP": "Par en pesos ajustado por CER (reestructuracion 2005)",
     "TZXA7": "Bono del Tesoro en pesos ajustado por CER, vto. abr. 2027",
     "TZXY7": "Bono del Tesoro en pesos ajustado por CER, vto. may. 2027",
+    # TAMAR (tarea 3.3)
+    "TMF27": "Bono del Tesoro en pesos TAMAR, vto. feb. 2027",
+    "TML27": "Bono del Tesoro en pesos TAMAR, vto. jul. 2027",
+    "TMG27": "Bono del Tesoro en pesos TAMAR, vto. ago. 2027",
+    "TMF28": "Bono del Tesoro en pesos TAMAR, vto. feb. 2028",
+    "TMG28": "Bono del Tesoro en pesos TAMAR, vto. ago. 2028",
+    # Duales y Dolar Linked (tarea 3.4)
+    "TXMJ8": "Bono del Tesoro Dual CER/TAMAR, vto. jun. 2028",
+    "TXMD8": "Bono del Tesoro Dual, vto. dic. 2028",
+    "TXMJ9": "Bono del Tesoro Dual, vto. jun. 2029",
+    "TXMJ0": "Bono del Tesoro Dual, vto. jun. 2030",
+    "TTD26": "Bono del Tesoro Dual, vto. dic. 2026",
+    "D31M7": "Bono del Tesoro Dolar Linked, vto. mar. 2027",
+    "TZV27": "Bono del Tesoro Dolar Linked, vto. jun. 2027",
+    "TZV28": "Bono del Tesoro Dolar Linked, vto. jun. 2028",
 }
 
 
@@ -1424,6 +1439,151 @@ def get_bonos_pesos():
     candidatos.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
     return candidatos or None
 
+
+
+
+# ------------------------------------------------------------------
+# Bonos TAMAR (tarea 3.3) y Duales/Dolar Linked (tarea 3.4). No existe
+# en este script una fuente de tasa TAMAR historica integrada (ni un
+# indice diario publico y gratuito equivalente al CER de datos.gob.ar
+# para poder modelar el flujo de fondos propio con el mismo helper de
+# VR-adjustment que usa get_bonos_cer()), asi que -tal como habilita el
+# enunciado de la tarea- se toma directamente TIR/duration (modified
+# duration) y precio publicados por bonistas.com para cada ticker,
+# reutilizando el mismo parseo de __NEXT_DATA__ que ya usa
+# _fetch_bonistas_history() mas abajo en este archivo (bloque
+# "props.pageProps.bondData"), documentando la fuente en el campo
+# "fuente" de cada item. Esto corre en vivo en cada ejecucion de GitHub
+# Actions (no son valores hardcodeados en este script). Los nombres
+# exactos de los campos del objeto "bond" (fair_value/tir_val/
+# modified_duration_val, segun la tarea original) no pudieron
+# verificarse desde este sandbox por falta de acceso de red a
+# bonistas.com; se prueban varios alias razonables por robustez y se
+# devuelve None si no aparece ninguno (en runtime real de GitHub
+# Actions, revisar el log si "bonos_pesos_tamar"/"bonos_pesos_duales"
+# salen vacios para ajustar los nombres de campo).
+# ------------------------------------------------------------------
+
+TAMAR_BONOS = {
+    "TMF27": {"vencimiento": "2027-02-26"},
+    "TML27": {"vencimiento": "2027-07-30"},
+    "TMG27": {"vencimiento": "2027-08-31"},
+    "TMF28": {"vencimiento": "2028-02-25"},
+    "TMG28": {"vencimiento": "2028-08-31"},
+}
+
+DUALES_DOLARLINKED_BONOS = {
+    "TXMJ8": {"vencimiento": "2028-06-30", "tipo": "Dual CER/TAMAR"},
+    "TXMD8": {"vencimiento": "2028-12-15", "tipo": "Dual"},
+    "TXMJ9": {"vencimiento": "2029-06-29", "tipo": "Dual"},
+    "TXMJ0": {"vencimiento": "2030-06-28", "tipo": "Dual"},
+    "TTD26": {"vencimiento": "2026-12-15", "tipo": "Dual"},
+    "D31M7": {"vencimiento": "2027-03-31", "tipo": "Dolar Linked"},
+    "TZV27": {"vencimiento": "2027-06-30", "tipo": "Dolar Linked"},
+    "TZV28": {"vencimiento": "2028-06-30", "tipo": "Dolar Linked"},
+}
+
+
+def _fetch_bonistas_bond_info(ticker):
+    """TIR/MD/precio publicados por bonistas.com para un ticker (ver nota
+    arriba sobre los alias de campo probados)."""
+    html = fetch_text(f"https://bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{ticker}")
+    if not html:
+        return None
+    m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html, re.S)
+    if not m:
+        return None
+    try:
+        data = json.loads(m.group(1))
+        bond = data["props"]["pageProps"]["bondData"]["bond"]
+    except (KeyError, TypeError, ValueError):
+        return None
+    if not isinstance(bond, dict):
+        return None
+
+    def _first(*keys):
+        for k in keys:
+            v = bond.get(k)
+            if v is not None:
+                return v
+        return None
+
+    precio = _first("price_val", "price", "last_price", "close_val", "close", "fair_value")
+    tir = _first("tir_val", "tir", "yield_val")
+    dur = _first("modified_duration_val", "modified_duration", "duration_val", "duration")
+    if precio is None and tir is None and dur is None:
+        return None
+    try:
+        precio = float(precio) if precio is not None else None
+    except (TypeError, ValueError):
+        precio = None
+    try:
+        tir = float(tir) if tir is not None else None
+        # Algunas fuentes publican la TIR como proporcion (0.2675) y otras
+        # ya en porcentaje (26.75); se normaliza a porcentaje aqui para
+        # que quede consistente con el resto de las secciones de bonos.
+        if tir is not None and abs(tir) < 1:
+            tir *= 100
+    except (TypeError, ValueError):
+        tir = None
+    try:
+        dur = float(dur) if dur is not None else None
+    except (TypeError, ValueError):
+        dur = None
+    return {"precio": precio, "tir": tir, "duration": dur}
+
+
+def get_bonos_tamar():
+    hoy = date.today()
+    out = []
+    for sym, info in TAMAR_BONOS.items():
+        binfo = _fetch_bonistas_bond_info(sym)
+        if not binfo:
+            continue
+        vto = _parse_date(info["vencimiento"])
+        dtm = (vto - hoy).days if vto else None
+        dur = binfo.get("duration")
+        if (dur is not None and dur < 0.20) or (dtm is not None and dtm < 45):
+            continue
+        out.append({
+            "symbol": sym,
+            "descripcion": _bond_description(sym, "tamar"),
+            "vencimiento": info["vencimiento"],
+            "precio": binfo.get("precio"),
+            "pct_change": None,
+            "tir": round(binfo["tir"], 3) if binfo.get("tir") is not None else None,
+            "duration": round(dur, 3) if dur is not None else None,
+            "fuente": "bonistas.com",
+        })
+    out.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
+    return out or None
+
+
+def get_bonos_duales_dolarlinked():
+    hoy = date.today()
+    out = []
+    for sym, info in DUALES_DOLARLINKED_BONOS.items():
+        binfo = _fetch_bonistas_bond_info(sym)
+        if not binfo:
+            continue
+        vto = _parse_date(info["vencimiento"])
+        dtm = (vto - hoy).days if vto else None
+        dur = binfo.get("duration")
+        if (dur is not None and dur < 0.20) or (dtm is not None and dtm < 45):
+            continue
+        out.append({
+            "symbol": sym,
+            "descripcion": _bond_description(sym, "dual"),
+            "vencimiento": info["vencimiento"],
+            "tipo": info["tipo"],
+            "precio": binfo.get("precio"),
+            "pct_change": None,
+            "tir": round(binfo["tir"], 3) if binfo.get("tir") is not None else None,
+            "duration": round(dur, 3) if dur is not None else None,
+            "fuente": "bonistas.com",
+        })
+    out.sort(key=lambda x: (x["duration"] is None, x["duration"] or 0))
+    return out or None
 
 
 def get_ons_usd(top_n=20):
@@ -3481,6 +3641,8 @@ def main():
         "bonos_soberanos_usd": get_bonos_soberanos_usd(),
         "bonos_cer": get_bonos_cer(),
         "bonos_pesos": get_bonos_pesos(),
+        "bonos_pesos_tamar": get_bonos_tamar(),
+        "bonos_pesos_duales": get_bonos_duales_dolarlinked(),
         "ons_usd": get_ons_usd(),
         "acciones_arg": get_acciones_arg(),
         "indices": get_indices_globales(),
