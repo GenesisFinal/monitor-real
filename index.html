@@ -3488,8 +3488,22 @@ if (typeof Chart !== 'undefined') {
                                 return;
                             }
                             if (yVal == null) return;
+                            // El eje X es 'timeseries': los datasets de
+                            // velas/OHLC ya guardan x como timestamp
+                            // numerico, pero los de linea/dispersion (y el
+                            // grafico del modal de detalle de bono) guardan
+                            // x como string ISO ("2026-07-17"). Pasarle un
+                            // string a getPixelForValue en una escala
+                            // 'timeseries' no siempre resuelve el pixel
+                            // correcto (a veces da NaN), asi que se
+                            // normaliza a timestamp numerico antes.
+                            let xNumeric = xVal;
+                            if (typeof xVal === 'string') {
+                                const parsed = new Date(xVal).getTime();
+                                if (!isNaN(parsed)) xNumeric = parsed;
+                            }
                             let px;
-                            try { px = xScale.getPixelForValue(xVal); } catch (err) { return; }
+                            try { px = xScale.getPixelForValue(xNumeric); } catch (err) { return; }
                             if (px == null || isNaN(px)) return;
                             const dist = Math.abs(px - e.x);
                             if (dist < bestDist) {
