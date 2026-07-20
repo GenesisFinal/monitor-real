@@ -1325,16 +1325,35 @@ def _bcra_cer_hoy():
 
 
 def get_bonos_soberanos_usd():
-    data = fetch_json("https://rendimientos.co/api/soberanos")
-    if not data or "data" not in data:
+    # rendimientos.co/api/soberanos no cubre GD46 (verificado 20/07/2026:
+    # solo 15 tickers, no incluye el agregado en el canje 2020 de mayor
+    # plazo). Se completa con data912.com/live/arg_bonds, usando el
+    # ticker con sufijo "D" (liquidacion en USD, ej. "GD46D") que es
+    # comparable al "price_usd" de rendimientos.co.
+    precios_por_symbol = {}
+    data_rend = fetch_json("https://rendimientos.co/api/soberanos")
+    if data_rend and "data" in data_rend:
+        for item in data_rend["data"]:
+            sym = item.get("symbol")
+            precio = item.get("price_usd")
+            if sym and precio is not None:
+                precios_por_symbol[sym] = precio
+    data912 = fetch_json("https://data912.com/live/arg_bonds")
+    if data912:
+        for item in data912:
+            sym912 = item.get("symbol") or ""
+            precio = item.get("c")
+            if sym912.endswith("D") and precio is not None:
+                sym = sym912[:-1]
+                if sym not in precios_por_symbol:
+                    precios_por_symbol[sym] = precio
+    if not precios_por_symbol:
         return None
     hoy = date.today()
     out = []
-    for item in data["data"]:
-        sym = item.get("symbol")
-        precio = item.get("price_usd")
+    for sym, precio in precios_por_symbol.items():
         info = SOBERANOS_FLUJOS.get(sym)
-        if not info or precio is None:
+        if not info:
             continue
         flujos = [(_parse_date(f), m) for f, m in info["flujos"]]
         flujos_fut = [(f, m) for f, m in flujos if f and f > hoy]
@@ -1370,19 +1389,39 @@ def get_bonos_soberanos_usd():
 
 
 def get_bonos_cer():
-    data = fetch_json("https://rendimientos.co/api/cer-precios")
-    if not data or "data" not in data:
+    # rendimientos.co/api/cer-precios solo cubre los 14 tickers CER
+    # originales (verificado 20/07/2026: no incluye TZXA7/TZXY7/TZXS7/
+    # TZXM8/TZXS8/TZXM9/TZXO7/TZXD8/CUAP, que por eso quedaban afuera del
+    # listado publicado pese a estar bien definidos en CER_FLUJOS). Se
+    # complementa con data912.com (arg_bonds + arg_notes, mismo campo
+    # "c" de precio), que si cubre esos 9 tickers nuevos.
+    precios_por_symbol = {}
+    data_rend = fetch_json("https://rendimientos.co/api/cer-precios")
+    if data_rend and "data" in data_rend:
+        for item in data_rend["data"]:
+            sym = item.get("symbol")
+            precio = item.get("c")
+            if sym and precio is not None:
+                precios_por_symbol[sym] = precio
+    for url912 in ("https://data912.com/live/arg_bonds", "https://data912.com/live/arg_notes"):
+        data912 = fetch_json(url912)
+        if not data912:
+            continue
+        for item in data912:
+            sym = item.get("symbol")
+            precio = item.get("c")
+            if sym and precio is not None and sym not in precios_por_symbol:
+                precios_por_symbol[sym] = precio
+    if not precios_por_symbol:
         return None
     cer_hoy = _bcra_cer_hoy()
     if cer_hoy is None:
         print("[WARN] No se pudo obtener el indice CER del BCRA: no se calcula TIR/duration de bonos CER.")
     hoy = date.today()
     out = []
-    for item in data["data"]:
-        sym = item.get("symbol")
-        precio = item.get("c")
+    for sym, precio in precios_por_symbol.items():
         info = CER_FLUJOS.get(sym)
-        if not info or precio is None:
+        if not info:
             continue
         cer_emision = info["cer_emision"]
         flujos_all = [(_parse_date(f), am, ti, base) for f, am, ti, base in info["flujos"]]
@@ -1667,17 +1706,14 @@ def get_bonos_pesos():
 # salen vacios para ajustar los nombres de campo).
 # ------------------------------------------------------------------
 
-# NOTA (chequeo automatico 2026-07-20, tarea #58): TAMAR_BONOS y
-# DUALES_DOLARLINKED_BONOS (mas abajo) estan bien codificados, pero hoy
-# 2 de los 5 tickers TAMAR (TMF27) y 2 de los 8 duales/dolar-linked
-# (TTD26, TZV27) no aparecen en el live_data.json publicado. A
-# diferencia de CUAP/CER/GD46 (que dependen de un feed masivo), estos
-# usan _fetch_bonistas_bond_info(sym) por ticker individual contra
-# bonistas.com/api/bond/{TICKER}: la ausencia puntual de estos 3
-# tickers indica que bonistas.com todavia no publica ficha para ellos
-# (o la publica sin los campos fair_value/tir_val/modified_duration_val
-# necesarios), mismo tipo de rezago de cobertura del feed externo, no
-# un bug de codigo ni del filtro de duration/DTM.
+# NOTA (corregido 2026-07-20, tarea #58): la ausencia de TMF27, TTD26 y
+# TZV27 en el live_data.json publicado NO era un problema de cobertura
+# de bonistas.com. Era que _fetch_bonistas_bond_info() usaba la pagina
+# HTML bono-cotizacion-rendimiento-precio-hoy/{ticker}, que redirige al
+# home de bonistas.com para esos 3 tickers puntuales. El endpoint JSON
+# https://bonistas.com/api/bond/{ticker} si publica ficha completa para
+# los 3 (confirmado via Chrome). _fetch_bonistas_bond_info() se
+# reescribio para usar ese endpoint directamente.
 TAMAR_BONOS = {
     "TMF27": {"vencimiento": "2027-02-26"},
     "TML27": {"vencimiento": "2027-07-30"},
@@ -1699,19 +1735,15 @@ DUALES_DOLARLINKED_BONOS = {
 
 
 def _fetch_bonistas_bond_info(ticker):
-    """TIR/MD/precio publicados por bonistas.com para un ticker (ver nota
-    arriba sobre los alias de campo probados)."""
-    html = fetch_text(f"https://bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{ticker}")
-    if not html:
+    """TIR/MD/precio publicados por bonistas.com para un ticker, via el
+    endpoint JSON https://bonistas.com/api/bond/{ticker} (confirmado
+    20/07/2026 via Chrome: mas confiable que la pagina HTML
+    bono-cotizacion-rendimiento-precio-hoy, que redirige al home para
+    varios tickers, ej. TMF27, TTD26, TZV27)."""
+    data = fetch_json(f"https://bonistas.com/api/bond/{ticker}")
+    if not data or not isinstance(data, dict):
         return None
-    m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html, re.S)
-    if not m:
-        return None
-    try:
-        data = json.loads(m.group(1))
-        bond = data["props"]["pageProps"]["bondData"]["bond"]
-    except (KeyError, TypeError, ValueError):
-        return None
+    bond = data.get("bond")
     if not isinstance(bond, dict):
         return None
 
@@ -1722,9 +1754,9 @@ def _fetch_bonistas_bond_info(ticker):
                 return v
         return None
 
-    precio = _first("price_val", "price", "last_price", "close_val", "close", "fair_value")
-    tir = _first("tir_val", "tir", "yield_val")
-    dur = _first("modified_duration_val", "modified_duration", "duration_val", "duration")
+    precio = _first("last_price", "fair_value", "last_close")
+    tir = _first("tir_val", "tir")
+    dur = _first("modified_duration_val", "modified_duration")
     if precio is None and tir is None and dur is None:
         return None
     try:
