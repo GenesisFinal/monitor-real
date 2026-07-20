@@ -1602,7 +1602,11 @@ def _backfill_bond_metrics_from_bonistas():
             continue
         hist = entry.get("history") or []
         fechas_existentes = {p.get("date") for p in hist}
-        data = fetch_json(f"https://bonistas.com/api/bond/{sym}")
+        # BPD7 se liquida en bonistas.com bajo el ticker "BPD7D" (mismo
+        # alias que ya usa build_history_bonos_usd() para el precio);
+        # sin este alias bonistas.com/api/bond/BPD7 no devuelve "history".
+        ticker_bonistas = {"BPD7": "BPD7D"}.get(sym, sym)
+        data = fetch_json(f"https://bonistas.com/api/bond/{ticker_bonistas}")
         if not data or not isinstance(data, dict):
             continue
         h = data.get("history")
