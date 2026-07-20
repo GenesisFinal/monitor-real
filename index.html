@@ -3442,21 +3442,24 @@ Stack: ${error ? error.stack : 'N/A'}`;
         // como default global para que sea facil "agarrar" el punto mas
         // cercano al cursor sin tener que apuntar exactamente encima.
 if (typeof Chart !== 'undefined') {
-            // Crosshair implementado a mano (no depende de
-            // chart.getActiveElements()/interaction de Chart.js): el
-            // controlador de velas/OHLC de chartjs-chart-financial@0.2.1
-            // no resuelve bien el "elemento activo" contra la version de
-            // Chart.js que trae el CDN (linea y dispersion si funcionan
-            // con el mecanismo nativo, velas/OHLC no), asi que en su
-            // lugar se escucha el mousemove del propio grafico
-            // (afterEvent) y se busca a mano el punto de dato mas cercano
-            // en X sobre el/los datasets visibles. Para cada punto se usa
-            // el precio de CIERRE ("c" en velas/OHLC, o "y" en lineas/
-            // dispersion/sample) para la posicion vertical de la cruz,
-            // tal como se pidio.
+            // Crosshair: dos mecanismos distintos segun el tipo de
+            // grafico, cada uno usando lo que efectivamente funciona.
+            // - Lineas/dispersion/sample: chart.getActiveElements()
+            //   (deteccion nativa de Chart.js) resuelve bien la posicion
+            //   del punto activo; es el mecanismo original y ya probado.
+            // - Velas/OHLC (chartjs-chart-financial@0.2.1): el
+            //   controlador financiero no resuelve el "elemento activo"
+            //   contra la version de Chart.js del CDN, asi que ahi se
+            //   calcula a mano en el mousemove (afterEvent) el punto de
+            //   dato mas cercano en X, usando el precio de CIERRE ("c")
+            //   para la posicion vertical, tal como se pidio.
+            const CROSSHAIR_FINANCIAL_TYPES = ['candlestick', 'ohlc'];
+
             Chart.register({
                 id: 'crosshairPlugin',
                 afterEvent(chart, args) {
+                    const type = chart.config && chart.config.type;
+                    if (CROSSHAIR_FINANCIAL_TYPES.indexOf(type) === -1) return;
                     const e = args.event;
                     const area = chart.chartArea;
                     if (!area) return;
@@ -3477,39 +3480,15 @@ if (typeof Chart !== 'undefined') {
                         const meta = chart.getDatasetMeta(di);
                         if (!ds.data || !ds.data.length || (meta && meta.hidden)) return;
                         ds.data.forEach((p) => {
-                            let xVal, yVal;
-                            if (p != null && typeof p === 'object') {
-                                if (p.x == null) return;
-                                xVal = p.x;
-                                yVal = p.c != null ? p.c : p.y;
-                            } else if (typeof p === 'number') {
-                                return; // series categoricas (labels): sin x propio, no se puede ubicar de forma fiable
-                            } else {
-                                return;
-                            }
-                            if (yVal == null) return;
-                            // El eje X es 'timeseries': los datasets de
-                            // velas/OHLC ya guardan x como timestamp
-                            // numerico, pero los de linea/dispersion (y el
-                            // grafico del modal de detalle de bono) guardan
-                            // x como string ISO ("2026-07-17"). Pasarle un
-                            // string a getPixelForValue en una escala
-                            // 'timeseries' no siempre resuelve el pixel
-                            // correcto (a veces da NaN), asi que se
-                            // normaliza a timestamp numerico antes.
-                            let xNumeric = xVal;
-                            if (typeof xVal === 'string') {
-                                const parsed = new Date(xVal).getTime();
-                                if (!isNaN(parsed)) xNumeric = parsed;
-                            }
+                            if (p == null || typeof p !== 'object' || p.x == null || p.c == null) return;
                             let px;
-                            try { px = xScale.getPixelForValue(xNumeric); } catch (err) { return; }
+                            try { px = xScale.getPixelForValue(p.x); } catch (err) { return; }
                             if (px == null || isNaN(px)) return;
                             const dist = Math.abs(px - e.x);
                             if (dist < bestDist) {
                                 bestDist = dist;
                                 bestX = px;
-                                try { bestY = yScale.getPixelForValue(yVal); } catch (err) { bestY = null; }
+                                try { bestY = yScale.getPixelForValue(p.c); } catch (err) { bestY = null; }
                             }
                         });
                     });
@@ -3519,8 +3498,19 @@ if (typeof Chart !== 'undefined') {
                     }
                 },
                 afterDraw(chart) {
-                    if (!chart.$crosshair || !chart.chartArea) return;
-                    const { x, y } = chart.$crosshair;
+                    const type = chart.config && chart.config.type;
+                    let x, y;
+                    if (CROSSHAIR_FINANCIAL_TYPES.indexOf(type) !== -1) {
+                        if (!chart.$crosshair) return;
+                        x = chart.$crosshair.x;
+                        y = chart.$crosshair.y;
+                    } else {
+                        const active = chart.getActiveElements ? chart.getActiveElements() : [];
+                        if (!active || !active.length || !active[0].element) return;
+                        x = active[0].element.x;
+                        y = active[0].element.y;
+                    }
+                    if (x == null || y == null || !chart.chartArea) return;
                     const { top, bottom, left, right } = chart.chartArea;
                     const ctx = chart.ctx;
                     ctx.save();
