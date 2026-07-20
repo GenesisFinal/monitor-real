@@ -780,6 +780,30 @@ CER_FLUJOS = {
     "TZXD8": {"vencimiento": "2028-12-15", "cer_emision": 799.20332676852, "flujos": [
         ("2028-12-15", 1.0, 0.0, 0.5),
     ]},
+    # NOTA (chequeo automatico 2026-07-20, tarea #58): CUAP esta bien
+    # codificado aqui (parametros confirmados por el usuario, ver abajo)
+    # pero NO aparece hoy en "bonos_cer" del live_data.json publicado.
+    # Causa confirmada: get_bonos_cer() itera sobre data["data"] de
+    # https://rendimientos.co/api/cer-precios y hace
+    # "info = CER_FLUJOS.get(sym); if not info or precio is None: continue"
+    # -o sea, si ese feed externo no trae un item con symbol=="CUAP" (o
+    # lo trae sin precio), la entrada se descarta en silencio sin error
+    # ni log, exactamente igual que si el ticker no existiera en este
+    # diccionario. No se pudo confirmar el contenido exacto de ese feed
+    # desde este sandbox (dominio rendimientos.co bloqueado por el
+    # allowlist de red del entorno de chequeo automatico), pero la misma
+    # ausencia se repite para los 8 tickers CER agregados en la tarea 3.2
+    # (TZXA7/TZXY7/TZXS7/TZXM8/TZXS8/TZXM9/TZXO7/TZXD8, todos tambien
+    # bien codificados y tambien ausentes de "bonos_cer" hoy), lo que
+    # descarta un problema puntual de CUAP y confirma que es un rezago de
+    # cobertura del feed externo (probablemente no trackea aun estos
+    # bonos/reaperturas mas recientes), no un bug de flujos ni del filtro
+    # de duration<0.20/DTM<45 (ambos habrian pasado ese filtro sin
+    # problema segun los parametros de arriba). Resolucion: esperar a que
+    # rendimientos.co sume estos symbols, o -si se decide reemplazar la
+    # fuente- migrar a otra API con estos tickers. NO se modifican los
+    # parametros financieros de CUAP en este chequeo (eso corresponde a
+    # la tarea "revision-tir-cuap" con Andres).
     # CUAP (Cuasipar en pesos, reestructuracion 2005, vto. 31/12/2045):
     # NO es bullet. Confirmado por el usuario (actuario, en base a IAMC):
     # el valor residual (VNR) esta al 100% del nominal (todavia no
