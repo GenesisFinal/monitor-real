@@ -4140,7 +4140,7 @@ if (typeof Chart !== 'undefined') {
         // existen en ninguna fuente gratuita disponible.
         // ============================================================
 
-        function fmtMoneda(v, decimales) {
+        function fmtMonedaDecimales(v, decimales) {
             if (v == null || isNaN(v)) return '-';
             return Number(v).toLocaleString('es-AR', { minimumFractionDigits: decimales != null ? decimales : 2, maximumFractionDigits: decimales != null ? decimales : 2 });
         }
@@ -4173,16 +4173,16 @@ if (typeof Chart !== 'undefined') {
             if (!it) return;
             document.getElementById('bond-detail-ticker').textContent = symbol;
             document.getElementById('bond-detail-desc').textContent = it.descripcion || '';
-            document.getElementById('bond-detail-precio').textContent = fmtMoneda(it.precio);
+            document.getElementById('bond-detail-precio').textContent = fmtMonedaDecimales(it.precio);
             document.getElementById('bond-detail-tir').textContent = it.tir != null ? it.tir.toFixed(2) + '%' : '-';
-            document.getElementById('bond-detail-vt').textContent = it.valor_tecnico != null ? fmtMoneda(it.valor_tecnico) : '-';
+            document.getElementById('bond-detail-vt').textContent = it.valor_tecnico != null ? fmtMonedaDecimales(it.valor_tecnico) : '-';
             document.getElementById('bond-detail-dm').textContent = it.duration != null ? it.duration.toFixed(2) + ' años' : '-';
 
             const rows = [];
-            rows.push(_detailRow('Precio', fmtMoneda(it.precio)));
+            rows.push(_detailRow('Precio', fmtMonedaDecimales(it.precio)));
             rows.push(_detailRow('Variación diaria', it.pct_change != null ? (it.pct_change >= 0 ? '+' : '') + it.pct_change.toFixed(2) + '%' : '-'));
             rows.push(_detailRow('Fecha de vencimiento', it.vencimiento || '-'));
-            rows.push(_detailRow('Valor Técnico', it.valor_tecnico != null ? fmtMoneda(it.valor_tecnico) : '<span class="text-slate-500 text-[11px]">No disponible (requiere separar cupón/amortización)</span>'));
+            rows.push(_detailRow('Valor Técnico', it.valor_tecnico != null ? fmtMonedaDecimales(it.valor_tecnico) : '<span class="text-slate-500 text-[11px]">No disponible (requiere separar cupón/amortización)</span>'));
             rows.push(_detailRow('Paridad', it.paridad != null ? it.paridad.toFixed(2) + '%' : '<span class="text-slate-500 text-[11px]">No disponible</span>'));
             rows.push(_detailRow('TIR', it.tir != null ? it.tir.toFixed(2) + '%' : '-'));
             rows.push(_detailRow('Duration (Macaulay)', it.duration != null ? it.duration.toFixed(2) + ' años' : '-'));
@@ -4212,10 +4212,10 @@ if (typeof Chart !== 'undefined') {
                         const daily = serie && serie.daily;
                         const ultimo = daily && daily.length ? daily[daily.length - 1] : null;
                         if (ultimo) {
-                            rows.splice(1, 0, _detailRow('Apertura', fmtMoneda(ultimo.o)));
-                            rows.splice(2, 0, _detailRow('Mínimo', fmtMoneda(ultimo.l)));
-                            rows.splice(3, 0, _detailRow('Máximo', fmtMoneda(ultimo.h)));
-                            rows.splice(4, 0, _detailRow('Cierre (última rueda)', fmtMoneda(ultimo.c)));
+                            rows.splice(1, 0, _detailRow('Apertura', fmtMonedaDecimales(ultimo.o)));
+                            rows.splice(2, 0, _detailRow('Mínimo', fmtMonedaDecimales(ultimo.l)));
+                            rows.splice(3, 0, _detailRow('Máximo', fmtMonedaDecimales(ultimo.h)));
+                            rows.splice(4, 0, _detailRow('Cierre (última rueda)', fmtMonedaDecimales(ultimo.c)));
                             document.getElementById('bond-detail-datatable').innerHTML = rows.join('');
                         }
                     }
