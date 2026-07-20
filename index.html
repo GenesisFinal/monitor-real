@@ -3447,7 +3447,28 @@ Stack: ${error ? error.stack : 'N/A'}`;
                 afterDraw(chart) {
                     const active = chart.getActiveElements ? chart.getActiveElements() : [];
                     if (!active || !active.length || !chart.chartArea) return;
-                    const { x, y } = active[0].element;
+                    const first = active[0];
+                    let x = first.element ? first.element.x : undefined;
+                    let y = first.element ? first.element.y : undefined;
+                    // Velas/OHLC (chartjs-chart-financial): el elemento activo
+                    // no expone una posicion x/y de pixel directa y confiable
+                    // como un PointElement de linea (representa el cuerpo de
+                    // la vela, no un unico punto), asi que la cruz se
+                    // recalcula explicitamente contra el precio de CIERRE
+                    // (pedido: la cruz debe marcar el cierre) usando la
+                    // escala de valores del propio grafico.
+                    try {
+                        const meta = chart.getDatasetMeta(first.datasetIndex);
+                        const dataset = chart.data.datasets[first.datasetIndex];
+                        const point = dataset && dataset.data && dataset.data[first.index];
+                        if (point && point.c != null && meta && meta.yScale && typeof meta.yScale.getPixelForValue === 'function') {
+                            y = meta.yScale.getPixelForValue(point.c);
+                        }
+                        if (point && point.x != null && meta && meta.xScale && typeof meta.xScale.getPixelForValue === 'function') {
+                            x = meta.xScale.getPixelForValue(point.x);
+                        }
+                    } catch (e) { /* si algo no encaja, se usa x/y del elemento tal cual */ }
+                    if (x == null || y == null) return;
                     const { top, bottom, left, right } = chart.chartArea;
                     const ctx = chart.ctx;
                     ctx.save();
