@@ -3026,6 +3026,95 @@ def bcra_fetch_all(id_variable, desde, hasta):
     return out
 
 
+# ------------------------------------------------------------------
+# Agregados Monetarios (Indicadores Economicos, tarjetas). En vez de
+# hardcodear los idVariable de Base Monetaria/Reservas/M2 (el catalogo
+# de variables del BCRA se renumero entre v3 y v4, y no se pudo
+# verificar en vivo desde este entorno sandbox contra la version
+# actual por restricciones de red), se consulta el catalogo OFICIAL
+# completo (GET /estadisticas/v4.0/Monetarias sin idVariable, la misma
+# variable que ya se usa via bcra_fetch_all para CER/banda cambiaria/
+# tasas) y se busca en vivo, por texto de la descripcion, la variable
+# correcta en cada corrida. Si no se encuentra una coincidencia clara,
+# se omite esa serie (no se arriesga a usar un id incorrecto).
+# ------------------------------------------------------------------
+
+_bcra_catalogo_cache = None
+
+
+def _bcra_catalogo_monetarias():
+    global _bcra_catalogo_cache
+    if _bcra_catalogo_cache is not None:
+        return _bcra_catalogo_cache
+    resultados = []
+    offset = 0
+    while True:
+        data = fetch_json(f"https://api.bcra.gob.ar/estadisticas/v4.0/monetarias?limit=1000&offset={offset}")
+        if not data or "results" not in data:
+            break
+        pagina = data["results"]
+        resultados.extend(pagina)
+        count = data.get("metadata", {}).get("resultset", {}).get("count", 0)
+        offset += 1000
+        if offset >= count or not pagina:
+            break
+    _bcra_catalogo_cache = resultados
+    return resultados
+
+
+def _bcra_find_variable(keyword, excluir=None):
+    """Busca en el catalogo oficial de variables monetarias del BCRA
+    (consultado en vivo en cada corrida, no hardcodeado) la primera
+    variable cuya descripcion contenga el texto dado (case-insensitive).
+    Devuelve (idVariable, descripcion) o (None, None) si no se
+    encuentra ninguna coincidencia."""
+    catalogo = _bcra_catalogo_monetarias()
+    kw = keyword.lower()
+    for item in catalogo:
+        desc = (item.get("descripcion") or "")
+        desc_low = desc.lower()
+        if kw in desc_low and (not excluir or excluir.lower() not in desc_low):
+            return item.get("idVariable"), desc
+    return None, None
+
+
+# (nombre_interno, texto_a_buscar_en_la_descripcion, texto_a_excluir_o_None)
+AGREGADOS_MONETARIOS_BUSQUEDA = [
+    ("base_monetaria", "base monetaria", None),
+    ("reservas_internacionales", "reservas internacionales", None),
+    ("m2_privado", "m2 privado", None),
+    ("circulacion_monetaria", "circulación monetaria", None),
+]
+
+
+def build_history_agregados_monetarios():
+    hoy = date.today()
+    desde = (hoy - timedelta(days=5 * 365 + 10)).isoformat()
+    hasta = hoy.isoformat()
+    out = {}
+    for key, keyword, excluir in AGREGADOS_MONETARIOS_BUSQUEDA:
+        id_var, descripcion = _bcra_find_variable(keyword, excluir)
+        if id_var is None:
+            print(f"[WARN] No se encontro en el catalogo BCRA una variable que coincida con '{keyword}': se omite.")
+            continue
+        detalle = bcra_fetch_all(id_var, desde, hasta)
+        if not detalle:
+            continue
+        serie = [{"fecha": d.get("fecha"), "valor": d.get("valor")} for d in detalle
+                 if d.get("fecha") and d.get("valor") is not None]
+        serie.sort(key=lambda p: p["fecha"])
+        if not serie:
+            continue
+        out[key] = {
+            "nombre": descripcion, "unidad": "", "tipo": "valor",
+            "periodicidad": "Mensual", "fuente": "BCRA", "serie": serie,
+        }
+    if not out:
+        return None
+    out["_updated_at"] = datetime.now(timezone.utc).isoformat()
+    return out
+
+
 def build_history_tasas_locales():
     hoy = date.today()
     desde5 = (hoy - timedelta(days=5 * 365 + 10)).isoformat()
@@ -4014,6 +4103,7 @@ def main():
     # ---- Series históricas ----
     historicos = {
         "indicadores_precios.json": build_history_indicadores_precios(),
+        "indicadores_monetarios.json": build_history_agregados_monetarios(),
         "dolar.json": build_history_dolar(),
         "tasas_locales.json": build_history_tasas_locales(),
         "fci_secciones.json": build_history_fci_secciones(live_data.get("fci_secciones")),

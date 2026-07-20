@@ -4559,9 +4559,9 @@ if (typeof Chart !== 'undefined') {
                 { nombre: 'Canasta Básica Total', valor: '$1,245,000 / adulto equiv.', periodo: 'Junio 2026' },
             ],
             monetarios: [
-                { nombre: 'Base Monetaria', valor: '$32.1 billones', periodo: 'Junio 2026' },
-                { nombre: 'M2 Privado', valor: '$85.4 billones', periodo: 'Junio 2026' },
-                { nombre: 'Reservas Internacionales BCRA', valor: 'USD 31,200 M', periodo: 'Julio 2026' },
+                { real: true, historyKey: 'base_monetaria' },
+                { real: true, historyKey: 'm2_privado' },
+                { real: true, historyKey: 'reservas_internacionales' },
             ],
             fiscal: [
                 { nombre: 'Resultado Primario', valor: '+0.3% PBI', periodo: 'Acum. 2026' },
@@ -4731,15 +4731,19 @@ if (typeof Chart !== 'undefined') {
             Object.keys(ECON_CARD_CONFIG).forEach(renderEconCards);
         }
 
+        const ECON_REAL_DATA_FILES = ['indicadores_precios.json', 'indicadores_monetarios.json'];
+
         async function loadEconRealData() {
-            try {
-                const res = await fetch('data/history/indicadores_precios.json', { cache: 'no-store' });
-                if (res.ok) {
-                    const data = await res.json();
-                    Object.keys(data).forEach(k => { if (k !== '_updated_at') econCardsDataCache[k] = data[k]; });
+            for (const file of ECON_REAL_DATA_FILES) {
+                try {
+                    const res = await fetch('data/history/' + file, { cache: 'no-store' });
+                    if (res.ok) {
+                        const data = await res.json();
+                        Object.keys(data).forEach(k => { if (k !== '_updated_at') econCardsDataCache[k] = data[k]; });
+                    }
+                } catch (e) {
+                    console.warn('[indicadores] no se pudo cargar ' + file, e);
                 }
-            } catch (e) {
-                console.warn('[indicadores] no se pudo cargar indicadores_precios.json', e);
             }
             renderAllEconCards();
         }
@@ -4756,6 +4760,9 @@ if (typeof Chart !== 'undefined') {
             ipc_mensual: 'Variación mensual del Índice de Precios al Consumidor (nivel general), a nivel nacional.',
             ipc_interanual: 'Variación interanual (últimos 12 meses) del Índice de Precios al Consumidor a nivel nacional.',
             uva: 'Unidad de Valor Adquisitivo: coeficiente diario que ajusta por CER, usado en préstamos y depósitos UVA.',
+            base_monetaria: 'Base monetaria total (circulante en poder del público y de las entidades financieras, más depósitos de las entidades en cuenta corriente en el BCRA).',
+            m2_privado: 'Agregado monetario M2 del sector privado (circulante en poder del público más depósitos en cuenta corriente y caja de ahorro del sector privado).',
+            reservas_internacionales: 'Reservas internacionales brutas del BCRA.',
         };
         const ECON_RANGES = {
             '12m': { label: '12M', months: 12 },
