@@ -3441,34 +3441,72 @@ Stack: ${error ? error.stack : 'N/A'}`;
         // El modo de interaccion 'nearest'/intersect:false tambien se fija
         // como default global para que sea facil "agarrar" el punto mas
         // cercano al cursor sin tener que apuntar exactamente encima.
-        if (typeof Chart !== 'undefined') {
+if (typeof Chart !== 'undefined') {
+            // Crosshair implementado a mano (no depende de
+            // chart.getActiveElements()/interaction de Chart.js): el
+            // controlador de velas/OHLC de chartjs-chart-financial@0.2.1
+            // no resuelve bien el "elemento activo" contra la version de
+            // Chart.js que trae el CDN (linea y dispersion si funcionan
+            // con el mecanismo nativo, velas/OHLC no), asi que en su
+            // lugar se escucha el mousemove del propio grafico
+            // (afterEvent) y se busca a mano el punto de dato mas cercano
+            // en X sobre el/los datasets visibles. Para cada punto se usa
+            // el precio de CIERRE ("c" en velas/OHLC, o "y" en lineas/
+            // dispersion/sample) para la posicion vertical de la cruz,
+            // tal como se pidio.
             Chart.register({
                 id: 'crosshairPlugin',
+                afterEvent(chart, args) {
+                    const e = args.event;
+                    const area = chart.chartArea;
+                    if (!area) return;
+                    if (e.type === 'mouseout') {
+                        if (chart.$crosshair) { chart.$crosshair = null; args.changed = true; }
+                        return;
+                    }
+                    if (e.type !== 'mousemove' && e.type !== 'mousedown') return;
+                    if (e.x < area.left || e.x > area.right || e.y < area.top || e.y > area.bottom) {
+                        if (chart.$crosshair) { chart.$crosshair = null; args.changed = true; }
+                        return;
+                    }
+                    const xScale = chart.scales && chart.scales.x;
+                    const yScale = chart.scales && chart.scales.y;
+                    if (!xScale || !yScale) return;
+                    let bestDist = Infinity, bestX = null, bestY = null;
+                    (chart.data.datasets || []).forEach((ds, di) => {
+                        const meta = chart.getDatasetMeta(di);
+                        if (!ds.data || !ds.data.length || (meta && meta.hidden)) return;
+                        ds.data.forEach((p) => {
+                            let xVal, yVal;
+                            if (p != null && typeof p === 'object') {
+                                if (p.x == null) return;
+                                xVal = p.x;
+                                yVal = p.c != null ? p.c : p.y;
+                            } else if (typeof p === 'number') {
+                                return; // series categoricas (labels): sin x propio, no se puede ubicar de forma fiable
+                            } else {
+                                return;
+                            }
+                            if (yVal == null) return;
+                            let px;
+                            try { px = xScale.getPixelForValue(xVal); } catch (err) { return; }
+                            if (px == null || isNaN(px)) return;
+                            const dist = Math.abs(px - e.x);
+                            if (dist < bestDist) {
+                                bestDist = dist;
+                                bestX = px;
+                                try { bestY = yScale.getPixelForValue(yVal); } catch (err) { bestY = null; }
+                            }
+                        });
+                    });
+                    if (bestX != null && bestY != null) {
+                        chart.$crosshair = { x: bestX, y: bestY };
+                        args.changed = true;
+                    }
+                },
                 afterDraw(chart) {
-                    const active = chart.getActiveElements ? chart.getActiveElements() : [];
-                    if (!active || !active.length || !chart.chartArea) return;
-                    const first = active[0];
-                    let x = first.element ? first.element.x : undefined;
-                    let y = first.element ? first.element.y : undefined;
-                    // Velas/OHLC (chartjs-chart-financial): el elemento activo
-                    // no expone una posicion x/y de pixel directa y confiable
-                    // como un PointElement de linea (representa el cuerpo de
-                    // la vela, no un unico punto), asi que la cruz se
-                    // recalcula explicitamente contra el precio de CIERRE
-                    // (pedido: la cruz debe marcar el cierre) usando la
-                    // escala de valores del propio grafico.
-                    try {
-                        const meta = chart.getDatasetMeta(first.datasetIndex);
-                        const dataset = chart.data.datasets[first.datasetIndex];
-                        const point = dataset && dataset.data && dataset.data[first.index];
-                        if (point && point.c != null && meta && meta.yScale && typeof meta.yScale.getPixelForValue === 'function') {
-                            y = meta.yScale.getPixelForValue(point.c);
-                        }
-                        if (point && point.x != null && meta && meta.xScale && typeof meta.xScale.getPixelForValue === 'function') {
-                            x = meta.xScale.getPixelForValue(point.x);
-                        }
-                    } catch (e) { /* si algo no encaja, se usa x/y del elemento tal cual */ }
-                    if (x == null || y == null) return;
+                    if (!chart.$crosshair || !chart.chartArea) return;
+                    const { x, y } = chart.$crosshair;
                     const { top, bottom, left, right } = chart.chartArea;
                     const ctx = chart.ctx;
                     ctx.save();
