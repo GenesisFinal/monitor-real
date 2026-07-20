@@ -3912,18 +3912,23 @@ def build_history_ons_usd():
 # ------------------------------------------------------------------
 
 def _fetch_bonistas_history(ticker):
-    html = fetch_text(f"https://bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{ticker}")
-    if not html:
+    # Reescrito 2026-07-20 (mismo hallazgo que _fetch_bonistas_bond_info):
+    # la pagina HTML bono-cotizacion-rendimiento-precio-hoy/{ticker}
+    # redirige al home de bonistas.com para varios tickers (GD46, TMF27,
+    # TTD26, TZV27, los 9 CER nuevos, TO26, TY30P, entre otros),
+    # provocando que su historia caiga siempre en auto-acumulacion (1
+    # solo punto por dia desde que se agrego el ticker). El endpoint
+    # JSON https://bonistas.com/api/bond/{ticker} si publica el campo
+    # "history" completo (verificado: 11 a 252 registros) para todos
+    # los tickers probados, con las mismas columnas (fecha/open/high/
+    # low/close/volume/vR) que se parseaban de la pagina HTML.
+    data = fetch_json(f"https://bonistas.com/api/bond/{ticker}")
+    if not data or not isinstance(data, dict):
         return None
-    m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html, re.S)
-    if not m:
+    h = data.get("history")
+    if not isinstance(h, dict):
         return None
-    try:
-        data = json.loads(m.group(1))
-        h = data["props"]["pageProps"]["bondData"]["history"]
-        fechas = h["fecha"]
-    except (KeyError, TypeError, ValueError):
-        return None
+    fechas = h.get("fecha")
     if not fechas:
         return None
     n = len(fechas)
