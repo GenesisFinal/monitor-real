@@ -2855,6 +2855,73 @@ def get_twelvedata():
 DOLAR_CASAS = ["oficial", "blue", "bolsa", "contadoconliqui", "mayorista", "cripto", "tarjeta"]
 
 
+# ------------------------------------------------------------------
+# Indicadores Economicos - Precios y Costo de Vida (rediseno tipo
+# tarjetas, ver index.html). A diferencia de get_inflacion() (que solo
+# guarda el ultimo dato para el resumen en vivo), esta funcion guarda
+# la SERIE COMPLETA de los indicadores de precios que tienen fuente
+# real y gratuita identificada hasta ahora: inflacion mensual,
+# inflacion interanual y valor UVA, los tres via ArgentinaDatos
+# (fuente primaria BCRA/INDEC, mismo servicio que ya usa get_inflacion()
+# y build_history_dolar() para el dolar). Confirmado contra la
+# documentacion oficial (argentinadatos.com/docs) que los tres
+# endpoints devuelven [{"fecha":..., "valor":...}] con la serie
+# historica completa, no solo el ultimo punto.
+#
+# El resto de "Precios y Costo de Vida" (Canasta Basica, IPC Nucleo,
+# etc.) y las otras 10 categorias de Indicadores Economicos
+# (Agregados Monetarios, Sector Fiscal, Comercio Internacional,
+# Reservas y Deuda, Empleo y Salarios, Jubilaciones y Social, Actividad
+# y Consumo, Industria y Energia, Campo y Bioeconomia, Construccion e
+# Inmobiliario) siguen mostrando datos de muestra ilustrativos en el
+# frontend (marcados como tales): no se identifico todavia una fuente
+# gratuita con serie historica para esos indicadores. Se iran
+# reemplazando categoria por categoria en proximas sesiones.
+# ------------------------------------------------------------------
+
+def _serie_argentinadatos(url):
+    data = fetch_json(url)
+    if not data or not isinstance(data, list):
+        return []
+    pts = [{"fecha": d.get("fecha"), "valor": d.get("valor")} for d in data
+           if d.get("fecha") and d.get("valor") is not None]
+    pts.sort(key=lambda p: p["fecha"])
+    return pts
+
+
+def build_history_indicadores_precios():
+    out = {}
+
+    mensual = _serie_argentinadatos("https://api.argentinadatos.com/v1/finanzas/indices/inflacion")
+    if mensual:
+        out["ipc_mensual"] = {
+            "nombre": "Inflación IPC - Tasa Mensual",
+            "unidad": "%", "tipo": "variacion", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": mensual,
+        }
+
+    interanual = _serie_argentinadatos("https://api.argentinadatos.com/v1/finanzas/indices/inflacionInteranual")
+    if interanual:
+        out["ipc_interanual"] = {
+            "nombre": "Inflación IPC - Interanual",
+            "unidad": "%", "tipo": "variacion", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": interanual,
+        }
+
+    uva = _serie_argentinadatos("https://api.argentinadatos.com/v1/finanzas/indices/uva")
+    if uva:
+        out["uva"] = {
+            "nombre": "Valor UVA",
+            "unidad": "$", "tipo": "valor", "periodicidad": "Diaria",
+            "fuente": "BCRA", "serie": uva,
+        }
+
+    if not out:
+        return None
+    out["_updated_at"] = datetime.now(timezone.utc).isoformat()
+    return out
+
+
 def build_history_dolar():
     casas_out = {}
     for casa in DOLAR_CASAS:
@@ -3946,6 +4013,7 @@ def main():
 
     # ---- Series históricas ----
     historicos = {
+        "indicadores_precios.json": build_history_indicadores_precios(),
         "dolar.json": build_history_dolar(),
         "tasas_locales.json": build_history_tasas_locales(),
         "fci_secciones.json": build_history_fci_secciones(live_data.get("fci_secciones")),

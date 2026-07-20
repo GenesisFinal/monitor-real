@@ -2464,53 +2464,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-tags text-brandBlue"></i> Precios y Costo de Vida
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Último Dato</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-precios" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="IPC Nacional (mensual)" onclick="rowClick(event, 'precios', 'IPC Nacional (mensual)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'precios', 'IPC Nacional (mensual)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">IPC Nacional (mensual)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+2.8%</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="IPC Núcleo (mensual)" onclick="rowClick(event, 'precios', 'IPC Núcleo (mensual)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'precios', 'IPC Núcleo (mensual)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">IPC Núcleo (mensual)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+3.0%</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="IPC Interanual" onclick="rowClick(event, 'precios', 'IPC Interanual')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'precios', 'IPC Interanual')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">IPC Interanual</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+58.4%</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="Canasta Básica Total" onclick="rowClick(event, 'precios', 'Canasta Básica Total')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'precios', 'Canasta Básica Total')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Canasta Básica Total</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">$1,245,000 / adulto equiv.</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-precios', 'Precios y Costo de Vida')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-precios" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-precios" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-monetarios" class="tab-panel hidden">
@@ -2518,47 +2472,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-coins text-brandBlue"></i> Agregados Monetarios y Base
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-monetarios" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="Base Monetaria" onclick="rowClick(event, 'monetarios', 'Base Monetaria')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'monetarios', 'Base Monetaria')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Base Monetaria</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">$32.1 billones</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="M2 Privado" onclick="rowClick(event, 'monetarios', 'M2 Privado')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'monetarios', 'M2 Privado')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">M2 Privado</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">$85.4 billones</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="Reservas Internacionales BCRA" onclick="rowClick(event, 'monetarios', 'Reservas Internacionales BCRA')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'monetarios', 'Reservas Internacionales BCRA')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Reservas Internacionales BCRA</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">USD 31,200 M</td>
-<td class="px-4 py-2.5 text-right font-mono">Julio 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-monetarios', 'Agregados Monetarios y Base')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-monetarios" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-monetarios" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-fiscal" class="tab-panel hidden">
@@ -2566,47 +2480,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-landmark text-brandBlue"></i> Resultado Fiscal
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-fiscal" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="Resultado Primario" onclick="rowClick(event, 'fiscal', 'Resultado Primario')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'fiscal', 'Resultado Primario')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Resultado Primario</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+0.3% PBI</td>
-<td class="px-4 py-2.5 text-right font-mono">Acum. 2026</td>
-                                </tr>
-<tr data-ticker="Resultado Financiero" onclick="rowClick(event, 'fiscal', 'Resultado Financiero')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'fiscal', 'Resultado Financiero')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Resultado Financiero</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandRed">-0.2% PBI</td>
-<td class="px-4 py-2.5 text-right font-mono">Acum. 2026</td>
-                                </tr>
-<tr data-ticker="Recaudación Tributaria (AFIP)" onclick="rowClick(event, 'fiscal', 'Recaudación Tributaria (AFIP)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'fiscal', 'Recaudación Tributaria (AFIP)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Recaudación Tributaria (AFIP)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">$18.2 billones</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-fiscal', 'Resultado Fiscal')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-fiscal" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-fiscal" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-comercio" class="tab-panel hidden">
@@ -2614,47 +2488,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-ship text-brandBlue"></i> Comercio Exterior
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-comercio" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="Exportaciones" onclick="rowClick(event, 'comercio', 'Exportaciones')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'comercio', 'Exportaciones')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Exportaciones</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">USD 7,850 M</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="Importaciones" onclick="rowClick(event, 'comercio', 'Importaciones')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'comercio', 'Importaciones')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Importaciones</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">USD 6,900 M</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="Saldo Comercial" onclick="rowClick(event, 'comercio', 'Saldo Comercial')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'comercio', 'Saldo Comercial')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Saldo Comercial</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">USD 950 M</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-comercio', 'Comercio Exterior')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-comercio" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-comercio" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-reservas_deuda" class="tab-panel hidden">
@@ -2662,47 +2496,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-vault text-brandBlue"></i> Reservas y Deuda Pública
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-reservas_deuda" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="Deuda Pública Total" onclick="rowClick(event, 'reservas_deuda', 'Deuda Pública Total')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'reservas_deuda', 'Deuda Pública Total')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Deuda Pública Total</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">USD 465,000 M</td>
-<td class="px-4 py-2.5 text-right font-mono">Mayo 2026</td>
-                                </tr>
-<tr data-ticker="Deuda en Moneda Extranjera" onclick="rowClick(event, 'reservas_deuda', 'Deuda en Moneda Extranjera')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'reservas_deuda', 'Deuda en Moneda Extranjera')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Deuda en Moneda Extranjera</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">USD 210,000 M</td>
-<td class="px-4 py-2.5 text-right font-mono">Mayo 2026</td>
-                                </tr>
-<tr data-ticker="Reservas Brutas BCRA" onclick="rowClick(event, 'reservas_deuda', 'Reservas Brutas BCRA')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'reservas_deuda', 'Reservas Brutas BCRA')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Reservas Brutas BCRA</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">USD 31,200 M</td>
-<td class="px-4 py-2.5 text-right font-mono">Julio 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-reservas_deuda', 'Reservas y Deuda Pública')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-reservas_deuda" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-reservas_deuda" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-empleo" class="tab-panel hidden">
@@ -2710,47 +2504,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-user-tie text-brandBlue"></i> Mercado Laboral
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-empleo" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="Tasa de Desempleo" onclick="rowClick(event, 'empleo', 'Tasa de Desempleo')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'empleo', 'Tasa de Desempleo')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Tasa de Desempleo</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">6.9%</td>
-<td class="px-4 py-2.5 text-right font-mono">1er Trim. 2026</td>
-                                </tr>
-<tr data-ticker="Salario Mínimo Vital y Móvil" onclick="rowClick(event, 'empleo', 'Salario Mínimo Vital y Móvil')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'empleo', 'Salario Mínimo Vital y Móvil')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Salario Mínimo Vital y Móvil</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">$305,000</td>
-<td class="px-4 py-2.5 text-right font-mono">Julio 2026</td>
-                                </tr>
-<tr data-ticker="RIPTE" onclick="rowClick(event, 'empleo', 'RIPTE')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'empleo', 'RIPTE')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">RIPTE</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+3.5% mensual</td>
-<td class="px-4 py-2.5 text-right font-mono">Mayo 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-empleo', 'Mercado Laboral')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-empleo" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-empleo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-jubilaciones" class="tab-panel hidden">
@@ -2758,47 +2512,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-hand-holding-dollar text-brandBlue"></i> Previsión Social
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-jubilaciones" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="Haber Mínimo Jubilatorio" onclick="rowClick(event, 'jubilaciones', 'Haber Mínimo Jubilatorio')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'jubilaciones', 'Haber Mínimo Jubilatorio')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Haber Mínimo Jubilatorio</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">$ 310,000</td>
-<td class="px-4 py-2.5 text-right font-mono">Julio 2026</td>
-                                </tr>
-<tr data-ticker="Movilidad Jubilatoria" onclick="rowClick(event, 'jubilaciones', 'Movilidad Jubilatoria')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'jubilaciones', 'Movilidad Jubilatoria')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Movilidad Jubilatoria</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+3.2%</td>
-<td class="px-4 py-2.5 text-right font-mono">Julio 2026</td>
-                                </tr>
-<tr data-ticker="PUAM" onclick="rowClick(event, 'jubilaciones', 'PUAM')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'jubilaciones', 'PUAM')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">PUAM</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">$ 248,000</td>
-<td class="px-4 py-2.5 text-right font-mono">Julio 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-jubilaciones', 'Previsión Social')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-jubilaciones" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-jubilaciones" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-actividad" class="tab-panel hidden">
@@ -2806,47 +2520,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-chart-column text-brandBlue"></i> Actividad Económica
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-actividad" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="EMAE (mensual, s.e.)" onclick="rowClick(event, 'actividad', 'EMAE (mensual, s.e.)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'actividad', 'EMAE (mensual, s.e.)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">EMAE (mensual, s.e.)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+0.4%</td>
-<td class="px-4 py-2.5 text-right font-mono">Mayo 2026</td>
-                                </tr>
-<tr data-ticker="Ventas Minoristas (CAME)" onclick="rowClick(event, 'actividad', 'Ventas Minoristas (CAME)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'actividad', 'Ventas Minoristas (CAME)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Ventas Minoristas (CAME)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+1.8% i.a.</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="Confianza del Consumidor" onclick="rowClick(event, 'actividad', 'Confianza del Consumidor')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'actividad', 'Confianza del Consumidor')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Confianza del Consumidor</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">42.1 pts</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-actividad', 'Actividad Económica')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-actividad" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-actividad" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-industria" class="tab-panel hidden">
@@ -2854,47 +2528,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-industry text-brandBlue"></i> Industria y Energía
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-industria" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="IPI Manufacturero" onclick="rowClick(event, 'industria', 'IPI Manufacturero')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'industria', 'IPI Manufacturero')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">IPI Manufacturero</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+2.1% i.a.</td>
-<td class="px-4 py-2.5 text-right font-mono">Mayo 2026</td>
-                                </tr>
-<tr data-ticker="Producción de Petróleo (Vaca Muerta)" onclick="rowClick(event, 'industria', 'Producción de Petróleo (Vaca Muerta)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'industria', 'Producción de Petróleo (Vaca Muerta)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Producción de Petróleo (Vaca Muerta)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">420,000 bbl/día</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="Generación Eléctrica" onclick="rowClick(event, 'industria', 'Generación Eléctrica')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'industria', 'Generación Eléctrica')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Generación Eléctrica</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+1.5% i.a.</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-industria', 'Industria y Energía')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-industria" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-industria" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-campo" class="tab-panel hidden">
@@ -2902,47 +2536,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-tractor text-brandBlue"></i> Sector Agropecuario
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-campo" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="Cosecha de Soja (proyectada)" onclick="rowClick(event, 'campo', 'Cosecha de Soja (proyectada)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'campo', 'Cosecha de Soja (proyectada)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Cosecha de Soja (proyectada)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">51.5 M ton</td>
-<td class="px-4 py-2.5 text-right font-mono">Campaña 25/26</td>
-                                </tr>
-<tr data-ticker="Cosecha de Maíz (proyectada)" onclick="rowClick(event, 'campo', 'Cosecha de Maíz (proyectada)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'campo', 'Cosecha de Maíz (proyectada)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Cosecha de Maíz (proyectada)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">50.0 M ton</td>
-<td class="px-4 py-2.5 text-right font-mono">Campaña 25/26</td>
-                                </tr>
-<tr data-ticker="Liquidación de Divisas del Agro" onclick="rowClick(event, 'campo', 'Liquidación de Divisas del Agro')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'campo', 'Liquidación de Divisas del Agro')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Liquidación de Divisas del Agro</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">USD 2,100 M</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-campo', 'Sector Agropecuario')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-campo" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-campo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
             <div id="panel-construccion" class="tab-panel hidden">
@@ -2950,47 +2544,7 @@ Stack: ${error ? error.stack : 'N/A'}`;
             <h2 class="text-xl font-bold text-white light:text-slate-950 mb-4 flex items-center gap-2">
                 <i class="fas fa-city text-brandBlue"></i> Construcción e Inmuebles
             </h2>
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <table class="min-w-full divide-y divide-darkBorder light:divide-gray-200 text-sm text-left">
-                            <thead class="bg-darkBg light:bg-slate-100 text-slate-300 light:text-slate-700 font-semibold uppercase text-xs">
-                                <tr>
-                                    <th class="w-12 px-4 py-3 text-center">Comparar</th>
-                                    <th class="px-4 py-3">Indicador</th>
-                                    <th class="px-4 py-3 text-right">Valor</th>
-<th class="px-4 py-3 text-right">Período</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbl-construccion" class="divide-y divide-darkBorder/40 light:divide-gray-200">
-                                <tr data-ticker="ISAC (Actividad de la Construcción)" onclick="rowClick(event, 'construccion', 'ISAC (Actividad de la Construcción)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'construccion', 'ISAC (Actividad de la Construcción)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">ISAC (Actividad de la Construcción)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+4.2% i.a.</td>
-<td class="px-4 py-2.5 text-right font-mono">Mayo 2026</td>
-                                </tr>
-<tr data-ticker="Precio del m² (CABA, usado)" onclick="rowClick(event, 'construccion', 'Precio del m² (CABA, usado)')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'construccion', 'Precio del m² (CABA, usado)')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Precio del m² (CABA, usado)</td>
-                                    <td class="px-4 py-2.5 text-right font-mono">USD 2,150</td>
-<td class="px-4 py-2.5 text-right font-mono">Junio 2026</td>
-                                </tr>
-<tr data-ticker="Escrituras CABA" onclick="rowClick(event, 'construccion', 'Escrituras CABA')" class="hover:bg-slate-800/40 light:hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <td class="px-4 py-2.5 text-center"><input type="checkbox" onchange="toggleSelect(event, 'construccion', 'Escrituras CABA')" class="rounded text-brandBlue focus:ring-brandBlue"></td>
-                                    <td class="px-4 py-2.5 font-semibold text-white light:text-slate-800">Escrituras CABA</td>
-                                    <td class="px-4 py-2.5 text-right font-mono text-brandGreen">+12% i.a.</td>
-<td class="px-4 py-2.5 text-right font-mono">Mayo 2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="glass-card rounded-2xl p-4 relative">
-                        <button class="chart-export-btn" onclick="exportChart('chart-construccion', 'Construcción e Inmuebles')" title="Exportar como imagen"><i class="fas fa-download"></i></button>
-                        <h3 class="text-sm font-semibold text-slate-300 light:text-slate-600 mb-2">Evolución (muestra ilustrativa, marcá "Comparar" en la tabla)</h3>
-                        <canvas id="chart-construccion" height="90"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div id="cards-construccion" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><p class="col-span-full text-sm text-slate-500">Cargando indicadores...</p></div>
             </section>
             </div>
         </main>
@@ -4985,6 +4539,305 @@ if (typeof Chart !== 'undefined') {
             markLive(panelKey);
         }
 
+// ============================================================
+        // Indicadores Economicos: sistema de tarjetas (rediseno inspirado
+        // en https://genesisfinal.github.io/monitor-economico-financiero/).
+        // Las tarjetas "reales" (con fuente conectada) son clickeables y
+        // abren un modal con grafico historico completo. El resto son
+        // datos de muestra ilustrativos (mismo contenido que ya mostraban
+        // las tablas anteriores), marcados como tales y sin interaccion,
+        // pendientes de conectarse a una fuente real categoria por
+        // categoria en proximas sesiones.
+        // ============================================================
+
+        const ECON_CARD_CONFIG = {
+            precios: [
+                { real: true, historyKey: 'ipc_mensual' },
+                { real: true, historyKey: 'ipc_interanual' },
+                { real: true, historyKey: 'uva' },
+                { nombre: 'IPC Núcleo (mensual)', valor: '+3.0%', periodo: 'Junio 2026' },
+                { nombre: 'Canasta Básica Total', valor: '$1,245,000 / adulto equiv.', periodo: 'Junio 2026' },
+            ],
+            monetarios: [
+                { nombre: 'Base Monetaria', valor: '$32.1 billones', periodo: 'Junio 2026' },
+                { nombre: 'M2 Privado', valor: '$85.4 billones', periodo: 'Junio 2026' },
+                { nombre: 'Reservas Internacionales BCRA', valor: 'USD 31,200 M', periodo: 'Julio 2026' },
+            ],
+            fiscal: [
+                { nombre: 'Resultado Primario', valor: '+0.3% PBI', periodo: 'Acum. 2026' },
+                { nombre: 'Resultado Financiero', valor: '-0.2% PBI', periodo: 'Acum. 2026' },
+                { nombre: 'Recaudación Tributaria (AFIP)', valor: '$18.2 billones', periodo: 'Junio 2026' },
+            ],
+            comercio: [
+                { nombre: 'Exportaciones', valor: 'USD 7,850 M', periodo: 'Junio 2026' },
+                { nombre: 'Importaciones', valor: 'USD 6,900 M', periodo: 'Junio 2026' },
+                { nombre: 'Saldo Comercial', valor: 'USD 950 M', periodo: 'Junio 2026' },
+            ],
+            reservas_deuda: [
+                { real: 'live', liveKey: 'riesgo_pais', nombre: 'Riesgo País (EMBI+ Argentina)', sufijo: ' pb', fuente: 'Ámbito / JP Morgan' },
+                { nombre: 'Deuda Pública Total', valor: 'USD 465,000 M', periodo: 'Mayo 2026' },
+                { nombre: 'Deuda en Moneda Extranjera', valor: 'USD 210,000 M', periodo: 'Mayo 2026' },
+                { nombre: 'Reservas Brutas BCRA', valor: 'USD 31,200 M', periodo: 'Julio 2026' },
+            ],
+            empleo: [
+                { nombre: 'Tasa de Desempleo', valor: '6.9%', periodo: '1er Trim. 2026' },
+                { nombre: 'Salario Mínimo Vital y Móvil', valor: '$305,000', periodo: 'Julio 2026' },
+                { nombre: 'RIPTE', valor: '+3.5% mensual', periodo: 'Mayo 2026' },
+            ],
+            jubilaciones: [
+                { nombre: 'Haber Mínimo Jubilatorio', valor: '$ 310,000', periodo: 'Julio 2026' },
+                { nombre: 'Movilidad Jubilatoria', valor: '+3.2%', periodo: 'Julio 2026' },
+                { nombre: 'PUAM', valor: '$ 248,000', periodo: 'Julio 2026' },
+            ],
+            actividad: [
+                { nombre: 'EMAE (mensual, s.e.)', valor: '+0.4%', periodo: 'Mayo 2026' },
+                { nombre: 'Ventas Minoristas (CAME)', valor: '+1.8% i.a.', periodo: 'Junio 2026' },
+                { nombre: 'Confianza del Consumidor', valor: '42.1 pts', periodo: 'Junio 2026' },
+            ],
+            industria: [
+                { nombre: 'IPI Manufacturero', valor: '+2.1% i.a.', periodo: 'Mayo 2026' },
+                { nombre: 'Producción de Petróleo (Vaca Muerta)', valor: '420,000 bbl/día', periodo: 'Junio 2026' },
+                { nombre: 'Generación Eléctrica', valor: '+1.5% i.a.', periodo: 'Junio 2026' },
+            ],
+            campo: [
+                { nombre: 'Cosecha de Soja (proyectada)', valor: '51.5 M ton', periodo: 'Campaña 25/26' },
+                { nombre: 'Cosecha de Maíz (proyectada)', valor: '50.0 M ton', periodo: 'Campaña 25/26' },
+                { nombre: 'Liquidación de Divisas del Agro', valor: 'USD 2,100 M', periodo: 'Junio 2026' },
+            ],
+            construccion: [
+                { nombre: 'ISAC (Actividad de la Construcción)', valor: '+4.2% i.a.', periodo: 'Mayo 2026' },
+                { nombre: 'Precio del m² (CABA, usado)', valor: 'USD 2,150', periodo: 'Junio 2026' },
+                { nombre: 'Escrituras CABA', valor: '+12% i.a.', periodo: 'Mayo 2026' },
+            ],
+        };
+
+        const econCardsDataCache = {};   // historyKey -> {nombre,unidad,tipo,periodicidad,fuente,serie}
+        const econLiveValues = {};       // liveKey -> {valor, fecha}
+
+        function _econSparklineSvg(values, color) {
+            // Sparkline liviano en SVG puro (sin Chart.js): para decenas de
+            // tarjetas chiquitas alcanza y sobra, no necesita ejes ni
+            // interaccion propia (el detalle completo esta en el modal).
+            if (!values || values.length < 2) return '';
+            const w = 200, h = 50;
+            const min = Math.min(...values), max = Math.max(...values);
+            const range = (max - min) || 1;
+            const step = w / (values.length - 1);
+            const line = values.map((v, i) => `${(i * step).toFixed(1)},${(h - ((v - min) / range) * h).toFixed(1)}`).join(' ');
+            const areaPts = `0,${h} ${line} ${w},${h}`;
+            return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" class="w-full h-12 mt-2">
+                <polyline points="${areaPts}" fill="${color}" opacity="0.12" stroke="none"></polyline>
+                <polyline points="${line}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke"></polyline>
+            </svg>`;
+        }
+
+        function _econVariacion(serie, diasAtras) {
+            if (!serie || serie.length < 2) return null;
+            const ultimo = serie[serie.length - 1];
+            const fechaUltimo = new Date(ultimo.fecha).getTime();
+            const objetivo = fechaUltimo - diasAtras * 86400000;
+            let mejor = null, mejorDist = Infinity;
+            for (const p of serie) {
+                const t = new Date(p.fecha).getTime();
+                if (t > fechaUltimo) continue;
+                const dist = Math.abs(t - objetivo);
+                if (dist < mejorDist) { mejorDist = dist; mejor = p; }
+            }
+            if (!mejor || mejor === ultimo || !mejor.valor) return null;
+            return (ultimo.valor - mejor.valor) / mejor.valor * 100;
+        }
+
+        function _econFechaCorta(fecha) {
+            if (!fecha) return '';
+            const d = new Date(fecha);
+            if (isNaN(d)) return fecha;
+            return d.toLocaleDateString('es-AR', { month: 'short', year: 'numeric' });
+        }
+
+        function _econCardHtml(cfg) {
+            if (cfg.real === true) {
+                const info = econCardsDataCache[cfg.historyKey];
+                if (!info || !info.serie || !info.serie.length) {
+                    return `<div class="glass-card rounded-xl p-4"><div class="h-4 bg-slate-700/40 rounded w-2/3 mb-3 animate-pulse"></div><div class="h-6 bg-slate-700/40 rounded w-1/2 animate-pulse"></div></div>`;
+                }
+                const serie = info.serie;
+                const ultimo = serie[serie.length - 1];
+                const values = serie.slice(-60).map(p => p.valor);
+                const positivo = ultimo.valor >= 0;
+                const color = info.tipo === 'valor' ? '#10b981' : (positivo ? '#10b981' : '#ef4444');
+                const valorTxt = info.tipo === 'variacion'
+                    ? (positivo ? '+' : '') + ultimo.valor.toFixed(2) + '%'
+                    : fmtChartNum(ultimo.valor);
+                let footer;
+                if (info.tipo === 'variacion') {
+                    const esInteranual = info.nombre.toLowerCase().includes('interanual');
+                    footer = `<p class="text-[10px] uppercase text-slate-500">Variación ${esInteranual ? 'interanual' : 'mensual'}</p>`;
+                } else {
+                    const varMensual = _econVariacion(serie, 30);
+                    const varInteranual = _econVariacion(serie, 365);
+                    const partes = [];
+                    if (varMensual != null) partes.push(`<span class="${varMensual >= 0 ? 'text-emerald-400' : 'text-red-400'}">${varMensual >= 0 ? '▲' : '▼'} ${Math.abs(varMensual).toFixed(2)}% mensual</span>`);
+                    if (varInteranual != null) partes.push(`<span class="${varInteranual >= 0 ? 'text-emerald-400' : 'text-red-400'}">${varInteranual >= 0 ? '▲' : '▼'} ${Math.abs(varInteranual).toFixed(2)}% i.a.</span>`);
+                    footer = `<p class="text-[10px] uppercase text-slate-500">Dato puntual</p>` + (partes.length ? `<p class="text-[11px] font-mono mt-0.5">${partes.join(' &nbsp;|&nbsp; ')}</p>` : '');
+                }
+                return `<div onclick="openEconDetail('${cfg.historyKey}')" class="glass-card rounded-xl p-4 cursor-pointer hover:ring-1 hover:ring-brandBlue transition-all">
+                    <div class="flex items-start justify-between gap-2">
+                        <h4 class="text-xs font-semibold text-brandBlue underline decoration-dotted underline-offset-2">${info.nombre}</h4>
+                        <span class="text-[10px] text-slate-500 whitespace-nowrap">${_econFechaCorta(ultimo.fecha)}</span>
+                    </div>
+                    <p class="text-xl font-bold text-white light:text-slate-800 mt-2">${valorTxt}</p>
+                    ${_econSparklineSvg(values, color)}
+                    <div class="mt-2 pt-2 border-t border-darkBorder/60 light:border-gray-200">
+                        ${footer}
+                        <p class="text-[9px] text-slate-500 mt-0.5">Fuente: ${info.fuente}</p>
+                    </div>
+                </div>`;
+            }
+            if (cfg.real === 'live') {
+                const val = econLiveValues[cfg.liveKey];
+                if (!val) {
+                    return `<div class="glass-card rounded-xl p-4"><div class="h-4 bg-slate-700/40 rounded w-2/3 mb-3 animate-pulse"></div><div class="h-6 bg-slate-700/40 rounded w-1/2 animate-pulse"></div></div>`;
+                }
+                return `<div class="glass-card rounded-xl p-4">
+                    <h4 class="text-xs font-semibold text-slate-300 light:text-slate-600">${cfg.nombre}</h4>
+                    <p class="text-xl font-bold text-white light:text-slate-800 mt-2">${fmtChartNum(val.valor)}${cfg.sufijo || ''}</p>
+                    <div class="mt-2 pt-2 border-t border-darkBorder/60 light:border-gray-200">
+                        <p class="text-[10px] uppercase text-slate-500">Dato puntual</p>
+                        <p class="text-[9px] text-slate-500 mt-0.5">${_econFechaCorta(val.fecha)} &middot; Fuente: ${cfg.fuente || ''}</p>
+                    </div>
+                </div>`;
+            }
+            // Tarjeta de muestra ilustrativa (sin fuente real conectada todavia)
+            return `<div class="glass-card rounded-xl p-4 opacity-80 relative">
+                <span class="absolute top-3 right-3 text-[8px] font-bold uppercase tracking-wide bg-slate-700/60 text-slate-300 px-1.5 py-0.5 rounded">Muestra</span>
+                <h4 class="text-xs font-semibold text-slate-300 light:text-slate-600 pr-14">${cfg.nombre}</h4>
+                <p class="text-xl font-bold text-white light:text-slate-800 mt-2">${cfg.valor}</p>
+                ${_econSparklineSvg(sampleSeries(cfg.nombre), '#64748b')}
+                <div class="mt-2 pt-2 border-t border-darkBorder/60 light:border-gray-200">
+                    <p class="text-[10px] uppercase text-slate-500">Período</p>
+                    <p class="text-[11px] font-mono mt-0.5 text-slate-400">${cfg.periodo}</p>
+                </div>
+            </div>`;
+        }
+
+        function renderEconCards(categoryKey) {
+            const cont = document.getElementById('cards-' + categoryKey);
+            if (!cont) return;
+            const items = ECON_CARD_CONFIG[categoryKey] || [];
+            cont.innerHTML = items.map(_econCardHtml).join('');
+        }
+
+        function renderAllEconCards() {
+            Object.keys(ECON_CARD_CONFIG).forEach(renderEconCards);
+        }
+
+        async function loadEconRealData() {
+            try {
+                const res = await fetch('data/history/indicadores_precios.json', { cache: 'no-store' });
+                if (res.ok) {
+                    const data = await res.json();
+                    Object.keys(data).forEach(k => { if (k !== '_updated_at') econCardsDataCache[k] = data[k]; });
+                }
+            } catch (e) {
+                console.warn('[indicadores] no se pudo cargar indicadores_precios.json', e);
+            }
+            renderAllEconCards();
+        }
+
+        // ------------------------------------------------------------
+        // Modal de detalle de indicador economico: titulo, descripcion,
+        // periodicidad, selector de rango (12M/24M/36M/5A/10A/MAX,
+        // orientado a series mensuales/diarias largas en vez del 1M-5A
+        // de los graficos de activos financieros) y grafico de linea con
+        // grilla completa. Reutiliza el plugin de crosshair global.
+        // ------------------------------------------------------------
+
+        const ECON_DETAIL_DESC = {
+            ipc_mensual: 'Variación mensual del Índice de Precios al Consumidor (nivel general), a nivel nacional.',
+            ipc_interanual: 'Variación interanual (últimos 12 meses) del Índice de Precios al Consumidor a nivel nacional.',
+            uva: 'Unidad de Valor Adquisitivo: coeficiente diario que ajusta por CER, usado en préstamos y depósitos UVA.',
+        };
+        const ECON_RANGES = {
+            '12m': { label: '12M', months: 12 },
+            '24m': { label: '24M', months: 24 },
+            '36m': { label: '36M', months: 36 },
+            '5a': { label: '5A', months: 60 },
+            '10a': { label: '10A', months: 120 },
+            'max': { label: 'MAX', months: null },
+        };
+        let econDetailKey = null;
+        let econDetailRange = 'max';
+        let econDetailChartInstance = null;
+
+        function openEconDetail(historyKey) {
+            const info = econCardsDataCache[historyKey];
+            if (!info) return;
+            econDetailKey = historyKey;
+            econDetailRange = 'max';
+            document.getElementById('econ-detail-title').textContent = info.nombre;
+            document.getElementById('econ-detail-desc').textContent = ECON_DETAIL_DESC[historyKey] || '';
+            document.getElementById('econ-detail-periodicidad').textContent = 'Periodicidad: ' + info.periodicidad;
+            const pills = document.getElementById('econ-detail-range-pills');
+            pills.innerHTML = '<div class="chart-ctrl-group">' + Object.keys(ECON_RANGES).map(rk =>
+                `<button onclick="setEconDetailRange('${rk}')" data-range="${rk}" class="chart-ctrl-btn${rk === econDetailRange ? ' chart-ctrl-active' : ''}">${ECON_RANGES[rk].label}</button>`
+            ).join('') + '</div>';
+            document.getElementById('econ-detail-overlay').classList.remove('hidden');
+            document.getElementById('econ-detail-overlay').classList.add('flex');
+            _drawEconDetailChart();
+        }
+
+        function setEconDetailRange(rk) {
+            econDetailRange = rk;
+            document.querySelectorAll('#econ-detail-range-pills .chart-ctrl-btn').forEach(b => {
+                b.classList.toggle('chart-ctrl-active', b.dataset.range === rk);
+            });
+            _drawEconDetailChart();
+        }
+
+        function _drawEconDetailChart() {
+            const canvas = document.getElementById('econ-detail-chart');
+            if (!canvas || typeof Chart === 'undefined') return;
+            const info = econCardsDataCache[econDetailKey];
+            if (!info) return;
+            const range = ECON_RANGES[econDetailRange];
+            let serie = info.serie;
+            if (range.months != null) {
+                const corte = new Date();
+                corte.setMonth(corte.getMonth() - range.months);
+                serie = serie.filter(p => new Date(p.fecha) >= corte);
+            }
+            if (econDetailChartInstance) { econDetailChartInstance.destroy(); econDetailChartInstance = null; }
+            econDetailChartInstance = new Chart(canvas.getContext('2d'), {
+                type: 'line',
+                data: { datasets: [{
+                    label: info.nombre,
+                    data: serie.map(p => ({ x: p.fecha, y: p.valor })),
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37,99,235,0.1)',
+                    tension: 0.15,
+                    pointRadius: serie.length < 60 ? 2 : 0,
+                    fill: true,
+                }] },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (ctx) => `${info.nombre}: ${fmtChartNum(ctx.parsed.y)}${info.unidad === '%' ? '%' : ''}` } }
+                    },
+                    scales: {
+                        x: { type: 'timeseries', ticks: { color: '#94a3b8', font: { size: 10 }, maxTicksLimit: 8 }, grid: { color: 'rgba(148,163,184,0.08)' } },
+                        y: { ticks: { color: '#94a3b8', font: { size: 10 }, callback: (v) => fmtChartNum(v) + (info.unidad === '%' ? '%' : '') }, grid: { color: 'rgba(148,163,184,0.08)' } }
+                    }
+                }
+            });
+        }
+
+        function closeEconDetail() {
+            document.getElementById('econ-detail-overlay').classList.add('hidden');
+            document.getElementById('econ-detail-overlay').classList.remove('flex');
+        }
+
         async function loadLiveData() {
             try {
                 const res = await fetch('data/live_data.json', { cache: 'no-store' });
@@ -5015,12 +4868,16 @@ if (typeof Chart !== 'undefined') {
                 if (data.bonos_soberanos_usd) renderBonosSoberanos('bonds_usd', data.bonos_soberanos_usd, '#10b981');
                 if (data.ons_usd) renderOnsUsd(data.ons_usd);
                 renderAccionesArg(data.acciones_arg);
+                // Indicadores Economicos (tarjetas): riesgo pais es un dato
+                // puntual en vivo (sin serie historica todavia), y las 3
+                // tarjetas reales de "precios" (IPC mensual/interanual,
+                // UVA) tienen su propia serie completa en
+                // data/history/indicadores_precios.json.
                 if (data.riesgo_pais && data.riesgo_pais.valor != null) {
-                    renderIndicadorLive('reservas_deuda', 'Riesgo País (EMBI+ Argentina)', data.riesgo_pais.valor, data.riesgo_pais.fecha, ' pb');
+                    econLiveValues.riesgo_pais = { valor: data.riesgo_pais.valor, fecha: data.riesgo_pais.fecha };
                 }
-                if (data.inflacion && data.inflacion.valor != null) {
-                    renderIndicadorLive('precios', 'IPC Nacional (mensual, último dato real)', fmtPct(data.inflacion.valor), data.inflacion.fecha);
-                }
+                renderAllEconCards();
+                loadEconRealData();
 
                 if (data.updated_at) {
                     const d = new Date(data.updated_at);
@@ -5101,6 +4958,27 @@ if (typeof Chart !== 'undefined') {
                 <div id="bond-detail-sensibilidad" class="overflow-x-auto"></div>
             </div>
             <p id="bond-detail-nota" class="text-[10px] text-slate-500 mt-4"></p>
+        </div>
+    </div>
+</div>
+<!-- Modal de detalle de indicador economico (estilo referencia): titulo,
+     descripcion, periodicidad, selector de rango y grafico historico
+     completo. Solo se usa para indicadores con fuente real conectada. -->
+<div id="econ-detail-overlay" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4" onclick="if (event.target === this) closeEconDetail()">
+    <div class="bg-darkCard light:bg-white border border-darkBorder light:border-gray-200 rounded-xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-darkBorder light:border-gray-200 sticky top-0 bg-darkCard light:bg-white">
+            <div>
+                <h3 id="econ-detail-title" class="text-lg font-bold text-white light:text-slate-800">-</h3>
+                <p id="econ-detail-desc" class="text-xs text-slate-400 light:text-slate-500 mt-1 max-w-xl">-</p>
+                <span id="econ-detail-periodicidad" class="inline-block mt-2 text-[10px] font-semibold uppercase tracking-wide bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded">-</span>
+            </div>
+            <button onclick="closeEconDetail()" class="text-slate-400 hover:text-white light:hover:text-slate-800 text-xl leading-none px-2">&times;</button>
+        </div>
+        <div class="px-5 py-4">
+            <div id="econ-detail-range-pills" class="flex gap-1 flex-wrap mb-3"></div>
+            <div class="relative" style="height:320px;">
+                <canvas id="econ-detail-chart"></canvas>
+            </div>
         </div>
     </div>
 </div>
