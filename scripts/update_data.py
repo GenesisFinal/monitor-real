@@ -1011,13 +1011,11 @@ LECAP_TERMS = {
     "T30J7": {"nombre": "BONCAP Jun 30/27", "pago_final": 156.037, "fecha_vencimiento": "2027-06-30"},
     # TO26: bono ley Argentina, tasa fija, un unico pago remanente
     # (7.75% cupon + 100% capital) el 2026-10-19. Fuente: bonistas.com/TO26 (campo flow).
-    # NOTA (chequeo automatico 2026-07-20, tarea #58): TO26 y TY30P estan
-    # bien codificados (ver flujo real en BONOS_PESOS_CUPON_FLUJOS para
-    # TY30P), pero hoy tampoco aparecen en "bonos_pesos" del live_data.json
-    # publicado. Mismo patron: get_bonos_pesos() matchea contra el feed
-    # https://rendimientos.co/api/lecaps por "symbol" y descarta en
-    # silencio si no encuentra el ticker o el precio es None. No es un
-    # bug de flujos ni del filtro de duration/DTM.
+    # NOTA (corregido 2026-07-20, tarea #58): TO26 y TY30P no aparecian en
+    # "bonos_pesos" porque https://rendimientos.co/api/lecaps no los
+    # cubre (11 tickers fijos). get_bonos_pesos() se corrigio para
+    # completar con data912.com/live/arg_bonds como fuente de precio
+    # complementaria.
     "TO26": {"nombre": "Bonte 2026", "pago_final": 107.75, "fecha_vencimiento": "2026-10-19"},
 }
 
@@ -1597,17 +1595,33 @@ def _guardar_lecap_precios(precios_hoy):
 
 
 def get_bonos_pesos():
-    data = fetch_json("https://rendimientos.co/api/lecaps")
-    if not data or "data" not in data:
+    # rendimientos.co/api/lecaps no cubre TO26 ni TY30P (verificado
+    # 20/07/2026: 11 tickers, no incluye ninguno de los dos). Se
+    # completa con data912.com/live/arg_bonds (mismo campo "c" de
+    # precio, ticker sin sufijo para bonos en pesos).
+    precios_por_symbol = {}
+    data_rend = fetch_json("https://rendimientos.co/api/lecaps")
+    if data_rend and "data" in data_rend:
+        for item in data_rend["data"]:
+            sym = item.get("symbol")
+            precio = item.get("price")
+            if sym and precio is not None:
+                precios_por_symbol[sym] = precio
+    data912 = fetch_json("https://data912.com/live/arg_bonds")
+    if data912:
+        for item in data912:
+            sym = item.get("symbol")
+            precio = item.get("c")
+            if sym and precio is not None and sym not in precios_por_symbol:
+                precios_por_symbol[sym] = precio
+    if not precios_por_symbol:
         return None
     hoy = date.today()
     precios_hoy = {}
     candidatos = []
-    for item in data["data"]:
-        sym = item.get("symbol")
-        precio = item.get("price")
+    for sym, precio in precios_por_symbol.items():
         info = LECAP_TERMS.get(sym)
-        if not info or precio is None:
+        if not info:
             continue
         vto = _parse_date(info["fecha_vencimiento"])
         if not vto or vto <= hoy:
@@ -1653,11 +1667,9 @@ def get_bonos_pesos():
     # de LECAP_TERMS (ver comentario en BONOS_PESOS_CUPON_FLUJOS). Se
     # matchea aparte contra el mismo feed de precios y se calcula
     # TIR/duration por flujo de fondos real, igual que get_ons_usd().
-    for item in data["data"]:
-        sym = item.get("symbol")
-        precio = item.get("price")
+    for sym, precio in precios_por_symbol.items():
         info = BONOS_PESOS_CUPON_FLUJOS.get(sym)
-        if not info or precio is None:
+        if not info:
             continue
         flujos = [(_parse_date(f), m * 100) for f, m in info["flujos"]]
         flujos_fut = [(f, m) for f, m in flujos if f and f > hoy]
