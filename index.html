@@ -4590,7 +4590,7 @@ if (typeof Chart !== 'undefined') {
                 { nombre: 'PUAM', valor: '$ 248,000', periodo: 'Julio 2026' },
             ],
             actividad: [
-                { nombre: 'EMAE (mensual, s.e.)', valor: '+0.4%', periodo: 'Mayo 2026' },
+                 { real: true, historyKey: 'emae_desestacionalizado' },
                 { nombre: 'Ventas Minoristas (CAME)', valor: '+1.8% i.a.', periodo: 'Junio 2026' },
                 { nombre: 'Confianza del Consumidor', valor: '42.1 pts', periodo: 'Junio 2026' },
             ],
@@ -4731,7 +4731,7 @@ if (typeof Chart !== 'undefined') {
             Object.keys(ECON_CARD_CONFIG).forEach(renderEconCards);
         }
 
-        const ECON_REAL_DATA_FILES = ['indicadores_precios.json', 'indicadores_monetarios.json'];
+        const ECON_REAL_DATA_FILES = ['indicadores_precios.json', 'indicadores_monetarios.json', 'indicadores_actividad.json'];
 
         async function loadEconRealData() {
             for (const file of ECON_REAL_DATA_FILES) {
@@ -4763,7 +4763,7 @@ if (typeof Chart !== 'undefined') {
             base_monetaria: 'Base monetaria total (circulante en poder del público y de las entidades financieras, más depósitos de las entidades en cuenta corriente en el BCRA).',
             m2_privado: 'Agregado monetario M2 del sector privado (circulante en poder del público más depósitos en cuenta corriente y caja de ahorro del sector privado).',
             reservas_internacionales: 'Reservas internacionales brutas del BCRA.',
-        };
+        emae_desestacionalizado: 'Estimador Mensual de Actividad Económica (EMAE), serie desestacionalizada. Adelanta la evolución del PBI mes a mes. Fuente primaria: INDEC.',};
         const ECON_RANGES = {
             '12m': { label: '12M', months: 12 },
             '24m': { label: '24M', months: 24 },
