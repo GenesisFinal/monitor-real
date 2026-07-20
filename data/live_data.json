@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-20T02:07:09.339931+00:00",
+  "updated_at": "2026-07-20T02:31:44.652122+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64842,
-      "change_24h": 0.02396705555687263
+      "usd": 64651,
+      "change_24h": -0.24630054979101826
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1878.87,
-      "change_24h": 0.6925346379519288
+      "usd": 1871.24,
+      "change_24h": 0.025249122513427154
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999212,
-      "change_24h": -0.006198966374805085
+      "usd": 0.999218,
+      "change_24h": -0.007347125849946115
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 570.72,
-      "change_24h": -0.12357967131793454
+      "usd": 569.4,
+      "change_24h": -0.319085087690114
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 76.71,
-      "change_24h": 0.9983808354292307
+      "usd": 76.47,
+      "change_24h": 0.5836497331550783
     }
   ],
   "tasas_locales": [
@@ -2399,19 +2399,19 @@
       "symbol": "^HSI",
       "nombre": "Hang Seng",
       "region": "Asia",
-      "close": 25075.11,
+      "close": 25118.98,
       "currency": "HKD",
-      "percent_change": 2.0880414845354225,
-      "percent_change_1y": 0.32395342658435805
+      "percent_change": 2.2666489713989484,
+      "percent_change_1y": 0.499474564351018
     },
     {
       "symbol": "000001.SS",
       "nombre": "Shanghai Composite",
       "region": "Asia",
-      "close": 3806.5781,
+      "close": 3805.62,
       "currency": "CNY",
-      "percent_change": 1.1270277226347287,
-      "percent_change_1y": 6.932628440596006
+      "percent_change": 1.1015744670556338,
+      "percent_change_1y": 6.905713939272898
     },
     {
       "symbol": "^BVSP",
@@ -2444,10 +2444,10 @@
       "symbol": "^AXJO",
       "nombre": "ASX 200",
       "region": "Otros",
-      "close": 8793.9,
+      "close": 8796.0,
       "currency": "AUD",
-      "percent_change": -0.03183233769854411,
-      "percent_change_1y": 1.4501257683858557
+      "percent_change": -0.007959749644225834,
+      "percent_change_1y": 1.4743522508468399
     }
   ],
   "commodities": [
@@ -2455,33 +2455,33 @@
       "symbol": "GC=F",
       "nombre": "Oro",
       "region": "Metales",
-      "close": 4003.8,
+      "close": 4011.2,
       "currency": "USD",
-      "percent_change": -0.2217945841994905
+      "percent_change": -0.037380097942213045
     },
     {
       "symbol": "SI=F",
       "nombre": "Plata",
       "region": "Metales",
-      "close": 56.765,
+      "close": 56.965,
       "currency": "USD",
-      "percent_change": 1.2973372067099964
+      "percent_change": 1.6542378927197257
     },
     {
       "symbol": "PL=F",
       "nombre": "Platino",
       "region": "Metales",
-      "close": 1599.2,
+      "close": 1603.6,
       "currency": "USD",
-      "percent_change": -0.41101311666676776
+      "percent_change": -0.13700639937896594
     },
     {
       "symbol": "HG=F",
       "nombre": "Cobre",
       "region": "Metales",
-      "close": 6.271,
+      "close": 6.282,
       "currency": "USD",
-      "percent_change": 0.8199390921004854
+      "percent_change": 0.9967879726638911
     },
     {
       "symbol": "ALI=F",
@@ -2495,57 +2495,57 @@
       "symbol": "CL=F",
       "nombre": "WTI",
       "region": "Energía",
-      "close": 83.71,
+      "close": 83.65,
       "currency": "USD",
-      "percent_change": 1.478969775517839
+      "percent_change": 1.4062336844112824
     },
     {
       "symbol": "BZ=F",
       "nombre": "Brent",
       "region": "Energía",
-      "close": 90.32,
+      "close": 90.34,
       "currency": "USD",
-      "percent_change": 2.5198655667752514
+      "percent_change": 2.542567042764363
     },
     {
       "symbol": "NG=F",
       "nombre": "Gas",
       "region": "Energía",
-      "close": 2.883,
+      "close": 2.886,
       "currency": "USD",
-      "percent_change": -0.9618692278604268
+      "percent_change": -0.8588118597312455
     },
     {
       "symbol": "RB=F",
       "nombre": "Gasolina",
       "region": "Energía",
-      "close": 3.235,
+      "close": 3.2347,
       "currency": "USD",
-      "percent_change": -4.6482140742648586
+      "percent_change": -4.657056589188413
     },
     {
       "symbol": "ZS=F",
       "nombre": "Soja",
       "region": "Granos",
-      "close": 12.1075,
+      "close": 12.105,
       "currency": "USD",
-      "percent_change": 0.518887505188875
+      "percent_change": 0.49813200498132004
     },
     {
       "symbol": "ZC=F",
       "nombre": "Maíz",
       "region": "Granos",
-      "close": 4.715,
+      "close": 4.7175,
       "currency": "USD",
-      "percent_change": 6.014614952220349
+      "percent_change": 6.070826306913997
     },
     {
       "symbol": "ZW=F",
       "nombre": "Trigo",
       "region": "Granos",
-      "close": 6.835,
+      "close": 6.8425,
       "currency": "USD",
-      "percent_change": 0.10984987184181619
+      "percent_change": 0.21969974368363238
     },
     {
       "symbol": "CT=F",
@@ -2641,8 +2641,8 @@
     {
       "symbol": "GB10Y-GB",
       "nombre": "GB10Y-GB",
-      "close": 4.9849,
-      "percent_change": 0.6502
+      "close": 5.0094,
+      "percent_change": 1.1448
     },
     {
       "symbol": "DE10Y-DE",
@@ -2762,7 +2762,7 @@
     }
   ],
   "acciones_mundiales": {
-    "updated_at": "2026-07-20T02:07:46.998286+00:00",
+    "updated_at": "2026-07-20T02:32:46.438153+00:00",
     "secciones": {
       "top_market_cap": [
         {
@@ -3448,7 +3448,7 @@
           "nombre": "ING Groep N.V.",
           "precio": 33.89,
           "pct_change": 0.0,
-          "market_cap": 96879452160,
+          "market_cap": 96911646720,
           "volumen": 500,
           "wk52_high": 33.89,
           "wk52_low": 21.95
@@ -3843,9 +3843,9 @@
       "close": "368.41000",
       "percent_change": "0.94531244",
       "currency": "USD",
-      "percent_change_1m": -5.196,
-      "percent_change_ytd": -7.5,
-      "percent_change_12m": 19.773
+      "percent_change_1m": null,
+      "percent_change_ytd": null,
+      "percent_change_12m": null
     },
     {
       "symbol": "XLK",
@@ -3853,9 +3853,9 @@
       "close": "175.59000",
       "percent_change": "-1.087206",
       "currency": "USD",
-      "percent_change_1m": -5.495,
-      "percent_change_ytd": 21.684,
-      "percent_change_12m": 34.521
+      "percent_change_1m": null,
+      "percent_change_ytd": null,
+      "percent_change_12m": null
     },
     {
       "symbol": "TLT",
@@ -3883,9 +3883,9 @@
       "close": "50.78000",
       "percent_change": "0.77396189",
       "currency": "USD",
-      "percent_change_1m": -16.218,
-      "percent_change_ytd": -22.768,
-      "percent_change_12m": 46.551
+      "percent_change_1m": null,
+      "percent_change_ytd": null,
+      "percent_change_12m": null
     },
     {
       "symbol": "USO",
@@ -3893,9 +3893,9 @@
       "close": "123.96000",
       "percent_change": "3.90612",
       "currency": "USD",
-      "percent_change_1m": 8.518,
-      "percent_change_ytd": 79.756,
-      "percent_change_12m": 62.763
+      "percent_change_1m": null,
+      "percent_change_ytd": null,
+      "percent_change_12m": null
     },
     {
       "symbol": "XLP",
@@ -3922,50 +3922,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14366",
-      "percent_change": "0.043738409",
+      "close": "1.14391",
+      "percent_change": "0.065607614",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34562",
-      "percent_change": "0.035684018",
+      "close": "1.34599",
+      "percent_change": "0.063190449",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.35067",
-      "percent_change": "-0.056659976",
+      "close": "162.35199",
+      "percent_change": "-0.055847382",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.12234",
-      "percent_change": "0.089687851",
+      "close": "5.11923",
+      "percent_change": "0.028918959",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.52129",
-      "percent_change": "-0.083656669",
+      "close": "17.51785",
+      "percent_change": "-0.10327350",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.18196",
-      "percent_change": "-0.019059648",
+      "close": "40.18243",
+      "percent_change": "-0.017890192",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1473.3997",
-      "percent_change": "-0.29608226",
+      "close": "1475.55946",
+      "percent_change": "-0.14993283",
       "currency": null
     }
   ]
