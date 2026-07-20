@@ -3307,6 +3307,8 @@ if (typeof Chart !== 'undefined') {
             rates:        { file: 'tasas_internacionales.json', path: d => d.series, ohlc: false, unit: '%' },
             bonds_cer:    { file: 'bonos_cer_historia.json',   path: d => d.series, ohlc: true, unit: 'ARS' },
             bonds_pesos:  { file: 'bonos_pesos_historia.json', path: d => d.series, ohlc: true, unit: 'ARS' },
+            bonds_pesos_tamar:  { file: 'bonos_pesos_tamar_historia.json', path: d => d.series, ohlc: true, unit: 'ARS' },
+            bonds_pesos_duales: { file: 'bonos_pesos_duales_historia.json', path: d => d.series, ohlc: true, unit: 'ARS' },
             bonds_usd:    { file: 'bonos_usd_historia.json',   path: d => d.series, ohlc: true, unit: 'USD' },
             corporate_ons:{ file: 'ons_usd_historia.json',     path: d => d.series, ohlc: true, unit: 'USD' },
             stocks_top_market_cap:      { file: 'acciones_mundiales_historia.json', path: d => d.series, ohlc: true, unit: 'USD' },

@@ -3635,7 +3635,12 @@ def _build_bond_series(records, payment_dates=None, exact_schedule=None):
 # ------------------------------------------------------------------
 
 BONOS_USD_DATA912 = ["AE38", "AL29", "AL30", "AL35", "AL41", "GD29", "GD30", "GD35", "GD38", "GD41"]
-BONOS_USD_AUTOACUM = ["AO27", "AO28", "AO29", "AN29", "BPD7"]
+# GD46 (agregado 2026-07-20, tarea #57) no estaba en ninguna de las dos
+# listas, por lo que build_history_bonos_usd() nunca generaba ni
+# siquiera un punto auto-acumulado para el. Se agrega a la lista de
+# auto-acum, que intenta IOL y despues bonistas.com/api/bond/GD46
+# (confirmado con historia real).
+BONOS_USD_AUTOACUM = ["AO27", "AO28", "AO29", "AN29", "BPD7", "GD46"]
 
 
 def build_history_bonos_usd():
@@ -3657,8 +3662,8 @@ def build_history_bonos_usd():
     # iol.invertironline.com (historia real mucho mas profunda, sin
     # login), despues bonistas.com, y recien al final se cae a la
     # auto-acumulacion diaria.
-    IOL_USD_MAP = {"AO27": "AO27", "AO28": "AO28", "AN29": "AN29", "BPD7": "BPD7D"}
-    BONISTAS_USD_MAP = {"AO27": "AO27", "AO28": "AO28", "AN29": "AN29", "BPD7": "BPD7D"}
+    IOL_USD_MAP = {"AO27": "AO27", "AO28": "AO28", "AN29": "AN29", "BPD7": "BPD7D", "GD46": "GD46D"}
+    BONISTAS_USD_MAP = {"AO27": "AO27", "AO28": "AO28", "AN29": "AN29", "BPD7": "BPD7D", "GD46": "GD46"}
     faltantes = []
     for sym in BONOS_USD_AUTOACUM:
         ticker_iol = IOL_USD_MAP.get(sym)
@@ -3789,7 +3794,14 @@ def build_history_bonos_cer():
 def build_history_bonos_pesos():
     out = {}
     faltantes = []
-    for sym in LECAP_TERMS:
+    # TY30P (BONCAP cupon fijo periodico, tarea #58) se agrega 2026-07-20
+    # al mismo bucle IOL/bonistas que LECAP_TERMS: no estaba en ninguna
+    # lista de build_history_bonos_pesos(), por lo que nunca tenia
+    # historia (ni siquiera auto-acumulada). bonistas.com ya devuelve la
+    # serie ajustada por su propio vR (_series_from_adjusted_records),
+    # igual que para los bullet de LECAP_TERMS.
+    todos_los_simbolos = list(LECAP_TERMS.keys()) + list(BONOS_PESOS_CUPON_FLUJOS.keys())
+    for sym in todos_los_simbolos:
         # Bullet (un unico pago al vencimiento): no hace falta ajuste
         # por valor residual. iol.invertironline.com da mucha mas
         # profundidad historica real que bonistas.com y que la
@@ -3827,6 +3839,65 @@ def build_history_bonos_pesos():
         "ajuste": "sin_ajuste_bullet",
         "series": out,
     }
+
+
+# ------------------------------------------------------------------
+# Historia OHLC de Bonos TAMAR y Duales/Dolar Linked (agregado
+# 2026-07-20, tarea #61). Estas dos categorias nunca tuvieron una
+# funcion build_history propia (a diferencia de CER/Pesos/USD/ONs), por
+# lo que sus graficos de "Evolucion" en el frontend caian en
+# renderSampleChartFor() (datos de muestra, no reales) al no encontrar
+# la clave en REAL_DATA_CONFIG. Mismo patron IOL -> bonistas.com que el
+# resto (sin ajuste por VR propio, ya que estas categorias tampoco lo
+# tienen en la cotizacion en vivo, ver comentario en get_bonos_tamar()).
+# ------------------------------------------------------------------
+
+def _build_history_bonistas_iol(tickers, precios_filename):
+    out = {}
+    faltantes = []
+    for sym in tickers:
+        records = _fetch_iol_history(sym)
+        if records:
+            daily, weekly = _series_from_adjusted_records(records)
+            if daily or weekly:
+                out[sym] = {"daily": daily, "weekly": weekly}
+                continue
+        records = _fetch_bonistas_history(sym)
+        if records:
+            daily, weekly = _series_from_adjusted_records(records)
+            if daily or weekly:
+                out[sym] = {"daily": daily, "weekly": weekly}
+                continue
+        faltantes.append(sym)
+
+    if faltantes:
+        path = os.path.join(HISTORY_DIR, precios_filename)
+        existing = load_json(path) or {"series": {}}
+        series = existing.get("series", {})
+        for sym in faltantes:
+            puntos = series.get(sym, [])
+            records = [{"date": p.get("t"), "o": p.get("c"), "h": p.get("c"),
+                        "l": p.get("c"), "c": p.get("c"), "v": None} for p in puntos]
+            daily, weekly = _build_bond_series(records)
+            if daily or weekly:
+                out[sym] = {"daily": daily, "weekly": weekly}
+
+    if not out:
+        return None
+    return {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "moneda": "ARS",
+        "ajuste": "sin_ajuste_bullet",
+        "series": out,
+    }
+
+
+def build_history_bonos_pesos_tamar():
+    return _build_history_bonistas_iol(list(TAMAR_BONOS.keys()), "bonos_pesos_tamar_precios.json")
+
+
+def build_history_bonos_pesos_duales():
+    return _build_history_bonistas_iol(list(DUALES_DOLARLINKED_BONOS.keys()), "bonos_pesos_duales_precios.json")
 
 
 # ------------------------------------------------------------------
@@ -4308,6 +4379,8 @@ def main():
         "bonos_usd_historia.json": build_history_bonos_usd(),
         "bonos_cer_historia.json": build_history_bonos_cer(),
         "bonos_pesos_historia.json": build_history_bonos_pesos(),
+        "bonos_pesos_tamar_historia.json": build_history_bonos_pesos_tamar(),
+        "bonos_pesos_duales_historia.json": build_history_bonos_pesos_duales(),
         "ons_usd_historia.json": build_history_ons_usd(),
     }
     for filename, payload in historicos.items():
