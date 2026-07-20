@@ -1571,6 +1571,90 @@ def _accumulate_bond_metrics(categoria, items):
     save_json(path, existing)
 
 
+def _backfill_bond_metrics_from_bonistas():
+    """Completa con historia real (bonistas.com) los puntos anteriores a
+    hoy que bonos_metricas_historia.json todavia no tiene.
+
+    _accumulate_bond_metrics() recien empieza a guardar un punto por dia
+    desde la primera vez que un simbolo aparece en el listado en vivo,
+    asi que para practicamente TODOS los simbolos trackeados (CER,
+    soberanos USD, ONs, TY30P: 61 de 61 verificado 2026-07-20) el
+    grafico "Historico" del detalle de cada bono mostraba un solo punto
+    (el de hoy), incluso para bonos con muchisima antiguedad en el
+    sitio. bonistas.com/api/bond/{ticker} publica en su campo "history"
+    series diarias reales de tir/modified_duration/paridad/fair_value
+    (ademas del precio, ya usado por _fetch_bonistas_history), asi que
+    se usan esas columnas para reconstruir el historico de metricas
+    ticker por ticker, sin tener que re-implementar el calculo de
+    TIR/VT propio para fechas pasadas (que exigiria ademas la serie
+    historica completa del indice CER, no solo el valor de hoy).
+
+    No se pisa nunca el punto de HOY: ese viene del calculo propio
+    (get_bonos_cer/get_bonos_soberanos_usd/etc.) con el precio y CER en
+    vivo, mas preciso que el numero que publica bonistas.com en su
+    propia ficha."""
+    path = os.path.join(HISTORY_DIR, BOND_METRICS_HISTORY_FILE)
+    existing = load_json(path) or {}
+    hoy = date.today().isoformat()
+    total_agregados = 0
+    for sym, entry in existing.items():
+        if sym == "_updated_at" or not isinstance(entry, dict):
+            continue
+        hist = entry.get("history") or []
+        fechas_existentes = {p.get("date") for p in hist}
+        data = fetch_json(f"https://bonistas.com/api/bond/{sym}")
+        if not data or not isinstance(data, dict):
+            continue
+        h = data.get("history")
+        if not isinstance(h, dict) or not h.get("fecha"):
+            continue
+        fechas = h["fecha"]
+        n = len(fechas)
+
+        def _col(name):
+            vals = h.get(name) or []
+            return (list(vals) + [None] * n)[:n]
+
+        tirs = _col("tir")
+        durs = _col("modified_duration")
+        paridades = _col("paridad")
+        fair_values = _col("fair_value")
+        closes = _col("close")
+        intereses = _col("interes")
+        nuevos = 0
+        for i, f in enumerate(fechas):
+            if not f or f >= hoy or f in fechas_existentes:
+                continue
+            tir, dur, par, vt = tirs[i], durs[i], paridades[i], fair_values[i]
+            precio_dirty, interes_corrido = closes[i], intereses[i]
+            precio_clean = None
+            if precio_dirty is not None and interes_corrido is not None:
+                precio_clean = round(precio_dirty - interes_corrido, 4)
+            punto = {
+                "date": f,
+                "tir": round(tir * 100, 3) if tir is not None else None,
+                "duration": round(dur, 3) if dur is not None else None,
+                "paridad": round(par * 100, 2) if par is not None else None,
+                "valor_tecnico": round(vt, 2) if vt is not None else None,
+                "interes_corrido": round(interes_corrido, 4) if interes_corrido is not None else None,
+                "precio_dirty": precio_dirty,
+                "precio_clean": precio_clean,
+            }
+            hist.append(punto)
+            fechas_existentes.add(f)
+            nuevos += 1
+        if nuevos:
+            hist.sort(key=lambda p: p["date"])
+            if len(hist) > 2000:
+                del hist[: len(hist) - 2000]
+            entry["history"] = hist
+            total_agregados += nuevos
+    if total_agregados:
+        existing["_updated_at"] = datetime.now(timezone.utc).isoformat()
+        save_json(path, existing)
+    print(f"OK: backfill de {BOND_METRICS_HISTORY_FILE}: {total_agregados} puntos historicos agregados.")
+
+
 def _lecap_precios_previos():
     path = os.path.join(HISTORY_DIR, "bonos_pesos_precios.json")
     return load_json(path) or {}
@@ -4360,6 +4444,7 @@ def main():
     ):
         _accumulate_bond_metrics(categoria, live_data.get(items_key))
     print(f"OK: data/history/{BOND_METRICS_HISTORY_FILE} actualizado.")
+    _backfill_bond_metrics_from_bonistas()
 
     # ---- Series históricas ----
     historicos = {
