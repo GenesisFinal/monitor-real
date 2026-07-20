@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-19T21:05:52.774613+00:00",
+  "updated_at": "2026-07-20T02:07:09.339931+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -52,9 +52,9 @@
     }
   ],
   "banda_cambiaria": {
-    "piso": 761.41,
-    "techo": 1827.63,
-    "fecha": "2026-07-17"
+    "piso": 759.84,
+    "techo": 1831.31,
+    "fecha": "2026-07-20"
   },
   "riesgo_pais": {
     "valor": 419,
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64482,
-      "change_24h": -0.20793680715648824
+      "usd": 64842,
+      "change_24h": 0.02396705555687263
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1865.89,
-      "change_24h": 0.5601610917428259
+      "usd": 1878.87,
+      "change_24h": 0.6925346379519288
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999191,
-      "change_24h": -0.011149481856278752
+      "usd": 0.999212,
+      "change_24h": -0.006198966374805085
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 569.32,
-      "change_24h": -0.2786295303971574
+      "usd": 570.72,
+      "change_24h": -0.12357967131793454
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 76.09,
-      "change_24h": 0.8569298937845551
+      "usd": 76.71,
+      "change_24h": 0.9983808354292307
     }
   ],
   "tasas_locales": [
@@ -1119,8 +1119,18 @@
       "vencimiento": "2027-11-01",
       "precio": 102.6,
       "pct_change": 0.29,
-      "tir": 3.513,
-      "duration": 1.011
+      "tir": 3.523,
+      "duration": 1.008,
+      "sensibilidad_tir": {
+        "-3": 3.01,
+        "-2": 1.99,
+        "-1": 0.98,
+        "1": -0.96,
+        "2": -1.91,
+        "3": -2.84,
+        "5": -4.64,
+        "10": -8.85
+      }
     },
     {
       "symbol": "AO27",
@@ -1129,8 +1139,18 @@
       "vencimiento": "2027-10-30",
       "precio": 102.7,
       "pct_change": 0,
-      "tir": 4.158,
-      "duration": 1.234
+      "tir": 4.168,
+      "duration": 1.232,
+      "sensibilidad_tir": {
+        "-3": 3.67,
+        "-2": 2.42,
+        "-1": 1.2,
+        "1": -1.17,
+        "2": -2.31,
+        "3": -3.43,
+        "5": -5.61,
+        "10": -10.66
+      }
     },
     {
       "symbol": "AL29",
@@ -1139,8 +1159,18 @@
       "vencimiento": "2029-07-09",
       "precio": 55.37,
       "pct_change": 0.19,
-      "tir": 5.92,
-      "duration": 1.677
+      "tir": 5.93,
+      "duration": 1.674,
+      "sensibilidad_tir": {
+        "-3": 4.96,
+        "-2": 3.26,
+        "-1": 1.6,
+        "1": -1.56,
+        "2": -3.07,
+        "3": -4.54,
+        "5": -7.36,
+        "10": -13.76
+      }
     },
     {
       "symbol": "GD29",
@@ -1149,8 +1179,18 @@
       "vencimiento": "2029-07-09",
       "precio": 55.95,
       "pct_change": 0.37,
-      "tir": 5.265,
-      "duration": 1.681
+      "tir": 5.274,
+      "duration": 1.679,
+      "sensibilidad_tir": {
+        "-3": 5.0,
+        "-2": 3.29,
+        "-1": 1.62,
+        "1": -1.57,
+        "2": -3.1,
+        "3": -4.58,
+        "5": -7.42,
+        "10": -13.87
+      }
     },
     {
       "symbol": "AL30",
@@ -1159,8 +1199,18 @@
       "vencimiento": "2030-07-09",
       "precio": 56.47,
       "pct_change": 0.07,
-      "tir": 7.386,
-      "duration": 2.125
+      "tir": 7.396,
+      "duration": 2.122,
+      "sensibilidad_tir": {
+        "-3": 6.25,
+        "-2": 4.09,
+        "-1": 2.01,
+        "1": -1.94,
+        "2": -3.82,
+        "3": -5.63,
+        "5": -9.08,
+        "10": -16.79
+      }
     },
     {
       "symbol": "AO28",
@@ -1169,8 +1219,18 @@
       "vencimiento": "2028-10-31",
       "precio": 97.89,
       "pct_change": -0.11,
-      "tir": 7.381,
-      "duration": 2.134
+      "tir": 7.391,
+      "duration": 2.132,
+      "sensibilidad_tir": {
+        "-3": 6.23,
+        "-2": 4.09,
+        "-1": 2.02,
+        "1": -1.96,
+        "2": -3.85,
+        "3": -5.7,
+        "5": -9.22,
+        "10": -17.21
+      }
     },
     {
       "symbol": "GD30",
@@ -1179,8 +1239,18 @@
       "vencimiento": "2030-07-09",
       "precio": 57.99,
       "pct_change": 0.15,
-      "tir": 6.057,
-      "duration": 2.141
+      "tir": 6.065,
+      "duration": 2.138,
+      "sensibilidad_tir": {
+        "-3": 6.38,
+        "-2": 4.18,
+        "-1": 2.05,
+        "1": -1.98,
+        "2": -3.89,
+        "3": -5.74,
+        "5": -9.26,
+        "10": -17.09
+      }
     },
     {
       "symbol": "AO29",
@@ -1189,8 +1259,18 @@
       "vencimiento": "2029-10-31",
       "precio": 94.64,
       "pct_change": 0,
-      "tir": 8.176,
-      "duration": 2.98
+      "tir": 8.184,
+      "duration": 2.977,
+      "sensibilidad_tir": {
+        "-3": 8.76,
+        "-2": 5.72,
+        "-1": 2.81,
+        "1": -2.7,
+        "2": -5.3,
+        "3": -7.8,
+        "5": -12.53,
+        "10": -22.96
+      }
     },
     {
       "symbol": "AN29",
@@ -1199,8 +1279,18 @@
       "vencimiento": "2029-11-30",
       "precio": 97.15,
       "pct_change": 0.15,
-      "tir": 7.916,
-      "duration": 3.048
+      "tir": 7.923,
+      "duration": 3.045,
+      "sensibilidad_tir": {
+        "-3": 8.99,
+        "-2": 5.87,
+        "-1": 2.88,
+        "1": -2.77,
+        "2": -5.43,
+        "3": -7.99,
+        "5": -12.83,
+        "10": -23.46
+      }
     },
     {
       "symbol": "AE38",
@@ -1209,8 +1299,18 @@
       "vencimiento": "2038-01-09",
       "precio": 83.64,
       "pct_change": 0.08,
-      "tir": 8.858,
-      "duration": 4.893
+      "tir": 8.864,
+      "duration": 4.89,
+      "sensibilidad_tir": {
+        "-3": 15.07,
+        "-2": 9.67,
+        "-1": 4.66,
+        "1": -4.33,
+        "2": -8.37,
+        "3": -12.14,
+        "5": -18.96,
+        "10": -32.62
+      }
     },
     {
       "symbol": "GD38",
@@ -1219,8 +1319,18 @@
       "vencimiento": "2038-01-09",
       "precio": 86.89,
       "pct_change": -0.35,
-      "tir": 8.02,
-      "duration": 4.966
+      "tir": 8.024,
+      "duration": 4.963,
+      "sensibilidad_tir": {
+        "-3": 15.45,
+        "-2": 9.9,
+        "-1": 4.77,
+        "1": -4.43,
+        "2": -8.56,
+        "3": -12.4,
+        "5": -19.34,
+        "10": -33.21
+      }
     },
     {
       "symbol": "AL35",
@@ -1229,8 +1339,18 @@
       "vencimiento": "2035-07-09",
       "precio": 80.82,
       "pct_change": 0.24,
-      "tir": 8.86,
-      "duration": 5.641
+      "tir": 8.864,
+      "duration": 5.638,
+      "sensibilidad_tir": {
+        "-3": 17.28,
+        "-2": 11.11,
+        "-1": 5.36,
+        "1": -5.01,
+        "2": -9.68,
+        "3": -14.06,
+        "5": -21.99,
+        "10": -37.92
+      }
     },
     {
       "symbol": "GD35",
@@ -1239,8 +1359,18 @@
       "vencimiento": "2035-07-09",
       "precio": 83.57,
       "pct_change": -0.08,
-      "tir": 8.217,
-      "duration": 5.669
+      "tir": 8.221,
+      "duration": 5.666,
+      "sensibilidad_tir": {
+        "-3": 17.48,
+        "-2": 11.24,
+        "-1": 5.42,
+        "1": -5.06,
+        "2": -9.78,
+        "3": -14.2,
+        "5": -22.2,
+        "10": -38.24
+      }
     },
     {
       "symbol": "AL41",
@@ -1249,8 +1379,18 @@
       "vencimiento": "2041-07-09",
       "precio": 76.91,
       "pct_change": -0.15,
-      "tir": 7.794,
-      "duration": 6.389
+      "tir": 7.797,
+      "duration": 6.386,
+      "sensibilidad_tir": {
+        "-3": 20.49,
+        "-2": 13.01,
+        "-1": 6.2,
+        "1": -5.67,
+        "2": -10.85,
+        "3": -15.61,
+        "5": -24.0,
+        "10": -39.98
+      }
     },
     {
       "symbol": "GD41",
@@ -1259,28 +1399,42 @@
       "vencimiento": "2041-07-09",
       "precio": 77.98,
       "pct_change": -0.49,
-      "tir": 7.562,
-      "duration": 6.422
+      "tir": 7.565,
+      "duration": 6.419,
+      "sensibilidad_tir": {
+        "-3": 20.65,
+        "-2": 13.11,
+        "-1": 6.25,
+        "1": -5.71,
+        "2": -10.92,
+        "3": -15.71,
+        "5": -24.15,
+        "10": -40.2
+      }
     }
   ],
   "bonos_cer": [
-    {
-      "symbol": "X30S6",
-      "descripcion": "Letra del Tesoro (LECER) ajustada por CER, vto. sep. 2026",
-      "vencimiento": "2026-09-30",
-      "precio": 112.19,
-      "pct_change": 0.12,
-      "tir": 4.681,
-      "duration": 0.2
-    },
     {
       "symbol": "TZXO6",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. oct. 2026",
       "vencimiento": "2026-10-30",
       "precio": 166.3,
       "pct_change": 0.18,
-      "tir": 4.978,
-      "duration": 0.282
+      "tir": 5.256,
+      "duration": 0.279,
+      "valor_tecnico": 168.7,
+      "paridad": 98.58,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 0.81,
+        "-2": 0.54,
+        "-1": 0.27,
+        "1": -0.26,
+        "2": -0.52,
+        "3": -0.78,
+        "5": -1.29,
+        "10": -2.5
+      }
     },
     {
       "symbol": "TX26",
@@ -1288,8 +1442,21 @@
       "vencimiento": "2026-11-09",
       "precio": 713.3,
       "pct_change": 0.23,
-      "tir": 5.558,
-      "duration": 0.31
+      "tir": 5.819,
+      "duration": 0.307,
+      "valor_tecnico": 724.22,
+      "paridad": 98.49,
+      "interes_corrido": 5.62,
+      "sensibilidad_tir": {
+        "-3": 0.89,
+        "-2": 0.59,
+        "-1": 0.29,
+        "1": -0.29,
+        "2": -0.57,
+        "3": -0.85,
+        "5": -1.41,
+        "10": -2.73
+      }
     },
     {
       "symbol": "X30N6",
@@ -1297,8 +1464,21 @@
       "vencimiento": "2026-11-30",
       "precio": 120.36,
       "pct_change": 0.18,
-      "tir": 5.416,
-      "duration": 0.367
+      "tir": 5.634,
+      "duration": 0.364,
+      "valor_tecnico": 122.79,
+      "paridad": 98.02,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 1.06,
+        "-2": 0.7,
+        "-1": 0.35,
+        "1": -0.34,
+        "2": -0.68,
+        "3": -1.02,
+        "5": -1.67,
+        "10": -3.24
+      }
     },
     {
       "symbol": "TZXD6",
@@ -1306,8 +1486,21 @@
       "vencimiento": "2026-12-15",
       "precio": 292.5,
       "pct_change": 0.17,
-      "tir": 5.239,
-      "duration": 0.408
+      "tir": 5.433,
+      "duration": 0.405,
+      "valor_tecnico": 298.84,
+      "paridad": 97.88,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 1.18,
+        "-2": 0.78,
+        "-1": 0.39,
+        "1": -0.38,
+        "2": -0.76,
+        "3": -1.13,
+        "5": -1.86,
+        "10": -3.61
+      }
     },
     {
       "symbol": "TZXM7",
@@ -1315,8 +1508,21 @@
       "vencimiento": "2027-03-31",
       "precio": 215.7,
       "pct_change": 0.16,
-      "tir": 5.584,
-      "duration": 0.699
+      "tir": 5.699,
+      "duration": 0.696,
+      "valor_tecnico": 224.18,
+      "paridad": 96.22,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 2.02,
+        "-2": 1.34,
+        "-1": 0.66,
+        "1": -0.65,
+        "2": -1.3,
+        "3": -1.93,
+        "5": -3.17,
+        "10": -6.1
+      }
     },
     {
       "symbol": "TZX27",
@@ -1324,8 +1530,21 @@
       "vencimiento": "2027-06-30",
       "precio": 384.5,
       "pct_change": 0,
-      "tir": 5.35,
-      "duration": 0.948
+      "tir": 5.434,
+      "duration": 0.945,
+      "valor_tecnico": 404.22,
+      "paridad": 95.12,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 2.77,
+        "-2": 1.83,
+        "-1": 0.9,
+        "1": -0.89,
+        "2": -1.76,
+        "3": -2.62,
+        "5": -4.28,
+        "10": -8.21
+      }
     },
     {
       "symbol": "TX28",
@@ -1333,8 +1552,21 @@
       "vencimiento": "2028-11-09",
       "precio": 1699,
       "pct_change": 0,
-      "tir": 7.141,
-      "duration": 1.264
+      "tir": 7.209,
+      "duration": 1.261,
+      "valor_tecnico": 1812.32,
+      "paridad": 93.75,
+      "interes_corrido": 15.82,
+      "sensibilidad_tir": {
+        "-3": 3.66,
+        "-2": 2.41,
+        "-1": 1.19,
+        "1": -1.16,
+        "2": -2.3,
+        "3": -3.4,
+        "5": -5.54,
+        "10": -10.46
+      }
     },
     {
       "symbol": "TZXD7",
@@ -1342,8 +1574,21 @@
       "vencimiento": "2027-12-15",
       "precio": 268.7,
       "pct_change": 0.09,
-      "tir": 7.796,
-      "duration": 1.408
+      "tir": 7.858,
+      "duration": 1.405,
+      "valor_tecnico": 298.84,
+      "paridad": 89.91,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 4.04,
+        "-2": 2.67,
+        "-1": 1.32,
+        "1": -1.29,
+        "2": -2.55,
+        "3": -3.78,
+        "5": -6.17,
+        "10": -11.72
+      }
     },
     {
       "symbol": "TZX28",
@@ -1351,8 +1596,21 @@
       "vencimiento": "2028-06-30",
       "precio": 344.05,
       "pct_change": 0.27,
-      "tir": 8.579,
-      "duration": 1.951
+      "tir": 8.626,
+      "duration": 1.948,
+      "valor_tecnico": 404.22,
+      "paridad": 85.11,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 5.61,
+        "-2": 3.69,
+        "-1": 1.82,
+        "1": -1.77,
+        "2": -3.49,
+        "3": -5.17,
+        "5": -8.39,
+        "10": -15.76
+      }
     },
     {
       "symbol": "TX31",
@@ -1360,8 +1618,21 @@
       "vencimiento": "2031-12-01",
       "precio": 1454,
       "pct_change": -0.2,
-      "tir": 8.823,
-      "duration": 2.86
+      "tir": 8.855,
+      "duration": 2.857,
+      "valor_tecnico": 1738.58,
+      "paridad": 83.63,
+      "interes_corrido": 11.96,
+      "sensibilidad_tir": {
+        "-3": 8.4,
+        "-2": 5.48,
+        "-1": 2.68,
+        "1": -2.57,
+        "2": -5.04,
+        "3": -7.4,
+        "5": -11.85,
+        "10": -21.58
+      }
     },
     {
       "symbol": "DICP",
@@ -1369,8 +1640,21 @@
       "vencimiento": "2034-01-02",
       "precio": 48600,
       "pct_change": 0.15,
-      "tir": 1.556,
-      "duration": 3.662
+      "tir": 1.574,
+      "duration": 3.659,
+      "valor_tecnico": 42014.62,
+      "paridad": 115.67,
+      "interes_corrido": 264.57,
+      "sensibilidad_tir": {
+        "-3": 11.82,
+        "-2": 7.65,
+        "-1": 3.71,
+        "1": -3.5,
+        "2": -6.8,
+        "3": -9.93,
+        "5": -15.68,
+        "10": -27.64
+      }
     },
     {
       "symbol": "PARP",
@@ -1378,27 +1662,31 @@
       "vencimiento": "2038-12-31",
       "precio": 37120,
       "pct_change": 0.8,
-      "tir": 8.413,
-      "duration": 6.707
+      "tir": 8.426,
+      "duration": 6.703,
+      "valor_tecnico": 56266.48,
+      "paridad": 65.97,
+      "interes_corrido": 599.75,
+      "sensibilidad_tir": {
+        "-3": 21.15,
+        "-2": 13.48,
+        "-1": 6.45,
+        "1": -5.93,
+        "2": -11.39,
+        "3": -16.43,
+        "5": -25.37,
+        "10": -42.6
+      }
     }
   ],
   "bonos_pesos": [
-    {
-      "symbol": "S30S6",
-      "descripcion": "LECAP Sept 30",
-      "vencimiento": "2026-09-30",
-      "precio": 112.599,
-      "tir": 23.932,
-      "duration": 0.2,
-      "pct_change": 0.0
-    },
     {
       "symbol": "S30O6",
       "descripcion": "LECAP Oct 30",
       "vencimiento": "2026-10-30",
       "precio": 127.25,
-      "tir": 24.209,
-      "duration": 0.282,
+      "tir": 24.473,
+      "duration": 0.279,
       "pct_change": 0.0
     },
     {
@@ -1406,8 +1694,8 @@
       "descripcion": "LECAP Nov 13",
       "vencimiento": "2026-11-13",
       "precio": 102.06,
-      "tir": 25.08,
-      "duration": 0.321,
+      "tir": 25.321,
+      "duration": 0.318,
       "pct_change": 0.0
     },
     {
@@ -1415,8 +1703,8 @@
       "descripcion": "LECAP Nov 30",
       "vencimiento": "2026-11-30",
       "precio": 119.64,
-      "tir": 25.09,
-      "duration": 0.367,
+      "tir": 25.301,
+      "duration": 0.364,
       "pct_change": 0.0
     },
     {
@@ -1424,8 +1712,8 @@
       "descripcion": "BONCAP Ene 15/27",
       "vencimiento": "2027-01-15",
       "precio": 144.34,
-      "tir": 24.958,
-      "duration": 0.493,
+      "tir": 25.114,
+      "duration": 0.49,
       "pct_change": 0.0
     },
     {
@@ -1433,8 +1721,8 @@
       "descripcion": "BONCAP Abr 30/27",
       "vencimiento": "2027-04-30",
       "precio": 131.72,
-      "tir": 25.562,
-      "duration": 0.781,
+      "tir": 25.662,
+      "duration": 0.778,
       "pct_change": 0.0
     },
     {
@@ -1442,8 +1730,8 @@
       "descripcion": "BONCAP May 31/27",
       "vencimiento": "2027-05-31",
       "precio": 124.45,
-      "tir": 25.566,
-      "duration": 0.866,
+      "tir": 25.657,
+      "duration": 0.863,
       "pct_change": 0.0
     },
     {
@@ -1451,8 +1739,8 @@
       "descripcion": "BONCAP Jun 30/27",
       "vencimiento": "2027-06-30",
       "precio": 126.19,
-      "tir": 25.102,
-      "duration": 0.948,
+      "tir": 25.184,
+      "duration": 0.945,
       "pct_change": 0.0
     }
   ],
@@ -1575,9 +1863,19 @@
       "vencimiento": "2026-10-06",
       "precio": 102.7,
       "pct_change": 0,
-      "tir": 1.166,
-      "duration": 0.216,
-      "volumen": 416021
+      "tir": 1.181,
+      "duration": 0.214,
+      "volumen": 416021,
+      "sensibilidad_tir": {
+        "-3": 0.65,
+        "-2": 0.43,
+        "-1": 0.21,
+        "1": -0.21,
+        "2": -0.42,
+        "3": -0.62,
+        "5": -1.03,
+        "10": -1.99
+      }
     },
     {
       "symbol": "AFCID",
@@ -1587,9 +1885,19 @@
       "vencimiento": "2026-11-09",
       "precio": 102.35,
       "pct_change": 0.14,
-      "tir": 3.061,
-      "duration": 0.31,
-      "volumen": 41600
+      "tir": 3.089,
+      "duration": 0.307,
+      "volumen": 41600,
+      "sensibilidad_tir": {
+        "-3": 0.91,
+        "-2": 0.6,
+        "-1": 0.3,
+        "1": -0.3,
+        "2": -0.59,
+        "3": -0.88,
+        "5": -1.44,
+        "10": -2.8
+      }
     },
     {
       "symbol": "VSCOD",
@@ -1599,9 +1907,19 @@
       "vencimiento": "2027-03-08",
       "precio": 106.95,
       "pct_change": -0.32,
-      "tir": -0.624,
-      "duration": 0.62,
-      "volumen": 326493
+      "tir": -0.627,
+      "duration": 0.618,
+      "volumen": 326493,
+      "sensibilidad_tir": {
+        "-3": 1.91,
+        "-2": 1.26,
+        "-1": 0.63,
+        "1": -0.62,
+        "2": -1.22,
+        "3": -1.82,
+        "5": -2.99,
+        "10": -5.75
+      }
     },
     {
       "symbol": "VSCWD",
@@ -1611,9 +1929,19 @@
       "vencimiento": "2027-04-15",
       "precio": 100.6,
       "pct_change": -0.09,
-      "tir": 5.363,
-      "duration": 0.729,
-      "volumen": 609551
+      "tir": 5.384,
+      "duration": 0.726,
+      "volumen": 609551,
+      "sensibilidad_tir": {
+        "-3": 2.12,
+        "-2": 1.4,
+        "-1": 0.69,
+        "1": -0.68,
+        "2": -1.36,
+        "3": -2.02,
+        "5": -3.31,
+        "10": -6.37
+      }
     },
     {
       "symbol": "YM37D",
@@ -1623,21 +1951,19 @@
       "vencimiento": "2027-05-07",
       "precio": 104.7,
       "pct_change": 0.28,
-      "tir": 2.842,
-      "duration": 0.775,
-      "volumen": 299144
-    },
-    {
-      "symbol": "YM38D",
-      "series_id": "YM38",
-      "descripcion": "YPF - ON YM38D (vto. 2027-07-22)",
-      "emisor": "YPF",
-      "vencimiento": "2027-07-22",
-      "precio": 105.55,
-      "pct_change": -0.14,
-      "tir": 3.753,
-      "duration": 0.964,
-      "volumen": 41654
+      "tir": 2.852,
+      "duration": 0.772,
+      "volumen": 299144,
+      "sensibilidad_tir": {
+        "-3": 2.31,
+        "-2": 1.53,
+        "-1": 0.76,
+        "1": -0.74,
+        "2": -1.48,
+        "3": -2.2,
+        "5": -3.6,
+        "10": -6.91
+      }
     },
     {
       "symbol": "LOC5D",
@@ -1647,9 +1973,41 @@
       "vencimiento": "2027-07-26",
       "precio": 107.85,
       "pct_change": 0.32,
-      "tir": 4.002,
-      "duration": 0.964,
-      "volumen": 41650
+      "tir": 4.013,
+      "duration": 0.961,
+      "volumen": 41650,
+      "sensibilidad_tir": {
+        "-3": 2.85,
+        "-2": 1.88,
+        "-1": 0.93,
+        "1": -0.92,
+        "2": -1.81,
+        "3": -2.69,
+        "5": -4.41,
+        "10": -8.43
+      }
+    },
+    {
+      "symbol": "YM38D",
+      "series_id": "YM38",
+      "descripcion": "YPF - ON YM38D (vto. 2027-07-22)",
+      "emisor": "YPF",
+      "vencimiento": "2027-07-22",
+      "precio": 105.55,
+      "pct_change": -0.14,
+      "tir": 3.764,
+      "duration": 0.962,
+      "volumen": 41654,
+      "sensibilidad_tir": {
+        "-3": 2.86,
+        "-2": 1.89,
+        "-1": 0.94,
+        "1": -0.92,
+        "2": -1.82,
+        "3": -2.7,
+        "5": -4.42,
+        "10": -8.45
+      }
     },
     {
       "symbol": "VSCPD",
@@ -1659,9 +2017,19 @@
       "vencimiento": "2029-05-03",
       "precio": 108.65,
       "pct_change": -0.22,
-      "tir": 4.431,
-      "duration": 1.901,
-      "volumen": 52066
+      "tir": 4.438,
+      "duration": 1.898,
+      "volumen": 52066,
+      "sensibilidad_tir": {
+        "-3": 5.71,
+        "-2": 3.75,
+        "-1": 1.85,
+        "1": -1.79,
+        "2": -3.53,
+        "3": -5.22,
+        "5": -8.45,
+        "10": -15.78
+      }
     },
     {
       "symbol": "BACGD",
@@ -1671,9 +2039,19 @@
       "vencimiento": "2029-06-25",
       "precio": 107.15,
       "pct_change": -0.13,
-      "tir": 5.594,
-      "duration": 2.672,
-      "volumen": 38000
+      "tir": 5.599,
+      "duration": 2.669,
+      "volumen": 38000,
+      "sensibilidad_tir": {
+        "-3": 8.02,
+        "-2": 5.24,
+        "-1": 2.57,
+        "1": -2.48,
+        "2": -4.88,
+        "3": -7.19,
+        "5": -11.58,
+        "10": -21.31
+      }
     },
     {
       "symbol": "PN35D",
@@ -1683,9 +2061,19 @@
       "vencimiento": "2029-09-27",
       "precio": 107.45,
       "pct_change": -0.13,
-      "tir": 5.254,
-      "duration": 2.869,
-      "volumen": 129914
+      "tir": 5.26,
+      "duration": 2.866,
+      "volumen": 129914,
+      "sensibilidad_tir": {
+        "-3": 8.67,
+        "-2": 5.66,
+        "-1": 2.78,
+        "1": -2.67,
+        "2": -5.24,
+        "3": -7.72,
+        "5": -12.39,
+        "10": -22.7
+      }
     },
     {
       "symbol": "IRCOD",
@@ -1695,9 +2083,19 @@
       "vencimiento": "2029-10-23",
       "precio": 108.4,
       "pct_change": 0.27,
-      "tir": 5.676,
-      "duration": 2.877,
-      "volumen": 41171
+      "tir": 5.681,
+      "duration": 2.874,
+      "volumen": 41171,
+      "sensibilidad_tir": {
+        "-3": 8.66,
+        "-2": 5.66,
+        "-1": 2.77,
+        "1": -2.67,
+        "2": -5.23,
+        "3": -7.7,
+        "5": -12.37,
+        "10": -22.63
+      }
     },
     {
       "symbol": "TTCDD",
@@ -1707,9 +2105,19 @@
       "vencimiento": "2030-11-04",
       "precio": 109.25,
       "pct_change": 0.64,
-      "tir": 5.658,
-      "duration": 3.717,
-      "volumen": 48000
+      "tir": 5.663,
+      "duration": 3.714,
+      "volumen": 48000,
+      "sensibilidad_tir": {
+        "-3": 11.35,
+        "-2": 7.38,
+        "-1": 3.6,
+        "1": -3.43,
+        "2": -6.7,
+        "3": -9.83,
+        "5": -15.65,
+        "10": -28.11
+      }
     },
     {
       "symbol": "YMCXD",
@@ -1719,9 +2127,19 @@
       "vencimiento": "2031-09-11",
       "precio": 114,
       "pct_change": 0.35,
-      "tir": 6.045,
-      "duration": 3.782,
-      "volumen": 466830
+      "tir": 6.049,
+      "duration": 3.779,
+      "volumen": 466830,
+      "sensibilidad_tir": {
+        "-3": 11.56,
+        "-2": 7.5,
+        "-1": 3.66,
+        "1": -3.47,
+        "2": -6.78,
+        "3": -9.92,
+        "5": -15.77,
+        "10": -28.17
+      }
     },
     {
       "symbol": "BACHD",
@@ -1731,9 +2149,19 @@
       "vencimiento": "2031-01-28",
       "precio": 111.6,
       "pct_change": 0.45,
-      "tir": 6.086,
-      "duration": 3.785,
-      "volumen": 45000
+      "tir": 6.09,
+      "duration": 3.782,
+      "volumen": 45000,
+      "sensibilidad_tir": {
+        "-3": 11.54,
+        "-2": 7.5,
+        "-1": 3.66,
+        "1": -3.48,
+        "2": -6.79,
+        "3": -9.94,
+        "5": -15.81,
+        "10": -28.3
+      }
     },
     {
       "symbol": "PN36D",
@@ -1743,9 +2171,19 @@
       "vencimiento": "2031-11-13",
       "precio": 109.45,
       "pct_change": 0.41,
-      "tir": 5.542,
-      "duration": 4.494,
-      "volumen": 74638
+      "tir": 5.546,
+      "duration": 4.492,
+      "volumen": 74638,
+      "sensibilidad_tir": {
+        "-3": 13.93,
+        "-2": 9.02,
+        "-1": 4.38,
+        "1": -4.14,
+        "2": -8.05,
+        "3": -11.75,
+        "5": -18.56,
+        "10": -32.73
+      }
     },
     {
       "symbol": "YM34D",
@@ -1755,9 +2193,19 @@
       "vencimiento": "2034-01-17",
       "precio": 109.2,
       "pct_change": 0,
-      "tir": 6.61,
-      "duration": 5.28,
-      "volumen": 893350
+      "tir": 6.614,
+      "duration": 5.278,
+      "volumen": 893350,
+      "sensibilidad_tir": {
+        "-3": 16.46,
+        "-2": 10.6,
+        "-1": 5.12,
+        "1": -4.79,
+        "2": -9.27,
+        "3": -13.47,
+        "5": -21.11,
+        "10": -36.52
+      }
     },
     {
       "symbol": "MGCOD",
@@ -1767,9 +2215,19 @@
       "vencimiento": "2034-12-18",
       "precio": 108.95,
       "pct_change": 0.42,
-      "tir": 6.681,
-      "duration": 6.367,
-      "volumen": 282000
+      "tir": 6.684,
+      "duration": 6.364,
+      "volumen": 282000,
+      "sensibilidad_tir": {
+        "-3": 20.27,
+        "-2": 12.95,
+        "-1": 6.21,
+        "1": -5.73,
+        "2": -11.03,
+        "3": -15.93,
+        "5": -24.67,
+        "10": -41.59
+      }
     },
     {
       "symbol": "VSCTD",
@@ -1779,9 +2237,19 @@
       "vencimiento": "2035-12-10",
       "precio": 108.55,
       "pct_change": 0,
-      "tir": 6.511,
-      "duration": 6.393,
-      "volumen": 114000
+      "tir": 6.514,
+      "duration": 6.39,
+      "volumen": 114000,
+      "sensibilidad_tir": {
+        "-3": 20.4,
+        "-2": 13.03,
+        "-1": 6.25,
+        "1": -5.76,
+        "2": -11.09,
+        "3": -16.0,
+        "5": -24.77,
+        "10": -41.72
+      }
     },
     {
       "symbol": "TSC4D",
@@ -1791,9 +2259,19 @@
       "vencimiento": "2035-11-20",
       "precio": 108.8,
       "pct_change": 0.36,
-      "tir": 6.755,
-      "duration": 6.846,
-      "volumen": 143000
+      "tir": 6.757,
+      "duration": 6.843,
+      "volumen": 143000,
+      "sensibilidad_tir": {
+        "-3": 22.01,
+        "-2": 14.01,
+        "-1": 6.7,
+        "1": -6.14,
+        "2": -11.77,
+        "3": -16.95,
+        "5": -26.1,
+        "10": -43.46
+      }
     },
     {
       "symbol": "MGCRD",
@@ -1803,9 +2281,19 @@
       "vencimiento": "2037-11-16",
       "precio": 107.3,
       "pct_change": 0.51,
-      "tir": 7.096,
-      "duration": 7.76,
-      "volumen": 723000
+      "tir": 7.099,
+      "duration": 7.757,
+      "volumen": 723000,
+      "sensibilidad_tir": {
+        "-3": 25.43,
+        "-2": 16.06,
+        "-1": 7.62,
+        "1": -6.89,
+        "2": -13.13,
+        "3": -18.8,
+        "5": -28.62,
+        "10": -46.57
+      }
     }
   ],
   "acciones_arg": [
@@ -1911,19 +2399,19 @@
       "symbol": "^HSI",
       "nombre": "Hang Seng",
       "region": "Asia",
-      "close": 24562.24,
+      "close": 25075.11,
       "currency": "HKD",
-      "percent_change": -1.784824485764773,
-      "percent_change_1y": 0.2583407993742144
+      "percent_change": 2.0880414845354225,
+      "percent_change_1y": 0.32395342658435805
     },
     {
       "symbol": "000001.SS",
       "nombre": "Shanghai Composite",
       "region": "Asia",
-      "close": 3764.155,
+      "close": 3806.5781,
       "currency": "CNY",
-      "percent_change": -3.0459944194460595,
-      "percent_change_1y": 7.03276541374941
+      "percent_change": 1.1270277226347287,
+      "percent_change_1y": 6.932628440596006
     },
     {
       "symbol": "^BVSP",
@@ -1956,10 +2444,10 @@
       "symbol": "^AXJO",
       "nombre": "ASX 200",
       "region": "Otros",
-      "close": 8796.7,
+      "close": 8793.9,
       "currency": "AUD",
-      "percent_change": -0.49770034432147103,
-      "percent_change_1y": 1.8254427595786633
+      "percent_change": -0.03183233769854411,
+      "percent_change_1y": 1.4501257683858557
     }
   ],
   "commodities": [
@@ -1967,33 +2455,33 @@
       "symbol": "GC=F",
       "nombre": "Oro",
       "region": "Metales",
-      "close": 4018.8,
+      "close": 4003.8,
       "currency": "USD",
-      "percent_change": 0.8329963250270275
+      "percent_change": -0.2217945841994905
     },
     {
       "symbol": "SI=F",
       "nombre": "Plata",
       "region": "Metales",
-      "close": 56.326,
+      "close": 56.765,
       "currency": "USD",
-      "percent_change": 0.7656824918576509
+      "percent_change": 1.2973372067099964
     },
     {
       "symbol": "PL=F",
       "nombre": "Platino",
       "region": "Metales",
-      "close": 1612.5,
+      "close": 1599.2,
       "currency": "USD",
-      "percent_change": -1.4183500559044286
+      "percent_change": -0.41101311666676776
     },
     {
       "symbol": "HG=F",
       "nombre": "Cobre",
       "region": "Metales",
-      "close": 6.265,
+      "close": 6.271,
       "currency": "USD",
-      "percent_change": -0.49237617210792445
+      "percent_change": 0.8199390921004854
     },
     {
       "symbol": "ALI=F",
@@ -2007,57 +2495,57 @@
       "symbol": "CL=F",
       "nombre": "WTI",
       "region": "Energía",
-      "close": 81.78,
+      "close": 83.71,
       "currency": "USD",
-      "percent_change": 3.584551185750012
+      "percent_change": 1.478969775517839
     },
     {
       "symbol": "BZ=F",
       "nombre": "Brent",
       "region": "Energía",
-      "close": 88.1,
+      "close": 90.32,
       "currency": "USD",
-      "percent_change": 4.594558338869914
+      "percent_change": 2.5198655667752514
     },
     {
       "symbol": "NG=F",
       "nombre": "Gas",
       "region": "Energía",
-      "close": 2.911,
+      "close": 2.883,
       "currency": "USD",
-      "percent_change": 1.8544422394294782
+      "percent_change": -0.9618692278604268
     },
     {
       "symbol": "RB=F",
       "nombre": "Gasolina",
       "region": "Energía",
-      "close": 3.1916,
+      "close": 3.235,
       "currency": "USD",
-      "percent_change": -2.8343507533916896
+      "percent_change": -4.6482140742648586
     },
     {
       "symbol": "ZS=F",
       "nombre": "Soja",
       "region": "Granos",
-      "close": 12.03,
+      "close": 12.1075,
       "currency": "USD",
-      "percent_change": 0.6694560669456067
+      "percent_change": 0.518887505188875
     },
     {
       "symbol": "ZC=F",
       "nombre": "Maíz",
       "region": "Granos",
-      "close": 4.675,
+      "close": 4.715,
       "currency": "USD",
-      "percent_change": 5.889014722536806
+      "percent_change": 6.014614952220349
     },
     {
       "symbol": "ZW=F",
       "nombre": "Trigo",
       "region": "Granos",
-      "close": 6.8275,
+      "close": 6.835,
       "currency": "USD",
-      "percent_change": 1.1856243052982587
+      "percent_change": 0.10984987184181619
     },
     {
       "symbol": "CT=F",
@@ -2153,8 +2641,8 @@
     {
       "symbol": "GB10Y-GB",
       "nombre": "GB10Y-GB",
-      "close": 4.9549,
-      "percent_change": 0.0444
+      "close": 4.9849,
+      "percent_change": 0.6502
     },
     {
       "symbol": "DE10Y-DE",
@@ -2274,7 +2762,7 @@
     }
   ],
   "acciones_mundiales": {
-    "updated_at": "2026-07-19T21:06:21.252447+00:00",
+    "updated_at": "2026-07-20T02:07:46.998286+00:00",
     "secciones": {
       "top_market_cap": [
         {
@@ -2431,7 +2919,7 @@
       "top_suba_diaria": [
         {
           "symbol": "MMNNF",
-          "nombre": "Munters Group AP",
+          "nombre": "MUNTERS GROUP AB",
           "precio": 20.4025,
           "pct_change": 34.227,
           "market_cap": 3724301824,
@@ -2521,7 +3009,7 @@
         },
         {
           "symbol": "TMRAF",
-          "nombre": "Tomra Systems A/S/A",
+          "nombre": "TOMRA SYSTEMS ASA",
           "precio": 11.49,
           "pct_change": 16.768,
           "market_cap": 3397597440,
@@ -2703,7 +3191,7 @@
         },
         {
           "symbol": "SMTOF",
-          "nombre": "SUMITOMO ELECTRIC INDUSTRIES",
+          "nombre": "Sumitomo Electric Industries Lt",
           "precio": 13.706,
           "pct_change": -12.867,
           "market_cap": 42758328320,
@@ -3434,50 +3922,50 @@
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14362",
-      "percent_change": "0.040239337",
+      "close": "1.14366",
+      "percent_change": "0.043738409",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34518",
-      "percent_change": "0.0029736682",
+      "close": "1.34562",
+      "percent_change": "0.035684018",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.46046",
-      "percent_change": "0.010926929",
+      "close": "162.35067",
+      "percent_change": "-0.056659976",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11401",
-      "percent_change": "-0.073078990",
+      "close": "5.12234",
+      "percent_change": "0.089687851",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.53235",
-      "percent_change": "-0.020586270",
+      "close": "17.52129",
+      "percent_change": "-0.083656669",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.1552",
-      "percent_change": "-0.085644005",
+      "close": "40.18196",
+      "percent_change": "-0.019059648",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1477.38863",
-      "percent_change": "-0.026154182",
+      "close": "1473.3997",
+      "percent_change": "-0.29608226",
       "currency": null
     }
   ]

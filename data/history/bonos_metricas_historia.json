@@ -1,0 +1,708 @@
+{
+  "TZXO6": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.256,
+        "duration": 0.279,
+        "paridad": 98.58,
+        "valor_tecnico": 168.7,
+        "interes_corrido": 0.0,
+        "precio_dirty": 166.3,
+        "precio_clean": 166.3
+      }
+    ]
+  },
+  "TX26": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.819,
+        "duration": 0.307,
+        "paridad": 98.49,
+        "valor_tecnico": 724.22,
+        "interes_corrido": 5.62,
+        "precio_dirty": 713.3,
+        "precio_clean": 707.68
+      }
+    ]
+  },
+  "X30N6": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.634,
+        "duration": 0.364,
+        "paridad": 98.02,
+        "valor_tecnico": 122.79,
+        "interes_corrido": 0.0,
+        "precio_dirty": 120.36,
+        "precio_clean": 120.36
+      }
+    ]
+  },
+  "TZXD6": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.433,
+        "duration": 0.405,
+        "paridad": 97.88,
+        "valor_tecnico": 298.84,
+        "interes_corrido": 0.0,
+        "precio_dirty": 292.5,
+        "precio_clean": 292.5
+      }
+    ]
+  },
+  "TZXM7": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.699,
+        "duration": 0.696,
+        "paridad": 96.22,
+        "valor_tecnico": 224.18,
+        "interes_corrido": 0.0,
+        "precio_dirty": 215.7,
+        "precio_clean": 215.7
+      }
+    ]
+  },
+  "TZX27": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.434,
+        "duration": 0.945,
+        "paridad": 95.12,
+        "valor_tecnico": 404.22,
+        "interes_corrido": 0.0,
+        "precio_dirty": 384.5,
+        "precio_clean": 384.5
+      }
+    ]
+  },
+  "TX28": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 7.209,
+        "duration": 1.261,
+        "paridad": 93.75,
+        "valor_tecnico": 1812.32,
+        "interes_corrido": 15.82,
+        "precio_dirty": 1699,
+        "precio_clean": 1683.18
+      }
+    ]
+  },
+  "TZXD7": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 7.858,
+        "duration": 1.405,
+        "paridad": 89.91,
+        "valor_tecnico": 298.84,
+        "interes_corrido": 0.0,
+        "precio_dirty": 268.7,
+        "precio_clean": 268.7
+      }
+    ]
+  },
+  "TZX28": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 8.626,
+        "duration": 1.948,
+        "paridad": 85.11,
+        "valor_tecnico": 404.22,
+        "interes_corrido": 0.0,
+        "precio_dirty": 344.05,
+        "precio_clean": 344.05
+      }
+    ]
+  },
+  "TX31": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 8.855,
+        "duration": 2.857,
+        "paridad": 83.63,
+        "valor_tecnico": 1738.58,
+        "interes_corrido": 11.96,
+        "precio_dirty": 1454,
+        "precio_clean": 1442.04
+      }
+    ]
+  },
+  "DICP": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 1.574,
+        "duration": 3.659,
+        "paridad": 115.67,
+        "valor_tecnico": 42014.62,
+        "interes_corrido": 264.57,
+        "precio_dirty": 48600,
+        "precio_clean": 48335.43
+      }
+    ]
+  },
+  "PARP": {
+    "categoria": "bonos_cer",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 8.426,
+        "duration": 6.703,
+        "paridad": 65.97,
+        "valor_tecnico": 56266.48,
+        "interes_corrido": 599.75,
+        "precio_dirty": 37120,
+        "precio_clean": 36520.25
+      }
+    ]
+  },
+  "_updated_at": "2026-07-20T02:11:04.612203+00:00",
+  "BPD7": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 3.523,
+        "duration": 1.008,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 102.6,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AO27": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 4.168,
+        "duration": 1.232,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 102.7,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AL29": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.93,
+        "duration": 1.674,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 55.37,
+        "precio_clean": null
+      }
+    ]
+  },
+  "GD29": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.274,
+        "duration": 1.679,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 55.95,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AL30": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 7.396,
+        "duration": 2.122,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 56.47,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AO28": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 7.391,
+        "duration": 2.132,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 97.89,
+        "precio_clean": null
+      }
+    ]
+  },
+  "GD30": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 6.065,
+        "duration": 2.138,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 57.99,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AO29": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 8.184,
+        "duration": 2.977,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 94.64,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AN29": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 7.923,
+        "duration": 3.045,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 97.15,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AE38": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 8.864,
+        "duration": 4.89,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 83.64,
+        "precio_clean": null
+      }
+    ]
+  },
+  "GD38": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 8.024,
+        "duration": 4.963,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 86.89,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AL35": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 8.864,
+        "duration": 5.638,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 80.82,
+        "precio_clean": null
+      }
+    ]
+  },
+  "GD35": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 8.221,
+        "duration": 5.666,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 83.57,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AL41": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 7.797,
+        "duration": 6.386,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 76.91,
+        "precio_clean": null
+      }
+    ]
+  },
+  "GD41": {
+    "categoria": "bonos_soberanos_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 7.565,
+        "duration": 6.419,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 77.98,
+        "precio_clean": null
+      }
+    ]
+  },
+  "RC2CD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 1.181,
+        "duration": 0.214,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 102.7,
+        "precio_clean": null
+      }
+    ]
+  },
+  "AFCID": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 3.089,
+        "duration": 0.307,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 102.35,
+        "precio_clean": null
+      }
+    ]
+  },
+  "VSCOD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": -0.627,
+        "duration": 0.618,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 106.95,
+        "precio_clean": null
+      }
+    ]
+  },
+  "VSCWD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.384,
+        "duration": 0.726,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 100.6,
+        "precio_clean": null
+      }
+    ]
+  },
+  "YM37D": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 2.852,
+        "duration": 0.772,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 104.7,
+        "precio_clean": null
+      }
+    ]
+  },
+  "LOC5D": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 4.013,
+        "duration": 0.961,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 107.85,
+        "precio_clean": null
+      }
+    ]
+  },
+  "YM38D": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 3.764,
+        "duration": 0.962,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 105.55,
+        "precio_clean": null
+      }
+    ]
+  },
+  "VSCPD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 4.438,
+        "duration": 1.898,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.65,
+        "precio_clean": null
+      }
+    ]
+  },
+  "BACGD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.599,
+        "duration": 2.669,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 107.15,
+        "precio_clean": null
+      }
+    ]
+  },
+  "PN35D": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.26,
+        "duration": 2.866,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 107.45,
+        "precio_clean": null
+      }
+    ]
+  },
+  "IRCOD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.681,
+        "duration": 2.874,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.4,
+        "precio_clean": null
+      }
+    ]
+  },
+  "TTCDD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.663,
+        "duration": 3.714,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 109.25,
+        "precio_clean": null
+      }
+    ]
+  },
+  "YMCXD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 6.049,
+        "duration": 3.779,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 114,
+        "precio_clean": null
+      }
+    ]
+  },
+  "BACHD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 6.09,
+        "duration": 3.782,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 111.6,
+        "precio_clean": null
+      }
+    ]
+  },
+  "PN36D": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 5.546,
+        "duration": 4.492,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 109.45,
+        "precio_clean": null
+      }
+    ]
+  },
+  "YM34D": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 6.614,
+        "duration": 5.278,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 109.2,
+        "precio_clean": null
+      }
+    ]
+  },
+  "MGCOD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 6.684,
+        "duration": 6.364,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.95,
+        "precio_clean": null
+      }
+    ]
+  },
+  "VSCTD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 6.514,
+        "duration": 6.39,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.55,
+        "precio_clean": null
+      }
+    ]
+  },
+  "TSC4D": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 6.757,
+        "duration": 6.843,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.8,
+        "precio_clean": null
+      }
+    ]
+  },
+  "MGCRD": {
+    "categoria": "ons_usd",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 7.099,
+        "duration": 7.757,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 107.3,
+        "precio_clean": null
+      }
+    ]
+  }
+}
