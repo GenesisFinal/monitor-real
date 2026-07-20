@@ -3121,93 +3121,63 @@ def build_history_agregados_monetarios():
 # Gabinete de Ministros, que republica series de INDEC/Ministerio de
 # Economia con id estables.
 #
-# El catalogo "sspm" (Subsecretaria de Programacion Macroeconomica) es
-# donde vive el EMAE. Se probo en vivo el id historico documentado en
-# datos.gob.ar para "EMAE desestacionalizado. Base 2004"
-# (143.3_NO_PR_2004_A_31): la propia API devolvio meta.end_date =
-# 2012-04-01, es decir esa serie especifica esta discontinuada (no se
-# actualiza desde 2012) aunque el dataset siga publicado. No se puede
-# confirmar desde este entorno, sin acceso de red irrestricto, cual es
-# el id vigente que la reemplaza.
+# El endpoint de catalogo masivo (apis.datos.gob.ar/series/api/dump/...)
+# devolvio 403 Forbidden en la corrida real de GitHub Actions, con o
+# sin User-Agent de navegador: es un bloqueo de infraestructura (WAF
+# del lado del gobierno bloqueando rangos de IP de datacenters en la
+# nube, algo comun en sitios .gob.ar), no un problema de headers.
 #
-# Por eso, en vez de hardcodear un id no verificable (que arriesgaria
-# mostrar una serie discontinuada como si fuera el dato actual), se
-# aplica el mismo patron de autodescubrimiento que ya se usa para el
-# catalogo de variables del BCRA: se descarga en cada corrida el
-# catalogo oficial completo de metadatos de series del catalogo sspm
-# (columnas documentadas: serie_id, serie_titulo, serie_descripcion,
-# indice_tiempo_frecuencia), se buscan las series candidatas por texto,
-# y de las candidatas se toma la que tenga el dato mas reciente (mayor
-# meta.end_date real, verificado con una consulta liviana a la propia
-# API). Si ninguna candidata tiene datos de los ultimos ~4 meses, se
-# omite la serie en vez de arriesgar mostrar un dato desactualizado.
-# ------------------------------------------------------------------
+# En vez de insistir con ese mismo endpoint, se usa la API de busqueda
+# de CKAN del portal (www.datos.gob.ar/api/3/action/package_search),
+# un dominio y servicio distinto, para descubrir datasets de EMAE y
+# extraer los identificadores de serie desde los metadatos de campo de
+# cada recurso (el mismo identificador que se ve en la tabla "Campos
+# de este recurso" de la pagina publica del dataset). Si este segundo
+# dominio tambien esta bloqueado, o no se encuentra ninguna serie con
+# datos recientes, se omite con un warning (nunca se muestra un dato
+# no verificado o desactualizado).
 
-SERIES_TIEMPO_CATALOGO_URL = "https://apis.datos.gob.ar/series/api/dump/sspm/series-tiempo-metadatos.csv"
+CKAN_SEARCH_URL = "https://www.datos.gob.ar/api/3/action/package_search"
 
-_series_tiempo_catalogo_cache = None
+import re as _re
 
-
-def _series_tiempo_catalogo():
-    global _series_tiempo_catalogo_cache
-    if _series_tiempo_catalogo_cache is not None:
-        return _series_tiempo_catalogo_cache
-    import csv
-    import io
-# Este endpoint especifico (a diferencia de BCRA/ArgentinaDatos)
-    # devuelve 403 Forbidden al User-Agent tipo bot que usa fetch_text()
-    # por defecto (confirmado en la corrida real de GitHub Actions, no
-    # es una restriccion de red del entorno). Se pide con un
-    # User-Agent de navegador estandar, unicamente para esta llamada.
-    texto = None
-    try:
-        req = urllib.request.Request(
-            SERIES_TIEMPO_CATALOGO_URL,
-            headers={
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                              "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                "Accept": "text/csv,*/*",
-            },
-        )
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            texto = resp.read().decode("utf-8", errors="replace")
-    except Exception as exc:
-        print(f"[WARN] Fallo al pedir el catalogo de Series de Tiempo (sspm) con User-Agent de navegador: {exc}")
-    if texto:
-        try:
-            reader = csv.DictReader(io.StringIO(texto))
-            filas = list(reader)
-        except Exception as exc:
-            print(f"[WARN] No se pudo parsear el catalogo de Series de Tiempo (sspm): {exc}")
-            filas = []
-    else:
-        filas = []
-    _series_tiempo_catalogo_cache = filas
-    return filas
+_SERIE_ID_RE = _re.compile(r"^\d+(\.\d+)?_[A-Za-z0-9_]+$")
 
 
 def _series_tiempo_candidatas(keyword, excluir=None, frecuencia=None):
-    """Busca en el catalogo oficial (descargado en vivo) todas las
-    series cuyo titulo o descripcion contengan el texto dado
-    (case-insensitive). Devuelve lista de serie_id, ordenada tal como
-    aparece en el catalogo (no implica que sea la vigente: eso se
-    valida aparte, por recencia real de datos)."""
-    catalogo = _series_tiempo_catalogo()
-    kw = keyword.lower()
+    """Busca datasets en el portal (CKAN, dominio www.datos.gob.ar,
+    distinto del endpoint de catalogo masivo que devolvio 403) que
+    coincidan con el texto dado, y extrae de sus recursos los
+    identificadores de serie candidatos junto con el titulo/
+    descripcion de cada campo. No implica que sea la serie vigente:
+    eso se valida aparte, por recencia real de datos."""
     out = []
-    for fila in catalogo:
-        titulo = (fila.get("serie_titulo") or "").lower()
-        desc = (fila.get("serie_descripcion") or "").lower()
-        texto = titulo + " " + desc
-        if kw not in texto:
-            continue
-        if excluir and excluir.lower() in texto:
-            continue
-        if frecuencia and (fila.get("indice_tiempo_frecuencia") or "").upper() != frecuencia.upper():
-            continue
-        serie_id = fila.get("serie_id")
-        if serie_id:
-            out.append((serie_id, fila.get("serie_titulo") or fila.get("serie_descripcion") or serie_id))
+    try:
+        url = f"{CKAN_SEARCH_URL}?q={urllib.parse.quote(keyword)}&rows=20"
+        data = fetch_json(url)
+    except Exception as exc:
+        print(f"[WARN] Fallo al buscar '{keyword}' en la API CKAN de datos.gob.ar: {exc}")
+        data = None
+    if not data or not data.get("success"):
+        if data is not None:
+            print(f"[WARN] La API CKAN de datos.gob.ar no devolvio resultados validos para '{keyword}'.")
+        return out
+    resultados = data.get("result", {}).get("results", [])
+    kw = keyword.lower()
+    for paquete in resultados:
+        for recurso in paquete.get("resources", []):
+            campos = (recurso.get("schema") or {}).get("fields") or recurso.get("fields") or []
+            for campo in campos:
+                serie_id = campo.get("id")
+                if not serie_id or not _SERIE_ID_RE.match(str(serie_id)):
+                    continue
+                titulo = str(campo.get("title") or campo.get("description") or "")
+                texto = (titulo + " " + str(campo.get("description") or "")).lower()
+                if kw.split()[0] not in texto and "emae" not in texto and "actividad" not in texto:
+                    continue
+                if excluir and excluir.lower() in texto:
+                    continue
+                out.append((serie_id, titulo or serie_id))
     return out
 
 
@@ -3260,9 +3230,16 @@ def build_history_actividad():
         "estimador mensual de actividad", excluir="apertura", frecuencia="M"
     )
     candidatas_deses = [c for c in candidatas if "desestacional" in c[1].lower()]
-    serie_id, titulo = _series_tiempo_elegir_vigente(candidatas_deses or candidatas)
+    lista_final = candidatas_deses or candidatas
+    # Diagnostico: se agrega al final el id historico ya confirmado
+    # (aunque discontinuado desde 2012) para verificar, en cada
+    # corrida, si el dominio apis.datos.gob.ar/series/api/series es
+    # alcanzable desde este entorno. Si tambien devuelve error, el
+    # bloqueo es de todo el dominio, no solo del endpoint de catalogo.
+    lista_final = lista_final + [("143.3_NO_PR_2004_A_31", "EMAE desestacionalizado (id historico, diagnostico)")]
+    serie_id, titulo = _series_tiempo_elegir_vigente(lista_final)
     if serie_id is None:
-        print("[WARN] No se encontro en el catalogo de Series de Tiempo una serie vigente de EMAE desestacionalizado: se omite.")
+        print("[WARN] No se encontro ninguna serie vigente de EMAE desestacionalizado (ni via CKAN ni el id historico de diagnostico): se omite.")
     else:
         rows = _series_tiempo_fetch(serie_id, start_date="2004-01-01")
         serie = [{"fecha": r[0], "valor": r[1]} for r in rows if r[0] and r[1] is not None]
@@ -3278,7 +3255,7 @@ def build_history_actividad():
         return None
     out["_updated_at"] = datetime.now(timezone.utc).isoformat()
     return out
-
+  
 def build_history_tasas_locales():
     hoy = date.today()
     desde5 = (hoy - timedelta(days=5 * 365 + 10)).isoformat()
