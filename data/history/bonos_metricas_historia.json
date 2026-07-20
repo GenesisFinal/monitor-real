@@ -179,7 +179,7 @@
       }
     ]
   },
-  "_updated_at": "2026-07-20T21:30:37.531321+00:00",
+  "_updated_at": "2026-07-20T21:48:32.946005+00:00",
   "BPD7": {
     "categoria": "bonos_soberanos_usd",
     "history": [
@@ -911,6 +911,21 @@
         "valor_tecnico": null,
         "interes_corrido": null,
         "precio_dirty": 109.95,
+        "precio_clean": null
+      }
+    ]
+  },
+  "TY30P": {
+    "categoria": "bonos_pesos_cupon_fijo",
+    "history": [
+      {
+        "date": "2026-07-20",
+        "tir": 27.225,
+        "duration": 2.522,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 113.1,
         "precio_clean": null
       }
     ]
