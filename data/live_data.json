@@ -1,54 +1,54 @@
 {
-  "updated_at": "2026-07-20T10:23:47.277275+00:00",
+  "updated_at": "2026-07-20T21:26:45.782531+00:00",
   "dolar": [
     {
       "casa": "oficial",
       "nombre": "Oficial",
       "compra": 1450,
       "venta": 1500,
-      "fecha": "2026-07-17T18:55:00.000Z"
+      "fecha": "2026-07-20T18:00:00.000Z"
     },
     {
       "casa": "blue",
       "nombre": "Blue",
-      "compra": 1510,
-      "venta": 1530,
-      "fecha": "2026-07-19T21:00:00.000Z"
+      "compra": 1520,
+      "venta": 1540,
+      "fecha": "2026-07-20T20:58:00.000Z"
     },
     {
       "casa": "bolsa",
       "nombre": "Bolsa",
-      "compra": 1518.3,
-      "venta": 1521.9,
-      "fecha": "2026-07-19T21:00:00.000Z"
+      "compra": 1510.4,
+      "venta": 1514.7,
+      "fecha": "2026-07-20T20:58:00.000Z"
     },
     {
       "casa": "contadoconliqui",
       "nombre": "Contado con liquidación",
-      "compra": 1572.1,
-      "venta": 1575.9,
-      "fecha": "2026-07-19T21:00:00.000Z"
+      "compra": 1572.4,
+      "venta": 1572.9,
+      "fecha": "2026-07-20T20:58:00.000Z"
     },
     {
       "casa": "mayorista",
       "nombre": "Mayorista",
-      "compra": 1469,
-      "venta": 1478,
-      "fecha": "2026-07-17T15:22:00.000Z"
+      "compra": 1472,
+      "venta": 1481,
+      "fecha": "2026-07-20T15:37:00.000Z"
     },
     {
       "casa": "cripto",
       "nombre": "Cripto",
-      "compra": 1565.4,
-      "venta": 1568.04,
-      "fecha": "2026-07-19T21:00:00.000Z"
+      "compra": 1571.66,
+      "venta": 1573.24,
+      "fecha": "2026-07-20T20:58:00.000Z"
     },
     {
       "casa": "tarjeta",
       "nombre": "Tarjeta",
       "compra": 1885,
       "venta": 1950,
-      "fecha": "2026-07-17T18:55:00.000Z"
+      "fecha": "2026-07-20T18:00:00.000Z"
     }
   ],
   "banda_cambiaria": {
@@ -68,76 +68,76 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 64252,
-      "change_24h": -0.4728212638473139
+      "usd": 65271,
+      "change_24h": 1.3196932184101948
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1865.8,
-      "change_24h": 0.001352918610006283
+      "usd": 1903.99,
+      "change_24h": 2.206965824935302
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999034,
-      "change_24h": -0.02265212002675441
+      "usd": 0.999251,
+      "change_24h": 0.005445942905701444
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 566.4,
-      "change_24h": -0.197929331697003
+      "usd": 571.15,
+      "change_24h": 0.3661338744253636
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 76.42,
-      "change_24h": 0.5917290802166667
+      "usd": 77.92,
+      "change_24h": 2.5863096523177433
     }
   ],
   "tasas_locales": [
     {
       "nombre": "BADLAR Privados (TNA)",
       "key": "badlar_tna",
-      "valor": 21,
+      "valor": 21.6875,
       "unidad": "% TNA",
-      "fecha": "2026-07-16"
+      "fecha": "2026-07-17"
     },
     {
       "nombre": "TM20 Privados",
       "key": "tm20",
-      "valor": 21.4375,
+      "valor": 22.0625,
       "unidad": "% TNA",
-      "fecha": "2026-07-16"
+      "fecha": "2026-07-17"
     },
     {
       "nombre": "TAMAR Privados (TNA)",
       "key": "tamar_tna",
-      "valor": 22.625,
+      "valor": 22.875,
       "unidad": "% TNA",
-      "fecha": "2026-07-16"
+      "fecha": "2026-07-17"
     },
     {
       "nombre": "Depósitos a 30 días",
       "key": "tasa_depositos_30d",
-      "valor": 20.05,
+      "valor": 20.14,
       "unidad": "% TNA",
-      "fecha": "2026-07-16"
+      "fecha": "2026-07-17"
     },
     {
       "nombre": "Adelantos en Cta. Cte.",
       "key": "tasa_adelantos",
-      "valor": 25.62,
+      "valor": 25.59,
       "unidad": "% TNA",
-      "fecha": "2026-07-16"
+      "fecha": "2026-07-17"
     },
     {
       "nombre": "Préstamos Personales",
       "key": "tasa_prestamos",
-      "valor": 64.79,
+      "valor": 63.79,
       "unidad": "% TNA",
-      "fecha": "2026-07-16"
+      "fecha": "2026-07-17"
     }
   ],
   "fci_secciones": {
@@ -1117,19 +1117,19 @@
       "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2027",
       "ley": "local",
       "vencimiento": "2027-11-01",
-      "precio": 102.6,
-      "pct_change": 0.29,
-      "tir": 3.523,
-      "duration": 1.008,
+      "precio": 102.85,
+      "pct_change": 0.51,
+      "tir": 3.273,
+      "duration": 1.009,
       "sensibilidad_tir": {
-        "-3": 3.01,
+        "-3": 3.02,
         "-2": 1.99,
-        "-1": 0.98,
-        "1": -0.96,
+        "-1": 0.99,
+        "1": -0.97,
         "2": -1.91,
         "3": -2.84,
-        "5": -4.64,
-        "10": -8.85
+        "5": -4.65,
+        "10": -8.87
       }
     },
     {
@@ -1137,19 +1137,19 @@
       "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2027",
       "ley": "local",
       "vencimiento": "2027-10-30",
-      "precio": 102.7,
-      "pct_change": 0,
-      "tir": 4.168,
+      "precio": 102.85,
+      "pct_change": 0.51,
+      "tir": 4.044,
       "duration": 1.232,
       "sensibilidad_tir": {
         "-3": 3.67,
         "-2": 2.42,
         "-1": 1.2,
         "1": -1.17,
-        "2": -2.31,
-        "3": -3.43,
+        "2": -2.32,
+        "3": -3.44,
         "5": -5.61,
-        "10": -10.66
+        "10": -10.67
       }
     },
     {
@@ -1157,19 +1157,19 @@
       "descripcion": "Bonar 2029 (ley Argentina)",
       "ley": "local",
       "vencimiento": "2029-07-09",
-      "precio": 55.37,
-      "pct_change": 0.19,
-      "tir": 5.93,
-      "duration": 1.674,
+      "precio": 55.58,
+      "pct_change": 0.51,
+      "tir": 5.691,
+      "duration": 1.676,
       "sensibilidad_tir": {
-        "-3": 4.96,
-        "-2": 3.26,
-        "-1": 1.6,
+        "-3": 4.98,
+        "-2": 3.27,
+        "-1": 1.61,
         "1": -1.56,
-        "2": -3.07,
-        "3": -4.54,
-        "5": -7.36,
-        "10": -13.76
+        "2": -3.08,
+        "3": -4.55,
+        "5": -7.38,
+        "10": -13.8
       }
     },
     {
@@ -1177,19 +1177,19 @@
       "descripcion": "Global 2029 (ley Nueva York)",
       "ley": "NY",
       "vencimiento": "2029-07-09",
-      "precio": 55.95,
-      "pct_change": 0.37,
-      "tir": 5.274,
-      "duration": 1.679,
+      "precio": 56.42,
+      "pct_change": 0.51,
+      "tir": 4.751,
+      "duration": 1.682,
       "sensibilidad_tir": {
-        "-3": 5.0,
-        "-2": 3.29,
-        "-1": 1.62,
-        "1": -1.57,
-        "2": -3.1,
-        "3": -4.58,
-        "5": -7.42,
-        "10": -13.87
+        "-3": 5.04,
+        "-2": 3.31,
+        "-1": 1.63,
+        "1": -1.58,
+        "2": -3.12,
+        "3": -4.61,
+        "5": -7.47,
+        "10": -13.96
       }
     },
     {
@@ -1197,19 +1197,19 @@
       "descripcion": "Bonar 2030 (ley Argentina)",
       "ley": "local",
       "vencimiento": "2030-07-09",
-      "precio": 56.47,
-      "pct_change": 0.07,
-      "tir": 7.396,
-      "duration": 2.122,
+      "precio": 56.7,
+      "pct_change": 0.51,
+      "tir": 7.19,
+      "duration": 2.125,
       "sensibilidad_tir": {
-        "-3": 6.25,
-        "-2": 4.09,
-        "-1": 2.01,
-        "1": -1.94,
-        "2": -3.82,
-        "3": -5.63,
-        "5": -9.08,
-        "10": -16.79
+        "-3": 6.27,
+        "-2": 4.11,
+        "-1": 2.02,
+        "1": -1.95,
+        "2": -3.83,
+        "3": -5.65,
+        "5": -9.11,
+        "10": -16.84
       }
     },
     {
@@ -1217,19 +1217,19 @@
       "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2028",
       "ley": "local",
       "vencimiento": "2028-10-31",
-      "precio": 97.89,
-      "pct_change": -0.11,
-      "tir": 7.391,
+      "precio": 98.1,
+      "pct_change": 0.51,
+      "tir": 7.283,
       "duration": 2.132,
       "sensibilidad_tir": {
-        "-3": 6.23,
-        "-2": 4.09,
+        "-3": 6.24,
+        "-2": 4.1,
         "-1": 2.02,
         "1": -1.96,
-        "2": -3.85,
+        "2": -3.86,
         "3": -5.7,
-        "5": -9.22,
-        "10": -17.21
+        "5": -9.23,
+        "10": -17.23
       }
     },
     {
@@ -1237,19 +1237,19 @@
       "descripcion": "Global 2030 (ley Nueva York)",
       "ley": "NY",
       "vencimiento": "2030-07-09",
-      "precio": 57.99,
-      "pct_change": 0.15,
-      "tir": 6.065,
-      "duration": 2.138,
+      "precio": 58.15,
+      "pct_change": 0.51,
+      "tir": 5.928,
+      "duration": 2.14,
       "sensibilidad_tir": {
-        "-3": 6.38,
-        "-2": 4.18,
-        "-1": 2.05,
-        "1": -1.98,
-        "2": -3.89,
-        "3": -5.74,
-        "5": -9.26,
-        "10": -17.09
+        "-3": 6.4,
+        "-2": 4.19,
+        "-1": 2.06,
+        "1": -1.99,
+        "2": -3.9,
+        "3": -5.75,
+        "5": -9.27,
+        "10": -17.12
       }
     },
     {
@@ -1257,19 +1257,19 @@
       "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2029",
       "ley": "local",
       "vencimiento": "2029-10-31",
-      "precio": 94.64,
-      "pct_change": 0,
-      "tir": 8.184,
-      "duration": 2.977,
+      "precio": 94.98,
+      "pct_change": 0.51,
+      "tir": 8.053,
+      "duration": 2.978,
       "sensibilidad_tir": {
-        "-3": 8.76,
-        "-2": 5.72,
+        "-3": 8.77,
+        "-2": 5.73,
         "-1": 2.81,
         "1": -2.7,
-        "2": -5.3,
-        "3": -7.8,
-        "5": -12.53,
-        "10": -22.96
+        "2": -5.31,
+        "3": -7.81,
+        "5": -12.55,
+        "10": -22.98
       }
     },
     {
@@ -1277,19 +1277,19 @@
       "descripcion": "Bono del Tesoro en USD, ley Argentina, vto. 2029",
       "ley": "local",
       "vencimiento": "2029-11-30",
-      "precio": 97.15,
-      "pct_change": 0.15,
-      "tir": 7.923,
-      "duration": 3.045,
+      "precio": 97.46,
+      "pct_change": 0.51,
+      "tir": 7.81,
+      "duration": 3.046,
       "sensibilidad_tir": {
-        "-3": 8.99,
-        "-2": 5.87,
+        "-3": 9.0,
+        "-2": 5.88,
         "-1": 2.88,
         "1": -2.77,
-        "2": -5.43,
-        "3": -7.99,
-        "5": -12.83,
-        "10": -23.46
+        "2": -5.44,
+        "3": -8.0,
+        "5": -12.84,
+        "10": -23.48
       }
     },
     {
@@ -1297,19 +1297,19 @@
       "descripcion": "Bonar 2038 (ley Argentina)",
       "ley": "local",
       "vencimiento": "2038-01-09",
-      "precio": 83.64,
-      "pct_change": 0.08,
-      "tir": 8.864,
-      "duration": 4.89,
+      "precio": 83.8,
+      "pct_change": 0.51,
+      "tir": 8.821,
+      "duration": 4.893,
       "sensibilidad_tir": {
-        "-3": 15.07,
-        "-2": 9.67,
+        "-3": 15.09,
+        "-2": 9.68,
         "-1": 4.66,
-        "1": -4.33,
-        "2": -8.37,
-        "3": -12.14,
-        "5": -18.96,
-        "10": -32.62
+        "1": -4.34,
+        "2": -8.38,
+        "3": -12.16,
+        "5": -18.98,
+        "10": -32.65
       }
     },
     {
@@ -1317,19 +1317,19 @@
       "descripcion": "Global 2038 (ley Nueva York)",
       "ley": "NY",
       "vencimiento": "2038-01-09",
-      "precio": 86.89,
-      "pct_change": -0.35,
-      "tir": 8.024,
-      "duration": 4.963,
+      "precio": 87.2,
+      "pct_change": 0.51,
+      "tir": 7.947,
+      "duration": 4.97,
       "sensibilidad_tir": {
-        "-3": 15.45,
-        "-2": 9.9,
-        "-1": 4.77,
-        "1": -4.43,
-        "2": -8.56,
-        "3": -12.4,
-        "5": -19.34,
-        "10": -33.21
+        "-3": 15.48,
+        "-2": 9.93,
+        "-1": 4.78,
+        "1": -4.44,
+        "2": -8.57,
+        "3": -12.43,
+        "5": -19.38,
+        "10": -33.26
       }
     },
     {
@@ -1337,9 +1337,9 @@
       "descripcion": "Bonar 2035 (ley Argentina)",
       "ley": "local",
       "vencimiento": "2035-07-09",
-      "precio": 80.82,
-      "pct_change": 0.24,
-      "tir": 8.864,
+      "precio": 80.8,
+      "pct_change": 0.51,
+      "tir": 8.869,
       "duration": 5.638,
       "sensibilidad_tir": {
         "-3": 17.28,
@@ -1349,7 +1349,7 @@
         "2": -9.68,
         "3": -14.06,
         "5": -21.99,
-        "10": -37.92
+        "10": -37.91
       }
     },
     {
@@ -1357,19 +1357,19 @@
       "descripcion": "Global 2035 (ley Nueva York)",
       "ley": "NY",
       "vencimiento": "2035-07-09",
-      "precio": 83.57,
-      "pct_change": -0.08,
-      "tir": 8.221,
-      "duration": 5.666,
+      "precio": 83.33,
+      "pct_change": 0.51,
+      "tir": 8.276,
+      "duration": 5.664,
       "sensibilidad_tir": {
-        "-3": 17.48,
-        "-2": 11.24,
+        "-3": 17.46,
+        "-2": 11.23,
         "-1": 5.42,
-        "1": -5.06,
+        "1": -5.05,
         "2": -9.78,
-        "3": -14.2,
-        "5": -22.2,
-        "10": -38.24
+        "3": -14.19,
+        "5": -22.18,
+        "10": -38.21
       }
     },
     {
@@ -1377,19 +1377,19 @@
       "descripcion": "Bonar 2041 (ley Argentina)",
       "ley": "local",
       "vencimiento": "2041-07-09",
-      "precio": 76.91,
-      "pct_change": -0.15,
-      "tir": 7.797,
-      "duration": 6.386,
+      "precio": 76.7,
+      "pct_change": 0.51,
+      "tir": 7.844,
+      "duration": 6.379,
       "sensibilidad_tir": {
-        "-3": 20.49,
-        "-2": 13.01,
-        "-1": 6.2,
-        "1": -5.67,
-        "2": -10.85,
-        "3": -15.61,
-        "5": -24.0,
-        "10": -39.98
+        "-3": 20.46,
+        "-2": 12.99,
+        "-1": 6.19,
+        "1": -5.66,
+        "2": -10.84,
+        "3": -15.59,
+        "5": -23.97,
+        "10": -39.94
       }
     },
     {
@@ -1397,19 +1397,39 @@
       "descripcion": "Global 2041 (ley Nueva York)",
       "ley": "NY",
       "vencimiento": "2041-07-09",
-      "precio": 77.98,
-      "pct_change": -0.49,
-      "tir": 7.565,
-      "duration": 6.419,
+      "precio": 78.24,
+      "pct_change": 0.51,
+      "tir": 7.509,
+      "duration": 6.427,
       "sensibilidad_tir": {
-        "-3": 20.65,
-        "-2": 13.11,
-        "-1": 6.25,
-        "1": -5.71,
-        "2": -10.92,
-        "3": -15.71,
-        "5": -24.15,
-        "10": -40.2
+        "-3": 20.69,
+        "-2": 13.13,
+        "-1": 6.26,
+        "1": -5.72,
+        "2": -10.94,
+        "3": -15.73,
+        "5": -24.18,
+        "10": -40.25
+      }
+    },
+    {
+      "symbol": "GD46",
+      "descripcion": "Bono Global de la Republica Argentina en USD, ley Nueva York, vto. 2046",
+      "ley": "NY",
+      "vencimiento": "2046-07-09",
+      "precio": 72.13,
+      "pct_change": 0.51,
+      "tir": 8.265,
+      "duration": 6.881,
+      "sensibilidad_tir": {
+        "-3": 22.62,
+        "-2": 14.21,
+        "-1": 6.71,
+        "1": -6.03,
+        "2": -11.46,
+        "3": -16.37,
+        "5": -24.85,
+        "10": -40.43
       }
     }
   ],
@@ -1418,78 +1438,78 @@
       "symbol": "TZXO6",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. oct. 2026",
       "vencimiento": "2026-10-30",
-      "precio": 166.3,
-      "pct_change": 0.18,
-      "tir": 5.256,
+      "precio": 166.4,
+      "pct_change": 0.0,
+      "tir": 5.03,
       "duration": 0.279,
       "valor_tecnico": 168.7,
-      "paridad": 98.58,
+      "paridad": 98.64,
       "interes_corrido": 0.0,
       "sensibilidad_tir": {
         "-3": 0.81,
         "-2": 0.54,
         "-1": 0.27,
         "1": -0.26,
-        "2": -0.52,
+        "2": -0.53,
         "3": -0.78,
         "5": -1.29,
-        "10": -2.5
+        "10": -2.51
       }
     },
     {
       "symbol": "TX26",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2026",
       "vencimiento": "2026-11-09",
-      "precio": 713.3,
-      "pct_change": 0.23,
-      "tir": 5.819,
+      "precio": 714.8,
+      "pct_change": 0.0,
+      "tir": 5.097,
       "duration": 0.307,
       "valor_tecnico": 724.22,
-      "paridad": 98.49,
+      "paridad": 98.7,
       "interes_corrido": 5.62,
       "sensibilidad_tir": {
         "-3": 0.89,
         "-2": 0.59,
         "-1": 0.29,
         "1": -0.29,
-        "2": -0.57,
-        "3": -0.85,
-        "5": -1.41,
-        "10": -2.73
+        "2": -0.58,
+        "3": -0.86,
+        "5": -1.42,
+        "10": -2.75
       }
     },
     {
       "symbol": "X30N6",
       "descripcion": "Letra del Tesoro (LECER) ajustada por CER, vto. nov. 2026",
       "vencimiento": "2026-11-30",
-      "precio": 120.36,
-      "pct_change": 0.18,
-      "tir": 5.634,
+      "precio": 120.7,
+      "pct_change": 0.0,
+      "tir": 4.819,
       "duration": 0.364,
       "valor_tecnico": 122.79,
-      "paridad": 98.02,
+      "paridad": 98.3,
       "interes_corrido": 0.0,
       "sensibilidad_tir": {
         "-3": 1.06,
         "-2": 0.7,
         "-1": 0.35,
-        "1": -0.34,
-        "2": -0.68,
+        "1": -0.35,
+        "2": -0.69,
         "3": -1.02,
-        "5": -1.67,
-        "10": -3.24
+        "5": -1.68,
+        "10": -3.27
       }
     },
     {
       "symbol": "TZXD6",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2026",
       "vencimiento": "2026-12-15",
-      "precio": 292.5,
-      "pct_change": 0.17,
-      "tir": 5.433,
+      "precio": 292.8,
+      "pct_change": 0.0,
+      "tir": 5.167,
       "duration": 0.405,
       "valor_tecnico": 298.84,
-      "paridad": 97.88,
+      "paridad": 97.98,
       "interes_corrido": 0.0,
       "sensibilidad_tir": {
         "-3": 1.18,
@@ -1498,184 +1518,382 @@
         "1": -0.38,
         "2": -0.76,
         "3": -1.13,
-        "5": -1.86,
-        "10": -3.61
+        "5": -1.87,
+        "10": -3.62
       }
     },
     {
       "symbol": "TZXM7",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2027",
       "vencimiento": "2027-03-31",
-      "precio": 215.7,
-      "pct_change": 0.16,
-      "tir": 5.699,
+      "precio": 216.05,
+      "pct_change": 0.0,
+      "tir": 5.453,
       "duration": 0.696,
       "valor_tecnico": 224.18,
-      "paridad": 96.22,
+      "paridad": 96.37,
       "interes_corrido": 0.0,
       "sensibilidad_tir": {
-        "-3": 2.02,
+        "-3": 2.03,
         "-2": 1.34,
-        "-1": 0.66,
+        "-1": 0.67,
         "1": -0.65,
         "2": -1.3,
         "3": -1.93,
         "5": -3.17,
-        "10": -6.1
+        "10": -6.11
+      }
+    },
+    {
+      "symbol": "TZXA7",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. abr. 2027",
+      "vencimiento": "2027-04-30",
+      "precio": 119.05,
+      "pct_change": 0.0,
+      "tir": 4.053,
+      "duration": 0.778,
+      "valor_tecnico": 122.79,
+      "paridad": 96.95,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 2.3,
+        "-2": 1.52,
+        "-1": 0.75,
+        "1": -0.74,
+        "2": -1.47,
+        "3": -2.19,
+        "5": -3.59,
+        "10": -6.89
+      }
+    },
+    {
+      "symbol": "TZXY7",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. may. 2027",
+      "vencimiento": "2027-05-31",
+      "precio": 117.1,
+      "pct_change": 0.0,
+      "tir": 4.084,
+      "duration": 0.863,
+      "valor_tecnico": 121.22,
+      "paridad": 96.6,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 2.56,
+        "-2": 1.69,
+        "-1": 0.84,
+        "1": -0.82,
+        "2": -1.63,
+        "3": -2.42,
+        "5": -3.97,
+        "10": -7.61
       }
     },
     {
       "symbol": "TZX27",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2027",
       "vencimiento": "2027-06-30",
-      "precio": 384.5,
-      "pct_change": 0,
-      "tir": 5.434,
+      "precio": 385.25,
+      "pct_change": 0.0,
+      "tir": 5.217,
       "duration": 0.945,
       "valor_tecnico": 404.22,
-      "paridad": 95.12,
+      "paridad": 95.31,
       "interes_corrido": 0.0,
       "sensibilidad_tir": {
         "-3": 2.77,
         "-2": 1.83,
-        "-1": 0.9,
+        "-1": 0.91,
         "1": -0.89,
         "2": -1.76,
         "3": -2.62,
-        "5": -4.28,
-        "10": -8.21
+        "5": -4.29,
+        "10": -8.22
+      }
+    },
+    {
+      "symbol": "TZXS7",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. sep. 2027",
+      "vencimiento": "2027-09-30",
+      "precio": 103.7,
+      "pct_change": 0.0,
+      "tir": 5.176,
+      "duration": 1.197,
+      "valor_tecnico": 110.16,
+      "paridad": 94.14,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 3.53,
+        "-2": 2.33,
+        "-1": 1.15,
+        "1": -1.13,
+        "2": -2.23,
+        "3": -3.31,
+        "5": -5.41,
+        "10": -10.3
       }
     },
     {
       "symbol": "TX28",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2028",
       "vencimiento": "2028-11-09",
-      "precio": 1699,
-      "pct_change": 0,
-      "tir": 7.209,
-      "duration": 1.261,
+      "precio": 1709,
+      "pct_change": 0.0,
+      "tir": 6.711,
+      "duration": 1.263,
       "valor_tecnico": 1812.32,
-      "paridad": 93.75,
+      "paridad": 94.3,
       "interes_corrido": 15.82,
       "sensibilidad_tir": {
-        "-3": 3.66,
-        "-2": 2.41,
-        "-1": 1.19,
-        "1": -1.16,
-        "2": -2.3,
-        "3": -3.4,
-        "5": -5.54,
-        "10": -10.46
+        "-3": 3.69,
+        "-2": 2.43,
+        "-1": 1.2,
+        "1": -1.17,
+        "2": -2.31,
+        "3": -3.42,
+        "5": -5.57,
+        "10": -10.52
+      }
+    },
+    {
+      "symbol": "TZXO7",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. oct. 2027",
+      "vencimiento": "2027-10-29",
+      "precio": 93.95,
+      "pct_change": 0.0,
+      "tir": 6.12,
+      "duration": 1.277,
+      "valor_tecnico": 101.35,
+      "paridad": 92.7,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 3.73,
+        "-2": 2.46,
+        "-1": 1.22,
+        "1": -1.19,
+        "2": -2.36,
+        "3": -3.5,
+        "5": -5.71,
+        "10": -10.86
       }
     },
     {
       "symbol": "TZXD7",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2027",
       "vencimiento": "2027-12-15",
-      "precio": 268.7,
-      "pct_change": 0.09,
-      "tir": 7.858,
+      "precio": 269.5,
+      "pct_change": 0.0,
+      "tir": 7.63,
       "duration": 1.405,
       "valor_tecnico": 298.84,
-      "paridad": 89.91,
+      "paridad": 90.18,
       "interes_corrido": 0.0,
       "sensibilidad_tir": {
-        "-3": 4.04,
+        "-3": 4.05,
         "-2": 2.67,
         "-1": 1.32,
         "1": -1.29,
         "2": -2.55,
-        "3": -3.78,
-        "5": -6.17,
-        "10": -11.72
+        "3": -3.79,
+        "5": -6.18,
+        "10": -11.74
+      }
+    },
+    {
+      "symbol": "TZXM8",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2028",
+      "vencimiento": "2028-03-31",
+      "precio": 97.35,
+      "pct_change": 0.0,
+      "tir": 7.49,
+      "duration": 1.699,
+      "valor_tecnico": 110.06,
+      "paridad": 88.45,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 4.93,
+        "-2": 3.24,
+        "-1": 1.6,
+        "1": -1.56,
+        "2": -3.08,
+        "3": -4.57,
+        "5": -7.43,
+        "10": -14.02
       }
     },
     {
       "symbol": "TZX28",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2028",
       "vencimiento": "2028-06-30",
-      "precio": 344.05,
-      "pct_change": 0.27,
-      "tir": 8.626,
+      "precio": 344.85,
+      "pct_change": 0.0,
+      "tir": 8.496,
       "duration": 1.948,
       "valor_tecnico": 404.22,
-      "paridad": 85.11,
+      "paridad": 85.31,
       "interes_corrido": 0.0,
       "sensibilidad_tir": {
         "-3": 5.61,
         "-2": 3.69,
         "-1": 1.82,
         "1": -1.77,
-        "2": -3.49,
+        "2": -3.5,
         "3": -5.17,
-        "5": -8.39,
-        "10": -15.76
+        "5": -8.4,
+        "10": -15.78
+      }
+    },
+    {
+      "symbol": "TZXS8",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. sep. 2028",
+      "vencimiento": "2028-09-29",
+      "precio": 93.6,
+      "pct_change": 0.0,
+      "tir": 7.695,
+      "duration": 2.197,
+      "valor_tecnico": 110.16,
+      "paridad": 84.97,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 6.4,
+        "-2": 4.2,
+        "-1": 2.07,
+        "1": -2.01,
+        "2": -3.96,
+        "3": -5.86,
+        "5": -9.49,
+        "10": -17.72
+      }
+    },
+    {
+      "symbol": "TZXD8",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. dic. 2028",
+      "vencimiento": "2028-12-15",
+      "precio": 84.2,
+      "pct_change": 0.0,
+      "tir": 8.003,
+      "duration": 2.408,
+      "valor_tecnico": 101.35,
+      "paridad": 83.08,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 7.02,
+        "-2": 4.6,
+        "-1": 2.27,
+        "1": -2.2,
+        "2": -4.32,
+        "3": -6.39,
+        "5": -10.33,
+        "10": -19.2
+      }
+    },
+    {
+      "symbol": "TZXM9",
+      "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. mar. 2029",
+      "vencimiento": "2029-03-28",
+      "precio": 89.7,
+      "pct_change": 0.0,
+      "tir": 7.899,
+      "duration": 2.69,
+      "valor_tecnico": 110.06,
+      "paridad": 81.5,
+      "interes_corrido": 0.0,
+      "sensibilidad_tir": {
+        "-3": 7.88,
+        "-2": 5.16,
+        "-1": 2.54,
+        "1": -2.45,
+        "2": -4.82,
+        "3": -7.11,
+        "5": -11.47,
+        "10": -21.22
       }
     },
     {
       "symbol": "TX31",
       "descripcion": "Bono del Tesoro en pesos ajustado por CER, vto. 2031",
       "vencimiento": "2031-12-01",
-      "precio": 1454,
-      "pct_change": -0.2,
-      "tir": 8.855,
-      "duration": 2.857,
+      "precio": 1456,
+      "pct_change": 0.0,
+      "tir": 8.802,
+      "duration": 2.858,
       "valor_tecnico": 1738.58,
-      "paridad": 83.63,
+      "paridad": 83.75,
       "interes_corrido": 11.96,
       "sensibilidad_tir": {
-        "-3": 8.4,
+        "-3": 8.41,
         "-2": 5.48,
         "-1": 2.68,
         "1": -2.57,
         "2": -5.04,
-        "3": -7.4,
-        "5": -11.85,
-        "10": -21.58
+        "3": -7.41,
+        "5": -11.86,
+        "10": -21.59
       }
     },
     {
       "symbol": "DICP",
       "descripcion": "Discount en pesos ajustado por CER (reestructuracion 2005)",
       "vencimiento": "2034-01-02",
-      "precio": 48600,
-      "pct_change": 0.15,
-      "tir": 1.574,
-      "duration": 3.659,
+      "precio": 48790,
+      "pct_change": 0.0,
+      "tir": 1.465,
+      "duration": 3.664,
       "valor_tecnico": 42014.62,
-      "paridad": 115.67,
+      "paridad": 116.13,
       "interes_corrido": 264.57,
       "sensibilidad_tir": {
-        "-3": 11.82,
-        "-2": 7.65,
-        "-1": 3.71,
-        "1": -3.5,
-        "2": -6.8,
-        "3": -9.93,
-        "5": -15.68,
-        "10": -27.64
+        "-3": 11.86,
+        "-2": 7.66,
+        "-1": 3.72,
+        "1": -3.51,
+        "2": -6.82,
+        "3": -9.95,
+        "5": -15.71,
+        "10": -27.7
       }
     },
     {
       "symbol": "PARP",
       "descripcion": "Par en pesos ajustado por CER (reestructuracion 2005)",
       "vencimiento": "2038-12-31",
-      "precio": 37120,
-      "pct_change": 0.8,
-      "tir": 8.426,
-      "duration": 6.703,
+      "precio": 37175,
+      "pct_change": 0.0,
+      "tir": 8.402,
+      "duration": 6.705,
       "valor_tecnico": 56266.48,
-      "paridad": 65.97,
+      "paridad": 66.07,
       "interes_corrido": 599.75,
       "sensibilidad_tir": {
-        "-3": 21.15,
-        "-2": 13.48,
+        "-3": 21.16,
+        "-2": 13.49,
         "-1": 6.45,
         "1": -5.93,
-        "2": -11.39,
+        "2": -11.4,
         "3": -16.43,
-        "5": -25.37,
-        "10": -42.6
+        "5": -25.38,
+        "10": -42.62
+      }
+    },
+    {
+      "symbol": "CUAP",
+      "descripcion": "Cuasipar en pesos ajustado por CER (reestructuracion 2005)",
+      "vencimiento": "2045-12-31",
+      "precio": 46880.0,
+      "pct_change": 0.0,
+      "tir": 4.9,
+      "duration": 11.265,
+      "valor_tecnico": 55801.82,
+      "paridad": 84.01,
+      "interes_corrido": 200.05,
+      "sensibilidad_tir": {
+        "-3": 40.19,
+        "-2": 24.82,
+        "-1": 11.53,
+        "1": -10.03,
+        "2": -18.77,
+        "3": -26.42,
+        "5": -39.02,
+        "10": -59.71
       }
     }
   ],
@@ -1684,74 +1902,84 @@
       "symbol": "S30O6",
       "descripcion": "LECAP Oct 30",
       "vencimiento": "2026-10-30",
-      "precio": 127.25,
-      "tir": 24.473,
+      "precio": 127.369,
+      "tir": 24.058,
       "duration": 0.279,
-      "pct_change": 0.0
+      "pct_change": 0.094
     },
     {
       "symbol": "S13N6",
       "descripcion": "LECAP Nov 13",
       "vencimiento": "2026-11-13",
-      "precio": 102.06,
-      "tir": 25.321,
+      "precio": 102.119,
+      "tir": 25.094,
       "duration": 0.318,
-      "pct_change": 0.0
+      "pct_change": 0.058
     },
     {
       "symbol": "S30N6",
       "descripcion": "LECAP Nov 30",
       "vencimiento": "2026-11-30",
-      "precio": 119.64,
-      "tir": 25.301,
+      "precio": 119.679,
+      "tir": 25.189,
       "duration": 0.364,
-      "pct_change": 0.0
+      "pct_change": 0.033
     },
     {
       "symbol": "T15E7",
       "descripcion": "BONCAP Ene 15/27",
       "vencimiento": "2027-01-15",
-      "precio": 144.34,
-      "tir": 25.114,
+      "precio": 144.2,
+      "tir": 25.362,
       "duration": 0.49,
-      "pct_change": 0.0
+      "pct_change": -0.097
     },
     {
       "symbol": "T30A7",
       "descripcion": "BONCAP Abr 30/27",
       "vencimiento": "2027-04-30",
-      "precio": 131.72,
-      "tir": 25.662,
+      "precio": 131.6,
+      "tir": 25.81,
       "duration": 0.778,
-      "pct_change": 0.0
+      "pct_change": -0.091
     },
     {
       "symbol": "T31Y7",
       "descripcion": "BONCAP May 31/27",
       "vencimiento": "2027-05-31",
-      "precio": 124.45,
-      "tir": 25.657,
+      "precio": 124.37,
+      "tir": 25.75,
       "duration": 0.863,
-      "pct_change": 0.0
+      "pct_change": -0.064
     },
     {
       "symbol": "T30J7",
       "descripcion": "BONCAP Jun 30/27",
       "vencimiento": "2027-06-30",
-      "precio": 126.19,
-      "tir": 25.184,
+      "precio": 126,
+      "tir": 25.383,
       "duration": 0.945,
-      "pct_change": 0.0
+      "pct_change": -0.151
     }
   ],
   "bonos_pesos_tamar": [
     {
+      "symbol": "TMF27",
+      "descripcion": "Bono del Tesoro en pesos TAMAR, vto. feb. 2027",
+      "vencimiento": "2027-02-26",
+      "precio": 117.2,
+      "pct_change": null,
+      "tir": 28.461,
+      "duration": 0.469,
+      "fuente": "bonistas.com"
+    },
+    {
       "symbol": "TML27",
       "descripcion": "Bono del Tesoro en pesos TAMAR, vto. jul. 2027",
       "vencimiento": "2027-07-30",
-      "precio": 103.1,
+      "precio": 103.15,
       "pct_change": null,
-      "tir": 29.576,
+      "tir": 29.602,
       "duration": 0.791,
       "fuente": "bonistas.com"
     },
@@ -1761,7 +1989,7 @@
       "vencimiento": "2027-08-31",
       "precio": 110.5,
       "pct_change": null,
-      "tir": 30.848,
+      "tir": 30.936,
       "duration": 0.85,
       "fuente": "bonistas.com"
     },
@@ -1769,33 +1997,55 @@
       "symbol": "TMF28",
       "descripcion": "Bono del Tesoro en pesos TAMAR, vto. feb. 2028",
       "vencimiento": "2028-02-25",
-      "precio": 107.45,
+      "precio": 107.7,
       "pct_change": null,
-      "tir": 33.166,
-      "duration": 1.201,
+      "tir": 33.063,
+      "duration": 1.202,
       "fuente": "bonistas.com"
     },
     {
       "symbol": "TMG28",
       "descripcion": "Bono del Tesoro en pesos TAMAR, vto. ago. 2028",
       "vencimiento": "2028-08-31",
-      "precio": 104.1,
+      "precio": 104.0,
       "pct_change": null,
-      "tir": 34.859,
-      "duration": 1.567,
+      "tir": 35.011,
+      "duration": 1.565,
       "fuente": "bonistas.com"
     }
   ],
   "bonos_pesos_duales": [
     {
+      "symbol": "TTD26",
+      "descripcion": "Bono del Tesoro Dual, vto. dic. 2026",
+      "vencimiento": "2026-12-15",
+      "tipo": "Dual",
+      "precio": 163.55,
+      "pct_change": null,
+      "tir": 26.168,
+      "duration": 0.319,
+      "fuente": "bonistas.com"
+    },
+    {
       "symbol": "D31M7",
       "descripcion": "Bono del Tesoro Dolar Linked, vto. mar. 2027",
       "vencimiento": "2027-03-31",
       "tipo": "Dolar Linked",
-      "precio": 145540.0,
+      "precio": 144160.0,
       "pct_change": null,
-      "tir": 1.926,
-      "duration": 0.68,
+      "tir": 3.336,
+      "duration": 0.671,
+      "fuente": "bonistas.com"
+    },
+    {
+      "symbol": "TZV27",
+      "descripcion": "Bono del Tesoro Dolar Linked, vto. jun. 2027",
+      "vencimiento": "2027-06-30",
+      "tipo": "Dolar Linked",
+      "precio": 144250.0,
+      "pct_change": null,
+      "tir": 2.375,
+      "duration": 0.921,
       "fuente": "bonistas.com"
     },
     {
@@ -1803,10 +2053,10 @@
       "descripcion": "Bono del Tesoro Dual CER/TAMAR, vto. jun. 2028",
       "vencimiento": "2028-06-30",
       "tipo": "Dual CER/TAMAR",
-      "precio": 96.65,
+      "precio": 96.5,
       "pct_change": null,
-      "tir": 33.738,
-      "duration": 1.453,
+      "tir": 33.936,
+      "duration": 1.451,
       "fuente": "bonistas.com"
     },
     {
@@ -1814,10 +2064,10 @@
       "descripcion": "Bono del Tesoro Dual, vto. dic. 2028",
       "vencimiento": "2028-12-15",
       "tipo": "Dual",
-      "precio": 92.05,
+      "precio": 92.0,
       "pct_change": null,
-      "tir": 34.328,
-      "duration": 1.789,
+      "tir": 34.449,
+      "duration": 1.787,
       "fuente": "bonistas.com"
     },
     {
@@ -1825,10 +2075,10 @@
       "descripcion": "Bono del Tesoro Dolar Linked, vto. jun. 2028",
       "vencimiento": "2028-06-30",
       "tipo": "Dolar Linked",
-      "precio": 126840.0,
+      "precio": 126650.0,
       "pct_change": null,
-      "tir": 8.064,
-      "duration": 1.799,
+      "tir": 8.147,
+      "duration": 1.797,
       "fuente": "bonistas.com"
     },
     {
@@ -1836,10 +2086,10 @@
       "descripcion": "Bono del Tesoro Dual, vto. jun. 2029",
       "vencimiento": "2029-06-29",
       "tipo": "Dual",
-      "precio": 91.1,
+      "precio": 91.15,
       "pct_change": null,
-      "tir": 30.862,
-      "duration": 2.246,
+      "tir": 30.926,
+      "duration": 2.245,
       "fuente": "bonistas.com"
     },
     {
@@ -1847,78 +2097,34 @@
       "descripcion": "Bono del Tesoro Dual, vto. jun. 2030",
       "vencimiento": "2030-06-28",
       "tipo": "Dual",
-      "precio": 82.3,
+      "precio": 82.23,
       "pct_change": null,
-      "tir": 35.795,
-      "duration": 2.899,
+      "tir": 35.917,
+      "duration": 2.897,
       "fuente": "bonistas.com"
     }
   ],
   "ons_usd": [
-    {
-      "symbol": "RC2CD",
-      "series_id": "RC2C",
-      "descripcion": "Arcor - ON RC2CD (vto. 2026-10-06)",
-      "emisor": "Arcor",
-      "vencimiento": "2026-10-06",
-      "precio": 102.7,
-      "pct_change": 0,
-      "tir": 1.181,
-      "duration": 0.214,
-      "volumen": 416021,
-      "sensibilidad_tir": {
-        "-3": 0.65,
-        "-2": 0.43,
-        "-1": 0.21,
-        "1": -0.21,
-        "2": -0.42,
-        "3": -0.62,
-        "5": -1.03,
-        "10": -1.99
-      }
-    },
-    {
-      "symbol": "AFCID",
-      "series_id": "AFCI",
-      "descripcion": "Banco Comafi - ON AFCID (vto. 2026-11-09)",
-      "emisor": "Banco Comafi",
-      "vencimiento": "2026-11-09",
-      "precio": 102.35,
-      "pct_change": 0.14,
-      "tir": 3.089,
-      "duration": 0.307,
-      "volumen": 41600,
-      "sensibilidad_tir": {
-        "-3": 0.91,
-        "-2": 0.6,
-        "-1": 0.3,
-        "1": -0.3,
-        "2": -0.59,
-        "3": -0.88,
-        "5": -1.44,
-        "10": -2.8
-      }
-    },
     {
       "symbol": "VSCOD",
       "series_id": "VSCO",
       "descripcion": "Vista Energy - ON VSCOD (vto. 2027-03-08)",
       "emisor": "Vista Energy",
       "vencimiento": "2027-03-08",
-      "precio": 106.95,
+      "precio": 106.6,
       "pct_change": -0.32,
-      "tir": -0.627,
+      "tir": -0.098,
       "duration": 0.618,
-      "volumen": 326493,
+      "volumen": 162101,
       "sensibilidad_tir": {
-        "-3": 1.91,
+        "-3": 1.9,
         "-2": 1.26,
-        "-1": 0.63,
-        "1": -0.62,
+        "-1": 0.62,
+        "1": -0.61,
         "2": -1.22,
-        "3": -1.82,
-        "5": -2.99,
-        "10": -5.75
+        "3": -1.81,
+        "5": -2.97,
+        "10": -5.72
       }
     },
     {
@@ -1927,20 +2133,20 @@
       "descripcion": "Vista Energy - ON VSCWD (vto. 2027-04-15)",
       "emisor": "Vista Energy",
       "vencimiento": "2027-04-15",
-      "precio": 100.6,
-      "pct_change": -0.09,
-      "tir": 5.384,
+      "precio": 100.8,
+      "pct_change": 0.19,
+      "tir": 5.096,
       "duration": 0.726,
-      "volumen": 609551,
+      "volumen": 1514494,
       "sensibilidad_tir": {
         "-3": 2.12,
         "-2": 1.4,
-        "-1": 0.69,
-        "1": -0.68,
+        "-1": 0.7,
+        "1": -0.69,
         "2": -1.36,
         "3": -2.02,
-        "5": -3.31,
-        "10": -6.37
+        "5": -3.32,
+        "10": -6.38
       }
     },
     {
@@ -1949,20 +2155,20 @@
       "descripcion": "YPF - ON YM37D (vto. 2027-05-07)",
       "emisor": "YPF",
       "vencimiento": "2027-05-07",
-      "precio": 104.7,
-      "pct_change": 0.28,
-      "tir": 2.852,
+      "precio": 104.15,
+      "pct_change": -0.52,
+      "tir": 3.556,
       "duration": 0.772,
-      "volumen": 299144,
+      "volumen": 70084,
       "sensibilidad_tir": {
-        "-3": 2.31,
-        "-2": 1.53,
-        "-1": 0.76,
+        "-3": 2.3,
+        "-2": 1.52,
+        "-1": 0.75,
         "1": -0.74,
-        "2": -1.48,
-        "3": -2.2,
-        "5": -3.6,
-        "10": -6.91
+        "2": -1.47,
+        "3": -2.18,
+        "5": -3.58,
+        "10": -6.87
       }
     },
     {
@@ -1971,20 +2177,20 @@
       "descripcion": "Loma Negra - ON LOC5D (vto. 2027-07-26)",
       "emisor": "Loma Negra",
       "vencimiento": "2027-07-26",
-      "precio": 107.85,
-      "pct_change": 0.32,
-      "tir": 4.013,
+      "precio": 107.7,
+      "pct_change": -0.13,
+      "tir": 4.164,
       "duration": 0.961,
-      "volumen": 41650,
+      "volumen": 88700,
       "sensibilidad_tir": {
         "-3": 2.85,
         "-2": 1.88,
         "-1": 0.93,
-        "1": -0.92,
+        "1": -0.91,
         "2": -1.81,
         "3": -2.69,
-        "5": -4.41,
-        "10": -8.43
+        "5": -4.4,
+        "10": -8.42
       }
     },
     {
@@ -1993,42 +2199,108 @@
       "descripcion": "YPF - ON YM38D (vto. 2027-07-22)",
       "emisor": "YPF",
       "vencimiento": "2027-07-22",
-      "precio": 105.55,
-      "pct_change": -0.14,
-      "tir": 3.764,
+      "precio": 105.75,
+      "pct_change": 0.18,
+      "tir": 3.56,
       "duration": 0.962,
-      "volumen": 41654,
+      "volumen": 82549,
       "sensibilidad_tir": {
-        "-3": 2.86,
+        "-3": 2.87,
         "-2": 1.89,
         "-1": 0.94,
         "1": -0.92,
         "2": -1.82,
-        "3": -2.7,
-        "5": -4.42,
-        "10": -8.45
+        "3": -2.71,
+        "5": -4.43,
+        "10": -8.47
       }
     },
     {
-      "symbol": "VSCPD",
-      "series_id": "VSCP",
-      "descripcion": "Vista Energy - ON VSCPD (vto. 2029-05-03)",
-      "emisor": "Vista Energy",
-      "vencimiento": "2029-05-03",
-      "precio": 108.65,
-      "pct_change": -0.22,
-      "tir": 4.438,
-      "duration": 1.898,
-      "volumen": 52066,
+      "symbol": "CS47D",
+      "series_id": "CS47",
+      "descripcion": "Cresud - ON CS47D (vto. 2028-11-15)",
+      "emisor": "Cresud",
+      "vencimiento": "2028-11-15",
+      "precio": 105.5,
+      "pct_change": 1.15,
+      "tir": 5.107,
+      "duration": 2.166,
+      "volumen": 55796,
       "sensibilidad_tir": {
-        "-3": 5.71,
-        "-2": 3.75,
-        "-1": 1.85,
-        "1": -1.79,
-        "2": -3.53,
-        "3": -5.22,
-        "5": -8.45,
-        "10": -15.78
+        "-3": 6.48,
+        "-2": 4.25,
+        "-1": 2.09,
+        "1": -2.03,
+        "2": -4.0,
+        "3": -5.91,
+        "5": -9.56,
+        "10": -17.79
+      }
+    },
+    {
+      "symbol": "CS50D",
+      "series_id": "CS50",
+      "descripcion": "Cresud - ON CS50D (vto. 2029-03-12)",
+      "emisor": "Cresud",
+      "vencimiento": "2029-03-12",
+      "precio": 108.15,
+      "pct_change": 0.65,
+      "tir": 5.765,
+      "duration": 2.364,
+      "volumen": 132733,
+      "sensibilidad_tir": {
+        "-3": 7.06,
+        "-2": 4.63,
+        "-1": 2.27,
+        "1": -2.2,
+        "2": -4.32,
+        "3": -6.38,
+        "5": -10.3,
+        "10": -19.07
+      }
+    },
+    {
+      "symbol": "OLC6D",
+      "series_id": "OLC6",
+      "descripcion": "Oleoductos del Valle (Oldelval) - ON OLC6D (vto. 2029-06-05)",
+      "emisor": "Oleoductos del Valle (Oldelval)",
+      "vencimiento": "2029-06-05",
+      "precio": 106.15,
+      "pct_change": 0.28,
+      "tir": 5.584,
+      "duration": 2.629,
+      "volumen": 69004,
+      "sensibilidad_tir": {
+        "-3": 7.89,
+        "-2": 5.16,
+        "-1": 2.54,
+        "1": -2.45,
+        "2": -4.81,
+        "3": -7.09,
+        "5": -11.42,
+        "10": -21.04
+      }
+    },
+    {
+      "symbol": "ARC1D",
+      "series_id": "ARC1",
+      "descripcion": "Aeropuertos Argentina 2000 - ON ARC1D (vto. 2031-08-01)",
+      "emisor": "Aeropuertos Argentina 2000",
+      "vencimiento": "2031-08-01",
+      "precio": 109.95,
+      "pct_change": 0.13,
+      "tir": 4.988,
+      "duration": 2.665,
+      "volumen": 40000,
+      "sensibilidad_tir": {
+        "-3": 8.12,
+        "-2": 5.3,
+        "-1": 2.59,
+        "1": -2.49,
+        "2": -4.87,
+        "3": -7.16,
+        "5": -11.47,
+        "10": -20.86
       }
     },
     {
@@ -2037,20 +2309,20 @@
       "descripcion": "Banco Macro - ON BACGD (vto. 2029-06-25)",
       "emisor": "Banco Macro",
       "vencimiento": "2029-06-25",
-      "precio": 107.15,
-      "pct_change": -0.13,
-      "tir": 5.599,
-      "duration": 2.669,
-      "volumen": 38000,
+      "precio": 107.8,
+      "pct_change": 0.6,
+      "tir": 5.361,
+      "duration": 2.67,
+      "volumen": 61000,
       "sensibilidad_tir": {
-        "-3": 8.02,
-        "-2": 5.24,
-        "-1": 2.57,
-        "1": -2.48,
-        "2": -4.88,
-        "3": -7.19,
-        "5": -11.58,
-        "10": -21.31
+        "-3": 8.04,
+        "-2": 5.26,
+        "-1": 2.58,
+        "1": -2.49,
+        "2": -4.89,
+        "3": -7.21,
+        "5": -11.6,
+        "10": -21.36
       }
     },
     {
@@ -2059,20 +2331,20 @@
       "descripcion": "Pan American Energy - ON PN35D (vto. 2029-09-27)",
       "emisor": "Pan American Energy",
       "vencimiento": "2029-09-27",
-      "precio": 107.45,
-      "pct_change": -0.13,
-      "tir": 5.26,
-      "duration": 2.866,
-      "volumen": 129914,
+      "precio": 108,
+      "pct_change": 0.51,
+      "tir": 5.072,
+      "duration": 2.867,
+      "volumen": 68714,
       "sensibilidad_tir": {
-        "-3": 8.67,
-        "-2": 5.66,
+        "-3": 8.69,
+        "-2": 5.68,
         "-1": 2.78,
-        "1": -2.67,
-        "2": -5.24,
-        "3": -7.72,
-        "5": -12.39,
-        "10": -22.7
+        "1": -2.68,
+        "2": -5.25,
+        "3": -7.73,
+        "5": -12.42,
+        "10": -22.74
       }
     },
     {
@@ -2081,20 +2353,20 @@
       "descripcion": "IRSA - ON IRCOD (vto. 2029-10-23)",
       "emisor": "IRSA",
       "vencimiento": "2029-10-23",
-      "precio": 108.4,
-      "pct_change": 0.27,
-      "tir": 5.681,
-      "duration": 2.874,
-      "volumen": 41171,
+      "precio": 108.1,
+      "pct_change": -0.27,
+      "tir": 5.783,
+      "duration": 2.873,
+      "volumen": 76058,
       "sensibilidad_tir": {
-        "-3": 8.66,
-        "-2": 5.66,
+        "-3": 8.65,
+        "-2": 5.65,
         "-1": 2.77,
-        "1": -2.67,
+        "1": -2.66,
         "2": -5.23,
-        "3": -7.7,
-        "5": -12.37,
-        "10": -22.63
+        "3": -7.69,
+        "5": -12.35,
+        "10": -22.6
       }
     },
     {
@@ -2104,10 +2376,10 @@
       "emisor": "Tecpetrol",
       "vencimiento": "2030-11-04",
       "precio": 109.25,
-      "pct_change": 0.64,
+      "pct_change": 0,
       "tir": 5.663,
       "duration": 3.714,
-      "volumen": 48000,
+      "volumen": 492000,
       "sensibilidad_tir": {
         "-3": 11.35,
         "-2": 7.38,
@@ -2125,20 +2397,20 @@
       "descripcion": "YPF - ON YMCXD (vto. 2031-09-11)",
       "emisor": "YPF",
       "vencimiento": "2031-09-11",
-      "precio": 114,
+      "precio": 114.4,
       "pct_change": 0.35,
-      "tir": 6.049,
-      "duration": 3.779,
-      "volumen": 466830,
+      "tir": 5.951,
+      "duration": 3.781,
+      "volumen": 549568,
       "sensibilidad_tir": {
-        "-3": 11.56,
-        "-2": 7.5,
+        "-3": 11.58,
+        "-2": 7.52,
         "-1": 3.66,
-        "1": -3.47,
-        "2": -6.78,
-        "3": -9.92,
-        "5": -15.77,
-        "10": -28.17
+        "1": -3.48,
+        "2": -6.79,
+        "3": -9.94,
+        "5": -15.79,
+        "10": -28.21
       }
     },
     {
@@ -2147,42 +2419,20 @@
       "descripcion": "Banco Macro - ON BACHD (vto. 2031-01-28)",
       "emisor": "Banco Macro",
       "vencimiento": "2031-01-28",
-      "precio": 111.6,
-      "pct_change": 0.45,
-      "tir": 6.09,
-      "duration": 3.782,
-      "volumen": 45000,
+      "precio": 111.75,
+      "pct_change": 0.13,
+      "tir": 6.053,
+      "duration": 3.783,
+      "volumen": 146000,
       "sensibilidad_tir": {
-        "-3": 11.54,
+        "-3": 11.55,
         "-2": 7.5,
         "-1": 3.66,
         "1": -3.48,
         "2": -6.79,
-        "3": -9.94,
-        "5": -15.81,
-        "10": -28.3
-      }
-    },
-    {
-      "symbol": "PN36D",
-      "series_id": "PN36",
-      "descripcion": "Pan American Energy - ON PN36D (vto. 2031-11-13)",
-      "emisor": "Pan American Energy",
-      "vencimiento": "2031-11-13",
-      "precio": 109.45,
-      "pct_change": 0.41,
-      "tir": 5.546,
-      "duration": 4.492,
-      "volumen": 74638,
-      "sensibilidad_tir": {
-        "-3": 13.93,
-        "-2": 9.02,
-        "-1": 4.38,
-        "1": -4.14,
-        "2": -8.05,
-        "3": -11.75,
-        "5": -18.56,
-        "10": -32.73
+        "3": -9.95,
+        "5": -15.82,
+        "10": -28.31
       }
     },
     {
@@ -2191,20 +2441,20 @@
       "descripcion": "YPF - ON YM34D (vto. 2034-01-17)",
       "emisor": "YPF",
       "vencimiento": "2034-01-17",
-      "precio": 109.2,
-      "pct_change": 0,
-      "tir": 6.614,
-      "duration": 5.278,
-      "volumen": 893350,
+      "precio": 110.35,
+      "pct_change": 1.05,
+      "tir": 6.402,
+      "duration": 5.286,
+      "volumen": 1123419,
       "sensibilidad_tir": {
-        "-3": 16.46,
-        "-2": 10.6,
-        "-1": 5.12,
-        "1": -4.79,
-        "2": -9.27,
-        "3": -13.47,
-        "5": -21.11,
-        "10": -36.52
+        "-3": 16.53,
+        "-2": 10.64,
+        "-1": 5.14,
+        "1": -4.81,
+        "2": -9.31,
+        "3": -13.52,
+        "5": -21.18,
+        "10": -36.63
       }
     },
     {
@@ -2213,42 +2463,20 @@
       "descripcion": "Pampa Energia - ON MGCOD (vto. 2034-12-18)",
       "emisor": "Pampa Energia",
       "vencimiento": "2034-12-18",
-      "precio": 108.95,
-      "pct_change": 0.42,
-      "tir": 6.684,
-      "duration": 6.364,
-      "volumen": 282000,
+      "precio": 109.5,
+      "pct_change": 0.27,
+      "tir": 6.6,
+      "duration": 6.37,
+      "volumen": 249000,
       "sensibilidad_tir": {
-        "-3": 20.27,
-        "-2": 12.95,
-        "-1": 6.21,
-        "1": -5.73,
-        "2": -11.03,
-        "3": -15.93,
-        "5": -24.67,
-        "10": -41.59
-      }
-    },
-    {
-      "symbol": "VSCTD",
-      "series_id": "VSCT",
-      "descripcion": "Vista Energy - ON VSCTD (vto. 2035-12-10)",
-      "emisor": "Vista Energy",
-      "vencimiento": "2035-12-10",
-      "precio": 108.55,
-      "pct_change": 0,
-      "tir": 6.514,
-      "duration": 6.39,
-      "volumen": 114000,
-      "sensibilidad_tir": {
-        "-3": 20.4,
-        "-2": 13.03,
-        "-1": 6.25,
-        "1": -5.76,
-        "2": -11.09,
-        "3": -16.0,
-        "5": -24.77,
-        "10": -41.72
+        "-3": 20.3,
+        "-2": 12.97,
+        "-1": 6.22,
+        "1": -5.74,
+        "2": -11.05,
+        "3": -15.96,
+        "5": -24.71,
+        "10": -41.65
       }
     },
     {
@@ -2257,20 +2485,20 @@
       "descripcion": "Transportadora de Gas del Sur (TGS) - ON TSC4D (vto. 2035-11-20)",
       "emisor": "Transportadora de Gas del Sur (TGS)",
       "vencimiento": "2035-11-20",
-      "precio": 108.8,
-      "pct_change": 0.36,
-      "tir": 6.757,
-      "duration": 6.843,
-      "volumen": 143000,
+      "precio": 109.25,
+      "pct_change": 0.41,
+      "tir": 6.693,
+      "duration": 6.849,
+      "volumen": 341000,
       "sensibilidad_tir": {
-        "-3": 22.01,
-        "-2": 14.01,
-        "-1": 6.7,
-        "1": -6.14,
-        "2": -11.77,
-        "3": -16.95,
-        "5": -26.1,
-        "10": -43.46
+        "-3": 22.05,
+        "-2": 14.04,
+        "-1": 6.71,
+        "1": -6.15,
+        "2": -11.79,
+        "3": -16.97,
+        "5": -26.13,
+        "10": -43.51
       }
     },
     {
@@ -2279,20 +2507,20 @@
       "descripcion": "Pampa Energia - ON MGCRD (vto. 2037-11-16)",
       "emisor": "Pampa Energia",
       "vencimiento": "2037-11-16",
-      "precio": 107.3,
-      "pct_change": 0.51,
-      "tir": 7.099,
-      "duration": 7.757,
-      "volumen": 723000,
+      "precio": 107.6,
+      "pct_change": 0.27,
+      "tir": 7.06,
+      "duration": 7.763,
+      "volumen": 699000,
       "sensibilidad_tir": {
-        "-3": 25.43,
-        "-2": 16.06,
-        "-1": 7.62,
-        "1": -6.89,
-        "2": -13.13,
-        "3": -18.8,
-        "5": -28.62,
-        "10": -46.57
+        "-3": 25.46,
+        "-2": 16.08,
+        "-1": 7.63,
+        "1": -6.9,
+        "2": -13.15,
+        "3": -18.81,
+        "5": -28.64,
+        "10": -46.61
       }
     }
   ],
@@ -2300,26 +2528,26 @@
     {
       "symbol": "YPFD.BA",
       "nombre": "YPF S.A.",
-      "price": 78300.0,
-      "pct_change": 2.924745317121262
+      "price": 79200.0,
+      "pct_change": 1.6688061617458279
     },
     {
       "symbol": "GGAL.BA",
       "nombre": "Grupo Financiero Galicia",
-      "price": 7870.0,
-      "pct_change": 0.06357279084551812
+      "price": 7845.0,
+      "pct_change": -0.19083969465648853
     },
     {
       "symbol": "PAMP.BA",
       "nombre": "Pampa Energía",
-      "price": 5165.0,
-      "pct_change": 1.076320939334638
+      "price": 5270.0,
+      "pct_change": 1.9342359767891684
     },
     {
       "symbol": "BMA.BA",
       "nombre": "Banco Macro",
-      "price": 14200.0,
-      "pct_change": 0.0
+      "price": 14310.0,
+      "pct_change": 0.8456659619450317
     }
   ],
   "indices": [
@@ -2327,64 +2555,64 @@
       "symbol": "^DJI",
       "nombre": "Dow Jones Industrial Average",
       "region": "USA",
-      "close": 52146.42,
+      "close": 51839.26,
       "currency": "USD",
-      "percent_change": -0.7735980662367467,
-      "percent_change_1y": 17.60000655414157
+      "percent_change": -0.5890372991195726,
+      "percent_change_1y": 16.957736985518093
     },
     {
       "symbol": "^GSPC",
       "nombre": "S&P 500",
       "region": "USA",
-      "close": 7457.69,
+      "close": 7443.28,
       "currency": "USD",
-      "percent_change": -1.0098532253309225,
-      "percent_change_1y": 18.4363771657589
+      "percent_change": -0.1932225866114925,
+      "percent_change_1y": 18.042373203568964
     },
     {
       "symbol": "^IXIC",
       "nombre": "Nasdaq Composite",
       "region": "USA",
-      "close": 25520.244,
+      "close": 25508.072,
       "currency": "USD",
-      "percent_change": -1.3975192350967383,
-      "percent_change_1y": 22.13184812591361
+      "percent_change": -0.047680720335107334,
+      "percent_change_1y": 21.616541767314352
     },
     {
       "symbol": "^FTSE",
       "nombre": "FTSE 100",
       "region": "Europa",
-      "close": 10557.09,
+      "close": 10524.76,
       "currency": "GBP",
-      "percent_change": -0.40857315789037163,
-      "percent_change_1y": 17.131809608343506
+      "percent_change": -0.7135616376518776,
+      "percent_change_1y": 16.773105514257185
     },
     {
       "symbol": "^GDAXI",
       "nombre": "DAX",
       "region": "Europa",
-      "close": 24903.9,
+      "close": 24846.69,
       "currency": "EUR",
-      "percent_change": 0.29366351981860445,
-      "percent_change_1y": 2.452295969159855
+      "percent_change": 0.06326585158314336,
+      "percent_change_1y": 2.21693942450637
     },
     {
       "symbol": "^FCHI",
       "nombre": "CAC 40",
       "region": "Europa",
-      "close": 8360.7,
+      "close": 8340.11,
       "currency": "EUR",
-      "percent_change": 0.262512646474554,
-      "percent_change_1y": 7.212925124704508
+      "percent_change": 0.01559490808052891,
+      "percent_change_1y": 6.948890518951679
     },
     {
       "symbol": "^IBEX",
       "nombre": "IBEX 35 (España)",
       "region": "Europa",
-      "close": 19253.6,
+      "close": 19206.9,
       "currency": "EUR",
-      "percent_change": 0.1909756965431455,
-      "percent_change_1y": 37.21697608951287
+      "percent_change": -0.052039561124421777,
+      "percent_change_1y": 36.884153511741445
     },
     {
       "symbol": "^N225",
@@ -2401,7 +2629,7 @@
       "region": "Asia",
       "close": 25143.05,
       "currency": "HKD",
-      "percent_change": 2.364644918716138,
+      "percent_change": 0.5376166307792689,
       "percent_change_1y": 0.5957771352660751
     },
     {
@@ -2410,35 +2638,35 @@
       "region": "Asia",
       "close": 3796.2815,
       "currency": "CNY",
-      "percent_change": 0.8534842601614662,
+      "percent_change": -2.2185064811747472,
       "percent_change_1y": 6.643381123694389
     },
     {
       "symbol": "^BVSP",
       "nombre": "Bovespa",
       "region": "LATAM",
-      "close": 173714.08,
+      "close": 173371.34,
       "currency": "BRL",
-      "percent_change": -0.06381130447289676,
-      "percent_change_1y": 28.14080330468778
+      "percent_change": -0.19725525864351953,
+      "percent_change_1y": 29.2205534893081
     },
     {
       "symbol": "^MERV",
       "nombre": "Merval",
       "region": "LATAM",
-      "close": 3199934.5,
+      "close": 3223652.0,
       "currency": "ARS",
-      "percent_change": 0.4607948432418483,
-      "percent_change_1y": 54.87545822294197
+      "percent_change": 0.7411713050421337,
+      "percent_change_1y": 57.83136659312811
     },
     {
       "symbol": "^GSPTSE",
       "nombre": "S&P/TSX",
       "region": "Otros",
-      "close": 35263.85,
+      "close": 34960.32,
       "currency": "CAD",
-      "percent_change": -0.21604071408146963,
-      "percent_change_1y": 28.761741916845075
+      "percent_change": -0.8608759976950585,
+      "percent_change_1y": 27.980085660943733
     },
     {
       "symbol": "^AXJO",
@@ -2446,7 +2674,7 @@
       "region": "Otros",
       "close": 8791.3,
       "currency": "AUD",
-      "percent_change": -0.06138887528960383,
+      "percent_change": -0.5587814790811887,
       "percent_change_1y": 1.4201310758151147
     }
   ],
@@ -2455,137 +2683,137 @@
       "symbol": "GC=F",
       "nombre": "Oro",
       "region": "Metales",
-      "close": 4025.4,
+      "close": 4011.8,
       "currency": "USD",
-      "percent_change": 0.31649634865961385
+      "percent_change": -0.022427572029451018
     },
     {
       "symbol": "SI=F",
       "nombre": "Plata",
       "region": "Metales",
-      "close": 57.15,
+      "close": 56.665,
       "currency": "USD",
-      "percent_change": 1.984371027278712
+      "percent_change": 1.1188868637051317
     },
     {
       "symbol": "PL=F",
       "nombre": "Platino",
       "region": "Metales",
-      "close": 1609.9,
+      "close": 1601.4,
       "currency": "USD",
-      "percent_change": 0.2553214003740465
+      "percent_change": -0.2740097580228597
     },
     {
       "symbol": "HG=F",
       "nombre": "Cobre",
       "region": "Metales",
-      "close": 6.319,
+      "close": 6.34,
       "currency": "USD",
-      "percent_change": 1.5916432981953392
+      "percent_change": 1.929263888361836
     },
     {
       "symbol": "ALI=F",
       "nombre": "Aluminio",
       "region": "Metales",
-      "close": 3452.75,
+      "close": 3448.75,
       "currency": "USD",
-      "percent_change": -0.9396069430497777
+      "percent_change": -2.2740153017852083
     },
     {
       "symbol": "CL=F",
       "nombre": "WTI",
       "region": "Energía",
-      "close": 81.34,
+      "close": 82.42,
       "currency": "USD",
-      "percent_change": -1.3941058231917096
+      "percent_change": -0.08485618327343095
     },
     {
       "symbol": "BZ=F",
       "nombre": "Brent",
       "region": "Energía",
-      "close": 88.11,
+      "close": 88.92,
       "currency": "USD",
-      "percent_change": 0.011352469979716942
+      "percent_change": 0.9307622475382665
     },
     {
       "symbol": "NG=F",
       "nombre": "Gas",
       "region": "Energía",
-      "close": 2.851,
+      "close": 2.837,
       "currency": "USD",
-      "percent_change": -2.061147821238321
+      "percent_change": -2.542082205841142
     },
     {
       "symbol": "RB=F",
       "nombre": "Gasolina",
       "region": "Energía",
-      "close": 3.1913,
+      "close": 3.198,
       "currency": "USD",
-      "percent_change": -5.936273748130272
+      "percent_change": -5.7387909148374066
     },
     {
       "symbol": "ZS=F",
       "nombre": "Soja",
       "region": "Granos",
-      "close": 12.1725,
+      "close": 12.25,
       "currency": "USD",
-      "percent_change": 1.0585305105853051
+      "percent_change": 1.7019510170195102
     },
     {
       "symbol": "ZC=F",
       "nombre": "Maíz",
       "region": "Granos",
-      "close": 4.73,
+      "close": 4.725,
       "currency": "USD",
-      "percent_change": 6.351883080382237
+      "percent_change": 6.239460370994941
     },
     {
       "symbol": "ZW=F",
       "nombre": "Trigo",
       "region": "Granos",
-      "close": 6.83,
+      "close": 6.7275,
       "currency": "USD",
-      "percent_change": 0.03661662394727206
+      "percent_change": -1.4646649578908826
     },
     {
       "symbol": "CT=F",
       "nombre": "Algodón",
       "region": "Otros",
-      "close": 0.7934,
+      "close": 0.7888,
       "currency": "USD",
-      "percent_change": 2.94537474265519
+      "percent_change": 2.3485147428868234
     },
     {
       "symbol": "KC=F",
       "nombre": "Café",
       "region": "Otros",
-      "close": 3.1825,
+      "close": 3.235,
       "currency": "USD",
-      "percent_change": -3.105499110349217
+      "percent_change": -1.5070823635442943
     },
     {
       "symbol": "CC=F",
       "nombre": "Cacao",
       "region": "Otros",
-      "close": 5395.0,
+      "close": 5507.0,
       "currency": "USD",
-      "percent_change": -2.4941261521778424
+      "percent_change": -0.46990782577263684
     },
     {
       "symbol": "SB=F",
       "nombre": "Azúcar",
       "region": "Otros",
-      "close": 0.1476,
+      "close": 0.1481,
       "currency": "USD",
-      "percent_change": -0.47201567138350825
+      "percent_change": -0.13486125292613055
     },
     {
       "symbol": "OJ=F",
       "nombre": "Jugo de Naranja",
       "region": "Otros",
-      "close": 1.3935,
+      "close": 1.469,
       "currency": "USD",
-      "percent_change": 4.147979687336239
+      "percent_change": 6.295226659821193
     }
   ],
   "rates_intl": [
@@ -2605,32 +2833,32 @@
     {
       "symbol": "SOFR",
       "nombre": "SOFR",
-      "close": 3.62,
-      "percent_change": -0.5494505494505499
+      "close": 3.59,
+      "percent_change": -0.8287292817679627
     },
     {
       "symbol": "DGS1",
       "nombre": "US1Y",
-      "close": 3.99,
-      "percent_change": 0.5037783375314866
+      "close": 4.01,
+      "percent_change": 0.5012531328320695
     },
     {
       "symbol": "^FVX",
       "nombre": "FVX",
-      "close": 4.273,
-      "percent_change": -0.21018366916277503
+      "close": 4.328,
+      "percent_change": 1.2871574901826066
     },
     {
       "symbol": "^TNX",
       "nombre": "TNX",
-      "close": 4.541,
-      "percent_change": -0.6128205018489492
+      "close": 4.598,
+      "percent_change": 1.2552325922668341
     },
     {
       "symbol": "^TYX",
       "nombre": "TYX",
-      "close": 5.064,
-      "percent_change": -0.6669291734077505
+      "close": 5.118,
+      "percent_change": 1.0663481223784144
     },
     {
       "symbol": "JP10Y-JP",
@@ -2641,14 +2869,14 @@
     {
       "symbol": "GB10Y-GB",
       "nombre": "GB10Y-GB",
-      "close": 4.9815,
-      "percent_change": 0.5815
+      "close": 5.0386,
+      "percent_change": 0.0556
     },
     {
       "symbol": "DE10Y-DE",
       "nombre": "DE10Y-DE",
-      "close": 3.1327,
-      "percent_change": -0.0738
+      "close": 3.1593,
+      "percent_change": -0.1003
     }
   ],
   "plazos_fijos": [
@@ -2762,161 +2990,261 @@
     }
   ],
   "acciones_mundiales": {
-    "updated_at": "2026-07-20T10:24:21.222385+00:00",
+    "updated_at": "2026-07-20T21:27:19.340120+00:00",
     "secciones": {
       "top_market_cap": [
         {
           "symbol": "NVDA",
           "nombre": "NVIDIA Corporation",
-          "precio": 202.81,
-          "pct_change": -2.213,
-          "market_cap": 4912260841472,
-          "volumen": 144281910,
+          "precio": 203.28,
+          "pct_change": 0.232,
+          "market_cap": 4923644706816,
+          "volumen": 88271631,
           "wk52_high": 236.54,
           "wk52_low": 164.07
         },
         {
           "symbol": "AAPL",
           "nombre": "Apple Inc.",
-          "precio": 333.74,
-          "pct_change": 0.144,
-          "market_cap": 4901757779968,
-          "volumen": 63407059,
+          "precio": 326.59,
+          "pct_change": -2.142,
+          "market_cap": 4796743417856,
+          "volumen": 51014085,
           "wk52_high": 334.99,
           "wk52_low": 201.5
         },
         {
-          "symbol": "GOOGL",
-          "nombre": "Alphabet Inc.",
-          "precio": 346.77,
-          "pct_change": -2.169,
-          "market_cap": 4231485980672,
-          "volumen": 29959283,
-          "wk52_high": 408.61,
-          "wk52_low": 186.15
-        },
-        {
           "symbol": "GOOG",
           "nombre": "Alphabet Inc.",
-          "precio": 346.12,
-          "pct_change": -2.173,
-          "market_cap": 4223554551808,
-          "volumen": 22023945,
+          "precio": 351.37,
+          "pct_change": 1.517,
+          "market_cap": 4287617826816,
+          "volumen": 13160757,
           "wk52_high": 404.47,
           "wk52_low": 187.05
         },
         {
+          "symbol": "GOOGL",
+          "nombre": "Alphabet Inc.",
+          "precio": 351.99,
+          "pct_change": 1.505,
+          "market_cap": 4295183564800,
+          "volumen": 24606836,
+          "wk52_high": 408.61,
+          "wk52_low": 186.15
+        },
+        {
           "symbol": "MSFT",
           "nombre": "Microsoft Corporation",
-          "precio": 393.82,
-          "pct_change": -1.815,
-          "market_cap": 2925466222592,
-          "volumen": 33049842,
+          "precio": 402.29,
+          "pct_change": 2.151,
+          "market_cap": 2988385239040,
+          "volumen": 27729614,
           "wk52_high": 555.45,
           "wk52_low": 349.2
         },
         {
           "symbol": "AMZN",
           "nombre": "Amazon.com, Inc.",
-          "precio": 247.23,
-          "pct_change": -1.064,
-          "market_cap": 2659480240128,
-          "volumen": 43572361,
+          "precio": 249.99,
+          "pct_change": 1.116,
+          "market_cap": 2689169883136,
+          "volumen": 30630782,
           "wk52_high": 278.56,
           "wk52_low": 196.0
         },
         {
           "symbol": "TSM",
           "nombre": "Taiwan Semiconductor Manufactur",
-          "precio": 398.37,
-          "pct_change": -2.775,
-          "market_cap": 2066135646208,
-          "volumen": 20866543,
+          "precio": 402.3,
+          "pct_change": 0.987,
+          "market_cap": 2086518390784,
+          "volumen": 10757296,
           "wk52_high": 479.0,
           "wk52_low": 223.7
         },
         {
           "symbol": "AVGO",
           "nombre": "Broadcom Inc.",
-          "precio": 370.825,
-          "pct_change": -0.968,
-          "market_cap": 1764229775360,
-          "volumen": 23272208,
+          "precio": 378.16,
+          "pct_change": 1.978,
+          "market_cap": 1799126515712,
+          "volumen": 14214613,
           "wk52_high": 495.0,
           "wk52_low": 273.0
         },
         {
+          "symbol": "SPCX",
+          "nombre": "Space Exploration Technologies ",
+          "precio": 119.85,
+          "pct_change": -3.339,
+          "market_cap": 1578926342144,
+          "volumen": 56256348,
+          "wk52_high": 225.64,
+          "wk52_low": 119.69
+        },
+        {
           "symbol": "META",
           "nombre": "Meta Platforms, Inc.",
-          "precio": 646.01,
-          "pct_change": -2.788,
-          "market_cap": 1639846903808,
-          "volumen": 22267862,
+          "precio": 645.85,
+          "pct_change": -0.025,
+          "market_cap": 1639440580608,
+          "volumen": 9924164,
           "wk52_high": 796.25,
           "wk52_low": 520.26
         },
         {
-          "symbol": "SPCX",
-          "nombre": "Space Exploration Technologies ",
-          "precio": 123.99,
-          "pct_change": -5.431,
-          "market_cap": 1633467367424,
-          "volumen": 83706220,
-          "wk52_high": 225.64,
-          "wk52_low": 122.12
-        },
-        {
           "symbol": "TSLA",
           "nombre": "Tesla, Inc.",
-          "precio": 380.84,
-          "pct_change": -2.613,
-          "market_cap": 1430329884672,
-          "volumen": 31394594,
+          "precio": 369.57,
+          "pct_change": -2.959,
+          "market_cap": 1388002803712,
+          "volumen": 32893543,
           "wk52_high": 498.83,
           "wk52_low": 297.82
         },
         {
           "symbol": "SKHY",
           "nombre": "SK hynix Inc.",
-          "precio": 154.03,
-          "pct_change": 1.129,
-          "market_cap": 1093389451264,
-          "volumen": 73978314,
+          "precio": 151.16,
+          "pct_change": -1.863,
+          "market_cap": 1073016668160,
+          "volumen": 37251575,
           "wk52_high": 194.8,
           "wk52_low": 145.57
         },
         {
           "symbol": "BRK-B",
           "nombre": "Berkshire Hathaway Inc. New",
-          "precio": 490.91,
-          "pct_change": -0.448,
-          "market_cap": 1058821111808,
-          "volumen": 4588978,
+          "precio": 491.25,
+          "pct_change": 0.069,
+          "market_cap": 1059554394112,
+          "volumen": 2532763,
           "wk52_high": 516.85,
           "wk52_low": 455.19
         },
         {
           "symbol": "BRK-A",
           "nombre": "Berkshire Hathaway Inc.",
-          "precio": 736000.0,
-          "pct_change": -0.339,
-          "market_cap": 1058296627200,
-          "volumen": 207,
+          "precio": 736200.0,
+          "pct_change": 0.027,
+          "market_cap": 1058584199168,
+          "volumen": 81,
           "wk52_high": 775000.0,
           "wk52_low": 685150.0
         },
         {
           "symbol": "LLY",
           "nombre": "Eli Lilly and Company",
-          "precio": 1179.11,
-          "pct_change": 0.85,
-          "market_cap": 1051461156864,
-          "volumen": 2163075,
+          "precio": 1146.9,
+          "pct_change": -2.732,
+          "market_cap": 1022738235392,
+          "volumen": 1796278,
           "wk52_high": 1249.45,
           "wk52_low": 623.78
         }
       ],
       "top_suba_diaria": [
+        {
+          "symbol": "GMALY",
+          "nombre": "Genting Malaysia Berhad",
+          "precio": 10.0,
+          "pct_change": 122.222,
+          "market_cap": 2267096576,
+          "volumen": 4,
+          "wk52_high": 14.05,
+          "wk52_low": 4.5
+        },
+        {
+          "symbol": "CMHHF",
+          "nombre": "China Merchants Port Holdings C",
+          "precio": 2.34,
+          "pct_change": 61.379,
+          "market_cap": 9823340544,
+          "volumen": 30,
+          "wk52_high": 2.34,
+          "wk52_low": 1.35
+        },
+        {
+          "symbol": "CHHQF",
+          "nombre": "CHINA HONGQIAO GROUP LTD",
+          "precio": 4.39,
+          "pct_change": 58.627,
+          "market_cap": 43107155968,
+          "volumen": 800,
+          "wk52_high": 5.1875,
+          "wk52_low": 2.425
+        },
+        {
+          "symbol": "VNORP",
+          "nombre": "Vornado Realty Trust",
+          "precio": 82.0,
+          "pct_change": 58.454,
+          "market_cap": null,
+          "volumen": 20,
+          "wk52_high": 98.0,
+          "wk52_low": 35.0
+        },
+        {
+          "symbol": "CLPXF",
+          "nombre": "CHINA LONGYUAN POWER GROUP CORP",
+          "precio": 0.87,
+          "pct_change": 45.0,
+          "market_cap": 7273039872,
+          "volumen": 1000,
+          "wk52_high": 1.0,
+          "wk52_low": 0.6
+        },
+        {
+          "symbol": "DRDGF",
+          "nombre": "DRDGOLD LTD",
+          "precio": 3.05,
+          "pct_change": 44.55,
+          "market_cap": 2645562880,
+          "volumen": 322,
+          "wk52_high": 3.75,
+          "wk52_low": 1.38
+        },
+        {
+          "symbol": "SCGPY",
+          "nombre": "SERCO GROUP PLC SPN ADR EACH RE",
+          "precio": 4.0,
+          "pct_change": 41.343,
+          "market_cap": 3916369920,
+          "volumen": 775,
+          "wk52_high": 4.35,
+          "wk52_low": 2.74
+        },
+        {
+          "symbol": "NGKSF",
+          "nombre": "NITERRA CO LTD.",
+          "precio": 61.7,
+          "pct_change": 41.277,
+          "market_cap": 12031134720,
+          "volumen": 137,
+          "wk52_high": 61.7,
+          "wk52_low": 29.917
+        },
+        {
+          "symbol": "ALBHF",
+          "nombre": "Alibaba Health Information Tech",
+          "precio": 0.5811,
+          "pct_change": 38.357,
+          "market_cap": 9399467008,
+          "volumen": 2000,
+          "wk52_high": 0.9,
+          "wk52_low": 0.401
+        },
+        {
+          "symbol": "WARFF",
+          "nombre": "Wharf Holdings Ltd.",
+          "precio": 4.02,
+          "pct_change": 34.448,
+          "market_cap": 12285230080,
+          "volumen": 6,
+          "wk52_high": 4.02,
+          "wk52_low": 2.52
+        },
         {
           "symbol": "MMNNF",
           "nombre": "Munters Group AP",
@@ -2928,144 +3256,44 @@
           "wk52_low": 13.35
         },
         {
-          "symbol": "NKRKF",
-          "nombre": "Nokian Tyres Plc.",
-          "precio": 17.3,
-          "pct_change": 23.132,
-          "market_cap": 2385241600,
-          "volumen": 1200,
-          "wk52_high": 17.3,
-          "wk52_low": 6.955
+          "symbol": "EQRLF",
+          "nombre": "EQ RESOURCES LTD",
+          "precio": 0.197,
+          "pct_change": 31.246,
+          "market_cap": 1013515456,
+          "volumen": 337958,
+          "wk52_high": 0.28,
+          "wk52_low": 0.06
         },
         {
-          "symbol": "CFIGY",
-          "nombre": "CHALLENGER LIMITED UNSP ADR EAC",
-          "precio": 53.61,
-          "pct_change": 22.677,
-          "market_cap": 3665942016,
-          "volumen": 13,
-          "wk52_high": 53.61,
-          "wk52_low": 43.7
+          "symbol": "ZMPLF",
+          "nombre": "ZIMPLATS HOLDINGS LIMITED",
+          "precio": 11.75,
+          "pct_change": 32.469,
+          "market_cap": 1264742400,
+          "volumen": 250,
+          "wk52_high": 15.95,
+          "wk52_low": 8.87
         },
         {
-          "symbol": "QRNNF",
-          "nombre": "AURIZON HOLDINGS LIMITED",
-          "precio": 3.1,
-          "pct_change": 20.388,
-          "market_cap": 5502652416,
-          "volumen": 100,
-          "wk52_high": 3.1,
-          "wk52_low": 1.75
+          "symbol": "SEXHF",
+          "nombre": "SICHUAN EXPRESSWAY CO",
+          "precio": 0.75,
+          "pct_change": 29.31,
+          "market_cap": 2648257536,
+          "volumen": 1000,
+          "wk52_high": 0.78,
+          "wk52_low": 0.57
         },
         {
-          "symbol": "EQBBF",
-          "nombre": "EQT AB",
-          "precio": 33.0,
-          "pct_change": 19.552,
-          "market_cap": 38607953920,
-          "volumen": 349,
-          "wk52_high": 40.4625,
-          "wk52_low": 25.91
-        },
-        {
-          "symbol": "TKECF",
-          "nombre": "Tokyo Electric Power Company Ho",
-          "precio": 3.22,
-          "pct_change": 19.259,
-          "market_cap": 5160700928,
-          "volumen": 664,
-          "wk52_high": 6.0,
-          "wk52_low": 2.7
-        },
-        {
-          "symbol": "URMCY",
-          "nombre": "Unibail-Rodamco SE",
-          "precio": 14.02,
-          "pct_change": 18.613,
-          "market_cap": 20255062016,
-          "volumen": 129,
-          "wk52_high": 17.87,
-          "wk52_low": 10.45
-        },
-        {
-          "symbol": "NKRKY",
-          "nombre": "Nokian Tyres Plc.",
-          "precio": 8.68,
-          "pct_change": 18.417,
-          "market_cap": 2393514496,
-          "volumen": 13083,
-          "wk52_high": 8.71,
-          "wk52_low": 4.24
-        },
-        {
-          "symbol": "XNCR",
-          "nombre": "Xencor, Inc.",
-          "precio": 17.47,
-          "pct_change": 16.778,
-          "market_cap": 1295253760,
-          "volumen": 1684195,
-          "wk52_high": 18.69,
-          "wk52_low": 6.92
-        },
-        {
-          "symbol": "TMRAF",
-          "nombre": "Tomra Systems A/S/A",
-          "precio": 11.49,
-          "pct_change": 16.768,
-          "market_cap": 3397597440,
+          "symbol": "MTHRF",
+          "nombre": "M3, Inc.",
+          "precio": 11.0,
+          "pct_change": 28.625,
+          "market_cap": 7341725696,
           "volumen": 300,
-          "wk52_high": 15.98,
-          "wk52_low": 9.08
-        },
-        {
-          "symbol": "SNLAY",
-          "nombre": "Sino Land Co. Ltd.",
-          "precio": 7.27,
-          "pct_change": 16.693,
-          "market_cap": 13938249728,
-          "volumen": 7417,
-          "wk52_high": 8.89,
-          "wk52_low": 5.15
-        },
-        {
-          "symbol": "IESFY",
-          "nombre": "Interconexion Electrica S.A. E.",
-          "precio": 234.0,
-          "pct_change": 16.609,
-          "market_cap": 10625576960,
-          "volumen": 1,
-          "wk52_high": 300.0,
-          "wk52_low": 111.94
-        },
-        {
-          "symbol": "ASXFF",
-          "nombre": "ASX, Ltd.",
-          "precio": 42.7,
-          "pct_change": 15.718,
-          "market_cap": 8344001024,
-          "volumen": 100,
-          "wk52_high": 46.39,
-          "wk52_low": 30.9
-        },
-        {
-          "symbol": "MONOF",
-          "nombre": "Monotaro Co., Ltd.",
-          "precio": 12.01,
-          "pct_change": 15.481,
-          "market_cap": 5906188288,
-          "volumen": 100,
-          "wk52_high": 17.07,
-          "wk52_low": 10.25
-        },
-        {
-          "symbol": "DRTS",
-          "nombre": "Alpha Tau Medical Ltd.",
-          "precio": 13.55,
-          "pct_change": 14.057,
-          "market_cap": 1223915520,
-          "volumen": 1103041,
-          "wk52_high": 14.11,
-          "wk52_low": 2.87
+          "wk52_high": 15.25,
+          "wk52_low": 8.552
         }
       ],
       "top_baja_diaria": [
@@ -3080,6 +3308,26 @@
           "wk52_low": 20.958
         },
         {
+          "symbol": "HUIHY",
+          "nombre": "HUABAO INTERNATIONAL HOLDINGS L",
+          "precio": 16.81,
+          "pct_change": -32.76,
+          "market_cap": 1083535872,
+          "volumen": 2,
+          "wk52_high": 25.0,
+          "wk52_low": 14.6
+        },
+        {
+          "symbol": "SNEX",
+          "nombre": "StoneX Group Inc.",
+          "precio": 70.71,
+          "pct_change": -31.343,
+          "market_cap": 8405810176,
+          "volumen": 1385076,
+          "wk52_high": 94.66,
+          "wk52_low": 35.68222
+        },
+        {
           "symbol": "SIELY",
           "nombre": "Shanghai Electric Group Co., Lt",
           "precio": 7.95,
@@ -3090,12 +3338,32 @@
           "wk52_low": 7.49
         },
         {
+          "symbol": "YORUF",
+          "nombre": "YOKOHAMA RUBBER CO",
+          "precio": 36.7,
+          "pct_change": -25.346,
+          "market_cap": 5789339136,
+          "volumen": 100,
+          "wk52_high": 50.99,
+          "wk52_low": 25.87
+        },
+        {
+          "symbol": "ISUZF",
+          "nombre": "ISUZU MOTORS",
+          "precio": 10.99,
+          "pct_change": -24.102,
+          "market_cap": 7552735744,
+          "volumen": 1,
+          "wk52_high": 17.2,
+          "wk52_low": 10.99
+        },
+        {
           "symbol": "DALXF",
           "nombre": "SPARTAN DELTA CORP.",
-          "precio": 8.178,
-          "pct_change": -22.04,
-          "market_cap": 1657083776,
-          "volumen": 200,
+          "precio": 8.21,
+          "pct_change": 0.49,
+          "market_cap": 1663567744,
+          "volumen": 400,
           "wk52_high": 11.52,
           "wk52_low": 3.276
         },
@@ -3110,298 +3378,238 @@
           "wk52_low": 38.79
         },
         {
-          "symbol": "FUWAF",
-          "nombre": "FURUKAWA ELECTRIC CO",
-          "precio": 19.78,
-          "pct_change": -18.332,
-          "market_cap": 13915192320,
+          "symbol": "PSORF",
+          "nombre": "PEARSON",
+          "precio": 12.65,
+          "pct_change": -20.938,
+          "market_cap": 7595255808,
+          "volumen": 1910,
+          "wk52_high": 16.0,
+          "wk52_low": 12.4
+        },
+        {
+          "symbol": "OXFYY",
+          "nombre": "OXFORD NANOPORE TECHNOLOGIES PL",
+          "precio": 6.5,
+          "pct_change": 0.0,
+          "market_cap": 1584783360,
+          "volumen": 225,
+          "wk52_high": 9.05,
+          "wk52_low": 5.96
+        },
+        {
+          "symbol": "STGPF",
+          "nombre": "Scentre Group",
+          "precio": 2.0,
+          "pct_change": -18.367,
+          "market_cap": 11114124288,
+          "volumen": 13,
+          "wk52_high": 2.98,
+          "wk52_low": 2.0
+        },
+        {
+          "symbol": "JSNSF",
+          "nombre": "J Sainsbury plc",
+          "precio": 4.25,
+          "pct_change": -17.795,
+          "market_cap": 9301780480,
+          "volumen": 300,
+          "wk52_high": 5.17,
+          "wk52_low": 3.88
+        },
+        {
+          "symbol": "TABCF",
+          "nombre": "TABCORP HOLDINGS LIMITED",
+          "precio": 0.66,
+          "pct_change": -17.5,
+          "market_cap": 1617816192,
+          "volumen": 2000,
+          "wk52_high": 0.8,
+          "wk52_low": 0.42
+        },
+        {
+          "symbol": "JRONF",
+          "nombre": "JERONIMO MARTINS SGPS",
+          "precio": 19.6,
+          "pct_change": -17.3,
+          "market_cap": 12317310976,
+          "volumen": 1,
+          "wk52_high": 26.6,
+          "wk52_low": 19.6
+        },
+        {
+          "symbol": "SMGKF",
+          "nombre": "SMITHS GROUP PLC",
+          "precio": 28.35,
+          "pct_change": -16.74,
+          "market_cap": 8403342848,
           "volumen": 100,
-          "wk52_high": 324.38,
-          "wk52_low": 19.78
-        },
-        {
-          "symbol": "IBIDF",
-          "nombre": "Ibiden Co. Ltd.",
-          "precio": 97.97,
-          "pct_change": -15.913,
-          "market_cap": 27357685760,
-          "volumen": 700,
-          "wk52_high": 153.47,
-          "wk52_low": 21.5
-        },
-        {
-          "symbol": "STDN",
-          "nombre": "Standard Nuclear, Inc.",
-          "precio": 10.4,
-          "pct_change": -15.447,
-          "market_cap": 1671004672,
-          "volumen": 2828803,
-          "wk52_high": 13.98,
-          "wk52_low": 10.3
-        },
-        {
-          "symbol": "LYPHF",
-          "nombre": "LUYE PHARMA GROUP LIMITED",
-          "precio": 0.27,
-          "pct_change": -14.8,
-          "market_cap": 1078519296,
-          "volumen": 2500,
-          "wk52_high": 0.395,
-          "wk52_low": 0.2041
-        },
-        {
-          "symbol": "AMSSY",
-          "nombre": "AMS-OSRAM AG",
-          "precio": 9.715,
-          "pct_change": -14.33,
-          "market_cap": 1934054784,
-          "volumen": 3048,
-          "wk52_high": 15.1,
-          "wk52_low": 4.19
-        },
-        {
-          "symbol": "WTBFA",
-          "nombre": "W.T.B. Financial Corp.",
-          "precio": 600.0,
-          "pct_change": -14.286,
-          "market_cap": 1471517952,
-          "volumen": 6,
-          "wk52_high": 724.0,
-          "wk52_low": 554.0
-        },
-        {
-          "symbol": "ISRG",
-          "nombre": "Intuitive Surgical, Inc.",
-          "precio": 345.42,
-          "pct_change": -14.145,
-          "market_cap": 122334937088,
-          "volumen": 11563751,
-          "wk52_high": 603.88,
-          "wk52_low": 344.55
-        },
-        {
-          "symbol": "SUMCF",
-          "nombre": "Sumco Corp.",
-          "precio": 24.99,
-          "pct_change": -13.35,
-          "market_cap": 8739333120,
-          "volumen": 700,
-          "wk52_high": 36.43,
-          "wk52_low": 7.09
-        },
-        {
-          "symbol": "SMTOF",
-          "nombre": "SUMITOMO ELECTRIC INDUSTRIES",
-          "precio": 13.706,
-          "pct_change": -12.867,
-          "market_cap": 42758328320,
-          "volumen": 100,
-          "wk52_high": 21.48,
-          "wk52_low": 5.4775
-        },
-        {
-          "symbol": "NCTKF",
-          "nombre": "Nabtesco Corp.",
-          "precio": 31.51,
-          "pct_change": -12.666,
-          "market_cap": 3692484352,
-          "volumen": 2,
-          "wk52_high": 37.0,
-          "wk52_low": 15.81
-        },
-        {
-          "symbol": "SLTCY",
-          "nombre": "Siltronic AG",
-          "precio": 9.808,
-          "pct_change": -12.429,
-          "market_cap": 3085212160,
-          "volumen": 254,
-          "wk52_high": 12.29,
-          "wk52_low": 4.55
+          "wk52_high": 36.52,
+          "wk52_low": 24.59
         }
       ],
       "top_volumen": [
         {
           "symbol": "ONDS",
           "nombre": "Ondas Inc",
-          "precio": 6.525,
-          "pct_change": -1.88,
-          "market_cap": 3718196992,
-          "volumen": 214489252,
+          "precio": 6.87,
+          "pct_change": 5.287,
+          "market_cap": 3914791168,
+          "volumen": 186157416,
           "wk52_high": 15.28,
           "wk52_low": 1.78
         },
         {
           "symbol": "AAL",
           "nombre": "American Airlines Group, Inc.",
-          "precio": 14.98,
-          "pct_change": -3.974,
-          "market_cap": 9907549184,
-          "volumen": 176807466,
+          "precio": 15.14,
+          "pct_change": 1.068,
+          "market_cap": 10013371392,
+          "volumen": 165449523,
           "wk52_high": 18.79,
           "wk52_low": 10.09
         },
         {
-          "symbol": "NVDA",
-          "nombre": "NVIDIA Corporation",
-          "precio": 202.81,
-          "pct_change": -2.213,
-          "market_cap": 4912260841472,
-          "volumen": 144281910,
-          "wk52_high": 236.54,
-          "wk52_low": 164.07
-        },
-        {
           "symbol": "NFLX",
           "nombre": "Netflix, Inc.",
-          "precio": 68.95,
-          "pct_change": -7.263,
-          "market_cap": 290334539776,
-          "volumen": 141231076,
+          "precio": 67.6,
+          "pct_change": -1.958,
+          "market_cap": 284649979904,
+          "volumen": 59580599,
           "wk52_high": 126.71,
           "wk52_low": 65.08
         },
         {
           "symbol": "INTC",
           "nombre": "Intel Corporation",
-          "precio": 95.04,
-          "pct_change": -2.0,
-          "market_cap": 477671030784,
-          "volumen": 126779308,
+          "precio": 97.06,
+          "pct_change": 2.125,
+          "market_cap": 487823540224,
+          "volumen": 89273530,
           "wk52_high": 142.35,
           "wk52_low": 18.97
         },
         {
           "symbol": "NOK",
           "nombre": "Nokia Corporation Sponsored",
-          "precio": 10.12,
-          "pct_change": -2.505,
-          "market_cap": 56495243264,
-          "volumen": 115510979,
+          "precio": 10.08,
+          "pct_change": -0.395,
+          "market_cap": 56271945728,
+          "volumen": 81085548,
           "wk52_high": 17.45,
           "wk52_low": 4.0
         },
         {
+          "symbol": "AMC",
+          "nombre": "AMC Entertainment Holdings, Inc",
+          "precio": 2.46,
+          "pct_change": 26.804,
+          "market_cap": 2195807488,
+          "volumen": 181884068,
+          "wk52_high": 3.6,
+          "wk52_low": 0.93
+        },
+        {
           "symbol": "NU",
           "nombre": "Nu Holdings Ltd.",
-          "precio": 13.59,
-          "pct_change": -1.45,
-          "market_cap": 65646284800,
-          "volumen": 112287916,
+          "precio": 13.99,
+          "pct_change": 2.943,
+          "market_cap": 67578478592,
+          "volumen": 156824639,
           "wk52_high": 18.98,
           "wk52_low": 11.2
         },
         {
           "symbol": "OPEN",
           "nombre": "Opendoor Technologies Inc",
-          "precio": 4.5,
-          "pct_change": -1.532,
-          "market_cap": 4341315072,
-          "volumen": 106529320,
+          "precio": 4.445,
+          "pct_change": -1.222,
+          "market_cap": 4288254464,
+          "volumen": 82216752,
           "wk52_high": 10.87,
           "wk52_low": 1.7
         },
         {
-          "symbol": "PATH",
-          "nombre": "UiPath, Inc.",
-          "precio": 12.15,
-          "pct_change": 0.998,
-          "market_cap": 6295160832,
-          "volumen": 90610126,
-          "wk52_high": 19.84,
-          "wk52_low": 9.2
-        },
-        {
           "symbol": "JOBY",
           "nombre": "Joby Aviation, Inc.",
-          "precio": 7.23,
-          "pct_change": -1.499,
-          "market_cap": 7111737856,
-          "volumen": 89546970,
+          "precio": 7.47,
+          "pct_change": 3.32,
+          "market_cap": 7347812352,
+          "volumen": 76805958,
           "wk52_high": 20.95,
           "wk52_low": 6.89
         },
         {
-          "symbol": "SOFI",
-          "nombre": "SoFi Technologies, Inc.",
-          "precio": 17.28,
-          "pct_change": -0.231,
-          "market_cap": 22165770240,
-          "volumen": 89973828,
-          "wk52_high": 32.73,
-          "wk52_low": 14.92
-        },
-        {
           "symbol": "SPCX",
           "nombre": "Space Exploration Technologies ",
-          "precio": 123.99,
-          "pct_change": -5.431,
-          "market_cap": 1633467367424,
-          "volumen": 83706220,
+          "precio": 119.85,
+          "pct_change": -3.339,
+          "market_cap": 1578926342144,
+          "volumen": 56256348,
           "wk52_high": 225.64,
-          "wk52_low": 122.12
+          "wk52_low": 119.69
         },
         {
           "symbol": "T",
           "nombre": "AT&T Inc.",
-          "precio": 21.81,
-          "pct_change": -0.773,
-          "market_cap": 151543267328,
-          "volumen": 70400888,
+          "precio": 21.95,
+          "pct_change": 0.642,
+          "market_cap": 152516034560,
+          "volumen": 82390681,
           "wk52_high": 29.79,
           "wk52_low": 19.89
         },
         {
           "symbol": "SKHY",
           "nombre": "SK hynix Inc.",
-          "precio": 154.03,
-          "pct_change": 1.129,
-          "market_cap": 1093389451264,
-          "volumen": 73978314,
+          "precio": 151.16,
+          "pct_change": -1.863,
+          "market_cap": 1073016668160,
+          "volumen": 37251575,
           "wk52_high": 194.8,
           "wk52_low": 145.57
         },
         {
-          "symbol": "HL",
-          "nombre": "Hecla Mining Company",
-          "precio": 14.33,
-          "pct_change": -1.309,
-          "market_cap": 9611308032,
-          "volumen": 66976189,
-          "wk52_high": 34.17,
-          "wk52_low": 5.62
+          "symbol": "LCID",
+          "nombre": "Lucid Group, Inc.",
+          "precio": 7.11,
+          "pct_change": -3.397,
+          "market_cap": 2774725888,
+          "volumen": 20913552,
+          "wk52_high": 33.1,
+          "wk52_low": 2.37
+        },
+        {
+          "symbol": "IREN",
+          "nombre": "IREN LIMITED",
+          "precio": 40.2,
+          "pct_change": 19.572,
+          "market_cap": 14366623744,
+          "volumen": 89872144,
+          "wk52_high": 76.87,
+          "wk52_low": 14.72
+        },
+        {
+          "symbol": "F",
+          "nombre": "Ford Motor Company",
+          "precio": 13.99,
+          "pct_change": -1.687,
+          "market_cap": 55745851392,
+          "volumen": 39757337,
+          "wk52_high": 17.78,
+          "wk52_low": 10.68
         }
       ],
       "top_nuevo_maximo": [
         {
-          "symbol": "VLO",
-          "nombre": "Valero Energy Corporation",
-          "precio": 309.65,
-          "pct_change": 3.127,
-          "market_cap": 91945230336,
-          "volumen": 2185965,
-          "wk52_high": 309.9,
-          "wk52_low": 130.78
-        },
-        {
-          "symbol": "MQBKY",
-          "nombre": "Macquarie Group, Ltd.",
-          "precio": 181.51,
-          "pct_change": 1.058,
-          "market_cap": 69180432384,
-          "volumen": 1184,
-          "wk52_high": 181.55,
-          "wk52_low": 122.37
-        },
-        {
-          "symbol": "AXAHF",
-          "nombre": "AXA",
-          "precio": 51.0,
-          "pct_change": 0.196,
-          "market_cap": 103753711616,
-          "volumen": 1000,
-          "wk52_high": 51.0,
-          "wk52_low": 43.0
+          "symbol": "DBSDF",
+          "nombre": "DBS Group Holdings Ltd.",
+          "precio": 57.11,
+          "pct_change": 2.994,
+          "market_cap": 162057551872,
+          "volumen": 1900,
+          "wk52_high": 57.11,
+          "wk52_low": 34.46
         },
         {
           "symbol": "SSNLF",
@@ -3412,16 +3620,6 @@
           "volumen": 200,
           "wk52_high": 65.21,
           "wk52_low": 40.5999
-        },
-        {
-          "symbol": "CBAUF",
-          "nombre": "Commonwealth Bank of Australia",
-          "precio": 124.08,
-          "pct_change": 0.0,
-          "market_cap": 207477129216,
-          "volumen": 100,
-          "wk52_high": 124.08,
-          "wk52_low": 97.63
         },
         {
           "symbol": "CUAEF",
@@ -3444,24 +3642,14 @@
           "wk52_low": 37.0
         },
         {
-          "symbol": "INGVF",
-          "nombre": "ING Groep N.V.",
-          "precio": 33.89,
+          "symbol": "AXAHF",
+          "nombre": "AXA",
+          "precio": 51.0,
           "pct_change": 0.0,
-          "market_cap": 96879452160,
-          "volumen": 500,
-          "wk52_high": 33.89,
-          "wk52_low": 21.95
-        },
-        {
-          "symbol": "OVCHF",
-          "nombre": "Overseas Chinese Banking Corp.,",
-          "precio": 20.168,
-          "pct_change": 0.0,
-          "market_cap": 90550329344,
-          "volumen": 300,
-          "wk52_high": 20.168,
-          "wk52_low": 12.175
+          "market_cap": 103753711616,
+          "volumen": 200,
+          "wk52_high": 51.0,
+          "wk52_low": 43.0
         },
         {
           "symbol": "AVIKF",
@@ -3475,6 +3663,16 @@
         }
       ],
       "top_nuevo_minimo": [
+        {
+          "symbol": "BCMXY",
+          "nombre": "Bank of Communications Co. Ltd.",
+          "precio": 19.85,
+          "pct_change": -3.641,
+          "market_cap": 70160842752,
+          "volumen": 1,
+          "wk52_high": 25.8,
+          "wk52_low": 19.85
+        },
         {
           "symbol": "SNHIY",
           "nombre": "SNHIY",
@@ -3490,42 +3688,31 @@
         {
           "symbol": "IBM",
           "nombre": "International Business Machines",
-          "precio": 212.67,
-          "pct_change": -2.913,
-          "market_cap": 199885406208,
-          "volumen": 11754853,
+          "precio": 213.0,
+          "pct_change": 0.155,
+          "market_cap": 200195571712,
+          "volumen": 9356548,
           "wk52_high": 332.46,
           "wk52_low": 204.44,
-          "volatilidad_semanal": 11.498
+          "volatilidad_semanal": 11.399
         },
         {
           "symbol": "BABAF",
           "nombre": "Alibaba Group Holding Limited",
-          "precio": 14.81,
-          "pct_change": -0.771,
-          "market_cap": 283981414400,
+          "precio": 15.0,
+          "pct_change": 0.503,
+          "market_cap": 287624658944,
           "volumen": 4096,
           "wk52_high": 23.99,
           "wk52_low": 10.976,
           "volatilidad_semanal": 9.007
         },
         {
-          "symbol": "KXIAY",
-          "nombre": "KIOXIA HLDGS CORP",
-          "precio": 34.56,
-          "pct_change": -3.058,
-          "market_cap": 189127016448,
-          "volumen": 1511965,
-          "wk52_high": 70.95,
-          "wk52_low": 4.125,
-          "volatilidad_semanal": 8.153
-        },
-        {
           "symbol": "MBFJF",
           "nombre": "Mitsubishi UFJ Financial Group,",
-          "precio": 21.66,
-          "pct_change": -7.079,
-          "market_cap": 244257062912,
+          "precio": 20.05,
+          "pct_change": -13.985,
+          "market_cap": 226101297152,
           "volumen": 600,
           "wk52_high": 23.31,
           "wk52_low": 12.71,
@@ -3534,13 +3721,24 @@
         {
           "symbol": "SNDK",
           "nombre": "Sandisk Corporation",
-          "precio": 1354.82,
-          "pct_change": -3.987,
-          "market_cap": 200634957824,
-          "volumen": 19810859,
+          "precio": 1390.95,
+          "pct_change": 2.667,
+          "market_cap": 205985447936,
+          "volumen": 12404763,
           "wk52_high": 2354.39,
           "wk52_low": 40.1,
-          "volatilidad_semanal": 7.357
+          "volatilidad_semanal": 7.337
+        },
+        {
+          "symbol": "KXIAY",
+          "nombre": "KIOXIA HLDGS CORP",
+          "precio": 34.13,
+          "pct_change": -1.244,
+          "market_cap": 186773864448,
+          "volumen": 419585,
+          "wk52_high": 70.95,
+          "wk52_low": 4.125,
+          "volatilidad_semanal": 7.142
         }
       ],
       "top_volatilidad_baja": [
@@ -3569,35 +3767,35 @@
         {
           "symbol": "BACHF",
           "nombre": "Bank of China, Ltd.",
-          "precio": 0.65,
-          "pct_change": 0.0,
-          "market_cap": 209438048256,
+          "precio": 0.6835,
+          "pct_change": 5.154,
+          "market_cap": 220232171520,
           "volumen": 145,
           "wk52_high": 0.71,
           "wk52_low": 0.5,
           "volatilidad_semanal": 0.0
         },
         {
-          "symbol": "CBAUF",
-          "nombre": "Commonwealth Bank of Australia",
-          "precio": 124.08,
-          "pct_change": 0.0,
-          "market_cap": 207477129216,
-          "volumen": 100,
-          "wk52_high": 124.08,
-          "wk52_low": 97.63,
-          "volatilidad_semanal": 0.0
-        },
-        {
           "symbol": "BAC-PB",
           "nombre": "Bank of America Corporation Dep",
-          "precio": 25.03,
-          "pct_change": -0.04,
+          "precio": 25.0067,
+          "pct_change": -0.093,
           "market_cap": null,
-          "volumen": 53921,
+          "volumen": 80215,
           "wk52_high": 25.78,
           "wk52_low": 24.52,
-          "volatilidad_semanal": 0.158
+          "volatilidad_semanal": 0.111
+        },
+        {
+          "symbol": "JPM-PC",
+          "nombre": "J P Morgan Chase & Co Depositar",
+          "precio": 25.32,
+          "pct_change": 0.079,
+          "market_cap": null,
+          "volumen": 87451,
+          "wk52_high": 25.74,
+          "wk52_low": 24.74,
+          "volatilidad_semanal": 0.12
         }
       ],
       "top_sobrecomprada": [
@@ -3624,94 +3822,94 @@
           "rsi": 100.0
         },
         {
-          "symbol": "CBAUF",
-          "nombre": "Commonwealth Bank of Australia",
-          "precio": 124.08,
-          "pct_change": 0.0,
-          "market_cap": 207477129216,
-          "volumen": 100,
-          "wk52_high": 124.08,
-          "wk52_low": 97.63,
-          "rsi": 100.0
-        },
-        {
           "symbol": "DBSDY",
           "nombre": "DBS Group Holdings Ltd.",
-          "precio": 223.51,
-          "pct_change": -0.357,
-          "market_cap": 158560157696,
-          "volumen": 1716,
+          "precio": 223.23,
+          "pct_change": -0.031,
+          "market_cap": 158361534464,
+          "volumen": 3417,
           "wk52_high": 228.13,
           "wk52_low": 142.0,
-          "rsi": 76.81
+          "rsi": 74.96
         },
         {
-          "symbol": "UNP",
-          "nombre": "Union Pacific Corporation",
-          "precio": 301.75,
-          "pct_change": 0.778,
-          "market_cap": 179152961536,
-          "volumen": 2741505,
-          "wk52_high": 303.15,
-          "wk52_low": 210.84,
-          "rsi": 75.26
+          "symbol": "CIHHF",
+          "nombre": "China Merchants Bank Co., Ltd.",
+          "precio": 6.1,
+          "pct_change": 3.565,
+          "market_cap": 153841057792,
+          "volumen": 1000,
+          "wk52_high": 6.91,
+          "wk52_low": 5.65,
+          "rsi": 73.59
+        },
+        {
+          "symbol": "WELL",
+          "nombre": "Welltower Inc.",
+          "precio": 244.84,
+          "pct_change": 0.654,
+          "market_cap": 172836093952,
+          "volumen": 1884828,
+          "wk52_high": 246.43,
+          "wk52_low": 158.24,
+          "rsi": 68.51
         }
       ],
       "top_sobrevendida": [
         {
+          "symbol": "CBAUF",
+          "nombre": "Commonwealth Bank of Australia",
+          "precio": 117.0,
+          "pct_change": -5.706,
+          "market_cap": 195638476800,
+          "volumen": 100,
+          "wk52_high": 124.08,
+          "wk52_low": 97.63,
+          "rsi": 0.0
+        },
+        {
           "symbol": "RTPPF",
           "nombre": "Rio Tinto plc",
-          "precio": 88.38,
-          "pct_change": 0.0,
-          "market_cap": 143728164864,
+          "precio": 103.25,
+          "pct_change": 16.825,
+          "market_cap": 167910555648,
           "volumen": 300,
           "wk52_high": 112.0,
           "wk52_low": 58.6,
-          "rsi": 13.25
+          "rsi": 10.18
         },
         {
           "symbol": "RTNTF",
           "nombre": "Rio Tinto Ltd.",
-          "precio": 111.05,
-          "pct_change": 0.0,
-          "market_cap": 180595310592,
+          "precio": 122.4,
+          "pct_change": 10.221,
+          "market_cap": 199053262848,
           "volumen": 300,
           "wk52_high": 133.85,
           "wk52_low": 71.0,
-          "rsi": 20.58
+          "rsi": 14.43
         },
         {
           "symbol": "NFLX",
           "nombre": "Netflix, Inc.",
-          "precio": 68.95,
-          "pct_change": -7.263,
-          "market_cap": 290334539776,
-          "volumen": 141231076,
+          "precio": 67.6,
+          "pct_change": -1.958,
+          "market_cap": 284649979904,
+          "volumen": 59580599,
           "wk52_high": 126.71,
           "wk52_low": 65.08,
-          "rsi": 29.67
+          "rsi": 27.12
         },
         {
           "symbol": "ORCL",
           "nombre": "Oracle Corporation",
-          "precio": 126.41,
-          "pct_change": 1.771,
-          "market_cap": 364120342528,
-          "volumen": 33592043,
+          "precio": 121.38,
+          "pct_change": -3.979,
+          "market_cap": 349631578112,
+          "volumen": 36384270,
           "wk52_high": 345.72,
-          "wk52_low": 121.5,
-          "rsi": 31.2
-        },
-        {
-          "symbol": "IBM",
-          "nombre": "International Business Machines",
-          "precio": 212.67,
-          "pct_change": -2.913,
-          "market_cap": 199885406208,
-          "volumen": 11754853,
-          "wk52_high": 332.46,
-          "wk52_low": 204.44,
-          "rsi": 33.8
+          "wk52_low": 120.03,
+          "rsi": 29.63
         }
       ]
     }
@@ -3720,252 +3918,252 @@
     {
       "symbol": "SPY",
       "nombre": "SPY (S&P 500)",
-      "close": "743.28998",
-      "percent_change": "-0.98971560",
+      "close": "742.15002",
+      "percent_change": "-0.15336593",
       "currency": "USD",
-      "percent_change_1m": 0.314,
-      "percent_change_ytd": 8.8,
-      "percent_change_12m": 18.351
+      "percent_change_1m": 0.161,
+      "percent_change_ytd": 8.633,
+      "percent_change_12m": 18.169
     },
     {
       "symbol": "QQQ",
       "nombre": "QQQ (Nasdaq 100)",
-      "close": "695.33002",
-      "percent_change": "-1.50296",
+      "close": "695.98999",
+      "percent_change": "0.094915095",
       "currency": "USD",
-      "percent_change_1m": -3.762,
-      "percent_change_ytd": 13.408,
-      "percent_change_12m": 23.768
+      "percent_change_1m": -3.671,
+      "percent_change_ytd": 13.516,
+      "percent_change_12m": 23.886
     },
     {
       "symbol": "DIA",
       "nombre": "DIA (Dow Jones)",
-      "close": "520.81000",
-      "percent_change": "-0.76596601",
+      "close": "517.89001",
+      "percent_change": "-0.56066184",
       "currency": "USD",
-      "percent_change_1m": 0.874,
-      "percent_change_ytd": 7.688,
-      "percent_change_12m": 16.978
+      "percent_change_1m": 0.308,
+      "percent_change_ytd": 7.084,
+      "percent_change_12m": 16.322
     },
     {
       "symbol": "EEM",
       "nombre": "EEM (Emergentes)",
-      "close": "63.29000",
-      "percent_change": "-1.40209",
+      "close": "63.57500",
+      "percent_change": "0.45030786",
       "currency": "USD",
-      "percent_change_1m": -7.687,
-      "percent_change_ytd": 12.536,
-      "percent_change_12m": 28.664
+      "percent_change_1m": -7.271,
+      "percent_change_ytd": 13.042,
+      "percent_change_12m": 29.244
     },
     {
       "symbol": "EWZ",
       "nombre": "EWZ (Brasil)",
-      "close": "35.23000",
-      "percent_change": "-0.28305203",
+      "close": "35.49000",
+      "percent_change": "0.73801345",
       "currency": "USD",
-      "percent_change_1m": 3.283,
-      "percent_change_ytd": 9.41,
-      "percent_change_12m": 27.23
+      "percent_change_1m": 4.046,
+      "percent_change_ytd": 10.217,
+      "percent_change_12m": 28.169
     },
     {
       "symbol": "IWM",
       "nombre": "IWM (Small Caps EEUU)",
-      "close": "294.040009",
-      "percent_change": "-0.52437086",
+      "close": "292.31000",
+      "percent_change": "-0.58835905",
       "currency": "USD",
-      "percent_change_1m": 1.435,
-      "percent_change_ytd": 18.193,
-      "percent_change_12m": 31.315
+      "percent_change_1m": 0.838,
+      "percent_change_ytd": 17.497,
+      "percent_change_12m": 30.542
     },
     {
       "symbol": "ARKK",
       "nombre": "ARKK (Innovacion)",
-      "close": "75.20000",
-      "percent_change": "-1.91731",
+      "close": "74.93000",
+      "percent_change": "-0.35903810",
       "currency": "USD",
-      "percent_change_1m": -4.192,
-      "percent_change_ytd": -3.971,
-      "percent_change_12m": -1.364
+      "percent_change_1m": -4.536,
+      "percent_change_ytd": -4.316,
+      "percent_change_12m": -1.718
     },
     {
       "symbol": "XLE",
       "nombre": "XLE (Energia)",
-      "close": "57.68000",
-      "percent_change": "1.15749",
+      "close": "57.95000",
+      "percent_change": "0.46810065",
       "currency": "USD",
-      "percent_change_1m": 5.506,
-      "percent_change_ytd": 26.353,
-      "percent_change_12m": 33.118
+      "percent_change_1m": 6.0,
+      "percent_change_ytd": 26.944,
+      "percent_change_12m": 33.741
     },
     {
       "symbol": "XLF",
       "nombre": "XLF (Financiero)",
-      "close": "56.26000",
-      "percent_change": "-0.86343908",
+      "close": "56.049999",
+      "percent_change": "-0.37326536",
       "currency": "USD",
-      "percent_change_1m": 4.089,
-      "percent_change_ytd": 2.421,
-      "percent_change_12m": 7.141
+      "percent_change_1m": 3.7,
+      "percent_change_ytd": 2.039,
+      "percent_change_12m": 6.742
     },
     {
       "symbol": "XLV",
       "nombre": "XLV (Salud)",
-      "close": "161.089996",
-      "percent_change": "-0.43881749",
+      "close": "159.30000",
+      "percent_change": "-1.11118",
       "currency": "USD",
-      "percent_change_1m": 6.887,
-      "percent_change_ytd": 3.588,
-      "percent_change_12m": 21.376
+      "percent_change_1m": 5.7,
+      "percent_change_ytd": 2.437,
+      "percent_change_12m": 20.027
     },
     {
       "symbol": "SMH",
       "nombre": "SMH (Semiconductores)",
-      "close": "556.53003",
-      "percent_change": "-2.17780",
+      "close": "558.25",
+      "percent_change": "0.30905263",
       "currency": "USD",
-      "percent_change_1m": -10.808,
-      "percent_change_ytd": 49.084,
-      "percent_change_12m": 90.782
+      "percent_change_1m": -10.533,
+      "percent_change_ytd": 49.545,
+      "percent_change_12m": 91.372
     },
     {
       "symbol": "IBIT",
       "nombre": "IBIT (Bitcoin)",
-      "close": "36.35000",
-      "percent_change": "-0.10992283",
+      "close": "36.87000",
+      "percent_change": "1.43054",
       "currency": "USD",
-      "percent_change_1m": -0.028,
-      "percent_change_ytd": -28.642,
-      "percent_change_12m": -46.268
+      "percent_change_1m": 1.403,
+      "percent_change_ytd": -27.621,
+      "percent_change_12m": -45.499
     },
     {
       "symbol": "GLD",
       "nombre": "GLD (Oro)",
-      "close": "368.41000",
-      "percent_change": "0.94531244",
+      "close": "367.57999",
+      "percent_change": "-0.22529711",
       "currency": "USD",
-      "percent_change_1m": -5.196,
-      "percent_change_ytd": -7.5,
-      "percent_change_12m": 19.773
+      "percent_change_1m": -5.409,
+      "percent_change_ytd": -7.708,
+      "percent_change_12m": 19.503
     },
     {
       "symbol": "XLK",
       "nombre": "XLK (Tecnologia)",
-      "close": "175.59000",
-      "percent_change": "-1.087206",
+      "close": "175.71300",
+      "percent_change": "0.070050174",
       "currency": "USD",
-      "percent_change_1m": -5.495,
-      "percent_change_ytd": 21.684,
-      "percent_change_12m": 34.521
+      "percent_change_1m": -5.429,
+      "percent_change_ytd": 21.769,
+      "percent_change_12m": 34.615
     },
     {
       "symbol": "TLT",
       "nombre": "TLT (Bonos largo plazo EEUU)",
-      "close": "84.52000",
-      "percent_change": "0.36812441",
+      "close": "83.92000",
+      "percent_change": "-0.70988937",
       "currency": "USD",
-      "percent_change_1m": -2.097,
-      "percent_change_ytd": -2.884,
-      "percent_change_12m": -0.693
+      "percent_change_1m": -2.792,
+      "percent_change_ytd": -3.573,
+      "percent_change_12m": -1.398
     },
     {
       "symbol": "FXI",
       "nombre": "FXI (China)",
-      "close": "34.13000",
-      "percent_change": "-1.15841",
+      "close": "35.049999",
+      "percent_change": "2.69557",
       "currency": "USD",
-      "percent_change_1m": 1.426,
-      "percent_change_ytd": -14.289,
-      "percent_change_12m": -9.205
+      "percent_change_1m": 4.16,
+      "percent_change_ytd": -11.979,
+      "percent_change_12m": -6.757
     },
     {
       "symbol": "SLV",
       "nombre": "SLV (Plata)",
-      "close": "50.78000",
-      "percent_change": "0.77396189",
+      "close": "50.98500",
+      "percent_change": "0.40370586",
       "currency": "USD",
-      "percent_change_1m": -16.218,
-      "percent_change_ytd": -22.768,
-      "percent_change_12m": 46.551
+      "percent_change_1m": -15.88,
+      "percent_change_ytd": -22.456,
+      "percent_change_12m": 47.143
     },
     {
       "symbol": "USO",
       "nombre": "USO (Petroleo)",
-      "close": "123.96000",
-      "percent_change": "3.90612",
+      "close": "125.51000",
+      "percent_change": "1.25041",
       "currency": "USD",
-      "percent_change_1m": 8.518,
-      "percent_change_ytd": 79.756,
-      "percent_change_12m": 62.763
+      "percent_change_1m": 9.875,
+      "percent_change_ytd": 82.004,
+      "percent_change_12m": 64.798
     },
     {
       "symbol": "XLP",
       "nombre": "XLP (Consumo basico)",
-      "close": "85.19000",
-      "percent_change": "-0.72252084",
+      "close": "84.84000",
+      "percent_change": "-0.41085350",
       "currency": "USD",
-      "percent_change_1m": 1.804,
-      "percent_change_ytd": 9.654,
-      "percent_change_12m": 5.03
+      "percent_change_1m": 1.386,
+      "percent_change_ytd": 9.203,
+      "percent_change_12m": 4.599
     },
     {
       "symbol": "XLY",
       "nombre": "XLY (Consumo discrecional)",
-      "close": "115.44000",
-      "percent_change": "-1.61922",
+      "close": "114.64000",
+      "percent_change": "-0.69300332",
       "currency": "USD",
-      "percent_change_1m": -0.043,
-      "percent_change_ytd": -2.459,
-      "percent_change_12m": 4.841
+      "percent_change_1m": -0.736,
+      "percent_change_ytd": -3.135,
+      "percent_change_12m": 4.114
     }
   ],
   "forex": [
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14315",
-      "percent_change": "-0.00087476819",
+      "close": "1.14127",
+      "percent_change": "-0.016645349",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.34673",
-      "percent_change": "0.11820331",
+      "close": "1.34245",
+      "percent_change": "-0.050628011",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.39594",
-      "percent_change": "-0.028791689",
+      "close": "162.52783",
+      "percent_change": "0.012073236",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.11259",
-      "percent_change": "-0.10082556",
+      "close": "5.09506",
+      "percent_change": "0.067955063",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.48351",
-      "percent_change": "-0.29909968",
+      "close": "17.43451",
+      "percent_change": "0.028629589",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.18248",
-      "percent_change": "-0.017765781",
+      "close": "40.23953",
+      "percent_change": "-0.0047960487",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1478.35134",
-      "percent_change": "0.038991724",
+      "close": "1481.34842",
+      "percent_change": "-0.0047771759",
       "currency": null
     }
   ]
