@@ -553,6 +553,18 @@ def get_bonos():
 # el cronograma; el filtro por fecha > hoy se aplica en tiempo de calculo.
 # ------------------------------------------------------------------
 
+# NOTA (chequeo automatico 2026-07-20, tarea #58): GD46 esta bien
+# codificado en este diccionario, pero hoy no aparece en
+# "bonos_soberanos_usd" del live_data.json publicado. Mismo patron que
+# CUAP/8-CER (ver nota junto a CER_FLUJOS): get_bonos_soberanos_usd()
+# hace "info = SOBERANOS_FLUJOS.get(sym); if not info or precio is None:
+# continue" sobre el feed de https://rendimientos.co/api/soberanos -si
+# ese feed todavia no trackea GD46 (emitido en el canje de agosto 2020,
+# pero puede no estar en la cobertura de este agregador en particular),
+# la entrada se descarta en silencio. No es un bug de flujos ni del
+# filtro de duration/DTM (con duration ~6.6 anios y DTM >> 45 dias, GD46
+# los pasaria sin problema). No se puede confirmar el contenido del feed
+# desde este sandbox (dominio bloqueado por el allowlist de red).
 SOBERANOS_FLUJOS = {
     "AL29": {"ley": "local", "vencimiento": "2029-07-09", "flujos": [
         ("2026-07-09", 10.35), ("2027-01-09", 10.3), ("2027-07-09", 10.25),
@@ -999,6 +1011,13 @@ LECAP_TERMS = {
     "T30J7": {"nombre": "BONCAP Jun 30/27", "pago_final": 156.037, "fecha_vencimiento": "2027-06-30"},
     # TO26: bono ley Argentina, tasa fija, un unico pago remanente
     # (7.75% cupon + 100% capital) el 2026-10-19. Fuente: bonistas.com/TO26 (campo flow).
+    # NOTA (chequeo automatico 2026-07-20, tarea #58): TO26 y TY30P estan
+    # bien codificados (ver flujo real en BONOS_PESOS_CUPON_FLUJOS para
+    # TY30P), pero hoy tampoco aparecen en "bonos_pesos" del live_data.json
+    # publicado. Mismo patron: get_bonos_pesos() matchea contra el feed
+    # https://rendimientos.co/api/lecaps por "symbol" y descarta en
+    # silencio si no encuentra el ticker o el precio es None. No es un
+    # bug de flujos ni del filtro de duration/DTM.
     "TO26": {"nombre": "Bonte 2026", "pago_final": 107.75, "fecha_vencimiento": "2026-10-19"},
 }
 
@@ -1648,6 +1667,17 @@ def get_bonos_pesos():
 # salen vacios para ajustar los nombres de campo).
 # ------------------------------------------------------------------
 
+# NOTA (chequeo automatico 2026-07-20, tarea #58): TAMAR_BONOS y
+# DUALES_DOLARLINKED_BONOS (mas abajo) estan bien codificados, pero hoy
+# 2 de los 5 tickers TAMAR (TMF27) y 2 de los 8 duales/dolar-linked
+# (TTD26, TZV27) no aparecen en el live_data.json publicado. A
+# diferencia de CUAP/CER/GD46 (que dependen de un feed masivo), estos
+# usan _fetch_bonistas_bond_info(sym) por ticker individual contra
+# bonistas.com/api/bond/{TICKER}: la ausencia puntual de estos 3
+# tickers indica que bonistas.com todavia no publica ficha para ellos
+# (o la publica sin los campos fair_value/tir_val/modified_duration_val
+# necesarios), mismo tipo de rezago de cobertura del feed externo, no
+# un bug de codigo ni del filtro de duration/DTM.
 TAMAR_BONOS = {
     "TMF27": {"vencimiento": "2027-02-26"},
     "TML27": {"vencimiento": "2027-07-30"},
