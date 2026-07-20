@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-20T21:44:31.296444+00:00",
+  "updated_at": "2026-07-20T22:05:28.640616+00:00",
   "dolar": [
     {
       "casa": "oficial",
@@ -68,32 +68,32 @@
     {
       "id": "bitcoin",
       "nombre": "Bitcoin (BTC)",
-      "usd": 65317,
-      "change_24h": 1.5378835315459347
+      "usd": 65137,
+      "change_24h": 1.0991676194553741
     },
     {
       "id": "ethereum",
       "nombre": "Ethereum (ETH)",
-      "usd": 1903.65,
-      "change_24h": 2.391937812811198
+      "usd": 1898.99,
+      "change_24h": 2.0415628130899117
     },
     {
       "id": "tether",
       "nombre": "USDT",
-      "usd": 0.999256,
-      "change_24h": 0.0035120972059182417
+      "usd": 0.999227,
+      "change_24h": 0.004334367760046278
     },
     {
       "id": "binancecoin",
       "nombre": "BNB",
-      "usd": 571.21,
-      "change_24h": 0.48069551454953385
+      "usd": 570.19,
+      "change_24h": 0.29181614971102976
     },
     {
       "id": "solana",
       "nombre": "Solana (SOL)",
-      "usd": 77.9,
-      "change_24h": 2.798635821473022
+      "usd": 77.63,
+      "change_24h": 2.520480417793083
     }
   ],
   "tasas_locales": [
@@ -2621,7 +2621,7 @@
       "region": "Europa",
       "close": 24846.69,
       "currency": "EUR",
-      "percent_change": 0.06326585158314336,
+      "percent_change": -0.2761343795679369,
       "percent_change_1y": 2.21693942450637
     },
     {
@@ -2630,7 +2630,7 @@
       "region": "Europa",
       "close": 8340.11,
       "currency": "EUR",
-      "percent_change": 0.01559490808052891,
+      "percent_change": -0.4505965721362119,
       "percent_change_1y": 6.948890518951679
     },
     {
@@ -2639,7 +2639,7 @@
       "region": "Europa",
       "close": 19206.9,
       "currency": "EUR",
-      "percent_change": -0.052039561124421777,
+      "percent_change": -0.5035179642763227,
       "percent_change_1y": 36.884153511741445
     },
     {
@@ -3018,7 +3018,7 @@
     }
   ],
   "acciones_mundiales": {
-    "updated_at": "2026-07-20T21:45:12.386422+00:00",
+    "updated_at": "2026-07-20T22:06:45.428744+00:00",
     "secciones": {
       "top_market_cap": [
         {
@@ -3042,16 +3042,6 @@
           "wk52_low": 201.5
         },
         {
-          "symbol": "GOOG",
-          "nombre": "Alphabet Inc.",
-          "precio": 351.37,
-          "pct_change": 1.517,
-          "market_cap": 4287617826816,
-          "volumen": 13160757,
-          "wk52_high": 404.47,
-          "wk52_low": 187.05
-        },
-        {
           "symbol": "GOOGL",
           "nombre": "Alphabet Inc.",
           "precio": 351.99,
@@ -3060,6 +3050,16 @@
           "volumen": 24606836,
           "wk52_high": 408.61,
           "wk52_low": 186.15
+        },
+        {
+          "symbol": "GOOG",
+          "nombre": "Alphabet Inc.",
+          "precio": 351.37,
+          "pct_change": 1.517,
+          "market_cap": 4287617826816,
+          "volumen": 13160757,
+          "wk52_high": 404.47,
+          "wk52_low": 187.05
         },
         {
           "symbol": "MSFT",
@@ -3102,16 +3102,6 @@
           "wk52_low": 273.0
         },
         {
-          "symbol": "SPCX",
-          "nombre": "Space Exploration Technologies ",
-          "precio": 119.85,
-          "pct_change": -3.339,
-          "market_cap": 1578926342144,
-          "volumen": 56256348,
-          "wk52_high": 225.64,
-          "wk52_low": 119.69
-        },
-        {
           "symbol": "META",
           "nombre": "Meta Platforms, Inc.",
           "precio": 645.85,
@@ -3120,6 +3110,16 @@
           "volumen": 9924164,
           "wk52_high": 796.25,
           "wk52_low": 520.26
+        },
+        {
+          "symbol": "SPCX",
+          "nombre": "Space Exploration Technologies ",
+          "precio": 119.85,
+          "pct_change": -3.339,
+          "market_cap": 1578926342144,
+          "volumen": 56256348,
+          "wk52_high": 225.64,
+          "wk52_low": 119.69
         },
         {
           "symbol": "TSLA",
@@ -3174,8 +3174,18 @@
       ],
       "top_suba_diaria": [
         {
+          "symbol": "ITJTY",
+          "nombre": "Intrum AB",
+          "precio": 1.63,
+          "pct_change": 443.333,
+          "market_cap": 5184508928,
+          "volumen": 155,
+          "wk52_high": 7.56,
+          "wk52_low": 0.29
+        },
+        {
           "symbol": "GMALY",
-          "nombre": "Genting Malaysia Berhad",
+          "nombre": "GENTING MALAYSIA BHD SPON ADR-E",
           "precio": 10.0,
           "pct_change": 122.222,
           "market_cap": 2267096576,
@@ -3184,8 +3194,78 @@
           "wk52_low": 4.5
         },
         {
+          "symbol": "ZHAOF",
+          "nombre": "ZHAOJIN MINING INDUSTRY COMPANY",
+          "precio": 4.27,
+          "pct_change": 107.282,
+          "market_cap": 15126018048,
+          "volumen": 400,
+          "wk52_high": 4.4,
+          "wk52_low": 2.06
+        },
+        {
+          "symbol": "CTVIF",
+          "nombre": "China Travel International Inve",
+          "precio": 0.178,
+          "pct_change": 97.778,
+          "market_cap": 2037801344,
+          "volumen": 11002,
+          "wk52_high": 0.25,
+          "wk52_low": 0.09
+        },
+        {
+          "symbol": "YZCFF",
+          "nombre": "SINOPEC OILFIELD SERVICE CORPOR",
+          "precio": 0.1924,
+          "pct_change": 93.952,
+          "market_cap": 3647335424,
+          "volumen": 10000,
+          "wk52_high": 0.1924,
+          "wk52_low": 0.0654
+        },
+        {
+          "symbol": "TOIPF",
+          "nombre": "THAI OIL PUBLIC CO LIMITED",
+          "precio": 2.2,
+          "pct_change": 76.0,
+          "market_cap": 7338003968,
+          "volumen": 100,
+          "wk52_high": 2.2,
+          "wk52_low": 0.75
+        },
+        {
+          "symbol": "TCMFF",
+          "nombre": "Telecom Argentina S.A.",
+          "precio": 2.15,
+          "pct_change": 75.51,
+          "market_cap": 4630429696,
+          "volumen": 620,
+          "wk52_high": 2.4,
+          "wk52_low": 0.001
+        },
+        {
+          "symbol": "TSIOF",
+          "nombre": "361 DEGREES INTERNATIONAL LIMIT",
+          "precio": 0.9212,
+          "pct_change": 69.619,
+          "market_cap": 1996868608,
+          "volumen": 9598,
+          "wk52_high": 0.9277,
+          "wk52_low": 0.5431
+        },
+        {
+          "symbol": "TGOSY",
+          "nombre": "Toyoda Gosei Co., Ltd,",
+          "precio": 61.2,
+          "pct_change": 63.987,
+          "market_cap": 3587920128,
+          "volumen": 131,
+          "wk52_high": 61.2,
+          "wk52_low": 37.32
+        },
+        {
           "symbol": "CMHHF",
-          "nombre": "China Merchants Port Holdings C",
+          "nombre": "CHINA MERCHANTS PORT HLDGS LTD",
           "precio": 2.34,
           "pct_change": 61.379,
           "market_cap": 9823340544,
@@ -3195,7 +3275,7 @@
         },
         {
           "symbol": "CHHQF",
-          "nombre": "CHINA HONGQIAO GROUP LTD",
+          "nombre": "China Hongqiao Group Limited",
           "precio": 4.39,
           "pct_change": 58.627,
           "market_cap": 43107155968,
@@ -3214,114 +3294,34 @@
           "wk52_low": 35.0
         },
         {
-          "symbol": "CLPXF",
-          "nombre": "CHINA LONGYUAN POWER GROUP CORP",
-          "precio": 0.87,
-          "pct_change": 45.0,
-          "market_cap": 7273039872,
-          "volumen": 1000,
-          "wk52_high": 1.0,
-          "wk52_low": 0.6
+          "symbol": "PTAIF",
+          "nombre": "ASTRA INTERNATIONAL",
+          "precio": 0.3645,
+          "pct_change": 58.066,
+          "market_cap": 14603259904,
+          "volumen": 25000,
+          "wk52_high": 0.5223,
+          "wk52_low": 0.2306
         },
         {
-          "symbol": "DRDGF",
-          "nombre": "DRDGOLD LTD",
-          "precio": 3.05,
-          "pct_change": 44.55,
-          "market_cap": 2645562880,
-          "volumen": 322,
-          "wk52_high": 3.75,
-          "wk52_low": 1.38
+          "symbol": "NTXVF",
+          "nombre": "NEXTEER AUTOMOTIVE GROUP LIMITE",
+          "precio": 0.779,
+          "pct_change": 52.446,
+          "market_cap": 2261809152,
+          "volumen": 477,
+          "wk52_high": 1.16,
+          "wk52_low": 0.511
         },
         {
-          "symbol": "SCGPY",
-          "nombre": "SERCO GROUP PLC SPN ADR EACH RE",
-          "precio": 4.0,
-          "pct_change": 41.343,
-          "market_cap": 3916369920,
-          "volumen": 775,
-          "wk52_high": 4.35,
-          "wk52_low": 2.74
-        },
-        {
-          "symbol": "NGKSF",
-          "nombre": "NITERRA CO LTD.",
-          "precio": 61.7,
-          "pct_change": 41.277,
-          "market_cap": 12031134720,
-          "volumen": 137,
-          "wk52_high": 61.7,
-          "wk52_low": 29.917
-        },
-        {
-          "symbol": "ALBHF",
-          "nombre": "Alibaba Health Information Tech",
-          "precio": 0.5811,
-          "pct_change": 38.357,
-          "market_cap": 9399467008,
-          "volumen": 2000,
-          "wk52_high": 0.9,
-          "wk52_low": 0.401
-        },
-        {
-          "symbol": "WARFF",
-          "nombre": "Wharf Holdings Ltd.",
-          "precio": 4.02,
-          "pct_change": 34.448,
-          "market_cap": 12285230080,
-          "volumen": 6,
-          "wk52_high": 4.02,
-          "wk52_low": 2.52
-        },
-        {
-          "symbol": "MMNNF",
-          "nombre": "Munters Group AP",
-          "precio": 20.4025,
-          "pct_change": 34.227,
-          "market_cap": 3724301824,
-          "volumen": 100,
-          "wk52_high": 24.0,
-          "wk52_low": 13.35
-        },
-        {
-          "symbol": "EQRLF",
-          "nombre": "EQ RESOURCES LTD",
-          "precio": 0.197,
-          "pct_change": 31.246,
-          "market_cap": 1013515456,
-          "volumen": 337958,
-          "wk52_high": 0.28,
-          "wk52_low": 0.06
-        },
-        {
-          "symbol": "ZMPLF",
-          "nombre": "ZIMPLATS HOLDINGS LIMITED",
-          "precio": 11.75,
-          "pct_change": 32.469,
-          "market_cap": 1264742400,
-          "volumen": 250,
-          "wk52_high": 15.95,
-          "wk52_low": 8.87
-        },
-        {
-          "symbol": "SEXHF",
-          "nombre": "SICHUAN EXPRESSWAY CO",
-          "precio": 0.75,
-          "pct_change": 29.31,
-          "market_cap": 2648257536,
-          "volumen": 1000,
-          "wk52_high": 0.78,
-          "wk52_low": 0.57
-        },
-        {
-          "symbol": "MTHRF",
-          "nombre": "M3, Inc.",
-          "precio": 11.0,
-          "pct_change": 28.625,
-          "market_cap": 7341725696,
-          "volumen": 300,
-          "wk52_high": 15.25,
-          "wk52_low": 8.552
+          "symbol": "MAWHF",
+          "nombre": "MAN WAH HOLDINGS LTD",
+          "precio": 0.6,
+          "pct_change": 50.0,
+          "market_cap": 2306370816,
+          "volumen": 30000,
+          "wk52_high": 0.68,
+          "wk52_low": 0.4
         }
       ],
       "top_baja_diaria": [
@@ -3488,46 +3488,6 @@
           "wk52_low": 1.78
         },
         {
-          "symbol": "AAL",
-          "nombre": "American Airlines Group, Inc.",
-          "precio": 15.14,
-          "pct_change": 1.068,
-          "market_cap": 10013371392,
-          "volumen": 165449523,
-          "wk52_high": 18.79,
-          "wk52_low": 10.09
-        },
-        {
-          "symbol": "NFLX",
-          "nombre": "Netflix, Inc.",
-          "precio": 67.6,
-          "pct_change": -1.958,
-          "market_cap": 284649979904,
-          "volumen": 59580599,
-          "wk52_high": 126.71,
-          "wk52_low": 65.08
-        },
-        {
-          "symbol": "INTC",
-          "nombre": "Intel Corporation",
-          "precio": 97.06,
-          "pct_change": 2.125,
-          "market_cap": 487823540224,
-          "volumen": 89273530,
-          "wk52_high": 142.35,
-          "wk52_low": 18.97
-        },
-        {
-          "symbol": "NOK",
-          "nombre": "Nokia Corporation Sponsored",
-          "precio": 10.08,
-          "pct_change": -0.395,
-          "market_cap": 56271945728,
-          "volumen": 81085548,
-          "wk52_high": 17.45,
-          "wk52_low": 4.0
-        },
-        {
           "symbol": "AMC",
           "nombre": "AMC Entertainment Holdings, Inc",
           "precio": 2.46,
@@ -3536,6 +3496,26 @@
           "volumen": 181884068,
           "wk52_high": 3.6,
           "wk52_low": 0.93
+        },
+        {
+          "symbol": "PATH",
+          "nombre": "UiPath, Inc.",
+          "precio": 12.16,
+          "pct_change": 0.082,
+          "market_cap": 6300342272,
+          "volumen": 169684247,
+          "wk52_high": 19.84,
+          "wk52_low": 9.2
+        },
+        {
+          "symbol": "AAL",
+          "nombre": "American Airlines Group, Inc.",
+          "precio": 15.14,
+          "pct_change": 1.068,
+          "market_cap": 10013371392,
+          "volumen": 165449523,
+          "wk52_high": 18.79,
+          "wk52_low": 10.09
         },
         {
           "symbol": "NU",
@@ -3548,64 +3528,34 @@
           "wk52_low": 11.2
         },
         {
-          "symbol": "OPEN",
-          "nombre": "Opendoor Technologies Inc",
-          "precio": 4.445,
-          "pct_change": -1.222,
-          "market_cap": 4288254464,
-          "volumen": 82216752,
-          "wk52_high": 10.87,
-          "wk52_low": 1.7
+          "symbol": "ACHR",
+          "nombre": "Archer Aviation Inc.",
+          "precio": 5.31,
+          "pct_change": 19.595,
+          "market_cap": 4050812672,
+          "volumen": 95667839,
+          "wk52_high": 14.62,
+          "wk52_low": 4.3
         },
         {
-          "symbol": "JOBY",
-          "nombre": "Joby Aviation, Inc.",
-          "precio": 7.47,
-          "pct_change": 3.32,
-          "market_cap": 7347812352,
-          "volumen": 76805958,
-          "wk52_high": 20.95,
-          "wk52_low": 6.89
+          "symbol": "HL",
+          "nombre": "Hecla Mining Company",
+          "precio": 14.29,
+          "pct_change": -0.279,
+          "market_cap": 9584480256,
+          "volumen": 87777929,
+          "wk52_high": 34.17,
+          "wk52_low": 5.62
         },
         {
-          "symbol": "SPCX",
-          "nombre": "Space Exploration Technologies ",
-          "precio": 119.85,
-          "pct_change": -3.339,
-          "market_cap": 1578926342144,
-          "volumen": 56256348,
-          "wk52_high": 225.64,
-          "wk52_low": 119.69
-        },
-        {
-          "symbol": "T",
-          "nombre": "AT&T Inc.",
-          "precio": 21.95,
-          "pct_change": 0.642,
-          "market_cap": 152516034560,
-          "volumen": 82390681,
-          "wk52_high": 29.79,
-          "wk52_low": 19.89
-        },
-        {
-          "symbol": "SKHY",
-          "nombre": "SK hynix Inc.",
-          "precio": 151.16,
-          "pct_change": -1.863,
-          "market_cap": 1073016668160,
-          "volumen": 37251575,
-          "wk52_high": 194.8,
-          "wk52_low": 145.57
-        },
-        {
-          "symbol": "LCID",
-          "nombre": "Lucid Group, Inc.",
-          "precio": 7.11,
-          "pct_change": -3.397,
-          "market_cap": 2774725888,
-          "volumen": 20913552,
-          "wk52_high": 33.1,
-          "wk52_low": 2.37
+          "symbol": "NVDA",
+          "nombre": "NVIDIA Corporation",
+          "precio": 203.28,
+          "pct_change": 0.232,
+          "market_cap": 4923644706816,
+          "volumen": 88271631,
+          "wk52_high": 236.54,
+          "wk52_low": 164.07
         },
         {
           "symbol": "IREN",
@@ -3618,14 +3568,64 @@
           "wk52_low": 14.72
         },
         {
-          "symbol": "F",
-          "nombre": "Ford Motor Company",
-          "precio": 13.99,
-          "pct_change": -1.687,
-          "market_cap": 55745851392,
-          "volumen": 39757337,
-          "wk52_high": 17.78,
-          "wk52_low": 10.68
+          "symbol": "T",
+          "nombre": "AT&T Inc.",
+          "precio": 21.95,
+          "pct_change": 0.642,
+          "market_cap": 152516034560,
+          "volumen": 82390681,
+          "wk52_high": 29.79,
+          "wk52_low": 19.89
+        },
+        {
+          "symbol": "OPEN",
+          "nombre": "Opendoor Technologies Inc",
+          "precio": 4.445,
+          "pct_change": -1.222,
+          "market_cap": 4288254464,
+          "volumen": 82216752,
+          "wk52_high": 10.87,
+          "wk52_low": 1.7
+        },
+        {
+          "symbol": "NOK",
+          "nombre": "Nokia Corporation Sponsored",
+          "precio": 10.08,
+          "pct_change": -0.395,
+          "market_cap": 56271945728,
+          "volumen": 81085548,
+          "wk52_high": 17.45,
+          "wk52_low": 4.0
+        },
+        {
+          "symbol": "INTC",
+          "nombre": "Intel Corporation",
+          "precio": 97.06,
+          "pct_change": 2.125,
+          "market_cap": 487823540224,
+          "volumen": 89273530,
+          "wk52_high": 142.35,
+          "wk52_low": 18.97
+        },
+        {
+          "symbol": "SOFI",
+          "nombre": "SoFi Technologies, Inc.",
+          "precio": 17.01,
+          "pct_change": -1.563,
+          "market_cap": 21819428864,
+          "volumen": 80034961,
+          "wk52_high": 32.73,
+          "wk52_low": 14.92
+        },
+        {
+          "symbol": "JOBY",
+          "nombre": "Joby Aviation, Inc.",
+          "precio": 7.47,
+          "pct_change": 3.32,
+          "market_cap": 7347812352,
+          "volumen": 76805958,
+          "wk52_high": 20.95,
+          "wk52_low": 6.89
         }
       ],
       "top_nuevo_maximo": [
@@ -3946,52 +3946,52 @@
     {
       "symbol": "SPY",
       "nombre": "SPY (S&P 500)",
-      "close": "742.15002",
-      "percent_change": "-0.15336593",
+      "close": "742.090027",
+      "percent_change": "-0.16143782",
       "currency": "USD",
-      "percent_change_1m": -0.615,
-      "percent_change_ytd": 8.633,
-      "percent_change_12m": 18.256
+      "percent_change_1m": -0.623,
+      "percent_change_ytd": 8.625,
+      "percent_change_12m": 18.246
     },
     {
       "symbol": "QQQ",
       "nombre": "QQQ (Nasdaq 100)",
-      "close": "695.98999",
-      "percent_change": "0.094915095",
+      "close": "696.059998",
+      "percent_change": "0.10498331",
       "currency": "USD",
-      "percent_change_1m": -6.026,
-      "percent_change_ytd": 13.516,
-      "percent_change_12m": 24.005
+      "percent_change_1m": -6.017,
+      "percent_change_ytd": 13.528,
+      "percent_change_12m": 24.017
     },
     {
       "symbol": "DIA",
       "nombre": "DIA (Dow Jones)",
-      "close": "517.89001",
-      "percent_change": "-0.56066184",
+      "close": "517.94000",
+      "percent_change": "-0.55106375",
       "currency": "USD",
-      "percent_change_1m": 0.46,
-      "percent_change_ytd": 7.084,
-      "percent_change_12m": 16.837
+      "percent_change_1m": 0.469,
+      "percent_change_ytd": 7.094,
+      "percent_change_12m": 16.848
     },
     {
       "symbol": "EEM",
       "nombre": "EEM (Emergentes)",
-      "close": "63.57500",
-      "percent_change": "0.45030786",
+      "close": "63.56000",
+      "percent_change": "0.42660840",
       "currency": "USD",
-      "percent_change_1m": -10.192,
-      "percent_change_ytd": 13.042,
-      "percent_change_12m": 29.533
+      "percent_change_1m": -10.213,
+      "percent_change_ytd": 13.016,
+      "percent_change_12m": 29.503
     },
     {
       "symbol": "EWZ",
       "nombre": "EWZ (Brasil)",
-      "close": "35.49000",
-      "percent_change": "0.73801345",
+      "close": "35.48000",
+      "percent_change": "0.70962249",
       "currency": "USD",
-      "percent_change_1m": 5.218,
-      "percent_change_ytd": 10.217,
-      "percent_change_12m": 32.179
+      "percent_change_1m": 5.188,
+      "percent_change_ytd": 10.186,
+      "percent_change_12m": 32.142
     },
     {
       "symbol": "IWM",
@@ -4016,102 +4016,102 @@
     {
       "symbol": "XLE",
       "nombre": "XLE (Energia)",
-      "close": "57.95000",
-      "percent_change": "0.46810065",
+      "close": "57.94000",
+      "percent_change": "0.45075992",
       "currency": "USD",
-      "percent_change_1m": 7.774,
-      "percent_change_ytd": 26.944,
-      "percent_change_12m": 34.83
+      "percent_change_1m": 7.755,
+      "percent_change_ytd": 26.922,
+      "percent_change_12m": 34.807
     },
     {
       "symbol": "XLF",
       "nombre": "XLF (Financiero)",
-      "close": "56.049999",
-      "percent_change": "-0.37326536",
+      "close": "56.040001",
+      "percent_change": "-0.39103699",
       "currency": "USD",
-      "percent_change_1m": 4.629,
-      "percent_change_ytd": 2.039,
-      "percent_change_12m": 6.681
+      "percent_change_1m": 4.611,
+      "percent_change_ytd": 2.021,
+      "percent_change_12m": 6.662
     },
     {
       "symbol": "XLV",
       "nombre": "XLV (Salud)",
-      "close": "159.30000",
-      "percent_change": "-1.11118",
+      "close": "159.25",
+      "percent_change": "-1.14222",
       "currency": "USD",
-      "percent_change_1m": 6.627,
-      "percent_change_ytd": 2.437,
-      "percent_change_12m": 20.828
+      "percent_change_1m": 6.593,
+      "percent_change_ytd": 2.405,
+      "percent_change_12m": 20.79
     },
     {
       "symbol": "SMH",
       "nombre": "SMH (Semiconductores)",
-      "close": "558.25",
-      "percent_change": "0.30905263",
+      "close": "558.83002",
+      "percent_change": "0.41327290",
       "currency": "USD",
-      "percent_change_1m": -15.401,
-      "percent_change_ytd": 49.545,
-      "percent_change_12m": 92.294
+      "percent_change_1m": -15.313,
+      "percent_change_ytd": 49.7,
+      "percent_change_12m": 92.494
     },
     {
       "symbol": "IBIT",
       "nombre": "IBIT (Bitcoin)",
-      "close": "36.87000",
-      "percent_change": "1.43054",
+      "close": "36.89000",
+      "percent_change": "1.48556",
       "currency": "USD",
-      "percent_change_1m": 3.509,
-      "percent_change_ytd": -27.621,
-      "percent_change_12m": -44.706
+      "percent_change_1m": 3.565,
+      "percent_change_ytd": -27.581,
+      "percent_change_12m": -44.676
     },
     {
       "symbol": "GLD",
       "nombre": "GLD (Oro)",
-      "close": "367.57999",
-      "percent_change": "-0.22529711",
+      "close": "367.60001",
+      "percent_change": "-0.21986307",
       "currency": "USD",
-      "percent_change_1m": -5.048,
-      "percent_change_ytd": -7.708,
-      "percent_change_12m": 19.193
+      "percent_change_1m": -5.042,
+      "percent_change_ytd": -7.703,
+      "percent_change_12m": 19.2
     },
     {
       "symbol": "XLK",
       "nombre": "XLK (Tecnologia)",
-      "close": "175.71300",
-      "percent_change": "0.070050174",
+      "close": "175.71001",
+      "percent_change": "0.068346932",
       "currency": "USD",
-      "percent_change_1m": -8.215,
-      "percent_change_ytd": 21.769,
-      "percent_change_12m": 34.703
+      "percent_change_1m": -8.217,
+      "percent_change_ytd": 21.767,
+      "percent_change_12m": 34.7
     },
     {
       "symbol": "TLT",
       "nombre": "TLT (Bonos largo plazo EEUU)",
-      "close": "83.92000",
-      "percent_change": "-0.70988937",
+      "close": "83.89000",
+      "percent_change": "-0.74538249",
       "currency": "USD",
-      "percent_change_1m": -3.262,
-      "percent_change_ytd": -3.573,
-      "percent_change_12m": -1.549
+      "percent_change_1m": -3.297,
+      "percent_change_ytd": -3.608,
+      "percent_change_12m": -1.584
     },
     {
       "symbol": "FXI",
       "nombre": "FXI (China)",
-      "close": "35.049999",
-      "percent_change": "2.69557",
+      "close": "35.040001",
+      "percent_change": "2.66628",
       "currency": "USD",
-      "percent_change_1m": 5.255,
-      "percent_change_ytd": -11.979,
-      "percent_change_12m": -7.909
+      "percent_change_1m": 5.225,
+      "percent_change_ytd": -12.004,
+      "percent_change_12m": -7.935
     },
     {
       "symbol": "SLV",
       "nombre": "SLV (Plata)",
-      "close": "50.98500",
-      "percent_change": "0.40370586",
+      "close": "50.98000",
+      "percent_change": "0.39385736",
       "currency": "USD",
-      "percent_change_1m": -14.325,
-      "percent_change_ytd": -22.456,
-      "percent_change_12m": 47.313
+      "percent_change_1m": -14.334,
+      "percent_change_ytd": -22.464,
+      "percent_change_12m": 47.298
     },
     {
       "symbol": "USO",
@@ -4126,72 +4126,72 @@
     {
       "symbol": "XLP",
       "nombre": "XLP (Consumo basico)",
-      "close": "84.84000",
-      "percent_change": "-0.41085350",
+      "close": "84.86000",
+      "percent_change": "-0.38737155",
       "currency": "USD",
-      "percent_change_1m": 1.849,
-      "percent_change_ytd": 9.203,
-      "percent_change_12m": 4.883
+      "percent_change_1m": 1.873,
+      "percent_change_ytd": 9.229,
+      "percent_change_12m": 4.908
     },
     {
       "symbol": "XLY",
       "nombre": "XLY (Consumo discrecional)",
-      "close": "114.64000",
-      "percent_change": "-0.69300332",
+      "close": "114.61000",
+      "percent_change": "-0.71898979",
       "currency": "USD",
-      "percent_change_1m": -2.151,
-      "percent_change_ytd": -3.135,
-      "percent_change_12m": 3.2
+      "percent_change_1m": -2.177,
+      "percent_change_ytd": -3.16,
+      "percent_change_12m": 3.173
     }
   ],
   "forex": [
     {
       "symbol": "EUR/USD",
       "nombre": "Euro",
-      "close": "1.14123",
-      "percent_change": "-0.020149633",
+      "close": "1.14104",
+      "percent_change": "-0.036794982",
       "currency": null
     },
     {
       "symbol": "GBP/USD",
       "nombre": "Libra",
-      "close": "1.3426",
-      "percent_change": "-0.039460067",
+      "close": "1.3423",
+      "percent_change": "-0.061795954",
       "currency": null
     },
     {
       "symbol": "USD/JPY",
       "nombre": "Yen",
-      "close": "162.51304",
-      "percent_change": "0.0029721575",
+      "close": "162.50171",
+      "percent_change": "-0.0039997979",
       "currency": null
     },
     {
       "symbol": "USD/BRL",
       "nombre": "Real",
-      "close": "5.09358",
-      "percent_change": "0.038887580",
+      "close": "5.09237",
+      "percent_change": "0.015122948",
       "currency": null
     },
     {
       "symbol": "USD/MXN",
       "nombre": "Peso Mexicano",
-      "close": "17.43718",
-      "percent_change": "0.043948428",
+      "close": "17.43126",
+      "percent_change": "0.0099830632",
       "currency": null
     },
     {
       "symbol": "USD/UYU",
       "nombre": "Peso Uruguayo",
-      "close": "40.23835",
-      "percent_change": "-0.0077283478",
+      "close": "40.24157",
+      "percent_change": "0.00027334992",
       "currency": null
     },
     {
       "symbol": "USD/ARS",
       "nombre": "Peso Argentino",
-      "close": "1481.66644",
-      "percent_change": "0.016690077",
+      "close": "1481.39923",
+      "percent_change": "-0.0013473567",
       "currency": null
     }
   ]
