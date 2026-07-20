@@ -945,65 +945,11 @@ CER_VNR_CONOCIDO = {
 # PUT, es la discrepancia esperada por no modelar esa opcionalidad, no un
 # error de flujos.
 # ------------------------------------------------------------------
-# PENDIENTE (tareas 3.3 "TAMAR" y 3.4 "Duales y Dolar Linked"): NO
-# implementado todavia. Corrida del 19/07/2026 (con WebSearch + fetch
-# puntual) confirmo que bonistas.com SI tiene ficha individual para
-# estos tickers, en la misma URL que ya se usa para CER:
-# https://bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{TICKER}
-# (paginas server-side renderizadas, no requieren JS; el bloqueo previo
-# era que la URL exacta debia aparecer primero en un resultado de
-# busqueda para poder hacer fetch puntual, no un problema del sitio).
-# Ejemplos confirmados hoy (fecha de consulta 19/07/2026):
-#  - TMF27 (TAMAR, vto. 26/02/2027, emision 13/02/2026): Precio=114.50,
-#    VT=110.35, Paridad=103.76%, TIR=26.72%.
-#  - TXMJ8 (Dual CER/TAMAR, vto. 30/06/2028): Precio=95.60 (fuente
-#    max.capital, no bonistas.com; bonistas.com no aparecio en esta
-#    busqueda puntual para TXMJ8, seguir intentando con la URL exacta
-#    entre comillas).
-# Restriccion nueva detectada esta corrida: bonistas.com NO es
-# alcanzable via curl/requests desde el shell de este sandbox (bloqueado
-# por el allowlist de red del entorno de ejecucion de Claude), asi que
-# no se pudo inspeccionar el HTML crudo para escribir un parser regex
-# confiable. Esto NO deberia ser un problema para GitHub Actions (que
-# corre este script con acceso a internet sin ese allowlist), pero
-# significa que el parser tiene que escribirse "a ciegas" a partir del
-# texto renderizado (sin ver las etiquetas HTML reales) o bien
-# verificarse en una corrida de prueba en GitHub Actions antes de
-# confiar en el.
-#
-# Camino mas simple sugerido por la tarea original (evitar reimplementar
-# el ajuste TAMAR/dual): en vez de modelar el coeficiente TAMAR
-# acumulado (que requeriria una serie historica de tasa TAMAR que este
-# script no tiene), tomar directamente TIR y Duration (MD) que ya
-# publica bonistas.com para cada ticker, documentando la fuente en el
-# resultado (ver campo sugerido "fuente": "bonistas.com" en el dict de
-# salida). Esto evita fabricar un modelo de flujos no verificado, al
-# costo de depender de un tercero para el calculo (aceptable como primer
-# paso segun el enunciado de la tarea).
-#
-# Para continuar en una proxima sesion:
-#  1. Escribir un fetch_html(url) auxiliar (urllib, ya usado en el resto
-#     del script) + un parser regex sobre
-#     https://bonistas.com/bono-cotizacion-rendimiento-precio-hoy/{TICKER}
-#     para extraer Precio, TIR, VT, Paridad y MD. Verificar el regex
-#     contra al menos un ticker corriendo el script real (no solo el
-#     texto renderizado por una herramienta de fetch) antes de confiar
-#     en el para los 13 tickers.
-#  2. Documentar la fuente y fecha de consulta en un comentario, igual
-#     que se hizo para TZXA7/TZXY7 en CER_FLUJOS mas arriba.
-#  3. No existe todavia en este codigo un helper generico de
-#     "VR-adjustment" reusable para TAMAR (se busco cerca de
-#     get_bonos_cer() y no hay ninguno). Si se opta por el camino
-#     simple (usar TIR/MD de bonistas.com tal cual), no hace falta
-#     crear ese helper: alcanza con un get_bonos_tamar()/
-#     get_bonos_duales() que arme la salida a partir del fetch_html
-#     de arriba, sin recalcular TIR/duration propios.
-#  4. Frontend: agregar las tablas nuevas en index.html (etiqueta
-#     "TAMAR" en Bonos en Pesos para 3.3, y una subseccion separada
-#     "Duales y Dolar Linked" para 3.4, sin mezclar con CER), y
-#     extender el selector de pastillas de 3.6 (ver switchStockSubTab
-#     en index.html como referencia de patron) a 3 pastillas: Tasa
-#     Fija / TAMAR / Duales y Dolar Linked.
+# NOTA: tareas 3.3 (TAMAR) y 3.4 (Duales/Dolar Linked) implementadas.
+# Ver get_bonos_tamar()/get_bonos_duales_dolarlinked() y TAMAR_BONOS/
+# DUALES_DOLARLINKED_BONOS mas abajo en este archivo: usan TIR/duration
+# publicados por bonistas.com (via _fetch_bonistas_bond_info), ya que no
+# hay fuente propia de tasa TAMAR historica integrada.
 # ------------------------------------------------------------------
 
 BONOS_PESOS_CUPON_FLUJOS = {
