@@ -3114,6 +3114,152 @@ def build_history_agregados_monetarios():
     out["_updated_at"] = datetime.now(timezone.utc).isoformat()
     return out
 
+# ------------------------------------------------------------------
+# Actividad Economica (Indicadores Economicos, tarjetas). Fuente: API
+# de Series de Tiempo de la Republica Argentina (apis.datos.gob.ar),
+# oficial, gratuita, sin autenticacion, mantenida por Jefatura de
+# Gabinete de Ministros, que republica series de INDEC/Ministerio de
+# Economia con id estables.
+#
+# El catalogo "sspm" (Subsecretaria de Programacion Macroeconomica) es
+# donde vive el EMAE. Se probo en vivo el id historico documentado en
+# datos.gob.ar para "EMAE desestacionalizado. Base 2004"
+# (143.3_NO_PR_2004_A_31): la propia API devolvio meta.end_date =
+# 2012-04-01, es decir esa serie especifica esta discontinuada (no se
+# actualiza desde 2012) aunque el dataset siga publicado. No se puede
+# confirmar desde este entorno, sin acceso de red irrestricto, cual es
+# el id vigente que la reemplaza.
+#
+# Por eso, en vez de hardcodear un id no verificable (que arriesgaria
+# mostrar una serie discontinuada como si fuera el dato actual), se
+# aplica el mismo patron de autodescubrimiento que ya se usa para el
+# catalogo de variables del BCRA: se descarga en cada corrida el
+# catalogo oficial completo de metadatos de series del catalogo sspm
+# (columnas documentadas: serie_id, serie_titulo, serie_descripcion,
+# indice_tiempo_frecuencia), se buscan las series candidatas por texto,
+# y de las candidatas se toma la que tenga el dato mas reciente (mayor
+# meta.end_date real, verificado con una consulta liviana a la propia
+# API). Si ninguna candidata tiene datos de los ultimos ~4 meses, se
+# omite la serie en vez de arriesgar mostrar un dato desactualizado.
+# ------------------------------------------------------------------
+
+SERIES_TIEMPO_CATALOGO_URL = "https://apis.datos.gob.ar/series/api/dump/sspm/series-tiempo-metadatos.csv"
+
+_series_tiempo_catalogo_cache = None
+
+
+def _series_tiempo_catalogo():
+    global _series_tiempo_catalogo_cache
+    if _series_tiempo_catalogo_cache is not None:
+        return _series_tiempo_catalogo_cache
+    import csv
+    import io
+    texto = fetch_text(SERIES_TIEMPO_CATALOGO_URL, timeout=60)
+    if texto:
+        try:
+            reader = csv.DictReader(io.StringIO(texto))
+            filas = list(reader)
+        except Exception as exc:
+            print(f"[WARN] No se pudo parsear el catalogo de Series de Tiempo (sspm): {exc}")
+            filas = []
+    else:
+        filas = []
+    _series_tiempo_catalogo_cache = filas
+    return filas
+
+
+def _series_tiempo_candidatas(keyword, excluir=None, frecuencia=None):
+    """Busca en el catalogo oficial (descargado en vivo) todas las
+    series cuyo titulo o descripcion contengan el texto dado
+    (case-insensitive). Devuelve lista de serie_id, ordenada tal como
+    aparece en el catalogo (no implica que sea la vigente: eso se
+    valida aparte, por recencia real de datos)."""
+    catalogo = _series_tiempo_catalogo()
+    kw = keyword.lower()
+    out = []
+    for fila in catalogo:
+        titulo = (fila.get("serie_titulo") or "").lower()
+        desc = (fila.get("serie_descripcion") or "").lower()
+        texto = titulo + " " + desc
+        if kw not in texto:
+            continue
+        if excluir and excluir.lower() in texto:
+            continue
+        if frecuencia and (fila.get("indice_tiempo_frecuencia") or "").upper() != frecuencia.upper():
+            continue
+        serie_id = fila.get("serie_id")
+        if serie_id:
+            out.append((serie_id, fila.get("serie_titulo") or fila.get("serie_descripcion") or serie_id))
+    return out
+
+
+def _series_tiempo_fetch(serie_id, start_date=None):
+    """Descarga el historico completo de una serie de la API de Series
+    de Tiempo (paginado, limite 1000 por pagina)."""
+    out = []
+    start = 0
+    while True:
+        url = (
+            f"https://apis.datos.gob.ar/series/api/series/?ids={serie_id}"
+            f"&format=json&metadata=none&limit=1000&start={start}&sort=asc"
+        )
+        if start_date:
+            url += f"&start_date={start_date}"
+        data = fetch_json(url)
+        if not data or "data" not in data or not data["data"]:
+            break
+        rows = data["data"]
+        out.extend(rows)
+        if len(rows) < 1000:
+            break
+        start += 1000
+    return out
+
+
+def _series_tiempo_elegir_vigente(candidatas, dias_recencia_max=150):
+    """De una lista de series candidatas (mismo texto de busqueda),
+    consulta el ultimo dato real de cada una y devuelve la primera
+    cuyo ultimo dato sea reciente (dentro de dias_recencia_max desde
+    hoy). Evita mostrar una serie discontinuada como si fuera vigente."""
+    hoy = date.today()
+    for serie_id, titulo in candidatas:
+        url = f"https://apis.datos.gob.ar/series/api/series/?ids={serie_id}&last=1&format=json&metadata=none"
+        data = fetch_json(url)
+        if not data or not data.get("data"):
+            continue
+        ultima_fecha_str = data["data"][-1][0]
+        ultima_fecha = _parse_date(ultima_fecha_str)
+        if ultima_fecha and (hoy - ultima_fecha).days <= dias_recencia_max:
+            return serie_id, titulo
+        time.sleep(0.3)
+    return None, None
+
+
+def build_history_actividad():
+    out = {}
+
+    candidatas = _series_tiempo_candidatas(
+        "estimador mensual de actividad", excluir="apertura", frecuencia="M"
+    )
+    candidatas_deses = [c for c in candidatas if "desestacional" in c[1].lower()]
+    serie_id, titulo = _series_tiempo_elegir_vigente(candidatas_deses or candidatas)
+    if serie_id is None:
+        print("[WARN] No se encontro en el catalogo de Series de Tiempo una serie vigente de EMAE desestacionalizado: se omite.")
+    else:
+        rows = _series_tiempo_fetch(serie_id, start_date="2004-01-01")
+        serie = [{"fecha": r[0], "valor": r[1]} for r in rows if r[0] and r[1] is not None]
+        serie.sort(key=lambda p: p["fecha"])
+        if serie:
+            out["emae_desestacionalizado"] = {
+                "nombre": "EMAE (Estimador Mensual de Actividad Económica) - Serie desestacionalizada",
+                "unidad": "Índice 2004=100", "tipo": "valor", "periodicidad": "Mensual",
+                "fuente": "INDEC (vía Series de Tiempo, Jefatura de Gabinete)", "serie": serie,
+            }
+
+    if not out:
+        return None
+    out["_updated_at"] = datetime.now(timezone.utc).isoformat()
+    return out
 
 def build_history_tasas_locales():
     hoy = date.today()
@@ -4104,6 +4250,7 @@ def main():
     historicos = {
         "indicadores_precios.json": build_history_indicadores_precios(),
         "indicadores_monetarios.json": build_history_agregados_monetarios(),
+      "indicadores_actividad.json": build_history_actividad(),
         "dolar.json": build_history_dolar(),
         "tasas_locales.json": build_history_tasas_locales(),
         "fci_secciones.json": build_history_fci_secciones(live_data.get("fci_secciones")),
