@@ -3154,7 +3154,25 @@ def _series_tiempo_catalogo():
         return _series_tiempo_catalogo_cache
     import csv
     import io
-    texto = fetch_text(SERIES_TIEMPO_CATALOGO_URL, timeout=60)
+# Este endpoint especifico (a diferencia de BCRA/ArgentinaDatos)
+    # devuelve 403 Forbidden al User-Agent tipo bot que usa fetch_text()
+    # por defecto (confirmado en la corrida real de GitHub Actions, no
+    # es una restriccion de red del entorno). Se pide con un
+    # User-Agent de navegador estandar, unicamente para esta llamada.
+    texto = None
+    try:
+        req = urllib.request.Request(
+            SERIES_TIEMPO_CATALOGO_URL,
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                              "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                "Accept": "text/csv,*/*",
+            },
+        )
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            texto = resp.read().decode("utf-8", errors="replace")
+    except Exception as exc:
+        print(f"[WARN] Fallo al pedir el catalogo de Series de Tiempo (sspm) con User-Agent de navegador: {exc}")
     if texto:
         try:
             reader = csv.DictReader(io.StringIO(texto))
