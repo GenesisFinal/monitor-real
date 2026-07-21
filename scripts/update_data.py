@@ -2744,6 +2744,18 @@ def _yahoo_screener_paginated(opener, crumb, query, sort_field, sort_type, total
     return out[:total_needed]
 
 
+def _es_bolsa_valida(q):
+    """Salvaguarda extra: descarta cualquier cotizacion que Yahoo taggee
+    como OTC Markets (Pink Sheets / OTCQX / OTCID), aun si el filtro
+    'exchange' de la query del screener llegara a fallar o Yahoo
+    cambiara su comportamiento. No debe eliminar nada bajo condiciones
+    normales, ya que el filtro de la query ya restringe a NMS/NYQ/NGM/
+    ASE -- es un chequeo de defensa en profundidad, no la logica
+    principal."""
+    nombre_bolsa = (q.get("fullExchangeName") or "")
+    return "OTC" not in nombre_bolsa.upper()
+
+
 def _accion_mundial_item(q):
     return {
         "symbol": q.get("symbol"),
@@ -2797,11 +2809,26 @@ def get_acciones_mundiales():
         print("[WARN] No se pudo autenticar contra el screener de Yahoo Finance: se omite Acciones Mundiales.")
         return None
 
+    # El filtro "region: us" de Yahoo NO excluye ADRs OTC/Pink Sheets de
+    # empresas extranjeras (tambien quedan taggeadas como region "us" al
+    # cotizar en mercado estadounidense, aunque sea extrabursatil). Se
+    # verifico en vivo que sin esta restriccion, ~40% del universo
+    # filtrado por market cap termina siendo OTC Markets (OTCPK/OTCQX/
+    # OTCID), con precios/variaciones no confiables (baja liquidez,
+    # cotizaciones desactualizadas). Se restringe explicitamente a las
+    # bolsas reguladas de EE.UU.: NMS/NGM (Nasdaq Global Select/Global
+    # Market), NYQ (NYSE), ASE (NYSE American).
     filtro_base = {
         "operator": "AND",
         "operands": [
             {"operator": "GT", "operands": ["intradaymarketcap", ACCIONES_MUNDIALES_MKTCAP_MIN]},
             {"operator": "EQ", "operands": ["region", "us"]},
+            {"operator": "OR", "operands": [
+                {"operator": "EQ", "operands": ["exchange", "NMS"]},
+                {"operator": "EQ", "operands": ["exchange", "NYQ"]},
+                {"operator": "EQ", "operands": ["exchange", "NGM"]},
+                {"operator": "EQ", "operands": ["exchange", "ASE"]},
+            ]},
         ],
     }
 
@@ -2811,20 +2838,21 @@ def get_acciones_mundiales():
     # 6) Top volumen: el screener ya devuelve el ranking ordenado sobre
     # TODO el universo filtrado (no hace falta traer mas datos).
     out["top_market_cap"] = [_accion_mundial_item(q) for q in
-        _yahoo_screener_query(opener, crumb, filtro_base, "intradaymarketcap", "DESC", size=15)]
+        _yahoo_screener_query(opener, crumb, filtro_base, "intradaymarketcap", "DESC", size=15) if _es_bolsa_valida(q)]
     out["top_suba_diaria"] = [_accion_mundial_item(q) for q in
-        _yahoo_screener_query(opener, crumb, filtro_base, "percentchange", "DESC", size=15)]
+        _yahoo_screener_query(opener, crumb, filtro_base, "percentchange", "DESC", size=15) if _es_bolsa_valida(q)]
     out["top_baja_diaria"] = [_accion_mundial_item(q) for q in
-        _yahoo_screener_query(opener, crumb, filtro_base, "percentchange", "ASC", size=15)]
+        _yahoo_screener_query(opener, crumb, filtro_base, "percentchange", "ASC", size=15) if _es_bolsa_valida(q)]
     out["top_volumen"] = [_accion_mundial_item(q) for q in
-        _yahoo_screener_query(opener, crumb, filtro_base, "dayvolume", "DESC", size=15)]
+        _yahoo_screener_query(opener, crumb, filtro_base, "dayvolume", "DESC", size=15) if _es_bolsa_valida(q)]
 
     # 4) Nuevos maximos y 5) nuevos minimos de 52 semanas: el screener no
     # tiene un campo directo para "distancia al maximo/minimo de 52
     # semanas", asi que se trae un pool amplio (top 500 por
     # capitalizacion, paginado) y se filtra localmente comparando precio
     # actual vs. fiftyTwoWeekHigh/Low (ya vienen en cada cotizacion).
-    pool_500 = _yahoo_screener_paginated(opener, crumb, filtro_base, "intradaymarketcap", "DESC", 500)
+    pool_500 = [q for q in _yahoo_screener_paginated(opener, crumb, filtro_base, "intradaymarketcap", "DESC", 500)
+                if _es_bolsa_valida(q)]
 
     nuevos_maximos = [
         q for q in pool_500
