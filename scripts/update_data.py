@@ -3341,6 +3341,49 @@ def build_history_agregados_monetarios():
     return out
 
 
+COMERCIO_SERIES = {
+    "exportaciones_totales": "74.3_IET_0_M_16",
+    "importaciones_totales": "74.3_IIT_0_M_25",
+    "saldo_comercial": "79.3_ISCT_0_A_27",
+}
+
+
+def build_history_comercio():
+    """Comercio Internacional (Indicadores Economicos, tarjetas). Fuente:
+    API de Series de Tiempo (apis.datos.gob.ar), INDEC (Intercambio
+    Comercial Argentino), oficial, gratuita, sin autenticacion."""
+    out = {}
+
+    exp = _fetch_indec_series(COMERCIO_SERIES["exportaciones_totales"])
+    if exp:
+        out["exportaciones_totales"] = {
+            "nombre": "Exportaciones Totales",
+            "unidad": "millones de USD", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in exp],
+        }
+
+    imp = _fetch_indec_series(COMERCIO_SERIES["importaciones_totales"])
+    if imp:
+        out["importaciones_totales"] = {
+            "nombre": "Importaciones Totales",
+            "unidad": "millones de USD", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in imp],
+        }
+
+    saldo = _fetch_indec_series(COMERCIO_SERIES["saldo_comercial"])
+    if saldo:
+        out["saldo_comercial"] = {
+            "nombre": "Saldo Comercial (Exportaciones - Importaciones)",
+            "unidad": "millones de USD", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in saldo],
+        }
+
+    if not out:
+        return None
+    out["_updated_at"] = datetime.now(timezone.utc).isoformat()
+    return out
+
+
 FISCAL_SERIES = {
     "resultado_primario": "452.3_RESULTADO_RIO_0_M_18_54",
     "resultado_financiero": "378.9_RESULTADO_017_0_M_18_90",
@@ -4707,6 +4750,7 @@ def main():
         "indicadores_monetarios.json": build_history_agregados_monetarios(),
         "indicadores_fiscal.json": build_history_fiscal(),
         "indicadores_reservas_deuda.json": build_history_reservas_deuda(),
+        "indicadores_comercio.json": build_history_comercio(),
       "indicadores_actividad.json": build_history_actividad(),
         "dolar.json": build_history_dolar(),
         "tasas_locales.json": build_history_tasas_locales(),
