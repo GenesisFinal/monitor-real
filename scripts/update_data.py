@@ -4521,7 +4521,7 @@ def get_indicadores_precios():
     ipc_ia = _serie_var_interanual(ipc_idx)
     cards.append(_card("ipc_interanual", "Inflacion IPC - Interanual", ipc_ia, "%", "interanual",
                         ipc_ia[-1][1] if ipc_ia else None))
-    ipc_mensual = series["ipc_mensual"]
+    ipc_mensual = [(f, round(v * 100, 4)) for f, v in series["ipc_mensual"]]
     cards.append(_card("ipc_mensual", "Inflacion IPC - Tasa Mensual", ipc_mensual, "%", "mensual",
                         ipc_mensual[-1][1] if ipc_mensual else None))
 
@@ -4537,7 +4537,7 @@ def get_indicadores_precios():
     nucleo_ia = _serie_var_interanual(nucleo_idx)
     cards.append(_card("nucleo_interanual", "Inflacion Nucleo - Interanual", nucleo_ia, "%", "interanual",
                         nucleo_ia[-1][1] if nucleo_ia else None))
-    nucleo_mensual = series["ipc_nucleo_mensual"]
+    nucleo_mensual = [(f, round(v * 100, 4)) for f, v in series["ipc_nucleo_mensual"]]
     cards.append(_card("nucleo_mensual", "Inflacion Nucleo - Tasa Mensual", nucleo_mensual, "%", "mensual",
                         nucleo_mensual[-1][1] if nucleo_mensual else None))
 
