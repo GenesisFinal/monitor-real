@@ -1,0 +1,173 @@
+{
+  "deuda_publica_total": {
+    "nombre": "Deuda Publica Bruta Total (Administracion Central)",
+    "unidad": "millones de USD",
+    "tipo": "valor",
+    "periodicidad": "Trimestral",
+    "fuente": "Secretaria de Finanzas",
+    "serie": [
+      {
+        "fecha": "2021-09-30",
+        "valor": 342620.09
+      },
+      {
+        "fecha": "2021-12-31",
+        "valor": 363232.61
+      },
+      {
+        "fecha": "2022-03-31",
+        "valor": 376300.4
+      },
+      {
+        "fecha": "2022-06-30",
+        "valor": 378505.67
+      },
+      {
+        "fecha": "2022-09-30",
+        "valor": 382281.2
+      },
+      {
+        "fecha": "2022-12-31",
+        "valor": 396555.28
+      },
+      {
+        "fecha": "2023-03-31",
+        "valor": 398245.66
+      },
+      {
+        "fecha": "2023-06-30",
+        "valor": 403835.84
+      },
+      {
+        "fecha": "2023-09-30",
+        "valor": 406948.14
+      },
+      {
+        "fecha": "2023-12-31",
+        "valor": 370673.38
+      },
+      {
+        "fecha": "2024-03-31",
+        "valor": 403052.36
+      },
+      {
+        "fecha": "2024-06-30",
+        "valor": 442514.92
+      },
+      {
+        "fecha": "2024-09-30",
+        "valor": 460068.83
+      },
+      {
+        "fecha": "2024-12-31",
+        "valor": 466921.17
+      },
+      {
+        "fecha": "2025-03-31",
+        "valor": 473560.83
+      },
+      {
+        "fecha": "2025-06-30",
+        "valor": 465353.13
+      },
+      {
+        "fecha": "2025-09-30",
+        "valor": 454037.08
+      },
+      {
+        "fecha": "2025-12-31",
+        "valor": 455076.68
+      },
+      {
+        "fecha": "2026-03-31",
+        "valor": 483854.49
+      }
+    ]
+  },
+  "deuda_moneda_extranjera": {
+    "nombre": "Deuda Publica Bruta en Moneda Extranjera",
+    "unidad": "millones de USD",
+    "tipo": "valor",
+    "periodicidad": "Trimestral",
+    "fuente": "Secretaria de Finanzas",
+    "serie": [
+      {
+        "fecha": "2021-09-30",
+        "valor": 253809.13
+      },
+      {
+        "fecha": "2021-12-31",
+        "valor": 255366.76
+      },
+      {
+        "fecha": "2022-03-31",
+        "valor": 260055.57
+      },
+      {
+        "fecha": "2022-06-30",
+        "valor": 258905.21
+      },
+      {
+        "fecha": "2022-09-30",
+        "valor": 255332.71
+      },
+      {
+        "fecha": "2022-12-31",
+        "valor": 265380.57
+      },
+      {
+        "fecha": "2023-03-31",
+        "valor": 266254.86
+      },
+      {
+        "fecha": "2023-06-30",
+        "valor": 261144.77
+      },
+      {
+        "fecha": "2023-09-30",
+        "valor": 269693.84
+      },
+      {
+        "fecha": "2023-12-31",
+        "valor": 266896.13
+      },
+      {
+        "fecha": "2024-03-31",
+        "valor": 261119.56
+      },
+      {
+        "fecha": "2024-06-30",
+        "valor": 257430.66
+      },
+      {
+        "fecha": "2024-09-30",
+        "valor": 257855.06
+      },
+      {
+        "fecha": "2024-12-31",
+        "valor": 257668.88
+      },
+      {
+        "fecha": "2025-03-31",
+        "valor": 255343.3
+      },
+      {
+        "fecha": "2025-06-30",
+        "valor": 257119.53
+      },
+      {
+        "fecha": "2025-09-30",
+        "valor": 253967.82
+      },
+      {
+        "fecha": "2025-12-31",
+        "valor": 264117.64
+      },
+      {
+        "fecha": "2026-03-31",
+        "valor": 261402.53
+      }
+    ]
+  },
+  "_updated_at": "2026-07-22T20:23:52.393094+00:00"
+}
