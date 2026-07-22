@@ -46,6 +46,8 @@ import unicodedata
 import urllib.request
 import urllib.error
 import urllib.parse
+import zipfile
+import io
 import http.cookiejar
 from datetime import datetime, timezone, date, timedelta
 
@@ -3341,6 +3343,158 @@ def build_history_agregados_monetarios():
     return out
 
 
+def _fetch_bytes(url, timeout=30):
+    """Descarga contenido binario (no JSON/texto). Devuelve bytes o
+    None si falla (no rompe el proceso)."""
+    req = urllib.request.Request(url, headers={"User-Agent": "monitor-real-bot/1.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.read()
+    except Exception as e:
+        print(f"[WARN] Fallo al pedir (binario) {url}: {e}")
+        return None
+
+
+def _deuda_quarter_dates(n_quarters=20):
+    """Fechas de cierre de trimestre (mas reciente primero) de los
+    ultimos n_quarters trimestres, hasta hoy."""
+    hoy = date.today()
+    quarters = [(3, 31), (6, 30), (9, 30), (12, 31)]
+    candidates = []
+    for yy in range(hoy.year - 6, hoy.year + 1):
+        for m, d in quarters:
+            candidates.append(date(yy, m, d))
+    candidates = [c for c in candidates if c <= hoy]
+    candidates.sort(reverse=True)
+    return candidates[:n_quarters]
+
+
+def _leer_hoja_deuda_bruta(xlsx_bytes):
+    """Abre el .xlsx (que es un zip OOXML) usando solo la libreria
+    estandar (zipfile + xml.etree, sin dependencias externas como
+    openpyxl, que no esta instalada en este entorno) y devuelve
+    (total_bruta, total_moneda_extranjera) en miles de USD. Busca la
+    hoja 'A.1.4' (Deuda Bruta de la Administracion Central - Por tipo
+    de moneda y tasa) y, dentro de ella, las filas rotuladas 'TOTAL' y
+    'Moneda extranjera' en la columna B (no por numero de fila fijo,
+    para tolerar cambios menores de formato entre trimestres), tomando
+    el valor de la columna G ('Total Deuda Bruta', incluye deuda
+    elegible pendiente de reestructuracion)."""
+    import xml.etree.ElementTree as ET
+
+    ns = {"m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+    r_ns = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id"
+    with zipfile.ZipFile(io.BytesIO(xlsx_bytes)) as z:
+        wb_xml = ET.fromstring(z.read("xl/workbook.xml"))
+        sheet_rid = None
+        for sh in wb_xml.find("m:sheets", ns):
+            if sh.get("name") == "A.1.4":
+                sheet_rid = sh.get(r_ns)
+                break
+        if not sheet_rid:
+            return None, None
+
+        rels_xml = ET.fromstring(z.read("xl/_rels/workbook.xml.rels"))
+        target = None
+        for rel in rels_xml:
+            if rel.get("Id") == sheet_rid:
+                target = rel.get("Target")
+                break
+        if not target:
+            return None, None
+        sheet_path = "xl/" + target.lstrip("/")
+
+        shared = []
+        if "xl/sharedStrings.xml" in z.namelist():
+            ss_xml = ET.fromstring(z.read("xl/sharedStrings.xml"))
+            for si in ss_xml:
+                texts = si.findall(".//m:t", ns)
+                shared.append("".join(t.text or "" for t in texts))
+
+        sheet_xml = ET.fromstring(z.read(sheet_path))
+        total_val = None
+        fx_val = None
+        for row in sheet_xml.find("m:sheetData", ns):
+            b_val = None
+            g_val = None
+            for c in row:
+                ref = c.get("r", "")
+                col = "".join(ch for ch in ref if ch.isalpha())
+                v_el = c.find("m:v", ns)
+                if v_el is None or v_el.text is None:
+                    continue
+                raw = v_el.text
+                if col == "B":
+                    if c.get("t") == "s":
+                        idx = int(raw)
+                        b_val = shared[idx] if idx < len(shared) else None
+                    else:
+                        b_val = raw
+                elif col == "G":
+                    try:
+                        g_val = float(raw)
+                    except (TypeError, ValueError):
+                        g_val = None
+            if not isinstance(b_val, str):
+                continue
+            label = b_val.strip()
+            if label == "TOTAL" and g_val is not None:
+                total_val = g_val
+            elif label == "Moneda extranjera" and g_val is not None:
+                fx_val = g_val
+        return total_val, fx_val
+
+
+def build_history_deuda_publica():
+    """Deuda Publica Bruta Total y en Moneda Extranjera (Indicadores
+    Economicos, tarjetas). Fuente: Secretaria de Finanzas, planillas
+    trimestrales oficiales publicadas en
+    argentina.gob.ar/economia/finanzas/datos-trimestrales-de-la-deuda
+    (hoja "A.1.4": Deuda Bruta de la Administracion Central - Por tipo
+    de moneda y tasa). Solo se actualiza trimestralmente, no hay dato
+    mas frecuente publicado por el organismo. Unidad original: miles
+    de USD, convertida aqui a millones de USD."""
+    total_serie = []
+    fx_serie = []
+    for fecha in _deuda_quarter_dates(20):
+        url = (
+            "https://www.argentina.gob.ar/sites/default/files/"
+            f"deuda_publica_{fecha.day:02d}-{fecha.month:02d}-{fecha.year}.xlsx"
+        )
+        raw = _fetch_bytes(url)
+        if not raw:
+            continue
+        try:
+            total_val, fx_val = _leer_hoja_deuda_bruta(raw)
+        except Exception as e:
+            print(f"[WARN] No se pudo procesar planilla de deuda {url}: {e}")
+            continue
+        if total_val is not None:
+            total_serie.append({"fecha": fecha.isoformat(), "valor": round(total_val / 1000, 2)})
+        if fx_val is not None:
+            fx_serie.append({"fecha": fecha.isoformat(), "valor": round(fx_val / 1000, 2)})
+
+    out = {}
+    if total_serie:
+        total_serie.sort(key=lambda p: p["fecha"])
+        out["deuda_publica_total"] = {
+            "nombre": "Deuda Publica Bruta Total (Administracion Central)",
+            "unidad": "millones de USD", "tipo": "valor", "periodicidad": "Trimestral",
+            "fuente": "Secretaria de Finanzas", "serie": total_serie,
+        }
+    if fx_serie:
+        fx_serie.sort(key=lambda p: p["fecha"])
+        out["deuda_moneda_extranjera"] = {
+            "nombre": "Deuda Publica Bruta en Moneda Extranjera",
+            "unidad": "millones de USD", "tipo": "valor", "periodicidad": "Trimestral",
+            "fuente": "Secretaria de Finanzas", "serie": fx_serie,
+        }
+    if not out:
+        return None
+    out["_updated_at"] = datetime.now(timezone.utc).isoformat()
+    return out
+
+
 COMERCIO_SERIES = {
     "exportaciones_totales": "74.3_IET_0_M_16",
     "importaciones_totales": "74.3_IIT_0_M_25",
@@ -4751,6 +4905,7 @@ def main():
         "indicadores_fiscal.json": build_history_fiscal(),
         "indicadores_reservas_deuda.json": build_history_reservas_deuda(),
         "indicadores_comercio.json": build_history_comercio(),
+        "indicadores_deuda_publica.json": build_history_deuda_publica(),
       "indicadores_actividad.json": build_history_actividad(),
         "dolar.json": build_history_dolar(),
         "tasas_locales.json": build_history_tasas_locales(),
