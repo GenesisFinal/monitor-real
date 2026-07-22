@@ -4585,8 +4585,8 @@ if (typeof Chart !== 'undefined') {
             reservas_deuda: [
                 { real: 'live', liveKey: 'riesgo_pais', nombre: 'Riesgo País (EMBI+ Argentina)', sufijo: ' pb', fuente: 'Ámbito / JP Morgan' },
                 { real: true, historyKey: 'reservas_brutas' },
-                { nombre: 'Deuda Publica Total', valor: 'Sin fuente publica verificada', periodo: '' },
-                { nombre: 'Deuda en Moneda Extranjera', valor: 'Sin fuente publica verificada', periodo: '' },
+                { real: true, historyKey: 'deuda_publica_total' },
+                { real: true, historyKey: 'deuda_moneda_extranjera' },
             ],
             empleo: [
                 { nombre: 'Tasa de Desempleo', valor: '6.9%', periodo: '1er Trim. 2026' },
@@ -4740,7 +4740,7 @@ if (typeof Chart !== 'undefined') {
             Object.keys(ECON_CARD_CONFIG).forEach(renderEconCards);
         }
 
-        const ECON_REAL_DATA_FILES = ['indicadores_precios.json', 'indicadores_monetarios.json', 'indicadores_actividad.json', 'indicadores_fiscal.json', 'indicadores_reservas_deuda.json', 'indicadores_comercio.json'];
+        const ECON_REAL_DATA_FILES = ['indicadores_precios.json', 'indicadores_monetarios.json', 'indicadores_actividad.json', 'indicadores_fiscal.json', 'indicadores_reservas_deuda.json', 'indicadores_comercio.json', 'indicadores_deuda_publica.json'];
 
         async function loadEconRealData() {
             for (const file of ECON_REAL_DATA_FILES) {
