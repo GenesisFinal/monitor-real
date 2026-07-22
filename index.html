@@ -4570,11 +4570,12 @@ if (typeof Chart !== 'undefined') {
                 { real: true, historyKey: 'base_monetaria' },
                 { real: true, historyKey: 'm2_privado' },
                 { real: true, historyKey: 'reservas_internacionales' },
+                { real: true, historyKey: 'circulacion_monetaria' },
             ],
             fiscal: [
-                { nombre: 'Resultado Primario', valor: '+0.3% PBI', periodo: 'Acum. 2026' },
-                { nombre: 'Resultado Financiero', valor: '-0.2% PBI', periodo: 'Acum. 2026' },
-                { nombre: 'Recaudación Tributaria (AFIP)', valor: '$18.2 billones', periodo: 'Junio 2026' },
+                { real: true, historyKey: 'resultado_primario' },
+                { real: true, historyKey: 'resultado_financiero' },
+                { real: true, historyKey: 'recaudacion_total' },
             ],
             comercio: [
                 { nombre: 'Exportaciones', valor: 'USD 7,850 M', periodo: 'Junio 2026' },
@@ -4583,9 +4584,9 @@ if (typeof Chart !== 'undefined') {
             ],
             reservas_deuda: [
                 { real: 'live', liveKey: 'riesgo_pais', nombre: 'Riesgo País (EMBI+ Argentina)', sufijo: ' pb', fuente: 'Ámbito / JP Morgan' },
-                { nombre: 'Deuda Pública Total', valor: 'USD 465,000 M', periodo: 'Mayo 2026' },
-                { nombre: 'Deuda en Moneda Extranjera', valor: 'USD 210,000 M', periodo: 'Mayo 2026' },
-                { nombre: 'Reservas Brutas BCRA', valor: 'USD 31,200 M', periodo: 'Julio 2026' },
+                { real: true, historyKey: 'reservas_brutas' },
+                { nombre: 'Deuda Publica Total', valor: 'Sin fuente publica verificada', periodo: '' },
+                { nombre: 'Deuda en Moneda Extranjera', valor: 'Sin fuente publica verificada', periodo: '' },
             ],
             empleo: [
                 { nombre: 'Tasa de Desempleo', valor: '6.9%', periodo: '1er Trim. 2026' },
@@ -4739,7 +4740,7 @@ if (typeof Chart !== 'undefined') {
             Object.keys(ECON_CARD_CONFIG).forEach(renderEconCards);
         }
 
-        const ECON_REAL_DATA_FILES = ['indicadores_precios.json', 'indicadores_monetarios.json', 'indicadores_actividad.json'];
+        const ECON_REAL_DATA_FILES = ['indicadores_precios.json', 'indicadores_monetarios.json', 'indicadores_actividad.json', 'indicadores_fiscal.json', 'indicadores_reservas_deuda.json'];
 
         async function loadEconRealData() {
             for (const file of ECON_REAL_DATA_FILES) {
