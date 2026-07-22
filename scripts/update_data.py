@@ -10,7 +10,8 @@ Fuentes:
 - Banda cambiaria (piso/techo, actual e histórico): BCRA API oficial v4.0
   (sin key), idVariable 1187 (límite inferior) y 1188 (límite superior)
 - Riesgo país e inflación: api.argentinadatos.com (sin key)
-- Criptomonedas (actual e histórico): CoinGecko (sin key)
+- Criptomonedas (actual): CoinGecko (sin key)
+- Criptomonedas (histórico): Yahoo Finance (sin key, tickers -USD, 5 años)
 - Índices bursátiles globales (actual e histórico): Yahoo Finance (sin key),
   tickers reales (^DJI, ^GSPC, ^IXIC, ^FTSE, ^GDAXI, ^FCHI, ^IBEX, ^N225,
   ^HSI, 000001.SS, ^BVSP, ^MERV, ^GSPTSE, ^AXJO), agrupados por región
@@ -4256,34 +4257,59 @@ def build_history_acciones_arg():
 
 
 def build_history_cripto():
+    # Antes se usaba CoinGecko (market_chart, days=1825 y luego days=365),
+    # pero su plan gratuito limita la historia a 365 dias -- cualquier
+    # pedido mayor es rechazado por completo (error_code 10012), y aun
+    # con days=365 no alcanza para los rangos 2A/5A/MAX de la UI.
+    # Se reemplaza por Yahoo Finance (mismo endpoint sin key que ya se
+    # usa para indices/commodities/acciones), que si tiene 5 anios de
+    # historia diaria real para los tickers -USD de cripto.
+    # OJO: las claves de este dict ("bitcoin", "ethereum", ...) son los
+    # ids de CoinGecko y deben coincidir EXACTO con CRIPTO_NOMBRE_A_ID en
+    # index.html (es lo que usa el frontend para linkear cada fila de la
+    # tabla con su serie historica) -- no renombrar sin actualizar ahi
+    # tambien. El ticker de Yahoo es solo el simbolo usado para pedir el
+    # historico, no la clave de salida.
     ids = {
-        "bitcoin": "Bitcoin (BTC)",
-        "ethereum": "Ethereum (ETH)",
-        "binancecoin": "BNB",
-        "solana": "Solana (SOL)",
+        "bitcoin": ("Bitcoin (BTC)", "BTC-USD"),
+        "ethereum": ("Ethereum (ETH)", "ETH-USD"),
+        "binancecoin": ("BNB", "BNB-USD"),
+        "solana": ("Solana (SOL)", "SOL-USD"),
     }
     monedas_out = {}
-    for cid, nombre in ids.items():
-        # CoinGecko limita el plan gratuito a 365 dias de historia (antes
-        # se pedian 1825/5 anios, lo cual la API ahora rechaza por completo
-        # con error_code 10012 "exceeds the allowed time range" -- esto
-        # hacia fallar los 4 pedidos y build_history_cripto() devolvia
-        # None todos los dias, por lo que data/history/cripto.json nunca
-        # se generaba y el grafico de Criptomonedas quedaba vacio).
+    for cid, (nombre, symbol) in ids.items():
         data = fetch_json(
-            f"https://api.coingecko.com/api/v3/coins/{cid}/market_chart?vs_currency=usd&days=365"
+            f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?interval=1d&range=5y"
         )
-        if not data or "prices" not in data:
+        if not data:
             continue
-        records = [{"ts": p[0], "c": p[1]} for p in data["prices"]]
+        try:
+            result = data["chart"]["result"][0]
+            ts = result["timestamp"]
+            q = result["indicators"]["quote"][0]
+            records = []
+            for i, t in enumerate(ts):
+                c = q.get("close", [None] * len(ts))[i] if i < len(q.get("close", [])) else None
+                if c is None:
+                    continue
+                records.append({
+                    "ts": t,
+                    "o": q.get("open", [None] * len(ts))[i] if i < len(q.get("open", [])) else None,
+                    "h": q.get("high", [None] * len(ts))[i] if i < len(q.get("high", [])) else None,
+                    "l": q.get("low", [None] * len(ts))[i] if i < len(q.get("low", [])) else None,
+                    "c": c,
+                })
+        except (KeyError, IndexError, TypeError):
+            print(f"[WARN] No se pudo parsear histórico Yahoo para {symbol}")
+            continue
         daily, weekly = build_daily_weekly(
             records,
-            date_fn=lambda r: datetime.fromtimestamp(r["ts"] / 1000, tz=timezone.utc).date(),
-            point_fn=lambda r: {"c": r["c"]},
+            date_fn=lambda r: datetime.fromtimestamp(r["ts"], tz=timezone.utc).date(),
+            point_fn=lambda r: {"o": r["o"], "h": r["h"], "l": r["l"], "c": r["c"]},
         )
         if daily or weekly:
             monedas_out[cid] = {"nombre": nombre, "daily": daily, "weekly": weekly}
-        time.sleep(2)  # cortesía con el límite de CoinGecko free tier
+        time.sleep(0.5)  # cortesía con Yahoo Finance
     if not monedas_out:
         return None
     return {"updated_at": datetime.now(timezone.utc).isoformat(), "monedas": monedas_out}
