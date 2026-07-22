@@ -4422,7 +4422,7 @@ INDEC_SERIES = {
 def _fetch_indec_series(series_id):
     """Devuelve lista de tuplas (fecha_YYYY-MM, valor) ordenada, de una
     serie de tiempo de la API oficial de datos.gob.ar / INDEC."""
-    base = "https://apis.datos.gob.ar/series/api/series/"
+    base = "https://apis.datos.gob.ar/series/api/series/?"
     url = base + urllib.parse.urlencode({"ids": series_id, "format": "json", "limit": 5000})
     data = fetch_json(url)
     if not data or "data" not in data:
