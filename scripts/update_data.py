@@ -3340,6 +3340,78 @@ def build_history_agregados_monetarios():
     out["_updated_at"] = datetime.now(timezone.utc).isoformat()
     return out
 
+
+FISCAL_SERIES = {
+    "resultado_primario": "452.3_RESULTADO_RIO_0_M_18_54",
+    "resultado_financiero": "378.9_RESULTADO_017_0_M_18_90",
+    "recaudacion_total": "172.3_TL_RECAION_M_0_0_17",
+}
+
+
+def build_history_fiscal():
+    """Sector Fiscal (Indicadores Economicos, tarjetas). Fuente: API
+    de Series de Tiempo (apis.datos.gob.ar), Secretaria de Hacienda,
+    oficial, gratuita, sin autenticacion."""
+    out = {}
+
+    rp = _fetch_indec_series(FISCAL_SERIES["resultado_primario"])
+    if rp:
+        out["resultado_primario"] = {
+            "nombre": "Resultado Primario del Sector Publico Nacional",
+            "unidad": "millones de $", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "Secretaria de Hacienda", "serie": [{"fecha": f, "valor": v} for f, v in rp],
+        }
+
+    rf = _fetch_indec_series(FISCAL_SERIES["resultado_financiero"])
+    if rf:
+        out["resultado_financiero"] = {
+            "nombre": "Resultado Financiero del Sector Publico Nacional",
+            "unidad": "millones de $", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "Secretaria de Hacienda", "serie": [{"fecha": f, "valor": v} for f, v in rf],
+        }
+
+    rt = _fetch_indec_series(FISCAL_SERIES["recaudacion_total"])
+    if rt:
+        out["recaudacion_total"] = {
+            "nombre": "Recaudacion Tributaria Total (AFIP)",
+            "unidad": "millones de $", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "Secretaria de Hacienda", "serie": [{"fecha": f, "valor": v} for f, v in rt],
+        }
+
+    if not out:
+        return None
+    out["_updated_at"] = datetime.now(timezone.utc).isoformat()
+    return out
+
+
+def build_history_reservas_deuda():
+    """Reservas Brutas BCRA (Indicadores Economicos, tarjeta real).
+    Deuda Publica Total y Deuda en Moneda Extranjera no tienen API
+    publica confiable y verificada (solo informes PDF/Excel de la
+    Secretaria de Finanzas, sin endpoint estable): se omiten aqui a
+    proposito para no publicar datos no verificados; esas tarjetas
+    quedan como MUESTRA en el frontend hasta encontrar una fuente
+    confiable."""
+    hoy = date.today()
+    desde = (hoy - timedelta(days=5 * 365 + 10)).isoformat()
+    hasta = hoy.isoformat()
+    out = {}
+    id_var, descripcion = _bcra_find_variable("reservas internacionales")
+    if id_var is not None:
+        detalle = bcra_fetch_all(id_var, desde, hasta)
+        serie = [{"fecha": d.get("fecha"), "valor": d.get("valor")} for d in detalle
+                 if d.get("fecha") and d.get("valor") is not None]
+        serie.sort(key=lambda p: p["fecha"])
+        if serie:
+            out["reservas_brutas"] = {
+                "nombre": descripcion, "unidad": "", "tipo": "valor",
+                "periodicidad": "Diaria", "fuente": "BCRA", "serie": serie,
+            }
+    if not out:
+        return None
+    out["_updated_at"] = datetime.now(timezone.utc).isoformat()
+    return out
+
 # ------------------------------------------------------------------
 # Actividad Economica (Indicadores Economicos, tarjetas). Fuente: API
 # de Series de Tiempo de la Republica Argentina (apis.datos.gob.ar),
@@ -4633,6 +4705,8 @@ def main():
     historicos = {
         "indicadores_precios.json": build_history_indicadores_precios(),
         "indicadores_monetarios.json": build_history_agregados_monetarios(),
+        "indicadores_fiscal.json": build_history_fiscal(),
+        "indicadores_reservas_deuda.json": build_history_reservas_deuda(),
       "indicadores_actividad.json": build_history_actividad(),
         "dolar.json": build_history_dolar(),
         "tasas_locales.json": build_history_tasas_locales(),
