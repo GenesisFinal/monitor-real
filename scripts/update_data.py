@@ -3077,6 +3077,71 @@ def build_history_indicadores_precios():
             "fuente": "BCRA", "serie": uva,
         }
 
+    cba = _fetch_indec_series(INDEC_SERIES["cba_valor"])
+    if cba:
+        out["cba_valor"] = {
+            "nombre": "Canasta Basica Alimentaria - Valor",
+            "unidad": "$", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in cba],
+        }
+        cba_fam = [(f, round(v * 3.09, 2)) for f, v in cba]
+        out["cba_familiar"] = {
+            "nombre": "Canasta Basica Alimentaria Familiar (Hogar 2)",
+            "unidad": "$", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in cba_fam],
+        }
+
+    cbt = _fetch_indec_series(INDEC_SERIES["cbt_valor"])
+    if cbt:
+        out["cbt_valor"] = {
+            "nombre": "Canasta Basica Total - Valor",
+            "unidad": "$", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in cbt],
+        }
+        cbt_fam = [(f, round(v * 3.09, 2)) for f, v in cbt]
+        out["cbt_familiar"] = {
+            "nombre": "Canasta Basica Total Familiar (Hogar 2)",
+            "unidad": "$", "tipo": "valor", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in cbt_fam],
+        }
+
+    ipim_idx = _fetch_indec_series(INDEC_SERIES["ipim_indice"])
+    if ipim_idx:
+        ipim_ia = _serie_var_interanual(ipim_idx)
+        ipim_mensual = _serie_var_mensual(ipim_idx)
+        if ipim_ia:
+            out["mayorista_interanual"] = {
+                "nombre": "Inflacion Mayorista - Interanual",
+                "unidad": "%", "tipo": "variacion", "periodicidad": "Mensual",
+                "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in ipim_ia],
+            }
+        if ipim_mensual:
+            out["mayorista_mensual"] = {
+                "nombre": "Inflacion Mayorista - Tasa Mensual",
+                "unidad": "%", "tipo": "variacion", "periodicidad": "Mensual",
+                "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in ipim_mensual],
+            }
+
+    nucleo_idx = _fetch_indec_series(INDEC_SERIES["ipc_nucleo_indice"])
+    if nucleo_idx:
+        nucleo_ia = _serie_var_interanual(nucleo_idx)
+        if nucleo_ia:
+            out["nucleo_interanual"] = {
+                "nombre": "Inflacion Nucleo - Interanual",
+                "unidad": "%", "tipo": "variacion", "periodicidad": "Mensual",
+                "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in nucleo_ia],
+            }
+
+    nucleo_mensual_raw = _fetch_indec_series(INDEC_SERIES["ipc_nucleo_mensual"])
+    if nucleo_mensual_raw:
+        nucleo_mensual = [(f, round(v * 100, 4)) for f, v in nucleo_mensual_raw]
+        out["nucleo_mensual"] = {
+            "nombre": "Inflacion Nucleo - Tasa Mensual",
+            "unidad": "%", "tipo": "variacion", "periodicidad": "Mensual",
+            "fuente": "INDEC", "serie": [{"fecha": f, "valor": v} for f, v in nucleo_mensual],
+        }
+
+    
     if not out:
         return None
     out["_updated_at"] = datetime.now(timezone.utc).isoformat()
@@ -4462,99 +4527,6 @@ def _serie_var_mensual(serie):
     return out
 
 
-def get_indicadores_precios():
-    """Seccion Precios y Costo de Vida de Indicadores Economicos.
-    Fuente: INDEC via API oficial series de tiempo AR (apis.datos.gob.ar,
-    sin key), salvo UVA que sale de argentinadatos.com (BCRA)."""
-    series = {k: _fetch_indec_series(v) for k, v in INDEC_SERIES.items()}
-
-    uva_raw = fetch_json("https://api.argentinadatos.com/v1/finanzas/indices/uva")
-    uva_serie = []
-    if uva_raw:
-        for r in uva_raw:
-            v = r.get("valor")
-            f = r.get("fecha")
-            if v is not None and f:
-                uva_serie.append((f, float(v)))
-        uva_serie.sort()
-
-    def _card(id_, nombre, serie, unidad, variacion_tipo, variacion_valor, fuente="INDEC", valor=None, fecha=None):
-        if not serie and valor is None:
-            return None
-        v = valor if valor is not None else serie[-1][1]
-        f = fecha if fecha is not None else (serie[-1][0] if serie else None)
-        return {
-            "id": id_,
-            "nombre": nombre,
-            "valor": v,
-            "unidad": unidad,
-            "fecha": f,
-            "variacion_tipo": variacion_tipo,
-            "variacion_valor": variacion_valor,
-            "fuente": fuente,
-            "serie": [{"fecha": f2, "valor": v2} for f2, v2 in serie],
-        }
-
-    cards = []
-
-    cba = series["cba_valor"]
-    cba_ia = _serie_var_interanual(cba)
-    cards.append(_card("cba_valor", "Canasta Basica Alimentaria - Valor", cba, "$", "interanual",
-                        cba_ia[-1][1] if cba_ia else None))
-    if cba:
-        cba_fam = [(f, round(v * 3.09, 2)) for f, v in cba]
-        cba_fam_ia = _serie_var_interanual(cba_fam)
-        cards.append(_card("cba_familiar", "Canasta Basica Alimentaria Familiar (Hogar 2)", cba_fam, "$", "interanual",
-                            cba_fam_ia[-1][1] if cba_fam_ia else None))
-
-    cbt = series["cbt_valor"]
-    cbt_ia = _serie_var_interanual(cbt)
-    cards.append(_card("cbt_valor", "Canasta Basica Total - Valor", cbt, "$", "interanual",
-                        cbt_ia[-1][1] if cbt_ia else None))
-    if cbt:
-        cbt_fam = [(f, round(v * 3.09, 2)) for f, v in cbt]
-        cbt_fam_ia = _serie_var_interanual(cbt_fam)
-        cards.append(_card("cbt_familiar", "Canasta Basica Total Familiar (Hogar 2)", cbt_fam, "$", "interanual",
-                            cbt_fam_ia[-1][1] if cbt_fam_ia else None))
-
-    ipc_idx = series["ipc_indice"]
-    ipc_ia = _serie_var_interanual(ipc_idx)
-    cards.append(_card("ipc_interanual", "Inflacion IPC - Interanual", ipc_ia, "%", "interanual",
-                        ipc_ia[-1][1] if ipc_ia else None))
-    ipc_mensual = [(f, round(v * 100, 4)) for f, v in series["ipc_mensual"]]
-    cards.append(_card("ipc_mensual", "Inflacion IPC - Tasa Mensual", ipc_mensual, "%", "mensual",
-                        ipc_mensual[-1][1] if ipc_mensual else None))
-
-    ipim_idx = series["ipim_indice"]
-    ipim_ia = _serie_var_interanual(ipim_idx)
-    ipim_mensual = _serie_var_mensual(ipim_idx)
-    cards.append(_card("mayorista_interanual", "Inflacion Mayorista - Interanual", ipim_ia, "%", "interanual",
-                        ipim_ia[-1][1] if ipim_ia else None))
-    cards.append(_card("mayorista_mensual", "Inflacion Mayorista - Tasa Mensual", ipim_mensual, "%", "mensual",
-                        ipim_mensual[-1][1] if ipim_mensual else None))
-
-    nucleo_idx = series["ipc_nucleo_indice"]
-    nucleo_ia = _serie_var_interanual(nucleo_idx)
-    cards.append(_card("nucleo_interanual", "Inflacion Nucleo - Interanual", nucleo_ia, "%", "interanual",
-                        nucleo_ia[-1][1] if nucleo_ia else None))
-    nucleo_mensual = [(f, round(v * 100, 4)) for f, v in series["ipc_nucleo_mensual"]]
-    cards.append(_card("nucleo_mensual", "Inflacion Nucleo - Tasa Mensual", nucleo_mensual, "%", "mensual",
-                        nucleo_mensual[-1][1] if nucleo_mensual else None))
-
-    if uva_serie:
-        uva_var_ia = None
-        ultimo_f, ultimo_v = uva_serie[-1]
-        anio, mes, dia = ultimo_f.split("-")
-        prefix_ref = str(int(anio) - 1) + "-" + mes
-        ref = next((v for f, v in uva_serie if f.startswith(prefix_ref)), None)
-        if ref:
-            uva_var_ia = round((ultimo_v - ref) / ref * 100, 2)
-        uva_recorte = uva_serie[-1500:]
-        cards.append(_card("uva_valor", "Valor UVA - Valor", uva_recorte, "$", "interanual", uva_var_ia, fuente="BCRA"))
-
-    return [c for c in cards if c is not None]
-
-
 def main():
     live_data = {
         "updated_at": datetime.now(timezone.utc).isoformat(),
@@ -4577,7 +4549,6 @@ def main():
         "rates_intl": get_tasas_internacionales(),
         "plazos_fijos": get_plazos_fijos(),
         "acciones_mundiales": get_acciones_mundiales(),
-        "indicadores_precios": get_indicadores_precios(),
     }
 
     td = get_twelvedata()
