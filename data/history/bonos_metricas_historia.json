@@ -2541,6 +2541,16 @@
         "interes_corrido": 0.0,
         "precio_dirty": 166.65,
         "precio_clean": 166.65
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.023,
+        "duration": 0.274,
+        "paridad": 98.67,
+        "valor_tecnico": 168.9,
+        "interes_corrido": 0.0,
+        "precio_dirty": 166.65,
+        "precio_clean": 166.65
       }
     ]
   },
@@ -5086,6 +5096,16 @@
         "interes_corrido": 5.71,
         "precio_dirty": 715.3,
         "precio_clean": 709.59
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.372,
+        "duration": 0.301,
+        "paridad": 98.63,
+        "valor_tecnico": 725.26,
+        "interes_corrido": 5.79,
+        "precio_dirty": 715.3,
+        "precio_clean": 709.51
       }
     ]
   },
@@ -6408,6 +6428,16 @@
         "duration": 0.362,
         "paridad": 98.24,
         "valor_tecnico": 122.86,
+        "interes_corrido": 0.0,
+        "precio_dirty": 120.7,
+        "precio_clean": 120.7
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.25,
+        "duration": 0.359,
+        "paridad": 98.18,
+        "valor_tecnico": 122.94,
         "interes_corrido": 0.0,
         "precio_dirty": 120.7,
         "precio_clean": 120.7
@@ -8956,6 +8986,16 @@
         "interes_corrido": 0.0,
         "precio_dirty": 293.1,
         "precio_clean": 293.1
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.29,
+        "duration": 0.4,
+        "paridad": 97.96,
+        "valor_tecnico": 299.21,
+        "interes_corrido": 0.0,
+        "precio_dirty": 293.1,
+        "precio_clean": 293.1
       }
     ]
   },
@@ -11498,6 +11538,16 @@
         "duration": 0.693,
         "paridad": 96.45,
         "valor_tecnico": 224.32,
+        "interes_corrido": 0.0,
+        "precio_dirty": 216.35,
+        "precio_clean": 216.35
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.471,
+        "duration": 0.69,
+        "paridad": 96.39,
+        "valor_tecnico": 224.45,
         "interes_corrido": 0.0,
         "precio_dirty": 216.35,
         "precio_clean": 216.35
@@ -14046,6 +14096,16 @@
         "interes_corrido": 0.0,
         "precio_dirty": 385.2,
         "precio_clean": 385.2
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.398,
+        "duration": 0.94,
+        "paridad": 95.18,
+        "valor_tecnico": 404.71,
+        "interes_corrido": 0.0,
+        "precio_dirty": 385.2,
+        "precio_clean": 385.2
       }
     ]
   },
@@ -16591,6 +16651,16 @@
         "interes_corrido": 16.05,
         "precio_dirty": 1710,
         "precio_clean": 1693.95
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 6.795,
+        "duration": 1.258,
+        "paridad": 94.22,
+        "valor_tecnico": 1814.96,
+        "interes_corrido": 16.28,
+        "precio_dirty": 1710,
+        "precio_clean": 1693.72
       }
     ]
   },
@@ -19133,6 +19203,16 @@
         "duration": 1.403,
         "paridad": 90.43,
         "valor_tecnico": 299.02,
+        "interes_corrido": 0.0,
+        "precio_dirty": 270.4,
+        "precio_clean": 270.4
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.499,
+        "duration": 1.4,
+        "paridad": 90.37,
+        "valor_tecnico": 299.21,
         "interes_corrido": 0.0,
         "precio_dirty": 270.4,
         "precio_clean": 270.4
@@ -21681,6 +21761,16 @@
         "interes_corrido": 0.0,
         "precio_dirty": 344.9,
         "precio_clean": 344.9
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 8.581,
+        "duration": 1.942,
+        "paridad": 85.22,
+        "valor_tecnico": 404.71,
+        "interes_corrido": 0.0,
+        "precio_dirty": 344.9,
+        "precio_clean": 344.9
       }
     ]
   },
@@ -24226,6 +24316,16 @@
         "interes_corrido": 12.21,
         "precio_dirty": 1458,
         "precio_clean": 1445.79
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 8.814,
+        "duration": 2.852,
+        "paridad": 83.74,
+        "valor_tecnico": 1741.16,
+        "interes_corrido": 12.45,
+        "precio_dirty": 1458,
+        "precio_clean": 1445.55
       }
     ]
   },
@@ -26771,6 +26871,16 @@
         "interes_corrido": 277.97,
         "precio_dirty": 48790,
         "precio_clean": 48512.03
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 1.501,
+        "duration": 3.657,
+        "paridad": 115.91,
+        "valor_tecnico": 42092.16,
+        "interes_corrido": 291.38,
+        "precio_dirty": 48790,
+        "precio_clean": 48498.62
       }
     ]
   },
@@ -29316,10 +29426,20 @@
         "interes_corrido": 605.47,
         "precio_dirty": 37585,
         "precio_clean": 36979.53
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 8.252,
+        "duration": 6.713,
+        "paridad": 66.7,
+        "valor_tecnico": 56345.57,
+        "interes_corrido": 611.2,
+        "precio_dirty": 37585,
+        "precio_clean": 36973.8
       }
     ]
   },
-  "_updated_at": "2026-07-21T23:21:15.486326+00:00",
+  "_updated_at": "2026-07-22T01:08:33.195737+00:00",
   "BPD7": {
     "categoria": "bonos_soberanos_usd",
     "history": [
@@ -31862,6 +31982,16 @@
         "interes_corrido": null,
         "precio_dirty": 102.9,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 3.241,
+        "duration": 1.003,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 102.9,
+        "precio_clean": null
       }
     ]
   },
@@ -32762,6 +32892,16 @@
         "date": "2026-07-21",
         "tir": 3.93,
         "duration": 1.229,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 103,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 3.939,
+        "duration": 1.226,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -35312,6 +35452,16 @@
         "interes_corrido": null,
         "precio_dirty": 55.45,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.859,
+        "duration": 1.669,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 55.45,
+        "precio_clean": null
       }
     ]
   },
@@ -37852,6 +38002,16 @@
         "date": "2026-07-21",
         "tir": 5.406,
         "duration": 1.675,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 55.84,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.415,
+        "duration": 1.672,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -40402,6 +40562,16 @@
         "interes_corrido": null,
         "precio_dirty": 56.88,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.049,
+        "duration": 2.121,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 56.88,
+        "precio_clean": null
       }
     ]
   },
@@ -41102,6 +41272,16 @@
         "date": "2026-07-21",
         "tir": 7.262,
         "duration": 2.129,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 98.16,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.272,
+        "duration": 2.126,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -43652,6 +43832,16 @@
         "interes_corrido": null,
         "precio_dirty": 58.27,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.842,
+        "duration": 2.136,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 58.27,
+        "precio_clean": null
       }
     ]
   },
@@ -43672,6 +43862,16 @@
         "date": "2026-07-21",
         "tir": 8.027,
         "duration": 2.975,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 95.07,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 8.034,
+        "duration": 2.973,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -45067,6 +45267,16 @@
         "date": "2026-07-21",
         "tir": 7.767,
         "duration": 3.044,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 97.6,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.774,
+        "duration": 3.041,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -47617,6 +47827,16 @@
         "interes_corrido": null,
         "precio_dirty": 83.7,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 8.858,
+        "duration": 4.885,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 83.7,
+        "precio_clean": null
       }
     ]
   },
@@ -50157,6 +50377,16 @@
         "date": "2026-07-21",
         "tir": 7.976,
         "duration": 4.965,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 87.1,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.981,
+        "duration": 4.962,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -52707,6 +52937,16 @@
         "interes_corrido": null,
         "precio_dirty": 80.91,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 8.852,
+        "duration": 5.633,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 80.91,
+        "precio_clean": null
       }
     ]
   },
@@ -55247,6 +55487,16 @@
         "date": "2026-07-21",
         "tir": 8.267,
         "duration": 5.661,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 83.39,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 8.271,
+        "duration": 5.658,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -57797,6 +58047,16 @@
         "interes_corrido": null,
         "precio_dirty": 76.5,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.895,
+        "duration": 6.367,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 76.5,
+        "precio_clean": null
       }
     ]
   },
@@ -60342,6 +60602,16 @@
         "interes_corrido": null,
         "precio_dirty": 78.12,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.542,
+        "duration": 6.416,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 78.12,
+        "precio_clean": null
       }
     ]
   },
@@ -61117,6 +61387,16 @@
         "interes_corrido": null,
         "precio_dirty": 104,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 3.777,
+        "duration": 0.767,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 104,
+        "precio_clean": null
       }
     ]
   },
@@ -61137,6 +61417,16 @@
         "date": "2026-07-21",
         "tir": 4.378,
         "duration": 0.958,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 107.5,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 4.391,
+        "duration": 0.956,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -61392,6 +61682,16 @@
         "date": "2026-07-21",
         "tir": 5.389,
         "duration": 0.958,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 104,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 3.458,
+        "duration": 0.973,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -61907,6 +62207,16 @@
         "date": "2026-07-21",
         "tir": 5.009,
         "duration": 2.865,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.2,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.014,
+        "duration": 2.862,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -62692,6 +63002,16 @@
         "interes_corrido": null,
         "precio_dirty": 109.25,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.671,
+        "duration": 3.708,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 109.25,
+        "precio_clean": null
       }
     ]
   },
@@ -63307,6 +63627,16 @@
         "interes_corrido": null,
         "precio_dirty": 114.15,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 6.022,
+        "duration": 3.774,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 114.15,
+        "precio_clean": null
       }
     ]
   },
@@ -63327,6 +63657,16 @@
         "date": "2026-07-21",
         "tir": 6.07,
         "duration": 3.78,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 111.7,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 6.074,
+        "duration": 3.777,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -63542,6 +63882,16 @@
         "date": "2026-07-21",
         "tir": 5.7,
         "duration": 4.485,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.75,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.704,
+        "duration": 4.483,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -63802,6 +64152,16 @@
         "interes_corrido": null,
         "precio_dirty": 110.4,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 6.4,
+        "duration": 5.281,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 110.4,
+        "precio_clean": null
       }
     ]
   },
@@ -64012,6 +64372,16 @@
         "date": "2026-07-21",
         "tir": 6.602,
         "duration": 6.368,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 109.5,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 6.605,
+        "duration": 6.365,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -64272,6 +64642,16 @@
         "interes_corrido": null,
         "precio_dirty": 108.8,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 6.481,
+        "duration": 6.387,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.8,
+        "precio_clean": null
       }
     ]
   },
@@ -64527,6 +64907,16 @@
         "interes_corrido": null,
         "precio_dirty": 108.9,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 6.749,
+        "duration": 6.838,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.9,
+        "precio_clean": null
       }
     ]
   },
@@ -64767,6 +65157,16 @@
         "date": "2026-07-21",
         "tir": 7.076,
         "duration": 7.758,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 107.5,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.078,
+        "duration": 7.755,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -66127,6 +66527,16 @@
         "interes_corrido": 0.0,
         "precio_dirty": 119.4,
         "precio_clean": 119.4
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 3.851,
+        "duration": 0.773,
+        "paridad": 97.12,
+        "valor_tecnico": 122.94,
+        "interes_corrido": 0.0,
+        "precio_dirty": 119.4,
+        "precio_clean": 119.4
       }
     ]
   },
@@ -67242,6 +67652,16 @@
         "interes_corrido": 0.0,
         "precio_dirty": 117.8,
         "precio_clean": 117.8
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 3.536,
+        "duration": 0.858,
+        "paridad": 97.07,
+        "valor_tecnico": 121.36,
+        "interes_corrido": 0.0,
+        "precio_dirty": 117.8,
+        "precio_clean": 117.8
       }
     ]
   },
@@ -67917,6 +68337,16 @@
         "interes_corrido": 0.0,
         "precio_dirty": 103.85,
         "precio_clean": 103.85
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.18,
+        "duration": 1.192,
+        "paridad": 94.16,
+        "valor_tecnico": 110.29,
+        "interes_corrido": 0.0,
+        "precio_dirty": 103.85,
+        "precio_clean": 103.85
       }
     ]
   },
@@ -68049,6 +68479,16 @@
         "duration": 1.274,
         "paridad": 92.64,
         "valor_tecnico": 101.41,
+        "interes_corrido": 0.0,
+        "precio_dirty": 93.95,
+        "precio_clean": 93.95
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 6.248,
+        "duration": 1.271,
+        "paridad": 92.59,
+        "valor_tecnico": 101.47,
         "interes_corrido": 0.0,
         "precio_dirty": 93.95,
         "precio_clean": 93.95
@@ -68344,6 +68784,16 @@
         "duration": 1.696,
         "paridad": 88.59,
         "valor_tecnico": 110.12,
+        "interes_corrido": 0.0,
+        "precio_dirty": 97.55,
+        "precio_clean": 97.55
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.462,
+        "duration": 1.693,
+        "paridad": 88.53,
+        "valor_tecnico": 110.19,
         "interes_corrido": 0.0,
         "precio_dirty": 97.55,
         "precio_clean": 97.55
@@ -69052,6 +69502,16 @@
         "interes_corrido": 0.0,
         "precio_dirty": 93.65,
         "precio_clean": 93.65
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.749,
+        "duration": 2.192,
+        "paridad": 84.91,
+        "valor_tecnico": 110.29,
+        "interes_corrido": 0.0,
+        "precio_dirty": 93.65,
+        "precio_clean": 93.65
       }
     ]
   },
@@ -69184,6 +69644,16 @@
         "duration": 2.405,
         "paridad": 83.08,
         "valor_tecnico": 101.41,
+        "interes_corrido": 0.0,
+        "precio_dirty": 84.25,
+        "precio_clean": 84.25
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 8.05,
+        "duration": 2.403,
+        "paridad": 83.03,
+        "valor_tecnico": 101.47,
         "interes_corrido": 0.0,
         "precio_dirty": 84.25,
         "precio_clean": 84.25
@@ -69779,6 +70249,16 @@
         "duration": 2.688,
         "paridad": 81.63,
         "valor_tecnico": 110.12,
+        "interes_corrido": 0.0,
+        "precio_dirty": 89.89,
+        "precio_clean": 89.89
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 7.879,
+        "duration": 2.685,
+        "paridad": 81.58,
+        "valor_tecnico": 110.19,
         "interes_corrido": 0.0,
         "precio_dirty": 89.89,
         "precio_clean": 89.89
@@ -72327,6 +72807,16 @@
         "interes_corrido": 210.18,
         "precio_dirty": 47095.0,
         "precio_clean": 46884.82
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 4.872,
+        "duration": 11.267,
+        "paridad": 84.26,
+        "valor_tecnico": 55889.65,
+        "interes_corrido": 220.32,
+        "precio_dirty": 47095.0,
+        "precio_clean": 46874.68
       }
     ]
   },
@@ -74872,6 +75362,16 @@
         "interes_corrido": null,
         "precio_dirty": 72.25,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 8.245,
+        "duration": 6.88,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 72.25,
+        "precio_clean": null
       }
     ]
   },
@@ -75462,6 +75962,16 @@
         "date": "2026-07-21",
         "tir": 5.275,
         "duration": 2.163,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 105.15,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.282,
+        "duration": 2.16,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -76312,6 +76822,16 @@
         "date": "2026-07-21",
         "tir": 5.571,
         "duration": 2.627,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 106.2,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 5.577,
+        "duration": 2.624,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
@@ -78887,6 +79407,16 @@
         "interes_corrido": null,
         "precio_dirty": 112.9,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 27.382,
+        "duration": 2.514,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 112.9,
+        "precio_clean": null
       }
     ]
   },
@@ -78902,6 +79432,16 @@
         "interes_corrido": null,
         "precio_dirty": 109.5,
         "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 4.302,
+        "duration": 2.05,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 109.5,
+        "precio_clean": null
       }
     ]
   },
@@ -78912,6 +79452,16 @@
         "date": "2026-07-21",
         "tir": 6.397,
         "duration": 5.147,
+        "paridad": null,
+        "valor_tecnico": null,
+        "interes_corrido": null,
+        "precio_dirty": 108.5,
+        "precio_clean": null
+      },
+      {
+        "date": "2026-07-22",
+        "tir": 6.401,
+        "duration": 5.144,
         "paridad": null,
         "valor_tecnico": null,
         "interes_corrido": null,
