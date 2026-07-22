@@ -4991,5 +4991,106 @@ if (typeof Chart !== 'undefined') {
         </div>
     </div>
 </div>
+<script>
+(function(){
+  function fmtNum(v, unidad){
+    if (v == null || isNaN(v)) return "-";
+    if (unidad === "%") return v.toFixed(2) + "%";
+    var s = v.toLocaleString("es-AR", {maximumFractionDigits: 2});
+    return unidad === "$" ? "$" + s : s;
+  }
+  function fmtFecha(f){
+    if (!f) return "";
+    var meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+    var partes = f.split("-");
+    if (partes.length < 2) return f;
+    var idx = parseInt(partes[1], 10) - 1;
+    return (meses[idx] || partes[1]) + " " + partes[0];
+  }
+  function sparklinePath(serie, w, h){
+    if (!serie || serie.length < 2) return "";
+    var vals = serie.map(function(p){ return p.valor; });
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
+    var range = (max - min) || 1;
+    var step = w / (serie.length - 1);
+    var d = "";
+    for (var i = 0; i < vals.length; i++){
+      var x = (i * step).toFixed(1);
+      var y = (h - (vals[i] - min) / range * h).toFixed(1);
+      d += (i === 0 ? "M" : "L") + x + "," + y + " ";
+    }
+    return d;
+  }
+  function cardHTML(c){
+    var pos = (c.variacion_valor != null && c.variacion_valor >= 0);
+    var color = pos ? "#10b981" : "#ef4444";
+    var varLabel = c.variacion_tipo === "interanual" ? "VARIACION INTERANUAL" : (c.variacion_tipo === "mensual" ? "VARIACION MENSUAL" : "DATO PUNTUAL");
+    var varTxt = "";
+    if (c.variacion_valor != null){
+      var suf = c.unidad === "%" ? " pp" : "%";
+      varTxt = (pos ? "\u25B2 " : "\u25BC ") + Math.abs(c.variacion_valor).toFixed(2) + suf;
+    }
+    var path = sparklinePath(c.serie, 200, 40);
+    var html = "";
+    html += '<div class="glass-card rounded-2xl p-4 cursor-pointer hover:border-brandBlue transition-colors" onclick="expandIndicadorChart(this,\'' + c.id + '\')" data-indicador-id="' + c.id + '">';
+    html += '<div class="flex justify-between items-start mb-2 gap-2">';
+    html += '<span class="text-xs font-bold text-brandBlue uppercase">' + c.nombre + '</span>';
+    html += '<span class="text-[10px] text-slate-500 whitespace-nowrap">' + fmtFecha(c.fecha) + '</span>';
+    html += '</div>';
+    html += '<div class="text-2xl font-black text-white light:text-slate-900 mb-2">' + fmtNum(c.valor, c.unidad) + '</div>';
+    html += '<svg viewBox="0 0 200 40" class="w-full h-8 mb-2"><path d="' + path + '" fill="none" stroke="' + color + '" stroke-width="2"/></svg>';
+    html += '<div class="text-[10px] text-slate-500 space-y-0.5">';
+    html += '<div>' + varLabel + (varTxt ? ' <span style="color:' + color + '">' + varTxt + '</span>' : "") + '</div>';
+    html += '<div>FUENTE: ' + c.fuente + '</div>';
+    html += '</div></div>';
+    return html;
+  }
+  window.__indicadoresData = window.__indicadoresData || {};
+  window.renderIndicadorCards = function(containerId, cards){
+    var el = document.getElementById(containerId);
+    if (!el) return;
+    if (!cards || !cards.length){ el.innerHTML = '<p class="col-span-full text-sm text-slate-500">Sin datos disponibles.</p>'; return; }
+    el.innerHTML = cards.map(cardHTML).join("");
+    cards.forEach(function(c){ window.__indicadoresData[c.id] = c; });
+  };
+  window.expandIndicadorChart = function(cardEl, id){
+    var existing = cardEl.querySelector(".indicador-chart-expand");
+    if (existing){ existing.remove(); return; }
+    var c = window.__indicadoresData[id];
+    if (!c || !c.serie || !c.serie.length) return;
+    var box = document.createElement("div");
+    box.className = "indicador-chart-expand mt-3";
+    box.onclick = function(e){ e.stopPropagation(); };
+    var canvas = document.createElement("canvas");
+    canvas.height = 140;
+    box.appendChild(canvas);
+    cardEl.appendChild(box);
+    new Chart(canvas.getContext("2d"), {
+      type: "line",
+      data: {
+        labels: c.serie.map(function(p){ return p.fecha; }),
+        datasets: [{ data: c.serie.map(function(p){ return p.valor; }), borderColor: "#2563eb", borderWidth: 2, pointRadius: 0, tension: 0.2 }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { maxTicksLimit: 6, color: "#94a3b8" }, grid: { display: false } },
+          y: { ticks: { color: "#94a3b8" }, grid: { color: "rgba(255,255,255,0.05)" } }
+        }
+      }
+    });
+  };
+  function cargarIndicadores(){
+    fetch("data/live_data.json").then(function(r){ return r.json(); }).then(function(data){
+      if (data.indicadores_precios) renderIndicadorCards("cards-precios", data.indicadores_precios);
+    }).catch(function(e){ console.error("Error cargando indicadores economicos:", e); });
+  }
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", cargarIndicadores);
+  } else {
+    cargarIndicadores();
+  }
+})();
+</script>
 </body>
 </html>
