@@ -4264,8 +4264,14 @@ def build_history_cripto():
     }
     monedas_out = {}
     for cid, nombre in ids.items():
+        # CoinGecko limita el plan gratuito a 365 dias de historia (antes
+        # se pedian 1825/5 anios, lo cual la API ahora rechaza por completo
+        # con error_code 10012 "exceeds the allowed time range" -- esto
+        # hacia fallar los 4 pedidos y build_history_cripto() devolvia
+        # None todos los dias, por lo que data/history/cripto.json nunca
+        # se generaba y el grafico de Criptomonedas quedaba vacio).
         data = fetch_json(
-            f"https://api.coingecko.com/api/v3/coins/{cid}/market_chart?vs_currency=usd&days=1825"
+            f"https://api.coingecko.com/api/v3/coins/{cid}/market_chart?vs_currency=usd&days=365"
         )
         if not data or "prices" not in data:
             continue
